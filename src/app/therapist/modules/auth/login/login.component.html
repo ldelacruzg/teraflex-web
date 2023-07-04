@@ -20,23 +20,25 @@
                     <h1 class="text-center">Inicio de sesión</h1>
                 </div>
 
-                <div class="mb-3">
-                    <label class="mb-1">Usuario</label>
-                    <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Usuario*">
-                </div>
-                <div class="mb-5">
-                    <label class="mb-1">Contraseña</label>
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña*">
-                </div>
-            
-                <div class="content-buttons">
-                    <button class="mb-3 btn btn-lg btn-primary w-100 fs-6">Iniciar sesión</button>
-                    <button class="btn btn-lg btn-outline-primary w-100 fs-6"><small>Olvidé la contraseña</small></button>
-                </div>
-
-                <div class="row text-center mt-5 no-account">
-                    <a class="mx-3" href="#">¿No tienes una cuenta?</a>
-                </div>
+                <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()">
+                    <div class="mb-3">
+                        <label class="mb-1">Usuario</label>
+                        <input formControlName="identification" type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Usuario*">
+                    </div>
+                    <div class="mb-5">
+                        <label class="mb-1">Contraseña</label>
+                        <input formControlName="password" type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña*">
+                    </div>
+                
+                    <div class="content-buttons">
+                        <button class="mb-3 btn btn-lg btn-primary w-100 fs-6" type="submit">Iniciar sesión</button>
+                        <button class="btn btn-lg btn-outline-primary w-100 fs-6"><small>Olvidé la contraseña</small></button>
+                    </div>
+    
+                    <div class="row text-center mt-5 no-account">
+                        <a class="mx-3" href="#">¿No tienes una cuenta?</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
