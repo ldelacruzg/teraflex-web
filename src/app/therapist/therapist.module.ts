@@ -4,7 +4,8 @@ import { AuthRoutinModule } from './modules/auth/auth-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     AuthRoutinModule,
