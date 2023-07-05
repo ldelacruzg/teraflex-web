@@ -1,43 +1,36 @@
-<div class="container-fluid">
-    <div class="row bg-white shadow box-area">
-        <!--------------------------- Left content ----------------------------->
-        <div class="col-md-7 d-flex justify-content-center align-items-center flex-column left-content">
-            <div class="content-image mb-3">
-                <img src="../../../../../assets/logos/logo-teraflex.png" class="img-fluid">
+<div class="row vh-100">
+    <app-info-login class="col-md-7"></app-info-login>
+
+    <!-------------------- ------ Form Login ---------------------------->
+    <div class="col-md-5 right-content d-flex justify-content-center align-items-center">
+        <div class="row align-items-center">
+            <div class="header-text mb-5">
+                <h1 class="text-center">Inicio de sesión</h1>
             </div>
-            <p class="text-center title fs-1"><b>TeraFlex</b></p>
-            <p class="text-center description">TeraFlex, una aplicación que brinda apoyo a las personas con discapacidades físicas con el objetivo de mejorar su
-                desempeño físico gracias a la guía de terapistas especializados en cada área.</p>
 
-            <p class="text-white location mb-5">Quevedo - Ecuador</p>
-        </div>
-
-
-        <!-------------------- ------ Right content ---------------------------->
-        <div class="col-md-5 right-content d-flex justify-content-center align-items-center">
-            <div class="row align-items-center">
-                <div class="header-text mb-5">
-                    <h1 class="text-center">Inicio de sesión</h1>
-                </div>
-
+            <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
                 <div class="mb-3">
-                    <label class="mb-1">Usuario</label>
-                    <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Usuario*">
+                    <label class="mb-1"><b>Usuario</b></label>
+                    <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="identification" placeholder="Usuario*">
                 </div>
                 <div class="mb-5">
-                    <label class="mb-1">Contraseña</label>
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Contraseña*">
+                    <label class="mb-1"><b>Contraseña</b></label>
+                    <input type="password" class="form-control form-control-lg bg-light fs-6" formControlName="password" placeholder="Contraseña*">
                 </div>
-            
+
                 <div class="content-buttons">
-                    <button class="mb-3 btn btn-lg btn-primary w-100 fs-6">Iniciar sesión</button>
-                    <button class="btn btn-lg btn-outline-primary w-100 fs-6"><small>Olvidé la contraseña</small></button>
+                    <button type="submit" class="mb-3 btn btn-lg btn-primary w-100 fs-6">Iniciar sesión</button>
+                    <button type="button" (click)="goToForgotPassword()" class="btn btn-lg btn-outline-primary w-100 fs-6"><small> <fa-icon [icon]="iconForgotPassword"></fa-icon> Olvidé la contraseña</small></button>
                 </div>
 
                 <div class="row text-center mt-5 no-account">
-                    <a class="mx-3" href="#">¿No tienes una cuenta?</a>
+                    <a class="mx-3" (click)="openModalNoAccount(noAccount)">¿No tienes una cuenta?</a>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+<ng-template #noAccount>
+   <app-no-account></app-no-account>
+</ng-template>

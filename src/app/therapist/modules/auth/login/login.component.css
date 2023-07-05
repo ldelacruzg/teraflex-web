@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&family=Poppins:wght@200;300;400;500;600;700&display=swap');*/
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -6,43 +6,16 @@ body {
     width: 100%;
 }
 
-/*------------Left Box-----------*/
-.left-content{
-    background-color: #007BBD;
-}
-
-.content-image img{
-    width: 250px;
-}
-
-.title,
-.description{
-    width: 80%;
-    font-family: sans-serif;
-    color: white;
-}
-
-.location{
-    position: fixed;
-    bottom: 0;
-    font-size: 20px;
-}
-
-/*-----------right-content----------*/
-.box-area {
-    height: 100vh;
-}
-
+/*----------Right-Content (Form Login)-------*/
 .right-content {
     padding: 40px 60px;
 }
 
-/*------------ Form ------------*/
-.header-text{
-    color:#007BBD;
+.header-text {
+    color: #007BBD;
 }
 
-input{
+input {
     border-radius: 10px;
 }
 
@@ -50,26 +23,30 @@ input{
     font-size: 16px;
 }
 
-.btn{
+.btn {
     background-color: #007BBD !important;
     border-radius: 10px;
     border: none;
 }
 
-.btn-outline-primary{
+.btn-outline-primary {
     background-color: transparent !important;
     border: 1px solid #007BBD !important;
     color: #007BBD !important;
 }
 
+.no-account>a:hover {
+    cursor: pointer;
+}
+
 /*------------ For small screens------------*/
 @media only screen and (max-width: 768px) {
-    .content-image img{
+    .content-image img {
         width: 120px;
     }
 
-    .header-text{
-        margin-bottom: 10px !important;     
+    .header-text {
+        margin-bottom: 10px !important;
     }
 
     .left-content {
@@ -80,13 +57,13 @@ input{
 
     .right-content {
         padding: 25px;
-    }    
+    }
 
-    .location{
+    .location {
         display: none;
     }
 
-    .no-account{
+    .no-account {
         margin-top: 23px !important;
     }
 }
