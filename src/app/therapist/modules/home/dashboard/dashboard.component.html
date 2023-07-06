@@ -1,0 +1,66 @@
+<body>
+    <!--SideBar-->
+    <section id="sidebar">
+        <a href="#" class="brand"> <img src="../../../../../assets/logos/logo-teraflex.png" alt="img-profile"> TeraFlex</a>
+        <ul class="side-menu">
+            <li><a href="#" class="active"><fa-icon class="icon" [icon]="iconBars"></fa-icon> Inicio</a></li>
+            <li class="divider"> Principal</li>
+            <li>
+                <a href="#"><fa-icon class="icon" [icon]="iconTasks"></fa-icon> Tareas <fa-icon class="icon-right"
+                        [icon]="iconArrowDown"></fa-icon></a>
+                <ul class="side-dropdown">
+                    <li><a href="#"><fa-icon class="icon" [icon]="iconBars"></fa-icon> Mis tareas</a></li>
+                    <li><a href="#"><fa-icon class="icon" [icon]="iconBars"></fa-icon> Asignar tareas</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><fa-icon class="icon" [icon]="iconBars"></fa-icon> Videos</a></li>
+            <li class="divider"> Secundario</li>
+            <li>
+                <a href="#"><fa-icon class="icon" [icon]="iconTasks"></fa-icon> Pacientes <fa-icon class="icon-right"
+                        [icon]="iconArrowDown"></fa-icon></a>
+                <ul class="side-dropdown">
+                    <li><a href="#"><fa-icon class="icon" [icon]="iconBars"></fa-icon> Mis pacientes</a></li>
+                    <li><a href="#"><fa-icon class="icon" [icon]="iconBars"></fa-icon> Registrar paciente</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><fa-icon class="icon" [icon]="iconBars"></fa-icon> Ayuda</a></li>
+        </ul>
+        <div class="ads">
+            <div class="wrapper">
+
+                <p>Obtén más información acerca de los desarrolladores</p>
+                <a href="#" class="btn-upgrade">Ver más</a>
+            </div>
+        </div>
+    </section>
+
+    <!--NavBar-->
+    <section id="content">
+        <nav>
+            <fa-icon class="toggle-sidebar" [icon]="iconBars"></fa-icon>
+            <form action="#">
+                <div class="form-group">
+                    <input type="text" placeholder="Buscar...">
+                    <fa-icon class="icon" [icon]="iconSearch"></fa-icon>
+                </div>
+            </form>
+            <a href="#" class="nav-link">
+                <fa-icon class="icon" [icon]="iconBell"></fa-icon>
+                <span class="badge">5</span>
+            </a>
+            <a href="#" class="nav-link">
+                <fa-icon class="icon" [icon]="iconMessage"></fa-icon>
+                <span class="badge">8</span>
+            </a>
+            <span class="divider"></span>
+            <div class="profile">
+                <img src="../../../../../assets/logos/logo-teraflex.png" alt="img-profile">
+                <ul class="profile-link">
+                    <li><a href="#"><fa-icon [icon]="iconProfile"></fa-icon> Perfil</a></li>
+                    <li><a href="#"><fa-icon [icon]="iconSettings"></fa-icon> Configuración</a></li>
+                    <li><a href="#"><fa-icon [icon]="iconLogOut"></fa-icon> Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+</body>
