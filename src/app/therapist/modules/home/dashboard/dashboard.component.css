@@ -21,6 +21,7 @@
 
 body {
     background-color: #F1F0F6;
+    height: 100vh;
 }
 
 a {
@@ -34,13 +35,24 @@ li {
 /*-----SideBar------*/
 #sidebar {
     position: fixed;
-    width: 260px;
+    max-width: 260px;
+    width: 100%;
     background-color: #007BBD;
     top: 0;
     left: 0;
     height: 100%;
     overflow-y: auto;
     scrollbar-width: none;
+    transition: all .3s ease;
+    z-index: 200;
+}
+
+#sidebar.hide{
+    max-width: 55px;    
+}
+
+#sidebar.hide:hover{
+    max-width: 260px;
 }
 
 #sidebar::-webkit-scrollbar{
@@ -50,11 +62,16 @@ li {
 #sidebar .brand{
     font-size: 24px;
     display: flex;
-    justify-content: center;
     align-items: center;
     height: 64px;
     font-weight: 700;
     color: #FFF;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: all .3s ease;
+    padding: 0 6px;
 }
 
 #sidebar img{
@@ -62,9 +79,9 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
+    width: 55px;
     justify-content: space-between;
+    margin: 10px 30px 0 4px;
 }
 
 #sidebar .icon{
@@ -72,6 +89,7 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 6px
 }
 
 #sidebar .icon-right{
@@ -82,6 +100,11 @@ li {
 #sidebar .side-menu{
     margin: 36px 0;
     padding: 0 20px;
+    transition: all .3s ease;
+}
+
+#sidebar.hide .side-menu{
+    padding: 0 9px; /*6px*/
 }
 
 #sidebar .side-menu a{
@@ -111,6 +134,17 @@ li {
 #sidebar .side-menu > li >a.active:hover{
     background-color: #FFF;
     color:#007BBD;
+}
+
+/*Por defecto deja seleccionado la opción de Inicio*/
+#sidebar .side-menu > li > ul > li>a.active,
+#sidebar .side-menu > li > ul > li>a.active:hover{
+    background-color: #FFF;
+    color:#007BBD;
+}
+
+li>a:hover{
+    cursor: pointer;
 }
 
 #sidebar .divider{
@@ -143,10 +177,20 @@ li {
     padding: 20px;
 }
 
+#sidebar.hide .ads{
+    display: none;
+}
+
+#sidebar.hide:hover .ads{
+    display: block;
+}
+
+
 #sidebar .ads .wrapper{
     background-color: #FFF;
     border-radius: 10px;
     padding: 20px;
+    top: 0;
 }
 
 #sidebar .btn-upgrade{
@@ -173,12 +217,17 @@ li {
     text-align: center;
 }
 
-
-/*-----------------------------------NAV BAR-----------------------*/
+/*-----------------------------------NAV BAR-----------------------------*/
 #content{
     position: relative;
     width: calc(100% - 260px);
     left: 260px;
+    transition: all .3s ease;
+}
+
+#sidebar.hide + #content{
+    width: calc(100% - 55px);
+    left: 55px;
 }
 
 nav{
@@ -190,7 +239,7 @@ nav{
     grid-gap: 28px;
 }
 nav .toggle-sidebar{
-    font-size: 18px;
+    font-size: 24px;
     cursor: pointer;
 }
 
@@ -224,6 +273,7 @@ nav .form-group .icon{
     top: 50%;
     transform: translateY(-50%);
     right: 16px;
+    color: #8D8D8D;
 }
 
 nav .nav-link{
@@ -231,15 +281,15 @@ nav .nav-link{
 }
 
 nav .nav-link .icon{
-    font-size: 18px;
-    color: #000;
+    font-size: 25px;
+    color: #007BBD;
 }
 
 /*Burbujas de notificación*/
 nav .nav-link .badge{
     position: absolute;
-    top: -12px;
-    right: -12px;
+    top: -6px;
+    right: -6px;
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -256,7 +306,7 @@ nav .nav-link .badge{
 nav .divider{
     width: 1px;
     background: #8D8D8D;
-    height: 40px;
+    height: 30px;
     display: block;
 }
 
@@ -270,7 +320,7 @@ nav .profile img{
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
-    border: 1px solid gray;
+    border: 1px solid #ccc;
 }
 
 nav .profile .profile-link{
@@ -285,6 +335,7 @@ nav .profile .profile-link{
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s ease;
+    padding: 15px;
 }
 nav .profile .profile-link.show{
     opacity: 1;
@@ -305,4 +356,28 @@ nav .profile .profile-link a{
 nav .profile .profile-link a:hover{
     background-color: #007BBD;
     color: #FFF;
+    border-radius: 10px;
+}
+
+main{
+    padding: 20px 40px;
+}
+
+
+
+/*-------------Responsive Web Design------------*/
+@media screen and (max-width: 768px){
+    #content{
+        position: relative;
+        width: calc(100% - 60px);
+        transition: all .3s ease;
+    }
+
+    #content.toggle-sidebar{
+        font-size: 18px;
+    }
+
+    main{
+        padding: 15px 20px;
+    }
 }
