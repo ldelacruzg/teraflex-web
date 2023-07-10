@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TutorialVideosComponent } from './tutorial-videos/tutorial-videos.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -9,7 +10,8 @@ import { TutorialVideosComponent } from './tutorial-videos/tutorial-videos.compo
     TutorialVideosComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FontAwesomeModule
   ],
   exports: [
     TutorialVideosComponent

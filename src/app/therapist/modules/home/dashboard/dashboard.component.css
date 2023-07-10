@@ -312,6 +312,7 @@ nav .divider{
 
 nav .profile{
     position: relative;
+    z-index: 100;
 }
 
 nav .profile img{

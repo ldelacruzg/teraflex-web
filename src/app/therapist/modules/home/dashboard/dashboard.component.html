@@ -23,18 +23,18 @@
             <li><a (click)="changeIndexOptionMenu(5)"><fa-icon class="icon" [icon]="iconHelp"></fa-icon> Ayuda</a></li>
             <li><a (click)="changeIndexOptionMenu(6)"><fa-icon class="icon" [icon]="iconInformation"></fa-icon> Acerca de</a></li>
         </ul>
-        <!-- <div class="ads">
-            <div class="wrapper">
-                <p>Obtén más información acerca de los desarrolladores</p>
-                <a href="#" class="btn-upgrade">Ver más</a>
-            </div>
-        </div> -->
     </section>
 
     <!--NavBar-->
     <section id="content">
         <nav>
             <fa-icon class="toggle-sidebar" [icon]="iconBars"></fa-icon>
+            <form action="#">
+                <!-- <div class="form-group">
+                    <input type="text" placeholder="Buscar...">
+                    <fa-icon class="icon" [icon]="iconSearch"></fa-icon>
+                </div> -->
+            </form>
             <a href="#" class="nav-link">
                 <fa-icon class="icon" [icon]="iconBell"></fa-icon>
                 <span class="badge">5</span>
@@ -52,8 +52,7 @@
 
         <!--Contenedor del dashboard-->
         <main [ngSwitch]="optionMenu">
-            <h3><b>Hola, terapeuta Iván</b></h3>
-
+            <h3><b>Hola, terapeuta {{userName}}</b></h3>
             <div>
                 <app-options-home *ngSwitchCase="0"></app-options-home>
                 <app-my-tasks *ngSwitchCase="1"></app-my-tasks> 
@@ -62,11 +61,8 @@
                 <app-register-patient *ngSwitchCase="4"></app-register-patient> 
                 <app-tutorial-videos *ngSwitchCase="5"></app-tutorial-videos> 
             </div>
-
             <ng-template #administrator>
             </ng-template>
         </main>
     </section>
-
-   
 </body>

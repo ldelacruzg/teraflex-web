@@ -6,6 +6,7 @@ import { TasksModule } from '../tasks/tasks.module';
 import { OptionsHomeComponent } from './options-home/options-home.component';
 import { PatientsModule } from '../patients/patients.module';
 import { HelpModule } from '../help/help.module';
+import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 
 
 
@@ -19,7 +20,8 @@ import { HelpModule } from '../help/help.module';
     FontAwesomeModule,
     TasksModule,
     PatientsModule,
-    HelpModule
+    HelpModule,
+    SharedComponentsModule
   ]
 })
 export class HomeModule { }
