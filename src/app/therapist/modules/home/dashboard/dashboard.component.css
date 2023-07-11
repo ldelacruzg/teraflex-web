@@ -125,7 +125,7 @@ li {
 }
 
 #sidebar .side-menu > li >a.active .icon-right{
-    transform: rotateZ(90deg);
+    transform: rotateZ(180deg);
 }
 
 
