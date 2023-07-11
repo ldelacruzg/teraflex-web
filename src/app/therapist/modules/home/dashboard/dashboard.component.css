@@ -21,7 +21,7 @@
 
 body {
     background-color: #F1F0F6;
-    height: 100vh;
+    height: auto;
 }
 
 a {
@@ -125,7 +125,7 @@ li {
 }
 
 #sidebar .side-menu > li >a.active .icon-right{
-    transform: rotateZ(90deg);
+    transform: rotateZ(180deg);
 }
 
 
@@ -313,6 +313,7 @@ nav .divider{
 nav .profile{
     position: relative;
     z-index: 100;
+    /* margin-right: 5px; */
 }
 
 nav .profile img{
@@ -330,8 +331,8 @@ nav .profile .profile-link{
     right: 0;
     background: #FFF;
     padding: 10px 0;
-    box-shadow: 4px 4px 16px rgba(0,0,0,0.1);
-    border-radius: 10px;
+    box-shadow: 4px 4px 16px rgba(0,0,0,0.3);
+    border-radius: 10px 0 10px 10px;
     width: 180px;
     opacity: 0;
     pointer-events: none;
@@ -358,6 +359,11 @@ nav .profile .profile-link a:hover{
     background-color: #007BBD;
     color: #FFF;
     border-radius: 10px;
+}
+
+nav .profile-link .info>p{
+    text-align: center;
+    color: #808080;
 }
 
 main{
