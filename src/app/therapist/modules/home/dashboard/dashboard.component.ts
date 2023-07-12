@@ -12,7 +12,6 @@ export class DashboardComponent {
   //Variables
   optionMenu = 0;
   userRole = "role";
-  userName = "Iván";
 
 
   /*Constructor*/

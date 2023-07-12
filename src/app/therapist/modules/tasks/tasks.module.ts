@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -11,7 +12,8 @@ import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
     AssignTasksComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FontAwesomeModule
   ],
   exports: [
     MyTasksComponent,

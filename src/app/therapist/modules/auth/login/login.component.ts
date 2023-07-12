@@ -31,9 +31,9 @@ export class LoginComponent {
     headers.set("password", this.loginForm.value.password);
 
     this.api.loginUser(headers).subscribe(data => {
-      sessionStorage.setItem("user", data.token);
+      sessionStorage.setItem("token", data.token);
       sessionStorage.setItem("role", data.role)
-      if (data.role == 'PATIENT') {
+      if (data.role == 'THERAPIST') {
         this.ruta.navigateByUrl('/home/dashboard');
       }
       else {
