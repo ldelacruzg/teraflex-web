@@ -6,6 +6,7 @@ import { LastLoginsComponent } from './last-logins/last-logins.component';
 import { TasksToReviewComponent } from './tasks-to-review/tasks-to-review.component';
 import { SliderVideosComponent } from './slider-videos/slider-videos.component';
 import { ChatIAComponent } from './chat-ia/chat-ia.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ChatIAComponent } from './chat-ia/chat-ia.component';
     SliderVideosComponent,
     LastLoginsComponent,
     TasksToReviewComponent,
-    ChatIAComponent
+    ChatIAComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { ChatIAComponent } from './chat-ia/chat-ia.component';
     LastLoginsComponent,
     TasksToReviewComponent,
     SliderVideosComponent,
-    ChatIAComponent
+    ChatIAComponent,
+    SpinnerComponent
   ]
 })
 export class SharedComponentsModule { }

@@ -6,6 +6,8 @@ import { AuthModule } from './therapist/modules/auth/auth.module';
 import { HomeModule } from './therapist/modules/home/home.module';
 import { TherapistModule } from './therapist/therapist.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     AppRoutingModule,
     TherapistModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

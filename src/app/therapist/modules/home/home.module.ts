@@ -8,8 +8,6 @@ import { PatientsModule } from '../patients/patients.module';
 import { HelpModule } from '../help/help.module';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,

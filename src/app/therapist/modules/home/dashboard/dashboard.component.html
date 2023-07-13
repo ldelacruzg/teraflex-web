@@ -63,8 +63,8 @@
         <!--Contenedor del dashboard-->
         <main [ngSwitch]="optionMenu">
             <div>
-                <app-options-home style="height: 100% !important;" *ngSwitchCase="0"></app-options-home>
-                <app-my-tasks *ngSwitchCase="1"></app-my-tasks>
+                <app-options-home style="height: 100% !important;" *ngSwitchCase="1"></app-options-home>
+                <app-my-tasks *ngSwitchCase="0"></app-my-tasks>
                 <app-assign-tasks *ngSwitchCase="2"></app-assign-tasks>
                 <app-my-patients *ngSwitchCase="3"></app-my-patients>
                 <app-register-patient *ngSwitchCase="4"></app-register-patient>

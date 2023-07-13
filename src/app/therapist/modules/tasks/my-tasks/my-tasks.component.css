@@ -29,11 +29,18 @@ body {
   margin-right: 7px;
 }
 
+#iconVerDetalles{
+  color: #007BBD;
+}
+
 #iconEliminar{
   color: #FC3B56;
 }
 
-
+.no-results{
+  text-align: center;
+  background-color: #fafafa;
+}
 
 
 
