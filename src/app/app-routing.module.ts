@@ -7,10 +7,11 @@ const routes: Routes = [
     path: 'therapist',
     loadChildren:() => import('./therapist/therapist.module').then(m=>m.TherapistModule)
   },
-  {
-    path:'*',
-    redirectTo: 'therapist'
-  }
+  { 
+    path: '', 
+    redirectTo: '/therapist/auth/login', 
+    pathMatch: 'full' 
+  },
 ];
 
 @NgModule({

@@ -31,15 +31,16 @@ export class AuthService {
   }
 
   //Método que obtiene los Headers
-  private getHeaders(headers: Map<string, any> | undefined): boolean {
+  public getHeaders(headers: Map<string, any> | undefined) {
     if (headers != null) {
       headers.forEach((value, key) => {
         this.headers = this.headers.append(key, value || '');
       });
     }
     this.headers = this.headers.delete('Authorization');
-    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('user')}`);
+    this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     this.options = { headers: this.headers };
-    return headers != null;
+    return this.options;
+   /*  return headers != null; */
   }
 }

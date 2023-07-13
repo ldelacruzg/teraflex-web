@@ -4,7 +4,7 @@
         <a href="#" class="brand mt-1"> <img src="../../../../../assets/logos/logo-teraflex.png" alt="img-profile">
             TeraFlex</a>
         <ul class="side-menu">
-            <li><a href="#" class="active"><fa-icon class="icon" [icon]="iconHome"></fa-icon> Inicio</a></li>
+            <li><a (click)="changeIndexOptionMenu(0)" class="active"><fa-icon class="icon" [icon]="iconHome"></fa-icon> Inicio</a></li>
             <li>
                 <a href="#"><fa-icon class="icon" [icon]="iconTasks"></fa-icon> Tareas <fa-icon class="icon-right"
                         [icon]="iconArrowDown"></fa-icon></a>
@@ -52,9 +52,9 @@
                     <div class="info">
                         <p><small><i>Terapeuta</i></small> <br/>Iván Manzaba</p>
                     </div>
+                    <hr>
                     <li><a href="#"><fa-icon [icon]="iconProfile"></fa-icon> Mi perfil</a></li>
                     <li><a href="#"><fa-icon [icon]="iconSettings"></fa-icon> Configuración</a></li>
-                    <hr>
                     <li><a href="#"><fa-icon [icon]="iconLogOut"></fa-icon> Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -62,10 +62,9 @@
 
         <!--Contenedor del dashboard-->
         <main [ngSwitch]="optionMenu">
-            <h3><b>Hola, terapeuta {{userName}}</b></h3>
             <div>
-                <app-options-home *ngSwitchCase="0"></app-options-home>
-                <app-my-tasks *ngSwitchCase="1"></app-my-tasks>
+                <app-options-home style="height: 100% !important;" *ngSwitchCase="1"></app-options-home>
+                <app-my-tasks *ngSwitchCase="0"></app-my-tasks>
                 <app-assign-tasks *ngSwitchCase="2"></app-assign-tasks>
                 <app-my-patients *ngSwitchCase="3"></app-my-patients>
                 <app-register-patient *ngSwitchCase="4"></app-register-patient>

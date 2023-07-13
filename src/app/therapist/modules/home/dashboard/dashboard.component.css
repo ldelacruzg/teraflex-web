@@ -19,9 +19,9 @@
     --red: #FC3B56;
 }
 
-body {
+main{
     background-color: #F1F0F6;
-    height: auto;
+    height: 100vh;
 }
 
 a {

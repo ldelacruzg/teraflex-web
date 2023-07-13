@@ -12,12 +12,17 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 })
 export class LoginComponent {
 
+  spinnerStatus = false;
 
   constructor(
     private ruta: Router,
     private api: AuthService,
     public modal: NgbModal
   ) { }
+
+  ngOnInit(){
+    this.spinnerStatus = false;
+  }
 
   loginForm = new FormGroup({
     identification: new FormControl('', Validators.required),
@@ -26,20 +31,24 @@ export class LoginComponent {
 
   /*Método que inicia la sesión del usuario*/
   loginUser() {
+    this.spinnerStatus = false;
     let headers = new Map();
     headers.set("identification", this.loginForm.value.identification);
     headers.set("password", this.loginForm.value.password);
 
     this.api.loginUser(headers).subscribe(data => {
-      sessionStorage.setItem("user", data.token);
+      sessionStorage.setItem("token", data.token);
       sessionStorage.setItem("role", data.role)
-      if (data.role == 'PATIENT') {
+      if (data.role == 'THERAPIST') {
+        this.spinnerStatus = true;
         this.ruta.navigateByUrl('/home/dashboard');
       }
       else {
+        this.spinnerStatus = true;
         alert("ADMIN: Inicio de sesión exitoso");
       }
     }, error => {
+      this.spinnerStatus = true;
       alert("Credenciales incorrectas");
     })
   }
