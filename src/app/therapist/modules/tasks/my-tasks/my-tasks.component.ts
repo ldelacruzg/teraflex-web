@@ -34,7 +34,8 @@ export class MyTasksComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getListMyTasks()
+    this.spinnerStatus=true;
+    //this.getListMyTasks()
   }
 
   /*Método que obtiene el listado de las tareas que ha creado un terapeuta*/

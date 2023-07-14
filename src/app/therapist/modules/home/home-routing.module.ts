@@ -15,21 +15,22 @@ const routes: Routes = [
       {
         path: 'dashboard', component: DashboardComponent, children: [
         {
-          path: 'my-tasks', component: MyTasksComponent
-        },
-        {
-          path: 'assign-tasks', component: AssignTasksComponent,
+          path: 'tasks',
+          loadChildren:()=>import("../tasks/tasks.module").then(m=>m.TasksModule)
         },
         {
           path: 'my-patients', component: MyPatientsComponent,
         },
         {
           path: 'options-home', component: OptionsHomeComponent
-        }
+        },
+        
       ]
-      }
+      },
+      
     ] 
-  }
+  },
+  
 ]
 
 @NgModule({

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './therapist/modules/home/dashboard/dashboard.component';
 
 /*Apliando la carga perezosa*/
 const routes: Routes = [
@@ -9,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren:() => import('./therapist/modules/home/home.module').then(m=>m.HomeModule)
+    loadChildren:() => import('./therapist/modules/home/home.module').then(m=>m.HomeModule),
   },
   { 
     path: '', 
