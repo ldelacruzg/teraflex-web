@@ -48,7 +48,7 @@ export class MyTasksComponent {
       this.spinnerStatus = true;
     }, error =>{
       this.spinnerStatus = true;
-      alert("No se pudieron obtener los datos...");
+      //alert("No se pudieron obtener los datos...");
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -17,6 +17,7 @@ export class DashboardComponent {
   /*Constructor*/
   constructor(
     private ruta: Router,
+    private route: ActivatedRoute
   ) { }
 
 
@@ -27,6 +28,7 @@ export class DashboardComponent {
     this.showHideSidebar();
     this.detectedScreen();
     this.optionSelectedOnMenu();
+    this.ruta.navigate(['options-home'], { relativeTo: this.route })
   }
 
 
@@ -36,7 +38,7 @@ export class DashboardComponent {
 
 
   signOut() {
-   /*  this.estadoSpinner = false; */
+    /*  this.estadoSpinner = false; */
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("role");
     setTimeout(() => {
@@ -136,8 +138,8 @@ export class DashboardComponent {
     });
   }
 
-  abrirModuloTasks() {
-    this.ruta.navigateByUrl('/tasks/my-tasks');
+  goToMyTasks() {
+    this.ruta.navigateByUrl('home/my-tasks');
   }
 
 
