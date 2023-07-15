@@ -23,4 +23,10 @@ export class MyTasksService {
         this.options = this.authService.getHeaders(headers);
         return this.http.get<MyTasks[]>(this.urlApi + "/logged/tasks", this.options);
     }
+
+    /*Método que elimina una tarea*/
+    deleteTask(idTask:number, headers: Map<string, any>): Observable<string> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.delete<string>(this.urlApi + `/tasks/${idTask}`, this.options);
+    }
 }

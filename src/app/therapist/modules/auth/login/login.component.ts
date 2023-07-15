@@ -51,7 +51,7 @@ export class LoginComponent {
       }
     }, error => {
       this.spinnerStatus = true;
-      this.showToastError("Error", "No se puso inciar sesión")
+      this.showToastError("Error", "No se pudo inciar sesión")
     })
   }
 
