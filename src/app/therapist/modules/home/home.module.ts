@@ -7,6 +7,7 @@ import { OptionsHomeComponent } from './options-home/options-home.component';
 import { PatientsModule } from '../patients/patients.module';
 import { HelpModule } from '../help/help.module';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SharedComponentsModule } from '../../shared-components/shared-component
     TasksModule,
     PatientsModule,
     HelpModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    AppRoutingModule
   ]
 })
 export class HomeModule { }

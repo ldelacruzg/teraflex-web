@@ -8,7 +8,8 @@ import { SharedComponentsModule } from '../../shared-components/shared-component
 import { NoAccountComponent } from './no-account/no-account.component';
 import { OtpCodeComponent } from './otp-code/otp-code.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AuthRoutinModule,
     ReactiveFormsModule,
     SharedComponentsModule,    
-    FontAwesomeModule
+    FontAwesomeModule,
+    /* BrowserAnimationsModule, */
+    ToastrModule.forRoot()
   ]
 })
 export class AuthModule { }

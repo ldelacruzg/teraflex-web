@@ -4,13 +4,14 @@ import { TutorialVideosComponent } from './tutorial-videos/tutorial-videos.compo
 
 
 //Rutas hijas
-const routes:Routes =[
+const routes: Routes = [
   {
-    path: 'help',
-    children: [
-      { path: 'tutorial-videos', component: TutorialVideosComponent},
-      { path: '**', redirectTo:'tutorial-videos'}
-    ]
+    path: 'tutorial-videos', component: TutorialVideosComponent
+  },
+  {
+    path: "",
+    redirectTo: "help",
+    pathMatch: "full"
   }
 ]
 

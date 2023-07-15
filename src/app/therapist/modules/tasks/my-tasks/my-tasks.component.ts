@@ -9,6 +9,8 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 import { PageEvent } from '@angular/material/paginator';
+import { ToastrService } from 'ngx-toastr';
+import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 
 @Component({
   selector: 'app-my-tasks',
@@ -30,10 +32,13 @@ export class MyTasksComponent {
 
   /*Constructor*/
   constructor(
-    private myTasksService: MyTasksService
+    private myTasksService: MyTasksService,
+    private toastr: ToastrService,
+    private sweetAlerts: SweetAlerts
   ) { }
 
   ngOnInit(): void {
+    this.spinnerStatus = true;
     this.getListMyTasks()
   }
 
@@ -46,9 +51,9 @@ export class MyTasksComponent {
     this.myTasksService.getMyTasks(headers).subscribe((data: MyTasks[]) => {
       this.arrayTasks = data;
       this.spinnerStatus = true;
-    }, error =>{
+    }, error => {
       this.spinnerStatus = true;
-      alert("No se pudieron obtener los datos...");
+      //alert("No se pudieron obtener los datos...");
     });
   }
 
@@ -121,18 +126,51 @@ export class MyTasksComponent {
     XLSX.writeFile(workbook, `${this.obtenerFechaActual()}_mis_tareas.xlsx`);
   }
 
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
+    this.toastr.success(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
 
-  //Iconos a utilizar
-  iconMyTasks = iconos.faFileLines;
-  iconAdd = iconos.faPlusCircle
-  iconVerDetalles = iconos.faEye;
-  iconEditar = iconos.faEdit;
-  iconEliminar = iconos.faTrash;
+  /*Método que muestra un toast con mensaje de ERROR*/
+  showToastError(title: string, message: string) {
+    this.toastr.error(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
 
-  iconPublic = iconos.faEarthAmericas;
-  iconPrivate = iconos.faLock;
+  /*Método que elimina una tarea*/
+  deleteTask(idTask: number, nameTask: string) {
+    this.sweetAlerts.alertConfirmCancel("Eliminar tarea", "¿Está seguro de eliminar la tarea" + nameTask + "?").then(respuesta => {
+      if (respuesta) {
+        let headers = new Map();
+        headers.set("token", sessionStorage.getItem("token"));
+        headers.set("role", sessionStorage.getItem("role"));
+        this.myTasksService.deleteTask(idTask, headers).subscribe(data => {
+          this.showToastSuccess("Tarea eliminada con éxito", "Tarea eliminada");
+          this.getListMyTasks();
+        }, error => {
+          this.showToastError("Error", "No se pudo eliminar la tarea");
+        });
+      }
+    });
+  }
 
-  iconPdf = iconos.faFilePdf;
-  iconXlsx = iconos.faFileExcel;
-  iconChofer = iconos.faUser;
+
+//Iconos a utilizar
+iconMyTasks = iconos.faFileLines;
+iconAdd = iconos.faPlusCircle
+iconVerDetalles = iconos.faEye;
+iconEditar = iconos.faEdit;
+iconEliminar = iconos.faTrash;
+
+iconPublic = iconos.faEarthAmericas;
+iconPrivate = iconos.faLock;
+
+iconPdf = iconos.faFilePdf;
+iconXlsx = iconos.faFileExcel;
+iconChofer = iconos.faUser;
 }

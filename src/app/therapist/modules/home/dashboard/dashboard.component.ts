@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,11 +12,13 @@ export class DashboardComponent {
   //Variables
   optionMenu = 0;
   userRole = "role";
+  spinnerStatus = true;
 
 
   /*Constructor*/
   constructor(
     private ruta: Router,
+    private route: ActivatedRoute
   ) { }
 
 
@@ -27,25 +29,19 @@ export class DashboardComponent {
     this.showHideSidebar();
     this.detectedScreen();
     this.optionSelectedOnMenu();
+    this.ruta.navigate(['options-home'], { relativeTo: this.route })
   }
 
-
-  changeIndexOptionMenu(indice: number) {
-    this.optionMenu = indice;
-  }
-
-
+  /*Método que cierra la sesión del usuario*/
   signOut() {
-   /*  this.estadoSpinner = false; */
+    this.spinnerStatus = false;
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("role");
     setTimeout(() => {
-      /* this.estadoSpinner = true; */
-      this.ruta.navigateByUrl('/auth/login');
+      this.spinnerStatus = true;
+      this.ruta.navigateByUrl('therapist/auth/login');
     }, 2100);
-
   }
-
 
   /*Método que muestra y oculta los hijos de una opción del menú*/
   showHideChildsOption() {
@@ -108,7 +104,7 @@ export class DashboardComponent {
     });
   }
 
-  /*Métod que detecta el tamaño de la pantalla, para ocultar automáticamente el menú lateral*/
+  /*Método que detecta el tamaño de la pantalla, para ocultar automáticamente el menú lateral*/
   detectedScreen() {
     window.addEventListener('resize', function () {
       const sidebar = document.getElementById('sidebar') as HTMLElement;
@@ -135,11 +131,6 @@ export class DashboardComponent {
       });
     });
   }
-
-  abrirModuloTasks() {
-    this.ruta.navigateByUrl('/tasks/my-tasks');
-  }
-
 
   /*Icons to use*/
   iconBars = iconos.faBars;
