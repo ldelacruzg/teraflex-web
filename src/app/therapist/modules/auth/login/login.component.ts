@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/therapist/services/auth.service';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -39,18 +40,18 @@ export class LoginComponent {
     this.api.loginUser(this.getHeaders()).subscribe(data => {
       sessionStorage.setItem("token", data.token);
       sessionStorage.setItem("role", data.role)
-      if (data.role == 'THERAPIST') {
+      if (data.role == environment.THERAPIST) {
         this.spinnerStatus = true;
-        this.ruta.navigateByUrl('/home/dashboard');
+        this.ruta.navigateByUrl('/therapist/home/dashboard');
         this.showToast("Inicio de sesión exitoso", "Bienvenido")
       }
       else {
         this.spinnerStatus = true;
-        alert("ADMIN: Inicio de sesión exitoso");
+        this.showToast("Inicio de sesión exitoso", "Administrador")
       }
     }, error => {
       this.spinnerStatus = true;
-      this.showToastError("Error", "No se puede inciar sesión")
+      this.showToastError("Error", "No se puso inciar sesión")
     })
   }
 

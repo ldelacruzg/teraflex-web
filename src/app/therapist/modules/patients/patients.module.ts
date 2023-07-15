@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyPatientsComponent } from './my-patients/my-patients.component';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
-
-
+import { PatientsRoutingModule } from './patients-routing.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +10,8 @@ import { RegisterPatientComponent } from './register-patient/register-patient.co
     RegisterPatientComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    PatientsRoutingModule
   ],
   exports:[
     MyPatientsComponent,

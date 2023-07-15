@@ -1,3 +1,4 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
 <body>
     <!--SideBar-->
     <section id="sidebar">
@@ -19,14 +20,14 @@
                 <a href="#"><fa-icon class="icon" [icon]="iconPatients"></fa-icon> Pacientes <fa-icon class="icon-right"
                         [icon]="iconArrowDown"></fa-icon></a>
                 <ul class="side-dropdown">
-                    <li><a [routerLink]="'my-patients'"><fa-icon class="icon" [icon]="iconPatients"></fa-icon> Mis
+                    <li><a [routerLink]="'patients/my-patients'"><fa-icon class="icon" [icon]="iconPatients"></fa-icon> Mis
                             pacientes</a></li>
-                    <li><a (click)="changeIndexOptionMenu(4)"><fa-icon class="icon"
+                    <li><a [routerLink]="'patients/register-patients'"><fa-icon class="icon"
                                 [icon]="iconRegisterPatient"></fa-icon> Registrar paciente</a></li>
                 </ul>
             </li>
-            <li><a (click)="changeIndexOptionMenu(5)"><fa-icon class="icon" [icon]="iconHelp"></fa-icon> Ayuda</a></li>
-            <li><a (click)="changeIndexOptionMenu(6)"><fa-icon class="icon" [icon]="iconInformation"></fa-icon> Acerca
+            <li><a [routerLink]="'help/tutorial-videos'"><fa-icon class="icon" [icon]="iconHelp"></fa-icon> Ayuda</a></li>
+            <li><a ><fa-icon class="icon" [icon]="iconInformation"></fa-icon> Acerca
                     de</a></li>
         </ul>
     </section>
@@ -55,25 +56,14 @@
                     <hr>
                     <li><a href="#"><fa-icon [icon]="iconProfile"></fa-icon> Mi perfil</a></li>
                     <li><a href="#"><fa-icon [icon]="iconSettings"></fa-icon> Configuración</a></li>
-                    <li><a href="#"><fa-icon [icon]="iconLogOut"></fa-icon> Cerrar sesión</a></li>
+                    <li><a (click)="signOut()"><fa-icon [icon]="iconLogOut"></fa-icon> Cerrar sesión</a></li>
                 </ul>
             </div>
         </nav>
 
         <!--Contenedor del dashboard-->
         <main>
-            <div>
-                <router-outlet></router-outlet>
-                <!-- <app-options-home style="height: 100% !important;" *ngSwitchCase="0"></app-options-home>
-                <app-my-tasks *ngSwitchCase="1"></app-my-tasks>
-                <app-assign-tasks *ngSwitchCase="2"></app-assign-tasks>
-                <app-my-patients *ngSwitchCase="3"></app-my-patients>
-                <app-register-patient *ngSwitchCase="4"></app-register-patient>
-                <app-tutorial-videos *ngSwitchCase="5"></app-tutorial-videos> -->
-                
-            </div>
-            <ng-template #administrator>
-            </ng-template>
+            <router-outlet></router-outlet>
         </main>
     </section>
 </body>

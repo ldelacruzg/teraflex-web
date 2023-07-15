@@ -1,11 +1,7 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OptionsHomeComponent } from './options-home/options-home.component';
-import { MyTasksComponent } from '../tasks/my-tasks/my-tasks.component';
-import { CreateTaskComponent } from '../tasks/create-task/create-task.component';
-import { AssignTasksComponent } from '../tasks/assign-tasks/assign-tasks.component';
-import { MyPatientsComponent } from '../patients/my-patients/my-patients.component';
 
 //Rutas hijas
 const routes: Routes = [
@@ -19,15 +15,18 @@ const routes: Routes = [
           loadChildren:()=>import("../tasks/tasks.module").then(m=>m.TasksModule)
         },
         {
-          path: 'my-patients', component: MyPatientsComponent,
+          path: 'patients', 
+          loadChildren:()=>import("../patients/patients.module").then(m=>m.PatientsModule)
+        },
+        {
+          path: 'help', 
+          loadChildren:()=>import("../help/help.module").then(m=>m.HelpModule)
         },
         {
           path: 'options-home', component: OptionsHomeComponent
         },
-        
       ]
       },
-      
     ] 
   },
   

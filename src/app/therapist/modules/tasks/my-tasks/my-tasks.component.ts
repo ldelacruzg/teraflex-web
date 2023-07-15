@@ -34,7 +34,7 @@ export class MyTasksComponent {
   ) { }
 
   ngOnInit(): void {
-    this.spinnerStatus=true;
+    this.spinnerStatus = true;
     //this.getListMyTasks()
   }
 

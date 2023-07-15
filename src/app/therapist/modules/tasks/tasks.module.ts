@@ -8,7 +8,6 @@ import { SharedComponentsModule } from '../../shared-components/shared-component
 import { CreateTaskComponent } from './create-task/create-task.component';
 import { TasksRoutingModule } from './tasks-routing.module';
 
-
 @NgModule({
   declarations: [
     MyTasksComponent,

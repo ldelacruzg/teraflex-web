@@ -4,14 +4,17 @@ import { MyPatientsComponent } from './my-patients/my-patients.component';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
 
 //Rutas hijas
-const routes:Routes =[
+const routes: Routes = [
   {
-    path: 'patients',
-    children: [
-      { path: 'my-patients', component: MyPatientsComponent},
-      { path: 'register-patient', component: RegisterPatientComponent},
-      { path: '**', redirectTo:'my-patients'}
-    ]
+    path: 'my-patients', component: MyPatientsComponent
+  },
+  {
+    path: 'register-patients', component: RegisterPatientComponent
+  },
+  {
+    path: "",
+    redirectTo: "my-patients",
+    pathMatch: "full"
   }
 ]
 

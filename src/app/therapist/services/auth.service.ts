@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Login } from '../interfaces/login.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
 
   identification = '';
   password = '';
-  url: string = "https://jordanfvc26-bookish-telegram-67g4q99rw4q24xg4-3000.preview.app.github.dev"
+  urlApi = environment.urlApi;
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Accept': '*/*',
@@ -24,13 +25,13 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  //Método que consume el servicio para login
+  /*Método que consume el servicio para login*/
   loginUser(headers: Map<string, any>): Observable<Login> {
     this.getHeaders(headers);
-    return this.http.post<Login>(this.url + "/auth/login", null, this.options);
+    return this.http.post<Login>(this.urlApi + "/auth/login", null, this.options);
   }
 
-  //Método que obtiene los Headers
+  /*Método que obtiene los Headers*/
   public getHeaders(headers: Map<string, any> | undefined) {
     if (headers != null) {
       headers.forEach((value, key) => {
