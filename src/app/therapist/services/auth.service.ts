@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-
+  /*Variables*/
   identification = '';
   password = '';
   urlApi = environment.urlApi;
@@ -18,9 +18,9 @@ export class AuthService {
     'Access-Control-Request-Header': 'Content-type',
     'Access-Control-Allow-Origin': '*'
   });
-
   options = {}
 
+  /*Constructor*/
   constructor(
     private http: HttpClient
   ) { }

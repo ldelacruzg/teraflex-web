@@ -4,13 +4,13 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { MyTasks } from 'src/app/therapist/interfaces/my-tasks.interface';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 
-
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
+import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-my-tasks',
@@ -34,22 +34,22 @@ export class MyTasksComponent {
   constructor(
     private myTasksService: MyTasksService,
     private toastr: ToastrService,
-    private sweetAlerts: SweetAlerts
+    private sweetAlerts: SweetAlerts,
+    private headers: DashboardComponent
   ) { }
 
   ngOnInit(): void {
-    this.spinnerStatus = true;
+    //this.spinnerStatus = true;
     this.getListMyTasks()
   }
 
   /*Método que obtiene el listado de las tareas que ha creado un terapeuta*/
   getListMyTasks() {
     this.spinnerStatus = false;
-    let headers = new Map();
-    headers.set("token", sessionStorage.getItem("token"));
-    headers.set("role", sessionStorage.getItem("role"));
-    this.myTasksService.getMyTasks(headers).subscribe((data: MyTasks[]) => {
+    this.myTasksService.getMyTasks(this.headers.getHeaders()).subscribe((data: MyTasks[]) => {
       this.arrayTasks = data;
+      console.log("ENTRANDO Y MIRA LA DATA")
+      console.log(this.arrayTasks);
       this.spinnerStatus = true;
     }, error => {
       this.spinnerStatus = true;
@@ -172,5 +172,4 @@ iconPrivate = iconos.faLock;
 
 iconPdf = iconos.faFilePdf;
 iconXlsx = iconos.faFileExcel;
-iconChofer = iconos.faUser;
 }

@@ -9,10 +9,11 @@ import { environment } from '../../../environments/environment'
     providedIn: 'root'
 })
 export class MyTasksService {
-
+    /*Variables*/
     urlApi = environment.urlApi;
     options = {}
 
+    /*Constructor*/
     constructor(
         private http: HttpClient,
         private authService: AuthService,
