@@ -46,7 +46,7 @@
                   <th scope="col">Tiempo estimado</th>
                   <th scope="col">Visibilidad</th>
                   <th scope="col">Fecha creación</th>
-                  <th scope="col">Fecha actualización</th>
+                  <!-- <th scope="col">Fecha actualización</th> -->
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
@@ -60,7 +60,7 @@
                       <fa-icon [icon]="task.isPublic ? iconPublic : iconPrivate"></fa-icon> {{task.isPublic ? "Pública" : " Privada"}}
                     </td>
                     <td>{{task.createdAt}}</td>
-                    <td>{{task.updatedAt}}</td>
+                    <!-- <td>{{task.updatedAt}}</td> -->
                     <td class="acciones">
                       <fa-icon data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles" [icon]="iconVerDetalles"></fa-icon>
                       <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar" [icon]="iconEditar"></fa-icon>

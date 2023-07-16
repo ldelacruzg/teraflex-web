@@ -27,6 +27,7 @@ body {
 #iconEditar, #iconVerDetalles, #iconEliminar{
   font-size: 1rem !important;
   margin-right: 7px;
+  cursor: pointer;
 }
 
 #iconVerDetalles{

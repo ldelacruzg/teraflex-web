@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { MyTasks } from 'src/app/therapist/interfaces/my-tasks.interface';
+import { ApiResponseMyTasksI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 
 import jsPDF from 'jspdf';
@@ -20,7 +20,7 @@ import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 export class MyTasksComponent {
 
   /*Variables*/
-  arrayTasks: MyTasks[] = [];
+  arrayTasks: MyTasksI[] = [];
   optionsPage: any;
   itemsForPage = 7;
   initialPage = 0;
@@ -38,22 +38,45 @@ export class MyTasksComponent {
     private headers: DashboardComponent
   ) { }
 
+  /*ngOnInit*/
   ngOnInit(): void {
-    //this.spinnerStatus = true;
     this.getListMyTasks()
+  }
+
+  /*Método que obtiene los headers*/
+  getHeaders() {
+    let headers = new Map();
+    headers.set("token", sessionStorage.getItem("token"));
+    headers.set("role", sessionStorage.getItem("role"));
+    return headers;
+  }
+
+  /*Método que elimina una tarea*/
+  deleteTask(idTask: number, nameTask: string) {
+    this.sweetAlerts.alertConfirmCancel("Eliminar tarea", "¿Está seguro de eliminar la tarea " + nameTask + "?").then(respuesta => {
+      if (respuesta.value == true) {
+        this.myTasksService.deleteTask(idTask, this.getHeaders()).subscribe(data => {
+          this.spinnerStatus = false;
+          this.getListMyTasks();
+          this.showToastSuccess("Tarea eliminada con éxito", "Tarea eliminada");
+          this.spinnerStatus = true;
+        }, error => {
+          this.spinnerStatus = true;
+          this.showToastError("Error", "No se pudo eliminar la tarea");
+        });
+      }
+    });
   }
 
   /*Método que obtiene el listado de las tareas que ha creado un terapeuta*/
   getListMyTasks() {
     this.spinnerStatus = false;
-    this.myTasksService.getMyTasks(this.headers.getHeaders()).subscribe((data: MyTasks[]) => {
-      this.arrayTasks = data;
-      console.log("ENTRANDO Y MIRA LA DATA")
-      console.log(this.arrayTasks);
+    this.myTasksService.getAllMyTasks(this.headers.getHeaders(), true).subscribe((data: ApiResponseMyTasksI) => {
+      this.arrayTasks = data.data;
       this.spinnerStatus = true;
-    }, error => {
+    }, (error) => {
       this.spinnerStatus = true;
-      //alert("No se pudieron obtener los datos...");
+      this.showToastError("Error", "Error al obtener el listado de tareas");
     });
   }
 
@@ -142,34 +165,16 @@ export class MyTasksComponent {
     });
   }
 
-  /*Método que elimina una tarea*/
-  deleteTask(idTask: number, nameTask: string) {
-    this.sweetAlerts.alertConfirmCancel("Eliminar tarea", "¿Está seguro de eliminar la tarea" + nameTask + "?").then(respuesta => {
-      if (respuesta) {
-        let headers = new Map();
-        headers.set("token", sessionStorage.getItem("token"));
-        headers.set("role", sessionStorage.getItem("role"));
-        this.myTasksService.deleteTask(idTask, headers).subscribe(data => {
-          this.showToastSuccess("Tarea eliminada con éxito", "Tarea eliminada");
-          this.getListMyTasks();
-        }, error => {
-          this.showToastError("Error", "No se pudo eliminar la tarea");
-        });
-      }
-    });
-  }
+  //Iconos a utilizar
+  iconMyTasks = iconos.faFileLines;
+  iconAdd = iconos.faPlusCircle
+  iconVerDetalles = iconos.faEye;
+  iconEditar = iconos.faEdit;
+  iconEliminar = iconos.faTrash;
 
+  iconPublic = iconos.faEarthAmericas;
+  iconPrivate = iconos.faLock;
 
-//Iconos a utilizar
-iconMyTasks = iconos.faFileLines;
-iconAdd = iconos.faPlusCircle
-iconVerDetalles = iconos.faEye;
-iconEditar = iconos.faEdit;
-iconEliminar = iconos.faTrash;
-
-iconPublic = iconos.faEarthAmericas;
-iconPrivate = iconos.faLock;
-
-iconPdf = iconos.faFilePdf;
-iconXlsx = iconos.faFileExcel;
+  iconPdf = iconos.faFilePdf;
+  iconXlsx = iconos.faFileExcel;
 }

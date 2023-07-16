@@ -43,11 +43,11 @@ export class LoginComponent {
       if (data.role == environment.THERAPIST) {
         this.spinnerStatus = true;
         this.ruta.navigateByUrl('/therapist/home/dashboard');
-        this.showToast("Inicio de sesión exitoso", "Bienvenido")
+        this.showToastSuccess("Inicio de sesión exitoso", "Bienvenido")
       }
       else {
         this.spinnerStatus = true;
-        this.showToast("Inicio de sesión exitoso", "Administrador")
+        this.showToastSuccess("Inicio de sesión exitoso", "Administrador")
       }
     }, error => {
       this.spinnerStatus = true;
@@ -64,7 +64,7 @@ export class LoginComponent {
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/
-  showToast(message: string, title: string){
+  showToastSuccess(message: string, title: string){
     this.toastr.success(message, title, {
       progressBar: true,
       timeOut: 3000,

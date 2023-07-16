@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,8 +8,24 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./upload-video-form.component.css']
 })
 export class UploadVideoFormComponent {
+  /*Variables*/
+  optionSelected = "video";
+
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(){
+    this.openFileExplorer();
+  }
+
+  formSelect = new FormGroup({
+    filtro: new FormControl('video'),
+  });
+
+
+  /*Método que abre el explorador de archivos para subir un video*/
+  openFileExplorer(){
     const selectImage = document.querySelector('#container-video') as HTMLInputElement;
     const inputFile = document.querySelector('#file') as HTMLInputElement;
     const imgArea = document.querySelector('.img-area') as HTMLElement;

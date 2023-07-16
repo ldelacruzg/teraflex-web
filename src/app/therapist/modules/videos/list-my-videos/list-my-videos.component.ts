@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { GetAllVideos } from 'src/app/therapist/interfaces/videos.interface';
+import { ApiResponseMyVideosI, GetAllMyVideosI } from 'src/app/therapist/interfaces/videos.interface';
 import { VideosService } from 'src/app/therapist/services/videos.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 
@@ -14,7 +14,7 @@ export class ListMyVideosComponent {
 
   /*Variables*/
   spinnerStatus = false;
-  arrayVideos: GetAllVideos[] = [];
+  arrayVideos: GetAllMyVideosI[] = [];
   itemsForPage = 7;
   initialPage = 0;
   finalPage = 7;
@@ -27,17 +27,14 @@ export class ListMyVideosComponent {
 
   /*ngOnInit*/
   ngOnInit() {
-    this.spinnerStatus = true;
-    //this.getAllMyVideos();
+    this.getAllMyVideos();
   }
 
   /*Método que obtiene el listado de todos los videos que ha subido un terapeuta*/
   getAllMyVideos(){
-    this.spinnerStatus = false;
-    this.myVideosService.getAllMyVideos(this.headers.getHeaders()).subscribe((data) => {
-      this.arrayVideos = data;
-      console.log("ENTRANDO Y MIRA LA DATA DE VIDEOS")
-      console.log(data);
+    this.myVideosService.getAllMyVideos(this.headers.getHeaders()).subscribe((data: ApiResponseMyVideosI) => {
+      this.spinnerStatus = false;
+      this.arrayVideos = data.data;
       this.spinnerStatus = true;
     }, error => {
       this.spinnerStatus = true;

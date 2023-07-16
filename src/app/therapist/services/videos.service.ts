@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { GetAllVideos } from '../interfaces/videos.interface';
+import { ApiResponseMyVideosI } from '../interfaces/videos.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -20,8 +20,8 @@ export class VideosService {
     ) { }
 
     /*Método que obtiene el listado de todos los videos que ha subido un terapeuta*/
-    getAllMyVideos(headers: Map<string, any>): Observable<GetAllVideos[]> {
+    getAllMyVideos(headers: Map<string, any>): Observable<ApiResponseMyVideosI> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.get<GetAllVideos[]>(this.urlApi + "/multimedia/all", this.options);
+        return this.http.get<ApiResponseMyVideosI>(this.urlApi + "/multimedia/all", this.options);
     }
 }

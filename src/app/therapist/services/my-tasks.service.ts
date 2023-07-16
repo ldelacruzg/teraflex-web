@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { MyTasks } from '../interfaces/my-tasks.interface';
+import { ApiResponseMyTasksI } from '../interfaces/my-tasks.interface';
 import { environment } from '../../../environments/environment'
 
 @Injectable({
@@ -20,9 +20,11 @@ export class MyTasksService {
     ) { }
 
     /*Método que obtiene el listado de todas las tareas de un terapeuta*/
-    getMyTasks(headers: Map<string, any>): Observable<MyTasks[]> {
+    getAllMyTasks(headers: Map<string, any>, status: boolean): Observable<ApiResponseMyTasksI> {
+        let queryParams = "?";
+        queryParams += `status=${status}`;
         this.options = this.authService.getHeaders(headers);
-        return this.http.get<MyTasks[]>(this.urlApi + "/logged/tasks", this.options);
+        return this.http.get<ApiResponseMyTasksI>(this.urlApi + `/logged/tasks/${queryParams}`, this.options);
     }
 
     /*Método que elimina una tarea*/

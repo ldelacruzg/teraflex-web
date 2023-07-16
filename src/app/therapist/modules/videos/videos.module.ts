@@ -6,6 +6,7 @@ import { SharedComponentsModule } from '../../shared-components/shared-component
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ListMyVideosComponent } from './list-my-videos/list-my-videos.component';
 import { UploadVideoFormComponent } from './upload-video-form/upload-video-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,9 @@ import { UploadVideoFormComponent } from './upload-video-form/upload-video-form.
     FontAwesomeModule,
     SharedComponentsModule,
     MatPaginatorModule,
-    VideosRoutingModule
+    VideosRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class VideosModule { }
