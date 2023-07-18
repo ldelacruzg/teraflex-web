@@ -35,7 +35,12 @@ export class AuthService {
   public getHeaders(headers: Map<string, any> | undefined) {
     if (headers != null) {
       headers.forEach((value, key) => {
-        this.headers = this.headers.append(key, value || '');
+        if(!this.headers.has(key)){
+          this.headers = this.headers.append(key, value || '');
+        }else {
+          this.headers=this.headers.delete(key);
+          this.headers=this.headers.append(key,value);
+        }
       });
     }
     this.headers = this.headers.delete('Authorization');
@@ -43,5 +48,17 @@ export class AuthService {
     this.options = { headers: this.headers };
     return this.options;
    /*  return headers != null; */
+  }
+
+  public removeHeaders(headers: string[] | undefined){
+    if (headers != null) {
+      headers.forEach((value) => {
+        if(this.headers.has(value)){
+          this.headers = this.headers.delete(value);
+        }
+      });
+    }
+    this.options = { headers: this.headers };
+    return this.options;
   }
 }

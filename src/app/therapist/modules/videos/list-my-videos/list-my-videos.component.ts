@@ -27,8 +27,8 @@ export class ListMyVideosComponent {
 
   /*ngOnInit*/
   ngOnInit() {
-    this.spinnerStatus = true;
-    //this.getAllMyVideos();
+    //this.spinnerStatus = true;
+    this.getAllMyVideos();
   }
 
   /*Método que obtiene el listado de todos los videos que ha subido un terapeuta*/

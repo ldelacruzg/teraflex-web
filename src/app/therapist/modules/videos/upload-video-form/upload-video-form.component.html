@@ -1,3 +1,4 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
 <body>
     <div class="row justify-content-center">
         <div class="col-12 container-info">
@@ -25,11 +26,11 @@
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-1"><b>Adjunte un video</b></label>
                         <div class="container-video" id="container-video">
-                            <input type="file" id="file" accept=".mp4" hidden formControlName="video">
+                            <input type="file" id="file" (change)="onVideoSelected($event)" accept=".mp4" hidden formControlName="video">
                             <div class="video-area" data-video="">
                                 <fa-icon [icon]="iconUploadVideo" id="iconUpload"></fa-icon>
                                 <h4>Subir video</h4>
-                                <p>Suba un video en formato .mp4 con un tamaño máximo de 40MB</p>
+                                <p>Suba un video en formato .mp4 con un tamaño máximo de 20MB</p>
                             </div>
                             <div class="validators"
                                 *ngIf="uploadVideoForm.get('video')?.hasError('required') && uploadVideoForm.get('video')?.touched">
@@ -43,11 +44,11 @@
                             <select class="form-select form-select-md" aria-label=".form-select-lg example"
                                 [(ngModel)]="optionVisibilityVideo" formControlName="visibility" [ngClass]="{
                                     'is-invalid': uploadVideoForm.get('visibility')?.hasError('required') && uploadVideoForm.get('visibility')?.touched,
-                                    'is-valid': optionVisibilityVideo === 'Public' || optionVisibilityVideo === 'Private'
+                                    'is-valid': optionVisibilityVideo === 'true' || optionVisibilityVideo === 'false'
                                   }">
                                 <option value="" selected>Seleccione una opción</option>
-                                <option value="Public">Público</option>
-                                <option value="Private">Privado</option>
+                                <option value="true">Público</option>
+                                <option value="false">Privado</option>
                             </select>
                             <div class="validators"
                                 *ngIf="uploadVideoForm.get('visibility')?.hasError('required') && uploadVideoForm.get('visibility')?.touched">
@@ -128,8 +129,8 @@
             </ng-template>
 
             <div class="action-buttons mb-3">
-                <button  type="button" class="btn btn-danger btn-md">Cancelar</button>
-                <button [routerLink]="'../upload-video'" type="button" class="btn btn-primary btn-md">Aceptar</button>
+                <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md">Cancelar</button>
+                <button (click)="registerVideo()" type="button" class="btn btn-primary btn-md">Aceptar</button>
             </div>
         </div>
     </div>

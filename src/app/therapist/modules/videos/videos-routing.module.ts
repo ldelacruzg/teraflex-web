@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: "upload-videos",
+    redirectTo: "upload-video",
     pathMatch: "full"
   }
 ]
