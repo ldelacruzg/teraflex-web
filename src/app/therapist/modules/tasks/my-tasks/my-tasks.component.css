@@ -4,6 +4,10 @@ body {
   padding: 0 0 10px 0;
 }
 
+.container-info{
+  padding: .5rem 2rem;
+}
+
 .icon-title{
   color: #007BBD !important; 
 }
@@ -41,6 +45,10 @@ body {
 .no-results{
   text-align: center;
   background-color: #fafafa;
+}
+
+.iconPublicPrivate>fa-icon{
+  color: #bebebe;
 }
 
 

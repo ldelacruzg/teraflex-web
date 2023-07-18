@@ -22,9 +22,9 @@ export class MyTasksComponent {
   /*Variables*/
   arrayTasks: MyTasksI[] = [];
   optionsPage: any;
-  itemsForPage = 7;
+  itemsForPage = 5;
   initialPage = 0;
-  finalPage = 7;
+  finalPage = 5;
   spinnerStatus = false;
   formSelect = new FormGroup({
     filtro: new FormControl('ci', Validators.required),
@@ -82,8 +82,12 @@ export class MyTasksComponent {
 
   /*Método que cambias las páginas de la tabla*/
   changePage(e: PageEvent) {
-    this.initialPage = e.pageIndex * e.pageIndex;
-    this.finalPage = this.initialPage + e.pageIndex;
+    this.initialPage = e.pageIndex * this.itemsForPage;
+    this.finalPage = this.initialPage + this.itemsForPage;
+    
+    if (this.finalPage > this.arrayTasks.length) {
+      this.finalPage = this.arrayTasks.length;
+    }
   }
 
   /*Método que obtiene la fecha actual para mostrarla en el archivo PDF*/

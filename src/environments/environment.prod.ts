@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://teraflex-yzph.onrender.com'
+    apiUrl: 'http://18.209.60.73:3000'
   };
   

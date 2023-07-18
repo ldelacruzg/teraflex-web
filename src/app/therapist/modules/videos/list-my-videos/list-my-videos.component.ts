@@ -15,19 +15,20 @@ export class ListMyVideosComponent {
   /*Variables*/
   spinnerStatus = false;
   arrayVideos: GetAllMyVideosI[] = [];
-  itemsForPage = 7;
+  itemsForPage = 5;
   initialPage = 0;
-  finalPage = 7;
+  finalPage = 5;
 
   /*Constructor*/
   constructor(
     private myVideosService: VideosService,
-    private headers: DashboardComponent
+    private headers: DashboardComponent,
   ){}
 
   /*ngOnInit*/
   ngOnInit() {
-    this.getAllMyVideos();
+    this.spinnerStatus = true;
+    //this.getAllMyVideos();
   }
 
   /*Método que obtiene el listado de todos los videos que ha subido un terapeuta*/
@@ -44,10 +45,14 @@ export class ListMyVideosComponent {
 
   /*Método que cambias las páginas de la tabla*/
   changePage(e: PageEvent) {
-    this.initialPage = e.pageIndex * e.pageIndex;
-    this.finalPage = this.initialPage + e.pageIndex;
+    this.initialPage = e.pageIndex * this.itemsForPage;
+    this.finalPage = this.initialPage + this.itemsForPage;
+    
+    if (this.finalPage > this.arrayVideos.length) {
+      this.finalPage = this.arrayVideos.length;
+    }
   }
-
+  
   /*Método que exporta los datos de la tabla, a formato .PDF*/
   downloadPDF() {
   }

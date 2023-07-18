@@ -7,6 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ListMyVideosComponent } from './list-my-videos/list-my-videos.component';
 import { UploadVideoFormComponent } from './upload-video-form/upload-video-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     VideosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot()
   ]
 })
 export class VideosModule { }
