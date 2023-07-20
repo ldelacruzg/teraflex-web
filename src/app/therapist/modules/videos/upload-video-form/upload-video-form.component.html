@@ -19,10 +19,27 @@
                     </div>
                 </form>
             </div>
-
+            
             <!--Form para subir video local-->
             <ng-container *ngIf="optionSelected == 'video' else enlaceYouTube">
                 <form class="row mt-2" [formGroup]="uploadVideoForm">
+                    <div class="mb-3">
+                        <label class="mb-1"><b>Título</b></label>
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="title"
+                            placeholder="Título*" [ngClass]="{
+                                'is-invalid': uploadVideoForm.get('title')?.hasError('required') && uploadVideoForm.get('title')?.touched || uploadVideoForm.get('title')?.hasError('pattern'),
+                                'is-valid': uploadVideoForm.get('title')?.value?.length >= 10 && uploadVideoForm.get('title')?.hasError('pattern') == false
+                              }" [maxlength]="100">
+                        <div class="validators"
+                            *ngIf="uploadVideoForm.get('title')?.hasError('required') && uploadVideoForm.get('title')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" 
+                            *ngIf="uploadVideoForm.get('title')?.hasError('pattern')">
+                            <small>¡Solo se permiten letras!</small>
+                          </div>
+                    </div>
+
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-1"><b>Adjunte un video</b></label>
                         <div class="container-video" id="container-video">
@@ -38,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 mb-3">
+                    <div class="col-12 col-md-6 mb-3">             
                         <div class="mb-3">
                             <label class="mb-1"><b>Visibilidad</b></label>
                             <select class="form-select form-select-md" aria-label=".form-select-lg example"
@@ -69,23 +86,45 @@
                         </div>
                     </div>
                 </form>
+                <div class="action-buttons mb-3">
+                    <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md">Cancelar</button>
+                    <button (click)="registerVideo()" type="button" class="btn btn-primary btn-md">Aceptar</button>
+                </div>
             </ng-container>
 
             <!--Fomr para subir enlace-->
             <ng-template #enlaceYouTube>
                 <form [formGroup]="uploadLinkForm">
                     <div class="row mt-3">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="mb-1"><b>Título</b></label>
+                                <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="title"
+                                    placeholder="Título*" [ngClass]="{
+                                        'is-invalid': uploadLinkForm.get('title')?.hasError('required') && uploadLinkForm.get('title')?.touched || uploadLinkForm.get('title')?.hasError('pattern'),
+                                        'is-valid': uploadLinkForm.get('title')?.value?.length >= 10 && uploadLinkForm.get('title')?.hasError('pattern') == false
+                                      }" [maxlength]="100">
+                                <div class="validators"
+                                    *ngIf="uploadLinkForm.get('title')?.hasError('required') && uploadLinkForm.get('title')?.touched">
+                                    <small>¡Este campo es requerido!</small>
+                                </div>
+                                <div class="validators" 
+                                    *ngIf="uploadLinkForm.get('title')?.hasError('pattern')">
+                                    <small>¡Solo se permiten letras!</small>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
                             <div class="mb-3">
                                 <label class="mb-1"><b>Visibilidad</b></label>
                                 <select class="form-select form-select-md" aria-label=".form-select-lg example"
                                     [(ngModel)]="optionVisibilityLink" formControlName="visibility" [ngClass]="{
                                         'is-invalid': uploadLinkForm.get('visibility')?.hasError('required') && uploadLinkForm.get('visibility')?.touched,
-                                        'is-valid': optionVisibilityLink === 'Public' || optionVisibilityLink === 'Private'
+                                        'is-valid': optionVisibilityLink === 'true' || optionVisibilityLink === 'false'
                                       }">
                                     <option value="" selected>Seleccione una opción</option>
-                                    <option value="Public">Público</option>
-                                    <option value="Private">Privado</option>
+                                    <option value="true">Público</option>
+                                    <option value="false">Privado</option>
                                 </select>
                                 <div class="validators"
                                     *ngIf="uploadLinkForm.get('visibility')?.hasError('required') && uploadLinkForm.get('visibility')?.touched">
@@ -93,7 +132,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-8">
                             <div class="mb-3">
                                 <label class="mb-1"><b>Enlace de YouTube</b></label>
                                 <input class="form-control form-control-lg bg-light fs-6" formControlName="description"
@@ -126,12 +165,11 @@
                         </div>
                     </div>
                 </form>
+                <div class="action-buttons mb-3">
+                    <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md">Cancelar</button>
+                    <button (click)="registerVideoLink()" type="button" class="btn btn-primary btn-md">Aceptar</button>
+                </div>
             </ng-template>
-
-            <div class="action-buttons mb-3">
-                <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md">Cancelar</button>
-                <button (click)="registerVideo()" type="button" class="btn btn-primary btn-md">Aceptar</button>
-            </div>
         </div>
     </div>
 </body>

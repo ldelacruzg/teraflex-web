@@ -33,7 +33,7 @@ export class ListMyVideosComponent {
 
   /*Método que obtiene el listado de todos los videos que ha subido un terapeuta*/
   getAllMyVideos(){
-    this.myVideosService.getAllMyVideos(this.headers.getHeaders()).subscribe((data: ApiResponseMyVideosI) => {
+    this.myVideosService.getAllMyVideos(this.headers.getHeaders(), true).subscribe((data: ApiResponseMyVideosI) => {
       this.spinnerStatus = false;
       this.arrayVideos = data.data;
       this.spinnerStatus = true;

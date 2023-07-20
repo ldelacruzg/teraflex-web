@@ -33,7 +33,7 @@ export class AuthService {
 
   /*Método que obtiene los Headers*/
   public getHeaders(headers: Map<string, any> | undefined) {
-    if (headers != null) {
+    /* if (headers != null) {
       headers.forEach((value, key) => {
         if(!this.headers.has(key)){
           this.headers = this.headers.append(key, value || '');
@@ -42,18 +42,23 @@ export class AuthService {
           this.headers=this.headers.append(key,value);
         }
       });
+    } */
+    if (headers != null) {
+      headers.forEach((value, key) => {
+        this.headers = this.headers.append(key, value || '');
+      });
     }
     this.headers = this.headers.delete('Authorization');
     this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     this.options = { headers: this.headers };
     return this.options;
-   /*  return headers != null; */
+    /*  return headers != null; */
   }
 
-  public removeHeaders(headers: string[] | undefined){
+  public removeHeaders(headers: string[] | undefined) {
     if (headers != null) {
       headers.forEach((value) => {
-        if(this.headers.has(value)){
+        if (this.headers.has(value)) {
           this.headers = this.headers.delete(value);
         }
       });

@@ -43,6 +43,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">N°</th>
+                                <th scope="col">Título</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Visibilidad</th>
                                 <th scope="col">Fecha creación</th>
@@ -55,6 +56,7 @@
                             <ng-container *ngIf="arrayVideos.length > 0; else noResults">
                                 <tr *ngFor="let video of arrayVideos | slice:initialPage:finalPage; let i = index">
                                     <th scope="row">{{i+1}}</th>
+                                    <td>{{video.title}}</td>
                                     <td>{{video.type}}</td>
                                     <td class="iconPublicPrivate">
                                         <fa-icon [icon]="video.isPublic ? iconPublic : iconPrivate"></fa-icon>

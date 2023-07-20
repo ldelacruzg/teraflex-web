@@ -8,6 +8,8 @@ import { SharedComponentsModule } from '../../shared-components/shared-component
 import { CreateTaskComponent } from './create-task/create-task.component';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { SweetAlerts } from '../../alerts/alerts.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import { SweetAlerts } from '../../alerts/alerts.component';
     FontAwesomeModule,
     MatPaginatorModule,
     SharedComponentsModule,
-    TasksRoutingModule
+    TasksRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     MyTasksComponent,

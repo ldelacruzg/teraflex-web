@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
-import { ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, RegisterVideoLocal } from 'src/app/therapist/interfaces/videos.interface';
+import { ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, RegisterVideoLinkI, RegisterVideoLocal } from 'src/app/therapist/interfaces/videos.interface';
 import { VideosService } from 'src/app/therapist/services/videos.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { Router } from '@angular/router';
@@ -52,6 +52,9 @@ export class UploadVideoFormComponent {
       video: [null,
         [Validators.required],
       ],
+      title: ['',
+        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.: ]*$")],
+      ],
       visibility: ['',
         [Validators.required],
       ],
@@ -66,6 +69,9 @@ export class UploadVideoFormComponent {
     this.uploadLinkForm = this.formBuilder.group({
       visibility: ['',
         [Validators.required],
+      ],
+      title: ['',
+        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.: ]*$")],
       ],
       link: ['',
         [Validators.required, Validators.pattern("^(https?://)?(www\\.)?youtube\\.com/(watch\\?v=|embed/|v/|\\w+/|\\d+/|\\?v=)?([\\w-]+)(&[\\w-]+=[\\w-]+)*$")],
@@ -125,10 +131,10 @@ export class UploadVideoFormComponent {
     });
   }
 
-  onVideoSelected(event: any){
-    const file=event.target.files[0]
+  onVideoSelected(event: any) {
+    const file = event.target.files[0]
     this.uploadVideoForm.patchValue({
-      video:file
+      video: file
     })
     this.uploadVideoForm.get("video")?.updateValueAndValidity();
   }
@@ -136,18 +142,19 @@ export class UploadVideoFormComponent {
   /*Método que manda a guardar el video con sus datos*/
   registerVideo() {
     const formData = new FormData();
+    formData.append('title', this.uploadVideoForm.value.title);
     formData.append('isPublic', this.uploadVideoForm.value.visibility);
     formData.append('description', this.uploadVideoForm.value.description);
-    let  videoFiles: File=this.uploadVideoForm.get('video')?.value;
+    let videoFiles: File = this.uploadVideoForm.get('video')?.value;
     if (videoFiles) {
       this.spinnerStatus = false;
-      formData.append("files",videoFiles,videoFiles.name);
+      formData.append("files", videoFiles, videoFiles.name);
       this.videoService.registerVideoLocal(this.headers.getHeaders(), formData)
         .subscribe({
-          next: (response) => {
+          next: (data) => {
             this.spinnerStatus = true;
-            this.showToastSuccess("Video cargado correctamente", "Éxito");
-            this.route.navigateByUrl("./list-videos")
+            this.showToastSuccess(data.message, "Éxito");
+            this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos")
           },
           error: (error) => {
             this.spinnerStatus = true;
@@ -159,7 +166,31 @@ export class UploadVideoFormComponent {
       this.showToastError("Error", "Debe adjuntar un video");
     }
   }
-  
+
+  /*Método que registra un video como enlace*/
+  registerVideoLink() {
+    const bodyForm: RegisterVideoLinkI[] = [
+      {
+        url: this.uploadLinkForm.value.link,
+        title: this.uploadLinkForm.value.title,
+        isPublic: this.uploadLinkForm.value.visibility,
+        description: this.uploadLinkForm.value.description,
+      }
+    ];
+    this.videoService.registerVideoLink(this.headers.getHeaders(), bodyForm)
+      .subscribe({
+        next: (data: ApiResponseRegisterVideoLocalI) => {
+          this.spinnerStatus = true;
+          this.showToastSuccess(data.message, "Éxito");
+          this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos");
+        },
+        error: (error) => {
+          this.spinnerStatus = true;
+          this.showToastError("Error", "No se ha podido subir el video");
+        }
+      });
+  }
+
   /*Icons to use*/
   iconVideo = iconos.faVideoCamera;
   iconUploadVideo = iconos.faUpload;
