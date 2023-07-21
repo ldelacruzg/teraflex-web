@@ -25,6 +25,7 @@ body {
 .btn-danger{
     border-radius: 50px;
     background-color: #FC3B56 !important;
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -32,6 +33,5 @@ body {
 .btn-primary {
     border-radius: 50px;
     background-color: #007BBD !important;
-    margin-left: 10px;
     cursor: pointer;
 }

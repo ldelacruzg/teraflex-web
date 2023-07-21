@@ -40,8 +40,8 @@ export class MyTasksComponent {
 
   /*ngOnInit*/
   ngOnInit(): void {
-    //this.spinnerStatus=true;
-    this.getListMyTasks()
+    this.spinnerStatus=true;
+    //this.getListMyTasks()
   }
 
   /*Método que obtiene los headers*/
@@ -85,7 +85,7 @@ export class MyTasksComponent {
   changePage(e: PageEvent) {
     this.initialPage = e.pageIndex * this.itemsForPage;
     this.finalPage = this.initialPage + this.itemsForPage;
-    
+
     if (this.finalPage > this.arrayTasks.length) {
       this.finalPage = this.arrayTasks.length;
     }

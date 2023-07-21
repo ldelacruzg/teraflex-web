@@ -10,6 +10,7 @@ import { TasksRoutingModule } from './tasks-routing.module';
 import { SweetAlerts } from '../../alerts/alerts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { MatStepperIntl, MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
     TasksRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatStepperModule,
     ToastrModule.forRoot()
   ],
   exports: [
@@ -32,7 +34,8 @@ import { ToastrModule } from 'ngx-toastr';
     AssignTasksComponent
   ],
   providers:[
-    SweetAlerts
+    SweetAlerts,
+   /*  {provide: MatStepperIntl, useClass: MyIntl}, */
   ]
 })
 export class TasksModule { }
