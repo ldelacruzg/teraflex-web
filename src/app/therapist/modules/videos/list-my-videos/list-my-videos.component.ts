@@ -15,9 +15,9 @@ export class ListMyVideosComponent {
   /*Variables*/
   spinnerStatus = false;
   arrayVideos: GetAllMyVideosI[] = [];
-  itemsForPage = 5;
-  initialPage = 0;
-  finalPage = 5;
+  itemsForPage:number = 5;
+  initialPage:number = 0;
+  finalPage:number = 5;
 
   /*Constructor*/
   constructor(
@@ -45,9 +45,9 @@ export class ListMyVideosComponent {
 
   /*Método que cambias las páginas de la tabla*/
   changePage(e: PageEvent) {
+    this.itemsForPage = e.pageSize;
     this.initialPage = e.pageIndex * this.itemsForPage;
     this.finalPage = this.initialPage + this.itemsForPage;
-    
     if (this.finalPage > this.arrayVideos.length) {
       this.finalPage = this.arrayVideos.length;
     }

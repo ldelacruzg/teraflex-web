@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { ApiResponseMyTasksI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
-
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import * as XLSX from 'xlsx';
 import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-my-tasks',
@@ -83,9 +82,9 @@ export class MyTasksComponent {
 
   /*Método que cambias las páginas de la tabla*/
   changePage(e: PageEvent) {
+    this.itemsForPage = e.pageSize;
     this.initialPage = e.pageIndex * this.itemsForPage;
     this.finalPage = this.initialPage + this.itemsForPage;
-
     if (this.finalPage > this.arrayTasks.length) {
       this.finalPage = this.arrayTasks.length;
     }
