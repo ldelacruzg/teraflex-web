@@ -8,10 +8,12 @@ export class SweetAlerts{
             title: title,
             text: message,
             icon: 'warning',
+            iconColor: '#FC3B56',
             showCancelButton: true,
             confirmButtonColor: '#007BBD',
             cancelButtonColor: '#FC3B56',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
         })
         return result
     }

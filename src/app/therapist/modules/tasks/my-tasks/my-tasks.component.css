@@ -1,7 +1,11 @@
 body {
   border-radius: 8px;
   height: auto;
-  padding: 0 0 25px 0;
+  padding: 0 0 10px 0;
+}
+
+.container-info{
+  padding: .5rem 2rem;
 }
 
 .icon-title{
@@ -27,6 +31,7 @@ body {
 #iconEditar, #iconVerDetalles, #iconEliminar{
   font-size: 1rem !important;
   margin-right: 7px;
+  cursor: pointer;
 }
 
 #iconVerDetalles{
@@ -40,6 +45,10 @@ body {
 .no-results{
   text-align: center;
   background-color: #fafafa;
+}
+
+.iconPublicPrivate>fa-icon{
+  color: #bebebe;
 }
 
 

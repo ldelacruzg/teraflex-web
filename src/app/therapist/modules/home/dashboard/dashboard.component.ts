@@ -32,6 +32,14 @@ export class DashboardComponent {
     this.ruta.navigate(['options-home'], { relativeTo: this.route })
   }
 
+  /*Método que obtiene los headers*/
+  getHeaders(){
+    let headers = new Map();
+    headers.set("token", sessionStorage.getItem("token"));
+    headers.set("role", sessionStorage.getItem("role"));
+    return headers;
+  }
+
   /*Método que cierra la sesión del usuario*/
   signOut() {
     this.spinnerStatus = false;
@@ -137,6 +145,7 @@ export class DashboardComponent {
   iconHome = iconos.faHome;
   iconTasks = iconos.faListCheck;
   iconMyTasks = iconos.faFileLines;
+  iconUploadVideos = iconos.faVideoCamera;
   iconAsignTasks = iconos.faCalendarDay;
   iconInformation = iconos.faInfoCircle;
   iconPatients = iconos.faUsers;

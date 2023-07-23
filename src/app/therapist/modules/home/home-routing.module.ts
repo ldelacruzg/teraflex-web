@@ -15,6 +15,10 @@ const routes: Routes = [
           loadChildren:()=>import("../tasks/tasks.module").then(m=>m.TasksModule)
         },
         {
+          path: 'videos', 
+          loadChildren:()=>import("../videos/videos.module").then(m=>m.VideosModule)
+        },
+        {
           path: 'patients', 
           loadChildren:()=>import("../patients/patients.module").then(m=>m.PatientsModule)
         },
