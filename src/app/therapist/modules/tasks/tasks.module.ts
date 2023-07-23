@@ -11,12 +11,14 @@ import { SweetAlerts } from '../../alerts/alerts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MatStepperIntl, MatStepperModule } from '@angular/material/stepper';
+import { ViewTaskDetailComponent } from './modals/view-task-detail/view-task-detail.component';
 
 @NgModule({
   declarations: [
     MyTasksComponent,
     AssignTasksComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    ViewTaskDetailComponent
   ],
   imports: [
     CommonModule,

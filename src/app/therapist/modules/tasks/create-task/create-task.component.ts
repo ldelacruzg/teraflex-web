@@ -8,6 +8,9 @@ import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ToastrService } from 'ngx-toastr';
 import { CategoriesService } from 'src/app/therapist/services/categories.service';
 import { ApiResponseCategoriesI, GetCategoryI } from 'src/app/therapist/interfaces/categories.interface';
+import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
+import { ApiResponseRegisterTaskDetailI, RegisterTaskDetailI } from 'src/app/therapist/interfaces/my-tasks.interface';
+import { Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -34,10 +37,12 @@ export class CreateTaskComponent {
   /*Constructor*/
   constructor(
     private formBuilder: FormBuilder,
+    private categoriesService: CategoriesService,
     private videosService: VideosService,
+    private tasksService: MyTasksService,
     private headers: DashboardComponent,
     private toastr: ToastrService,
-    private categoriesService: CategoriesService
+    private router: Router,
   ) { }
 
   /*ngOnInit*/
@@ -53,13 +58,10 @@ export class CreateTaskComponent {
     this.categoriesService.getAllCategories(this.headers.getHeaders())
       .subscribe({
         next: (data: ApiResponseCategoriesI) => {
-          this.spinnerStatus = false;
           this.arrayCategories = data.data;
           this.arrayCategories.sort((a, b) => a.name.localeCompare(b.name));
-          this.spinnerStatus = true;
         },
         error: (error) => {
-          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudo cargar la lista de categorías");
         }
       });
@@ -70,12 +72,9 @@ export class CreateTaskComponent {
     this.videosService.getAllMyVideos(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseMyVideosI) => {
-          this.spinnerStatus = false;
           this.arrayVideosInfo = data.data;
-          this.spinnerStatus = true;
         },
         error: (error) => {
-          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudo cargar la lista de videos");
         }
       });
@@ -103,11 +102,39 @@ export class CreateTaskComponent {
         ],
       ],
       description: ['',
-        [
-          Validators.required,
-          Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚ!@#$%^&*()]*$"),
-        ],
+        [ Validators.required ],
       ],
+    });
+  }
+
+  /*Método que obtiene la información del form, para mandarla al registrar*/
+  getInfoFormUploadTask(){
+    let formUploadTask: RegisterTaskDetailI = {
+      title: this.uploadTaskForm.get('title')?.value,
+      isPublic: this.uploadTaskForm.get('visibility')?.value === "public" ? true : false,
+      categoryIds: [Number(this.uploadTaskForm.get('category')?.value)], 
+      estimatedTime: parseInt(this.uploadTaskForm.get('timeEstimated')?.value),
+      description: this.uploadTaskForm.get('description')?.value,
+      fileIds: this.arrayVideosId,
+      status: true,
+    }
+    return formUploadTask;
+  }
+
+  /*Método que manda a guardar el detalle de la tarea con los videos asignados*/
+  registerTaskDetail() {
+    this.spinnerStatus = false;
+    this.tasksService.registerTaskDetailWithVideos(this.headers.getHeaders(), this.getInfoFormUploadTask())
+    .subscribe({
+      next: (data: ApiResponseRegisterTaskDetailI) => {
+        this.showToastSuccess(data.message, "Éxito");
+        this.spinnerStatus = true;
+        this.router.navigateByUrl("therapist/home/dashboard/tasks/my-tasks");
+      },
+      error: (error) => {
+        this.spinnerStatus = true;
+        this.showToastError("Error", "No ha podido registrar su tarea");
+      }
     });
   }
 
@@ -136,12 +163,6 @@ export class CreateTaskComponent {
       this.arrayVideosId.splice(index, 1);
   }
 
-  /*Método que manda a registrar la tarea con sus detalles*/
-  registerTask() {
-    console.log('registerTask');
-    console.log(this.arrayVideosId)
-  }
-
   /*Método que muestra un toast con mensaje de ÉXITO*/
   showToastSuccess(message: string, title: string) {
     this.toastr.success(message, title, {
@@ -161,4 +182,5 @@ export class CreateTaskComponent {
   /*Icons to use*/
   iconCreateTask = iconos.faFile;
   iconVerDetalles = iconos.faEye;
+  iconBack = iconos.faArrowLeft;
 }

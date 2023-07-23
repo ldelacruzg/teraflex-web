@@ -64,8 +64,7 @@
                   <td>{{task.createdAt}}</td>
                   <!-- <td>{{task.updatedAt}}</td> -->
                   <td class="acciones">
-                    <fa-icon data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
-                      [icon]="iconVerDetalles"></fa-icon>
+                    <fa-icon (click)="openModalViewTaskDetail(viewTaskDetail, task.id)" data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles" [icon]="iconVerDetalles"></fa-icon>
                     <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar" [icon]="iconEditar"></fa-icon>
                     <fa-icon (click)="deleteTask(task.id, task.title)" data-bs-toggle="mensaje" title="Eliminar"
                       id="iconEliminar" [icon]="iconEliminar"></fa-icon>
@@ -88,3 +87,8 @@
     </div>
   </div>
 </body>
+
+
+<ng-template #viewTaskDetail>
+  <app-view-task-detail></app-view-task-detail>
+</ng-template>

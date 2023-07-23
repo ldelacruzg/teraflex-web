@@ -6,10 +6,12 @@ import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { ViewTaskDetailComponent } from '../modals/view-task-detail/view-task-detail.component';
 
 @Component({
   selector: 'app-my-tasks',
@@ -34,13 +36,14 @@ export class MyTasksComponent {
     private myTasksService: MyTasksService,
     private toastr: ToastrService,
     private sweetAlerts: SweetAlerts,
-    private headers: DashboardComponent
+    private headers: DashboardComponent,
+    private modal: NgbModal
   ) { }
 
   /*ngOnInit*/
   ngOnInit(): void {
-    this.spinnerStatus=true;
-    //this.getListMyTasks()
+    //this.spinnerStatus=true;
+    this.getListMyTasks()
   }
 
   /*Método que obtiene los headers*/
@@ -167,6 +170,13 @@ export class MyTasksComponent {
       progressBar: true,
       timeOut: 3000,
     });
+  }
+
+  
+  /*Método que muestra modal para los usuarios que no tienen una cuenta*/
+  openModalViewTaskDetail(viewTaskDetail: any, taskID: number) {
+    this.modal.open(viewTaskDetail, { size: 'lg', centered: true });
+    ViewTaskDetailComponent.taskID = taskID;
   }
 
   //Iconos a utilizar
