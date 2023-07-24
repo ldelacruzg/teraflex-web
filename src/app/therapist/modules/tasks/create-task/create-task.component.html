@@ -2,12 +2,14 @@
 <body>
     <div class="row justify-content-center">
         <div class="col-12 container-info">
-            <div class="col-12 mt-3 mx-1">
+            <div class="div col-12 mt-3 mx-1">
                 <h4 id="titulo"><fa-icon [icon]="iconCreateTask" class="icon-title"></fa-icon> Crear tarea</h4>
+                <button [routerLink]="'../my-tasks'" type="button" class="btn btn-secondary btn-sm"> <fa-icon
+                    [icon]="iconBack"></fa-icon> Atrás</button>
             </div>
             <!--Stepper-->
             <div class="row mt-4">
-                <mat-horizontal-stepper #stepper="matHorizontalStepper">
+                <mat-horizontal-stepper linear #stepper="matHorizontalStepper">
                     <!--Pasos 1: Ingresar datos de la tarea-->
                     <mat-step [stepControl]="uploadTaskForm">
                         <form [formGroup]="uploadTaskForm">
@@ -42,8 +44,8 @@
                                     'is-valid': optionVisibilitySelected!= ''
                                   }">
                                         <option value="" selected>Seleccione una opción</option>
-                                        <option value="true">Pública</option>
-                                        <option value="false">Privada</option>
+                                        <option value="public">Pública</option>
+                                        <option value="private">Privada</option>
                                     </select>
                                     <div class="validators"
                                         *ngIf="uploadTaskForm.get('visibility')?.hasError('required') && uploadTaskForm.get('visibility')?.touched">
@@ -162,7 +164,7 @@
                         <!--Botones de regresar y registrar tarea-->
                         <div class="action-buttons mb-3">
                             <button mat-button matStepperPrevious type="button" class="btn btn-secondary btn-md">Regresar</button>
-                            <button mat-button (click)="registerTask()" type="button" class="btn btn-primary btn-md">Aceptar</button>
+                            <button mat-button (click)="registerTaskDetail()" type="button" class="btn btn-primary btn-md">Aceptar</button>
                         </div>
                     </mat-step>
                 </mat-horizontal-stepper>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { ApiResponseMyTasksI } from '../interfaces/my-tasks.interface';
+import { ApiResponseGetTaskByIdI, ApiResponseMyTasksI, ApiResponseRegisterTaskDetailI, RegisterTaskDetailI } from '../interfaces/my-tasks.interface';
 import { environment } from '../../../environments/environment'
 
 @Injectable({
@@ -31,5 +31,17 @@ export class MyTasksService {
     deleteTask(idTask:number, headers: Map<string, any>): Observable<string> {
         this.options = this.authService.getHeaders(headers);
         return this.http.delete<string>(this.urlApi + `/tasks/${idTask}`, this.options);
+    }
+
+    /*Método que consume el servicio para registrar una tarea con los videos asignados al paciente*/
+    registerTaskDetailWithVideos(headers: Map<string, any>, body: RegisterTaskDetailI): Observable<ApiResponseRegisterTaskDetailI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.post<ApiResponseRegisterTaskDetailI>(this.urlApi + "/tasks", body, this.options);
+    }
+
+    /*Método que obtiene el detalle de una tarea, por el ID*/
+    getTaskDetailById(headers: Map<string, any>, idTask: number): Observable<ApiResponseGetTaskByIdI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.get<ApiResponseGetTaskByIdI>(this.urlApi + `/tasks/${idTask}`, this.options);
     }
 }
