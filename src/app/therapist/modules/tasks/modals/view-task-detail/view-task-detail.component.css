@@ -12,3 +12,7 @@
 fa-icon{
     color: #007BBD;
 }
+
+.iconsPublicPrivate>fa-icon{
+    color: #bebebe;
+  }

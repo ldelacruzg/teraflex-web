@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiResponseMyTasksI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
+import { ApiResponseGetTaskByIdI, ApiResponseMyTasksI, MyTasksI, TaskDetailByIdI } from 'src/app/therapist/interfaces/my-tasks.interface';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +37,7 @@ export class MyTasksComponent {
     private toastr: ToastrService,
     private sweetAlerts: SweetAlerts,
     private headers: DashboardComponent,
-    private modal: NgbModal
+    private modal: NgbModal,
   ) { }
 
   /*ngOnInit*/
@@ -178,7 +178,7 @@ export class MyTasksComponent {
     this.modal.open(viewTaskDetail, { size: 'lg', centered: true });
     ViewTaskDetailComponent.taskID = taskID;
   }
-
+  
   //Iconos a utilizar
   iconMyTasks = iconos.faFileLines;
   iconAdd = iconos.faPlusCircle

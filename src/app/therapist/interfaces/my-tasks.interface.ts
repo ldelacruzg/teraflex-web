@@ -47,3 +47,34 @@ export interface TaskDetailResponseApiI{
   id: number;
   createdAt: string;
 }
+
+/*Interfaz de respuesta de la API cuando se obtiene una tarea por el ID*/
+export interface ApiResponseGetTaskByIdI{
+  statusCode: number;
+  message: string;
+  data: TaskDetailByIdI;
+}
+
+/*Detalle de la tarea que viene dentro de la data al consumir servicio de task by ID*/
+export interface TaskDetailByIdI{
+    id: number,
+    title: string;
+    description: string;
+    estimatedTime: number,
+    isPublic: boolean,
+    createdAt: string;
+    updatedAt: string;
+    categories: [
+      {
+        id: number;
+        name: string;
+      }
+    ],
+    files: [
+      {
+        id: number;
+        url: string;
+        type: string;
+      }
+    ]
+}
