@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MatStepperIntl, MatStepperModule } from '@angular/material/stepper';
 import { ViewTaskDetailComponent } from './modals/view-task-detail/view-task-detail.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ViewTaskDetailComponent } from './modals/view-task-detail/view-task-det
     FormsModule,
     ReactiveFormsModule,
     MatStepperModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatInputModule,
+    MatAutocompleteModule
   ],
   exports: [
     MyTasksComponent,
