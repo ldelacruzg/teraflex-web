@@ -17,8 +17,9 @@
                                     <!--Apellidos (Buscar)-->
                                     <div class="col-12 col-md-12 mb-3">
                                         <label class="mb-1"><b>Nombres y Apellidos</b></label>
-                                        <input type="text" placeholder="Apellidos*" [matAutocomplete]="auto" class="form-control form-control-lg bg-light fs-6"
-                                            (focus)="onFocus()" (input)="onSearch($event)" formControlName="names"/>
+                                        <input type="text" placeholder="Apellidos*" [matAutocomplete]="auto"
+                                            class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
+                                            (input)="onSearch($event)" formControlName="names" />
                                         <mat-autocomplete #auto="matAutocomplete">
                                             <mat-option *ngFor="let patientName of filteredPatientsNames"
                                                 [value]="patientName.lastName + ' ' + patientName.firstName"
@@ -66,8 +67,8 @@
                                     <div class="col-12 mb-3">
                                         <label class="mb-1"><b>Descripción</b></label>
                                         <textarea class="form-control form-control-lg bg-light fs-6"
-                                            formControlName="description" placeholder="Descripción*"
-                                            rows="7" readonly></textarea>
+                                            formControlName="description" placeholder="Descripción*" rows="7"
+                                            readonly></textarea>
                                     </div>
                                 </div>
                                 <div class="action-buttons mb-3">
@@ -79,15 +80,60 @@
                         </mat-step>
                         <mat-step [stepControl]="assignTasksForm">
                             <ng-template matStepLabel>Asignar tareas</ng-template>
-                            Form para asignar las tareas
-                            <br />---
-                            <br />---
-                            <br />---
+                            <div class="row mb-3">
+                                <p>Seleccione uno (1) o más videos explicativos para su tarea...</p>
+                                <div class="col-12 col-md-4">
+                                    <input class="form-control me-1" type="text" placeholder="Buscar...">
+                                </div>
+                            </div>
+                            <div class="card" id="htmlTablePDF">
+                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
+                                    style="position: relative;">
+                                    <table class="table table-striped mb-0" id="htmlExcelTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">N°</th>
+                                                <th scope="col">Asignar</th>
+                                                <th scope="col">Título</th>
+                                                <th scope="col">Tiempo estimado</th>
+                                                <!--<th scope="col">Desripción</th>-->
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngIf="arrayTasks.length > 0; else noResults">
+                                                <tr
+                                                    *ngFor="let task of arrayTasks | slice:initialPage:finalPage; let i = index">
+                                                    <th scope="row">{{i+1}}</th>
+                                                    <td><input type="checkbox"
+                                                            [checked]="arrayTasksId.includes(task.id)"
+                                                            (change)="addOrRemoveVideoId(task.id)"></td>
+                                                    <td>{{task.title}}</td>
+                                                    <td>{{task.estimatedTime}}</td>
+                                                    <!-- <td>{{task.description}}</td> -->
+                                                    <td class="acciones">
+                                                        <fa-icon (click)="openModalEditTaskToAssign(editTaskToAssign, task.id)" data-bs-toggle="mensaje" title="Editar detalles"
+                                                            id="iconVerDetalles" [icon]="iconEdit"></fa-icon>
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                            <ng-template #noResults>
+                                                <tr>
+                                                    <td colspan="7" class="no-results">Sin resultados...</td>
+                                                </tr>
+                                            </ng-template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--Paginación-->
+                            <mat-paginator id="paginacion" [pageSizeOptions]="[5, 10, 25, 100]"
+                                [pageSize]="itemsForPage" [length]="arrayTasks.length"
+                                (page)="changePage($event)"></mat-paginator>
+                            <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3">
-                                <button mat-button matStepperPrevious type="button"
-                                    class="btn btn-secondary btn-md">Regresar</button>
-                                <button mat-button (click)="stepper.reset()" type="button"
-                                    class="btn btn-primary btn-md">Aceptar</button>
+                                <button mat-button matStepperPrevious type="button" class="btn btn-secondary btn-md">Regresar</button>
+                                <button mat-button (click)="asignarTareaFinal()" type="button" class="btn btn-primary btn-md">Aceptar</button>
                             </div>
                         </mat-step>
                     </mat-horizontal-stepper>
@@ -96,3 +142,7 @@
         </div>
     </div>
 </body>
+
+<ng-template #editTaskToAssign>
+    <app-edit-task-to-assign></app-edit-task-to-assign>
+  </ng-template>
