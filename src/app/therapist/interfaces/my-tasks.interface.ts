@@ -14,6 +14,7 @@ export interface MyTasksI {
   isPublic: boolean;
   createdAt: string;
   updatedAt: string;
+  disabled: boolean;
 }
 
 /*Interfaz para cuando se registra una tarea*/
