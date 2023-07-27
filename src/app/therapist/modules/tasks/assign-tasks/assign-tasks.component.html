@@ -80,12 +80,24 @@
                         </mat-step>
                         <mat-step [stepControl]="assignTasksForm">
                             <ng-template matStepLabel>Asignar tareas</ng-template>
-                            <div class="row mb-3">
-                                <p>Seleccione uno (1) o más videos explicativos para su tarea...</p>
-                                <div class="col-12 col-md-4">
-                                    <input class="form-control me-1" type="text" placeholder="Buscar...">
+                            <form [formGroup]="assignTasksForm">
+                                <div class="row mb-3">
+                                    <small><i>Seleccione una o más tareas para asignar a su paciente. Adicionalmente agregue una fecha de vencimiento en la que el usuario debe cumplir las tareas asignadas.</i></small>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <!--Fecha de vencimiento-->
+                                    <div class="col-12 col-md-4 mb-3">
+                                        <label class="mb-1"><b>Fecha de vencimiento</b></label>
+                                        <input type="date" placeholder="Fecha de vencimiento*"
+                                            class="form-control form-control-lg bg-light fs-6"
+                                            formControlName="dueDate" />
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <label class="mb-1"><b>Filtrar búsqueda</b></label>
+                                        <input class="form-control me-1" type="text" placeholder="Buscar...">
+                                    </div>
+                                </div>
+                            </form>
                             <div class="card" id="htmlTablePDF">
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
                                     style="position: relative;">
@@ -96,8 +108,7 @@
                                                 <th scope="col">Asignar</th>
                                                 <th scope="col">Título</th>
                                                 <th scope="col">Tiempo estimado</th>
-                                                <!--<th scope="col">Desripción</th>-->
-                                                <th scope="col">Acciones</th>
+                                                <th scope="col">Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -107,20 +118,19 @@
                                                     <th scope="row">{{i+1}}</th>
                                                     <td><input type="checkbox"
                                                             [checked]="arrayTasksId.includes(task.id)"
-                                                            (change)="addOrRemoveVideoId(task.id)"></td>
+                                                            (change)="addOrRemoveVideoId(task)"
+                                                            (click)="addArrayToSend(task)"></td>
                                                     <td>{{task.title}}</td>
-                                                    <td>{{task.estimatedTime}}</td>
-                                                    <!-- <td>{{task.description}}</td> -->
+                                                    <td>{{task.estimatedTime}} minutos</td>
                                                     <td class="acciones">
-                                                        <fa-icon (click)="openModalEditTaskToAssign(editTaskToAssign, task.id)" data-bs-toggle="mensaje" title="Editar detalles"
-                                                            id="iconVerDetalles" [icon]="iconEdit"></fa-icon>
+                                                        <button mat-button [disabled]="task.disabled"
+                                                            (click)="openModalEditTaskToAssign(editTaskToAssign, task.id)"
+                                                            type="button" class="btn btn-primary btn-sm">Editar</button>
                                                     </td>
                                                 </tr>
                                             </ng-container>
                                             <ng-template #noResults>
-                                                <tr>
-                                                    <td colspan="7" class="no-results">Sin resultados...</td>
-                                                </tr>
+                                                <tr> <td colspan="7" class="no-results">Sin resultados...</td></tr>
                                             </ng-template>
                                         </tbody>
                                     </table>
@@ -133,7 +143,7 @@
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3">
                                 <button mat-button matStepperPrevious type="button" class="btn btn-secondary btn-md">Regresar</button>
-                                <button mat-button (click)="asignarTareaFinal()" type="button" class="btn btn-primary btn-md">Aceptar</button>
+                                <button mat-button (click)="registerAssignTaskToUser()" type="button" class="btn btn-primary btn-md">Guardar</button>
                             </div>
                         </mat-step>
                     </mat-horizontal-stepper>
@@ -145,4 +155,4 @@
 
 <ng-template #editTaskToAssign>
     <app-edit-task-to-assign></app-edit-task-to-assign>
-  </ng-template>
+</ng-template>

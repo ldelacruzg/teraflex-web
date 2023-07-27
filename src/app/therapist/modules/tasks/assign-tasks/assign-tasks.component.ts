@@ -10,6 +10,10 @@ import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditTaskToAssignComponent } from '../modals/edit-task-to-assign/edit-task-to-assign.component';
+import { AssigmentsService } from 'src/app/therapist/services/assignments.service';
+import { ToastrService } from 'ngx-toastr';
+import { AssignTasksToPatientI, BodyTaskToAssignI } from 'src/app/therapist/interfaces/assigments.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assign-tasks',
@@ -37,7 +41,8 @@ export class AssignTasksComponent {
   arrayTasksId: number[] = []; /*Array que contiene los id de los videos*/
 
   //Donde se guardará la data a enviar finalmente en la asignación
-  static arrayTasksDetailToSend: any[] = [];
+  static arrayTasksDetailToSend: BodyTaskToAssignI[] = [];
+  idPatientToAssignTasks!: number;
 
   /*Constructor*/
   constructor(
@@ -45,7 +50,10 @@ export class AssignTasksComponent {
     private myPatientsService: PatientsService,
     private headers: DashboardComponent,
     private myTasksService: MyTasksService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private assigmentsService: AssigmentsService,
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   /*ngOnInit*/
@@ -59,27 +67,21 @@ export class AssignTasksComponent {
     this.getListMyTasks();
   }
 
-  asignarTareaFinal(){
-    console.log("DATA RECIBIDA CORRECTAMENTE")
-    console.log(AssignTasksComponent.arrayTasksDetailToSend);
-  }
-
-  
   /*Método que obtiene el listado de los pacientes*/
-  getMyPatients(){
+  getMyPatients() {
     this.myPatientsService.getMyPatients(this.headers.getHeaders())
-    .subscribe({
-      next: (data: ApiResponseGetMyPatientsI) => {
-        data.data.forEach(element => {
-          this.arrayPatients.push(element.patient);
-        })
-        console.log("Viendo data");
-        console.log(this.arrayPatients);
-      },
-      error: (error) => {
-       alert("No se pudieron obtener los pacientes")
-      }
-    })
+      .subscribe({
+        next: (data: ApiResponseGetMyPatientsI) => {
+          data.data.forEach(element => {
+            this.arrayPatients.push(element.patient);
+          })
+          console.log("Viendo data");
+          console.log(this.arrayPatients);
+        },
+        error: (error) => {
+          alert("No se pudieron obtener los pacientes")
+        }
+      })
   }
 
   /*Método para buscar el paciente, entre las opciones del select*/
@@ -87,30 +89,31 @@ export class AssignTasksComponent {
     const value = event.target.value;
     const searchTerm = value.trim().toLowerCase();
     this.filteredPatientsNames = this.arrayPatients.filter(
-      patientName => (patientName.lastName + ' '+ patientName.firstName).toLowerCase().includes(searchTerm)
+      patientName => (patientName.lastName + ' ' + patientName.firstName).toLowerCase().includes(searchTerm)
     );
   }
 
   /*Método para mostrar por defecto todos los pacientes y que no se muestre de primero el "Sin resultados..."*/
-  onFocus(){
+  onFocus() {
     this.filteredPatientsNames = this.arrayPatients;
   }
 
   /*Método que obtiene el detalle de los datos del paciente según el paciente seleccionado (ID)*/
-  getInfoDetailPatient(idPatient: number){
+  getInfoDetailPatient(idPatient: number) {
+    this.idPatientToAssignTasks = idPatient;
     this.myPatientsService.getMyPatientById(this.headers.getHeaders(), idPatient)
-    .subscribe({
-      next: (data: ApiResponseGetMyPatientByIdI) => {
-        this.infoPatientById = data.data;
-        this.patientForm.get('docNumber')?.setValue(this.infoPatientById.docNumber);
-        this.patientForm.get('phone')?.setValue(this.infoPatientById.phone);
-        this.patientForm.get('description')?.setValue(this.infoPatientById.description);
-        this.calculateAge(this.infoPatientById.birthDate);
-      },
-      error: (error) => {
-       alert("No se pudieron obtener los datos del paciente")
-      }
-    })
+      .subscribe({
+        next: (data: ApiResponseGetMyPatientByIdI) => {
+          this.infoPatientById = data.data;
+          this.patientForm.get('docNumber')?.setValue(this.infoPatientById.docNumber);
+          this.patientForm.get('phone')?.setValue(this.infoPatientById.phone);
+          this.patientForm.get('description')?.setValue(this.infoPatientById.description);
+          this.calculateAge(this.infoPatientById.birthDate);
+        },
+        error: (error) => {
+          alert("No se pudieron obtener los datos del paciente")
+        }
+      })
   }
 
   /*Método que calcula la edad del pacientes*/
@@ -138,16 +141,16 @@ export class AssignTasksComponent {
         [Validators.required],
       ],
       phone: ['',
-        [Validators.required],
+       /*  [Validators.required], */
       ],
       description: ['',],
     });
   }
 
-  /*Método que crea el formulario para asignar las tareas*/
+  /*Método que crea el formulario para asignar las tareas (Solo contiene el fecha de vencimiento)*/
   createFormAssignTasks() {
     this.assignTasksForm = this.formBuilder.group({
-      secondCtrl: ['',
+      dueDate: ['',
         Validators.required]
     });
   }
@@ -158,13 +161,17 @@ export class AssignTasksComponent {
   }
 
   /*Método que mantiene marcados los inputs check cuando cambio entre página*/
-  addOrRemoveVideoId(id: number) {
-    this.selectedCheckboxes[id] = !this.selectedCheckboxes[id];
-    const index = this.arrayTasksId.indexOf(id);
-    if (index === -1)
-      this.arrayTasksId.push(id);
-    else
-      this.arrayTasks.splice(index, 1);
+  addOrRemoveVideoId(task: any) {
+    task.iconEnabled = !task.iconEnabled;
+    this.selectedCheckboxes[task.id] = !this.selectedCheckboxes[task.id];
+    const index = this.arrayTasksId.indexOf(task.id);
+    if (index === -1) {
+      this.arrayTasksId.push(task.id);
+      task.disabled = false;
+    } else {
+      this.arrayTasksId.splice(index, 1);
+      task.disabled = true;
+    }
   }
 
   /*Método que cambias las páginas de la tabla*/
@@ -181,7 +188,19 @@ export class AssignTasksComponent {
   getListMyTasks() {
     this.spinnerStatus = false;
     this.myTasksService.getAllMyTasks(this.headers.getHeaders(), true).subscribe((data: ApiResponseMyTasksI) => {
-      this.arrayTasks = data.data;
+      data.data.forEach(element => {
+        let tempTask: MyTasksI = {
+          id: element.id,
+          title: element.title,
+          description: element.description,
+          estimatedTime: element.estimatedTime,
+          isPublic: element.isPublic,
+          createdAt: element.createdAt,
+          updatedAt: element.updatedAt,
+          disabled: true
+        }
+        this.arrayTasks.push(tempTask);
+      })
       this.spinnerStatus = true;
     }, (error) => {
       this.spinnerStatus = true;
@@ -189,11 +208,76 @@ export class AssignTasksComponent {
     });
   }
 
-  
+
   /*Método que muestra modal para editar la tarea que se va a asignar*/
   openModalEditTaskToAssign(viewTaskDetail: any, taskID: number) {
     this.modal.open(viewTaskDetail, { size: 'lg', centered: true });
     EditTaskToAssignComponent.taskID = taskID;
+  }
+
+  /*Método que agrega las tareas a un vector temporal para enviar a guardar*/
+  addArrayToSend(task: any) {
+    // Buscar el índice del elemento en el vector
+    const existingIndex = AssignTasksComponent.arrayTasksDetailToSend.findIndex((item) => item.id === task.id);
+    // Si el elemento existe en el vector, eliminarlo
+    if (existingIndex !== -1) {
+      AssignTasksComponent.arrayTasksDetailToSend.splice(existingIndex, 1);
+    } else {
+      // Si el elemento no existe, agregarlo al vector
+      let taskAdd: any = {
+        description: task.description,
+        estimatedTime: task.estimatedTime,
+        id: task.id,
+      };
+      AssignTasksComponent.arrayTasksDetailToSend.push(taskAdd);
+    }
+  }
+
+  /*Método que consume el servicio que finalmente asigna las tareas seleccionadas, al usuario*/
+  registerAssignTaskToUser() {
+    const body: AssignTasksToPatientI = {
+      tasks: AssignTasksComponent.arrayTasksDetailToSend,
+      dueDate: this.assignTasksForm.get('dueDate')?.value
+    }
+    if(this.assignTasksForm.get('dueDate')?.value.length > 0) {
+      if (AssignTasksComponent.arrayTasksDetailToSend.length > 0) {
+        this.assigmentsService.registerTasksAssignToPatient(this.headers.getHeaders(), this.idPatientToAssignTasks, body)
+        .subscribe({
+          next: (data: any) => {
+              this.spinnerStatus = false;
+              this.showToastSuccess(data.message, "Éxito");
+              this.spinnerStatus = true;
+              this.router.navigateByUrl('/therapist/home/dashboard/tasks/assign-tasks');
+            },
+            error: (error: any) => {
+              this.spinnerStatus = true;
+              this.showToastError("Error", "No se pudieron asignar las tareas");
+            },
+          })
+      }
+      else {
+        this.showToastError("Error", "Debe seleccionar al menos una tarea");
+      }
+    }
+    else{
+      this.showToastError("Error", "Debe ingresar una fecha de vencimiento");
+    }    
+  }
+
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
+    this.toastr.success(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  /*Método que muestra un toast con mensaje de ERROR*/
+  showToastError(title: string, message: string) {
+    this.toastr.error(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
   }
 
   /*Icons to use*/
