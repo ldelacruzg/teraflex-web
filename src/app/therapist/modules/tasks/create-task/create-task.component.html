@@ -94,7 +94,7 @@
                                         formControlName="description" placeholder="Descripción*" rows="7" [ngClass]="{
                                     'is-invalid': uploadTaskForm.get('description')?.hasError('required') && uploadTaskForm.get('description')?.touched,
                                     'is-valid': uploadTaskForm.get('description')?.value?.length >= 10
-                                  }" [maxlength]="250"></textarea>
+                                  }" [maxlength]="600"></textarea>
                                     <div class="validators"
                                         *ngIf="uploadTaskForm.get('description')?.hasError('required') && uploadTaskForm.get('description')?.touched">
                                         <small>¡Este campo es requerido!</small>
