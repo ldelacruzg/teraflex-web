@@ -102,13 +102,13 @@ body {
     border-radius: 50px;
     background-color: #FC3B56 !important;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 /*Botón aceptar (Guardar)*/
 .btn-primary {
     border-radius: 50px;
     background-color: #007BBD !important;
-    margin-left: 10px;
     cursor: pointer;
 }
 
