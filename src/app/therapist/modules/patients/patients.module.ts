@@ -6,6 +6,7 @@ import { ListMyPatientsComponent } from './list-my-patients/list-my-patients.com
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     PatientsRoutingModule,
     SharedComponentsModule,
     FontAwesomeModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[
     RegisterPatientComponent
