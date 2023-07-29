@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ApiResponseRegisterPatientI, RegisterPatientI } from 'src/app/therapist/interfaces/patients.interface';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register-my-patients',

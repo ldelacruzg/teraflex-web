@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseGetMyPatientsI, ApiResponseRegisterPatientI } from '../interfaces/patients.interface';
+import { ApiResponseEditPatientI, ApiResponseGetMyPatientsI, ApiResponseRegisterPatientI, EditMyPatientBodyI, RegisterPatientI } from '../interfaces/patients.interface';
 import { ApiResponseGetMyPatientByIdI } from '../interfaces/patients.interface';
 
 @Injectable({
@@ -34,8 +34,20 @@ export class PatientsService {
 
     
     /*Método que consume el servicio para registrar un paciente*/
-    registerMyPatient(headers: Map<string, any>, body: any): Observable<ApiResponseRegisterPatientI> {
+    registerMyPatient(headers: Map<string, any>, body: RegisterPatientI): Observable<ApiResponseRegisterPatientI> {
         this.options = this.authService.getHeaders(headers);
         return this.http.post<ApiResponseRegisterPatientI>(this.urlApi + "/user/patient", body, this.options);
+    }
+
+    /*Método que consume el servicio para editar los datos de un paciente*/
+    editMyPatient(headers: Map<string, any>, body: EditMyPatientBodyI, idPatient: number): Observable<ApiResponseEditPatientI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.patch<ApiResponseEditPatientI>(this.urlApi + `/user/update/${idPatient}`, body, this.options);
+    }
+
+    /*Método que consume el servicio que manda a eliminar un paciente*/
+    deletePatient(headers: Map<string, any>, idPatient: number): Observable<string> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.patch<string>(this.urlApi + `/user/status/${idPatient}`, this.options);
     }
 }

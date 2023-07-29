@@ -62,11 +62,11 @@
                                     <td>{{patient.phone}}</td>
                                     <td>{{patient.birthDate}}</td>
                                     <td class="acciones">
-                                        <fa-icon data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                                        <fa-icon (click)="openModalViewPatientDetail(viewPatientDetail, patient.id)" data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconViewDetail"></fa-icon>
-                                        <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar"
+                                        <fa-icon (click)="goToEditPatient(patient)" data-bs-toggle="mensaje" title="Editar" id="iconEditar"
                                             [icon]="iconEdit"></fa-icon>
-                                        <fa-icon data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
+                                        <fa-icon (click)="deletePatient(patient.id, patient.firstName + ' ' + patient.lastName)" data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
                                             [icon]="iconDelete"></fa-icon>
                                     </td>
                                 </tr>
@@ -86,3 +86,7 @@
         </div>
     </div>
 </body>
+
+<ng-template #viewPatientDetail>
+    <app-view-my-patients></app-view-my-patients>
+  </ng-template>

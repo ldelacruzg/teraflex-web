@@ -8,11 +8,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterMyPatientsComponent } from './register-my-patients/register-my-patients.component';
+import { EditMyPatientsComponent } from './edit-my-patients/edit-my-patients.component';
+import { SweetAlerts } from '../../alerts/alerts.component';
+import { ViewMyPatientsComponent } from './modals/view-my-patients/view-my-patients.component';
 
 @NgModule({
   declarations: [
     RegisterMyPatientsComponent,
-    ListMyPatientsComponent
+    ListMyPatientsComponent,
+    EditMyPatientsComponent,
+    ViewMyPatientsComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +30,9 @@ import { RegisterMyPatientsComponent } from './register-my-patients/register-my-
   ],
   exports:[
     RegisterMyPatientsComponent
+  ],
+  providers:[
+    SweetAlerts
   ]
 })
 export class PatientsModule { }
