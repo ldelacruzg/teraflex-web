@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseGetMyPatientsI } from '../interfaces/patients.interface';
+import { ApiResponseGetMyPatientsI, ApiResponseRegisterPatientI } from '../interfaces/patients.interface';
 import { ApiResponseGetMyPatientByIdI } from '../interfaces/patients.interface';
 
 @Injectable({
@@ -30,5 +30,12 @@ export class PatientsService {
     getMyPatientById(headers: Map<string, any>, patientId: number): Observable<ApiResponseGetMyPatientByIdI> {
         this.options = this.authService.getHeaders(headers);
         return this.http.get<ApiResponseGetMyPatientByIdI>(this.urlApi + `/user/by-id/${patientId}`, this.options);
+    }
+
+    
+    /*Método que consume el servicio para registrar un paciente*/
+    registerMyPatient(headers: Map<string, any>, body: any): Observable<ApiResponseRegisterPatientI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.post<ApiResponseRegisterPatientI>(this.urlApi + "/user/patient", body, this.options);
     }
 }

@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterPatientComponent } from './register-patient/register-patient.component';
+
 import { PatientsRoutingModule } from './patients-routing.module';
 import { ListMyPatientsComponent } from './list-my-patients/list-my-patients.component';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterMyPatientsComponent } from './register-my-patients/register-my-patients.component';
 
 @NgModule({
   declarations: [
-    RegisterPatientComponent,
+    RegisterMyPatientsComponent,
     ListMyPatientsComponent
   ],
   imports: [
@@ -23,7 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   exports:[
-    RegisterPatientComponent
+    RegisterMyPatientsComponent
   ]
 })
 export class PatientsModule { }

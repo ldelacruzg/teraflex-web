@@ -51,3 +51,19 @@ export interface MyPatientDetailByIdI {
     categoryName: string;
     status: boolean;
 }
+
+/*Interfaz de respuesta para cuando se crea un paciente*/
+export interface ApiResponseRegisterPatientI{
+    data: string;
+    message: string;
+}
+
+/*Interfaz requerida (body) para cuando se va a registrar un paciente*/
+export interface RegisterPatientI{
+    docNumber: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  description: string;
+  birthDate: string;
+}
