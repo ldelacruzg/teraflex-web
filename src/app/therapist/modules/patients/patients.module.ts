@@ -1,26 +1,38 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterPatientComponent } from './register-patient/register-patient.component';
+
 import { PatientsRoutingModule } from './patients-routing.module';
 import { ListMyPatientsComponent } from './list-my-patients/list-my-patients.component';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterMyPatientsComponent } from './register-my-patients/register-my-patients.component';
+import { EditMyPatientsComponent } from './edit-my-patients/edit-my-patients.component';
+import { SweetAlerts } from '../../alerts/alerts.component';
+import { ViewMyPatientsComponent } from './modals/view-my-patients/view-my-patients.component';
 
 @NgModule({
   declarations: [
-    RegisterPatientComponent,
-    ListMyPatientsComponent
+    RegisterMyPatientsComponent,
+    ListMyPatientsComponent,
+    EditMyPatientsComponent,
+    ViewMyPatientsComponent,
   ],
   imports: [
     CommonModule,
     PatientsRoutingModule,
     SharedComponentsModule,
     FontAwesomeModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[
-    RegisterPatientComponent
+    RegisterMyPatientsComponent
+  ],
+  providers:[
+    SweetAlerts
   ]
 })
 export class PatientsModule { }

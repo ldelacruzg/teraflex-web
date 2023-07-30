@@ -150,7 +150,7 @@ export class DashboardComponent {
   iconInformation = iconos.faInfoCircle;
   iconPatients = iconos.faUsers;
   iconMyPatients = iconos.faPeopleRoof;
-  iconRegisterPatient = iconos.faUserPlus;
+  iconViewProgress = iconos.faChartSimple;
   iconHelp = iconos.faQuestionCircle;
   iconArrowDown = iconos.faChevronDown;
 

@@ -108,7 +108,7 @@ export class AssignTasksComponent {
           this.patientForm.get('docNumber')?.setValue(this.infoPatientById.docNumber);
           this.patientForm.get('phone')?.setValue(this.infoPatientById.phone);
           this.patientForm.get('description')?.setValue(this.infoPatientById.description);
-          this.calculateAge(this.infoPatientById.birthDate);
+          this.patientForm.get('age')?.setValue(this.calculateAge(this.infoPatientById.birthDate) + " años");
         },
         error: (error) => {
           alert("No se pudieron obtener los datos del paciente")
@@ -123,7 +123,7 @@ export class AssignTasksComponent {
     const ageTime = today.getTime() - birthDateObj.getTime();
     const ageDate = new Date(ageTime); // Epoch
     const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-    this.patientForm.get('age')?.setValue(age + " años");
+    return age;
   }
 
   /*Método que crea el formulario para buscar y cargar los datos del usuario*/
