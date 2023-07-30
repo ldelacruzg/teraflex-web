@@ -12,13 +12,15 @@ import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { ViewTaskDetailComponent } from '../modals/view-task-detail/view-task-detail.component';
+import { Router } from '@angular/router';
+import { EditMyTasksComponent } from '../edit-my-tasks/edit-my-tasks.component';
 
 @Component({
-  selector: 'app-my-tasks',
-  templateUrl: './my-tasks.component.html',
-  styleUrls: ['./my-tasks.component.css'],
+  selector: 'app-list-my-tasks',
+  templateUrl: './list-my-tasks.component.html',
+  styleUrls: ['./list-my-tasks.component.css'],
 })
-export class MyTasksComponent {
+export class ListMyTasksComponent {
 
   /*Variables*/
   arrayTasks: MyTasksI[] = [];
@@ -38,12 +40,19 @@ export class MyTasksComponent {
     private sweetAlerts: SweetAlerts,
     private headers: DashboardComponent,
     private modal: NgbModal,
+    private router: Router
   ) { }
 
   /*ngOnInit*/
   ngOnInit(): void {
     //this.spinnerStatus=true;
     this.getListMyTasks()
+  }
+
+  /*Método que redirige al componente de editar con la data cargada*/
+  goToEditMyTask(taskDetail: MyTasksI) {
+    EditMyTasksComponent.taskDetail = taskDetail;
+    this.router.navigateByUrl("/therapist/home/dashboard/tasks/edit-task")
   }
 
   /*Método que obtiene los headers*/

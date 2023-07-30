@@ -32,6 +32,7 @@ export class ViewTaskDetailComponent {
       {
         id: 0,
         url: "--",
+        title: "--",
         type: "--"
       }
     ]

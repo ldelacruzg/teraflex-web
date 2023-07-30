@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { ListMyTasksComponent } from './list-my-tasks/list-my-tasks.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
+import { EditMyTasksComponent } from './edit-my-tasks/edit-my-tasks.component';
 
 //Rutas hijas
 const routes: Routes = [
   {
-    path: 'my-tasks', component: MyTasksComponent
+    path: 'my-tasks', component: ListMyTasksComponent
   },
   {
     path: 'create-task', component: CreateTaskComponent
+  },
+  {
+    path: 'edit-task', component: EditMyTasksComponent
   },
   {
     path: 'assign-tasks', component: AssignTasksComponent

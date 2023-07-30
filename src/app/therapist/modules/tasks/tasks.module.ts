@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -15,14 +14,17 @@ import { ViewTaskDetailComponent } from './modals/view-task-detail/view-task-det
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-task-to-assign.component';
+import { EditMyTasksComponent } from './edit-my-tasks/edit-my-tasks.component';
+import { ListMyTasksComponent } from './list-my-tasks/list-my-tasks.component';
 
 @NgModule({
   declarations: [
-    MyTasksComponent,
+    ListMyTasksComponent,
     AssignTasksComponent,
     CreateTaskComponent,
     ViewTaskDetailComponent,
-    EditTaskToAssignComponent
+    EditTaskToAssignComponent,
+    EditMyTasksComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,7 @@ import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-tas
     MatAutocompleteModule
   ],
   exports: [
-    MyTasksComponent,
+    ListMyTasksComponent,
     AssignTasksComponent
   ],
   providers:[

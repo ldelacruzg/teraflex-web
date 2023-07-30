@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { ApiResponseGetTaskByIdI, ApiResponseMyTasksI, ApiResponseRegisterTaskDetailI, RegisterTaskDetailI } from '../interfaces/my-tasks.interface';
+import { ApiResponseEditTaskDetailI, ApiResponseGetTaskByIdI, ApiResponseMyTasksI, ApiResponseRegisterTaskDetailI, RegisterTaskDetailI } from '../interfaces/my-tasks.interface';
 import { environment } from '../../../environments/environment'
 
 @Injectable({
@@ -43,5 +43,11 @@ export class MyTasksService {
     getTaskDetailById(headers: Map<string, any>, idTask: number): Observable<ApiResponseGetTaskByIdI> {
         this.options = this.authService.getHeaders(headers);
         return this.http.get<ApiResponseGetTaskByIdI>(this.urlApi + `/tasks/${idTask}`, this.options);
+    }
+
+    /*Método que edita el detalle de una tarea, por su ID*/
+    editTaskDetail(headers: Map<string, any>, idTask: number): Observable<ApiResponseEditTaskDetailI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.put<ApiResponseEditTaskDetailI>(this.urlApi + `/tasks/${idTask}`, this.options);
     }
 }

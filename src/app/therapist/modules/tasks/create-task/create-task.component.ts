@@ -16,7 +16,7 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
-  styleUrls: ['./create-task.component.css', './../my-tasks/my-tasks.component.css'],
+  styleUrls: ['./create-task.component.css', './../list-my-tasks/list-my-tasks.component.css'],
 })
 export class CreateTaskComponent {
 
