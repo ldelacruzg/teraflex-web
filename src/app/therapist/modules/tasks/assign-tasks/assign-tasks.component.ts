@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-assign-tasks',
   templateUrl: './assign-tasks.component.html',
-  styleUrls: ['./assign-tasks.component.css', './../create-task/create-task.component.css', './../my-tasks/my-tasks.component.css']
+  styleUrls: ['./assign-tasks.component.css', './../create-task/create-task.component.css', './../list-my-tasks/list-my-tasks.component.css']
 })
 export class AssignTasksComponent {
 
@@ -197,7 +197,8 @@ export class AssignTasksComponent {
           isPublic: element.isPublic,
           createdAt: element.createdAt,
           updatedAt: element.updatedAt,
-          disabled: true
+          disabled: true,
+          categoryIds: element.categoryIds
         }
         this.arrayTasks.push(tempTask);
       })

@@ -15,6 +15,7 @@ export interface MyTasksI {
   createdAt: string;
   updatedAt: string;
   disabled: boolean;
+  categoryIds: number[];
 }
 
 /*Interfaz para cuando se registra una tarea*/

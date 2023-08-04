@@ -50,7 +50,7 @@ export class EditTaskToAssignComponent {
   createFormTaskDetail() {
     this.taskDetailForm = this.formBuilder.group({
       title: [''],
-      estimatedTime: [''],
+      estimatedTime: [0],
       description: ['',],
     });
   }
@@ -59,7 +59,7 @@ export class EditTaskToAssignComponent {
   addTaskEdited() {
     let taskDetailTemp: BodyTaskToAssignI = {
       description: this.taskDetailForm.get('description')?.value,
-      estimatedTime: this.taskDetailForm.get('estimatedTime')?.value,
+      estimatedTime: Number(this.taskDetailForm.get('estimatedTime')?.value),
       id: this.taskDetail.id,
     }
     // Buscar el índice del elemento en el vector

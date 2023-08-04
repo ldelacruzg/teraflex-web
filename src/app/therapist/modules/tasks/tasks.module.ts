@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-task-to-assign.component';
 import { EditMyTasksComponent } from './edit-my-tasks/edit-my-tasks.component';
 import { ListMyTasksComponent } from './list-my-tasks/list-my-tasks.component';
+import { SearchRegistersPipe } from 'src/app/pipes/search-registers.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ListMyTasksComponent } from './list-my-tasks/list-my-tasks.component';
     CreateTaskComponent,
     ViewTaskDetailComponent,
     EditTaskToAssignComponent,
-    EditMyTasksComponent
+    EditMyTasksComponent,
+    SearchRegistersPipe
   ],
   imports: [
     CommonModule,

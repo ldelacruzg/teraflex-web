@@ -14,6 +14,7 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { ViewTaskDetailComponent } from '../modals/view-task-detail/view-task-detail.component';
 import { Router } from '@angular/router';
 import { EditMyTasksComponent } from '../edit-my-tasks/edit-my-tasks.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-my-tasks',
@@ -24,6 +25,8 @@ export class ListMyTasksComponent {
 
   /*Variables*/
   arrayTasks: MyTasksI[] = [];
+  tasksToSearch: MyTasksI[] = [];
+  optionFilter: string = environment.TITLE;
   optionsPage: any;
   itemsForPage = 5;
   initialPage = 0;
@@ -181,13 +184,13 @@ export class ListMyTasksComponent {
     });
   }
 
-  
+
   /*Método que muestra modal para los usuarios que no tienen una cuenta*/
   openModalViewTaskDetail(viewTaskDetail: any, taskID: number) {
     this.modal.open(viewTaskDetail, { size: 'lg', centered: true });
     ViewTaskDetailComponent.taskID = taskID;
   }
-  
+
   //Iconos a utilizar
   iconMyTasks = iconos.faFileLines;
   iconAdd = iconos.faPlusCircle
