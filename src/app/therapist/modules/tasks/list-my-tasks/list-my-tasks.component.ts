@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiResponseGetTaskByIdI, ApiResponseMyTasksI, MyTasksI, TaskDetailByIdI } from 'src/app/therapist/interfaces/my-tasks.interface';
-import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
+import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
-import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { EditMyTasksComponent } from '../edit-my-tasks/edit-my-tasks.component';
+import { ViewTaskDetailComponent } from '../modals/view-task-detail/view-task-detail.component';
+import { ApiResponseMyTasksI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
+import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
+import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ViewTaskDetailComponent } from '../modals/view-task-detail/view-task-detail.component';
-import { Router } from '@angular/router';
-import { EditMyTasksComponent } from '../edit-my-tasks/edit-my-tasks.component';
-import { environment } from 'src/environments/environment';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-list-my-tasks',
@@ -22,33 +22,31 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./list-my-tasks.component.css'],
 })
 export class ListMyTasksComponent {
-
   /*Variables*/
-  arrayTasks: MyTasksI[] = [];
-  tasksToSearch: MyTasksI[] = [];
   optionFilter: string = environment.TITLE;
-  optionsPage: any;
-  itemsForPage = 5;
-  initialPage = 0;
-  finalPage = 5;
-  spinnerStatus = false;
   formSelect = new FormGroup({
     filtro: new FormControl('ci', Validators.required),
   })
+  spinnerStatus: boolean = false;
+  itemsForPage: number = 5;
+  initialPage: number = 0;
+  finalPage: number = 5;
+  arrayTasks: MyTasksI[] = [];
+  tasksToSearch: MyTasksI[] = [];
+  optionsPage: any;
 
   /*Constructor*/
   constructor(
-    private myTasksService: MyTasksService,
-    private toastr: ToastrService,
-    private sweetAlerts: SweetAlerts,
     private headers: DashboardComponent,
+    private myTasksService: MyTasksService,
+    private sweetAlerts: SweetAlerts,
+    private toastr: ToastrService,
     private modal: NgbModal,
     private router: Router
   ) { }
 
   /*ngOnInit*/
   ngOnInit(): void {
-    //this.spinnerStatus=true;
     this.getListMyTasks()
   }
 
@@ -70,15 +68,19 @@ export class ListMyTasksComponent {
   deleteTask(idTask: number, nameTask: string) {
     this.sweetAlerts.alertConfirmCancel("Eliminar tarea", "¿Está seguro de eliminar la tarea " + nameTask + "?").then(respuesta => {
       if (respuesta.value == true) {
-        this.myTasksService.deleteTask(idTask, this.getHeaders()).subscribe(data => {
-          this.spinnerStatus = false;
-          this.getListMyTasks();
-          this.showToastSuccess("Tarea eliminada con éxito", "Tarea eliminada");
-          this.spinnerStatus = true;
-        }, error => {
-          this.spinnerStatus = true;
-          this.showToastError("Error", "No se pudo eliminar la tarea");
-        });
+        this.myTasksService.deleteTask(idTask, this.getHeaders())
+          .subscribe({
+            next: (data: string) => {
+              this.spinnerStatus = false;
+              this.getListMyTasks();
+              this.showToastSuccess("Tarea eliminada con éxito", "Tarea eliminada");
+              this.spinnerStatus = true;
+            },
+            error: (error) => {
+              this.spinnerStatus = true;
+              this.showToastError("Error", "No se pudo eliminar la tarea");
+            }
+          })
       }
     });
   }
@@ -86,16 +88,20 @@ export class ListMyTasksComponent {
   /*Método que obtiene el listado de las tareas que ha creado un terapeuta*/
   getListMyTasks() {
     this.spinnerStatus = false;
-    this.myTasksService.getAllMyTasks(this.headers.getHeaders(), true).subscribe((data: ApiResponseMyTasksI) => {
-      this.arrayTasks = data.data;
-      this.spinnerStatus = true;
-    }, (error) => {
-      this.spinnerStatus = true;
-      this.showToastError("Error", "Error al obtener el listado de tareas");
-    });
+    this.myTasksService.getAllMyTasks(this.headers.getHeaders(), true)
+      .subscribe({
+        next: (data: ApiResponseMyTasksI) => {
+          this.arrayTasks = data.data;
+          this.spinnerStatus = true;
+        },
+        error: (error) => {
+          this.spinnerStatus = true;
+          this.showToastError("Error", "No se pudo obtener el listado de tareas");
+        }
+      })
   }
 
-  /*Método que cambias las páginas de la tabla*/
+  /*Método que cambia las páginas de la tabla*/
   changePage(e: PageEvent) {
     this.itemsForPage = e.pageSize;
     this.initialPage = e.pageIndex * this.itemsForPage;
@@ -106,7 +112,7 @@ export class ListMyTasksComponent {
   }
 
   /*Método que obtiene la fecha actual para mostrarla en el archivo PDF*/
-  obtenerFechaActual(): string {
+  getCurrentDate(): string {
     const fechaActual = new Date();
     const dia = fechaActual.getDate();
     const mes = fechaActual.getMonth() + 1;
@@ -125,7 +131,7 @@ export class ListMyTasksComponent {
     const options = { background: 'white', scale: 3 };
     //Datos para el encabezado
     const company = '          TeraFlex\nListado de Mis Tareas';
-    const dateEmision = 'Fecha de emisión: ' + this.obtenerFechaActual();
+    const dateEmision = 'Fecha de emisión: ' + this.getCurrentDate();
     html2canvas(DATA, options).then((canvas) => {
       const img = canvas.toDataURL('image/PNG');
       //Agregar image Canvas al PDF
@@ -143,7 +149,7 @@ export class ListMyTasksComponent {
       doc.text(dateEmision, 15, 140);
       return doc;
     }).then((docResult) => {
-      docResult.save(`${this.obtenerFechaActual()}_mis_tareas.pdf`);
+      docResult.save(`${this.getCurrentDate()}_mis_tareas.pdf`);
       //this.estadoSpinner = true;
     });
   }
@@ -165,7 +171,7 @@ export class ListMyTasksComponent {
     const worksheet = XLSX.utils.aoa_to_sheet(rows);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Mis-Tareas');
-    XLSX.writeFile(workbook, `${this.obtenerFechaActual()}_mis_tareas.xlsx`);
+    XLSX.writeFile(workbook, `${this.getCurrentDate()}_mis_tareas.xlsx`);
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/
@@ -184,8 +190,7 @@ export class ListMyTasksComponent {
     });
   }
 
-
-  /*Método que muestra modal para los usuarios que no tienen una cuenta*/
+  /*Método que muestra modal para ver el detalle de una tarea*/
   openModalViewTaskDetail(viewTaskDetail: any, taskID: number) {
     this.modal.open(viewTaskDetail, { size: 'lg', centered: true });
     ViewTaskDetailComponent.taskID = taskID;

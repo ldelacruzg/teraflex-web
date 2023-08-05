@@ -1,16 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { MatStepper } from '@angular/material/stepper';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ApiResponseCategoriesI, GetCategoryI } from 'src/app/therapist/interfaces/categories.interface';
 import { ApiResponseEditTaskDetailI, EditTaskDetailI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
 import { GetAllMyVideosI } from 'src/app/therapist/interfaces/videos.interface';
 import { CategoriesService } from 'src/app/therapist/services/categories.service';
-import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ToastrService } from 'ngx-toastr';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
-import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-my-tasks',
@@ -21,30 +21,30 @@ export class EditMyTasksComponent {
   /*Variables*/
   @ViewChild('stepper') stepper!: MatStepper;
   static taskDetail: MyTasksI;
-  spinnerStatus: boolean = false;
-  optionVisibilitySelected: string = "";
-  optionCategorySelected: number = 0;
   editTaskForm!: FormGroup;
-  arrayVideosInfo: GetAllMyVideosI[] = [];
+  spinnerStatus: boolean = false;
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
-  selectedCheckboxes: { [key: number]: boolean } = {}; /*Array que contiene temporalmente el valor de los checks*/
-  arrayVideosId: number[] = []; /*Array que contiene los id de los videos*/
+  optionCategorySelected: number = 0;
+  optionVisibilitySelected: string = "";
+  arrayVideosInfo: GetAllMyVideosI[] = [];
   arrayCategories: GetCategoryI[] = [];
+  arrayVideosId: number[] = []; /*Array que contiene los id de los videos*/
+  selectedCheckboxes: { [key: number]: boolean } = {}; /*Array que contiene temporalmente el valor de los checks*/
 
-  /*constructor*/
+  /*Constructor*/
   constructor(
     private formBuilder: FormBuilder,
-    private categoriesService: CategoriesService,
     private headers: DashboardComponent,
-    private toastr: ToastrService,
+    private categoriesService: CategoriesService,
     private myTasksService: MyTasksService,
+    private toastr: ToastrService,
     private router: Router
-  ){}
+  ) { }
 
   /*ngOnInit*/
-  ngOnInit(){
+  ngOnInit() {
     this.spinnerStatus = true;
     this.createEditTaskForm();
     this.getAllCategories();
@@ -52,11 +52,10 @@ export class EditMyTasksComponent {
   }
 
   /*Método que obtiene la data de una tarea según el ID y la precarga en los inputs del formulario*/
-  getTaskDetail(){
+  getTaskDetail() {
     this.editTaskForm.get('title')?.setValue(EditMyTasksComponent.taskDetail.title);
     this.optionVisibilitySelected = EditMyTasksComponent.taskDetail.isPublic ? 'public' : 'private';
     this.optionCategorySelected = EditMyTasksComponent.taskDetail.categoryIds[0];
-    console.log(this.optionCategorySelected)
     this.editTaskForm.get('category')?.setValue(EditMyTasksComponent.taskDetail.categoryIds[0]);
     this.editTaskForm.get('timeEstimated')?.setValue(EditMyTasksComponent.taskDetail.estimatedTime);
     this.editTaskForm.get('description')?.setValue(EditMyTasksComponent.taskDetail.description);
@@ -71,13 +70,13 @@ export class EditMyTasksComponent {
           this.arrayCategories.sort((a, b) => a.name.localeCompare(b.name));
         },
         error: (error) => {
-          this.showToastError("Error", "No se pudo cargar la lista de categorías");
+          this.showToastError("Error", "No se pudo cargar el listado de categorías");
         }
       });
   }
 
-   /*Método que muestra un toast con mensaje de ÉXITO*/
-   showToastSuccess(message: string, title: string){
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
     this.toastr.success(message, title, {
       progressBar: true,
       timeOut: 3000,
@@ -114,7 +113,7 @@ export class EditMyTasksComponent {
         ],
       ],
       description: ['',
-        [ Validators.required ],
+        [Validators.required],
       ],
     });
   }
@@ -125,7 +124,7 @@ export class EditMyTasksComponent {
   }
 
   /*Método que obtiene el body para editar*/
-  getBodyToEditTask(){
+  getBodyToEditTask() {
     let body: EditTaskDetailI = {
       title: this.editTaskForm.get('title')?.value,
       description: this.editTaskForm.get('description')?.value,
@@ -134,13 +133,11 @@ export class EditMyTasksComponent {
       isPublic: this.optionVisibilitySelected == 'public' ? true : false,
       categories: [Number(this.editTaskForm.get('category')?.value)],
     }
-    console.log("BODY")
-    console.log(body);
     return body;
   }
 
   /*Método que consume el servicio que manda a editar una tarea*/
-  editTaskDetail(){
+  editTaskDetail() {
     this.spinnerStatus = false;
     this.myTasksService.editTaskDetail(this.headers.getHeaders(), EditMyTasksComponent.taskDetail.id, this.getBodyToEditTask())
       .subscribe({
@@ -156,7 +153,7 @@ export class EditMyTasksComponent {
       });
   }
 
-  /*Método que cambias las páginas de la tabla*/
+  /*Método que cambia las páginas de la tabla*/
   changePage(e: PageEvent) {
     this.itemsForPage = e.pageSize;
     this.initialPage = e.pageIndex * this.itemsForPage;
@@ -175,7 +172,6 @@ export class EditMyTasksComponent {
     else
       this.arrayVideosId.splice(index, 1);
   }
-
 
   /*Icons to use*/
   iconCreateTask = iconos.faFile;

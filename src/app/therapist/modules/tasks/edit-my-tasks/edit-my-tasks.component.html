@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="col-12 container-info">
             <div class="div col-12 mt-3 mx-1">
-                <h4 id="titulo"><fa-icon [icon]="iconCreateTask" class="icon-title"></fa-icon> Editar tarea</h4>
+                <h4 id="title"><fa-icon [icon]="iconCreateTask" class="icon-title"></fa-icon> Editar tarea</h4>
             </div>
             <!--Stepper-->
             <div class="row mt-4">
@@ -14,7 +14,8 @@
                             <label class="mb-1"><b>Título</b></label>
                             <input type="text" class="form-control form-control-lg bg-light fs-6"
                                 formControlName="title" placeholder="Título*" [ngClass]="{
-                        'is-invalid': editTaskForm.get('title')?.hasError('required') && editTaskForm.get('title')?.touched || editTaskForm.get('title')?.hasError('pattern')}" [maxlength]="100">
+                                'is-invalid': editTaskForm.get('title')?.hasError('required') && editTaskForm.get('title')?.touched || editTaskForm.get('title')?.hasError('pattern')
+                            }" [maxlength]="100">
                             <div class="validators"
                                 *ngIf="editTaskForm.get('title')?.hasError('required') && editTaskForm.get('title')?.touched">
                                 <small>¡Este campo es requerido!</small>
@@ -32,7 +33,7 @@
                             <select class="form-select form-select-md" aria-label=".form-select-lg example"
                                 [(ngModel)]="optionVisibilitySelected" formControlName="visibility"
                                 [ngClass]="{
-                            'is-invalid': editTaskForm.get('visibility')?.hasError('required') && editTaskForm.get('visibility')?.touched}">
+                                'is-invalid': editTaskForm.get('visibility')?.hasError('required') && editTaskForm.get('visibility')?.touched}">
                                 <option value="" selected>Seleccione una opción</option>
                                 <option value="public">Pública</option>
                                 <option value="private">Privada</option>
@@ -47,7 +48,7 @@
                             <label class="mb-1"><b>Categoría</b></label>
                             <select class="form-select form-select-md" aria-label=".form-select-lg example"
                                 [(ngModel)]="optionCategorySelected" formControlName="category" [ngClass]="{
-                            'is-invalid': editTaskForm.get('category')?.hasError('required') && editTaskForm.get('category')?.touched}">
+                                'is-invalid': editTaskForm.get('category')?.hasError('required') && editTaskForm.get('category')?.touched}">
                                 <option value="" selected>Seleccione una opción</option>
                                 <option *ngFor="let category of arrayCategories" [value]="category.id">{{category.name}}</option>
                             </select>
@@ -61,7 +62,8 @@
                             <label class="mb-1"><b>Tiempo estimado (Minutos)</b></label>
                             <input type="text" class="form-control form-control-lg bg-light fs-6"
                                 formControlName="timeEstimated" placeholder="Tiempo estimado*" [ngClass]="{
-                        'is-invalid': editTaskForm.get('timeEstimated')?.hasError('required') && editTaskForm.get('timeEstimated')?.touched || editTaskForm.get('timeEstimated')?.hasError('pattern')}" [maxlength]="2">
+                                'is-invalid': editTaskForm.get('timeEstimated')?.hasError('required') && editTaskForm.get('timeEstimated')?.touched || editTaskForm.get('timeEstimated')?.hasError('pattern')
+                            }" [maxlength]="2">
                             <div class="validators"
                                 *ngIf="editTaskForm.get('timeEstimated')?.hasError('required') && editTaskForm.get('timeEstimated')?.touched">
                                 <small>¡Este campo es requerido!</small>
@@ -78,7 +80,8 @@
                             <label class="mb-1"><b>Descripción (Pasos a seguir)</b></label>
                             <textarea class="form-control form-control-lg bg-light fs-6"
                                 formControlName="description" placeholder="Descripción*" rows="7" [ngClass]="{
-                            'is-invalid': editTaskForm.get('description')?.hasError('required') && editTaskForm.get('description')?.touched}" [maxlength]="600"></textarea>
+                                'is-invalid': editTaskForm.get('description')?.hasError('required') && editTaskForm.get('description')?.touched
+                            }" [maxlength]="600"></textarea>
                             <div class="validators"
                                 *ngIf="editTaskForm.get('description')?.hasError('required') && editTaskForm.get('description')?.touched">
                                 <small>¡Este campo es requerido!</small>

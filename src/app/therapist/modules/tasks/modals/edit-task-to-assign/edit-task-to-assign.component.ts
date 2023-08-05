@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AssignTasksComponent } from '../../assign-tasks/assign-tasks.component';
 import { DashboardComponent } from '../../../home/dashboard/dashboard.component';
 import { ApiResponseGetTaskByIdI, TaskDetailByIdI } from 'src/app/therapist/interfaces/my-tasks.interface';
-import { AssignTasksComponent } from '../../assign-tasks/assign-tasks.component';
 import { BodyTaskToAssignI } from 'src/app/therapist/interfaces/assigments.interface';
+import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-task-to-assign',
@@ -16,15 +16,15 @@ import { BodyTaskToAssignI } from 'src/app/therapist/interfaces/assigments.inter
 export class EditTaskToAssignComponent {
   /*Variables*/
   static taskID: number;
-  taskDetail!: TaskDetailByIdI;
   taskDetailForm!: FormGroup;
+  taskDetail!: TaskDetailByIdI;
 
   /*Constructor*/
   constructor(
-    public modal: NgbModal,
-    private tasksService: MyTasksService,
-    private headers: DashboardComponent,
     private formBuilder: FormBuilder,
+    private headers: DashboardComponent,
+    private tasksService: MyTasksService,
+    public modal: NgbModal,
   ) { }
 
   /*ngOnInit*/

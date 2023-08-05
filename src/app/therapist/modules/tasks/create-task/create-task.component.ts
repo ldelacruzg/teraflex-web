@@ -1,17 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { MatStepper } from '@angular/material/stepper';
-import { ApiResponseMyVideosI, GetAllMyVideosI } from 'src/app/therapist/interfaces/videos.interface';
-import { VideosService } from 'src/app/therapist/services/videos.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ToastrService } from 'ngx-toastr';
-import { CategoriesService } from 'src/app/therapist/services/categories.service';
+import { ApiResponseMyVideosI, GetAllMyVideosI } from 'src/app/therapist/interfaces/videos.interface';
 import { ApiResponseCategoriesI, GetCategoryI } from 'src/app/therapist/interfaces/categories.interface';
-import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 import { ApiResponseRegisterTaskDetailI, RegisterTaskDetailI } from 'src/app/therapist/interfaces/my-tasks.interface';
-import { Router } from '@angular/router';
+import { CategoriesService } from 'src/app/therapist/services/categories.service';
+import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
+import { VideosService } from 'src/app/therapist/services/videos.service';
+import { ToastrService } from 'ngx-toastr';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-task',
@@ -19,31 +20,41 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./create-task.component.css', './../list-my-tasks/list-my-tasks.component.css'],
 })
 export class CreateTaskComponent {
-
   /*Variables*/
   @ViewChild('stepper') stepper!: MatStepper;
-  spinnerStatus: boolean = false;
-  optionVisibilitySelected: string = "";
-  optionCategorySelected: string = "";
+  optionFilter: string = environment.TITLE;
   uploadTaskForm!: FormGroup;
-  arrayVideosInfo: GetAllMyVideosI[] = [];
+  spinnerStatus: boolean = false;
+  isMobileView: boolean = false;
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
-  selectedCheckboxes: { [key: number]: boolean } = {}; /*Array que contiene temporalmente el valor de los checks*/
-  arrayVideosId: number[] = []; /*Array que contiene los id de los videos*/
+  optionVisibilitySelected: string = "";
+  optionCategorySelected: string = "";
+  arrayVideosInfo: GetAllMyVideosI[] = [];
   arrayCategories: GetCategoryI[] = [];
+  videosToSearch: GetAllMyVideosI[] = [];
+  arrayVideosId: number[] = []; /*Array que contiene los id de los videos*/
+  selectedCheckboxes: { [key: number]: boolean } = {}; /*Array que contiene temporalmente el valor de los checks*/
 
   /*Constructor*/
   constructor(
     private formBuilder: FormBuilder,
+    private headers: DashboardComponent,
     private categoriesService: CategoriesService,
     private videosService: VideosService,
     private tasksService: MyTasksService,
-    private headers: DashboardComponent,
     private toastr: ToastrService,
     private router: Router,
-  ) { }
+  ) {
+    this.isMobileView = window.innerWidth <= 760;
+  }
+
+  /*Verifica el tamaño de la pantalla para cambiar a móvil*/
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobileView = window.innerWidth <= 760;
+  }
 
   /*ngOnInit*/
   ngOnInit() {
@@ -53,7 +64,7 @@ export class CreateTaskComponent {
     this.getAllCategories();
   }
 
-  /*Método que obtiene el listado de todas las categorias disponibles*/
+  /*Método que obtiene el listado de todas las categorías disponibles*/
   getAllCategories() {
     this.categoriesService.getAllCategories(this.headers.getHeaders())
       .subscribe({
@@ -102,17 +113,17 @@ export class CreateTaskComponent {
         ],
       ],
       description: ['',
-        [ Validators.required ],
+        [Validators.required],
       ],
     });
   }
 
   /*Método que obtiene la información del form, para mandarla al registrar*/
-  getInfoFormUploadTask(){
+  getInfoFormUploadTask() {
     let formUploadTask: RegisterTaskDetailI = {
       title: this.uploadTaskForm.get('title')?.value,
       isPublic: this.uploadTaskForm.get('visibility')?.value === "public" ? true : false,
-      categoryIds: [Number(this.uploadTaskForm.get('category')?.value)], 
+      categoryIds: [Number(this.uploadTaskForm.get('category')?.value)],
       estimatedTime: parseInt(this.uploadTaskForm.get('timeEstimated')?.value),
       description: this.uploadTaskForm.get('description')?.value,
       fileIds: this.arrayVideosId,
@@ -125,25 +136,25 @@ export class CreateTaskComponent {
   registerTaskDetail() {
     this.spinnerStatus = false;
     this.tasksService.registerTaskDetailWithVideos(this.headers.getHeaders(), this.getInfoFormUploadTask())
-    .subscribe({
-      next: (data: ApiResponseRegisterTaskDetailI) => {
-        this.showToastSuccess(data.message, "Éxito");
-        this.spinnerStatus = true;
-        this.router.navigateByUrl("therapist/home/dashboard/tasks/my-tasks");
-      },
-      error: (error) => {
-        this.spinnerStatus = true;
-        this.showToastError("Error", "No ha podido registrar su tarea");
-      }
-    });
+      .subscribe({
+        next: (data: ApiResponseRegisterTaskDetailI) => {
+          this.showToastSuccess(data.message, "Éxito");
+          this.spinnerStatus = true;
+          this.router.navigateByUrl("therapist/home/dashboard/tasks/my-tasks");
+        },
+        error: (error) => {
+          this.spinnerStatus = true;
+          this.showToastError("Error", "No ha podido registrar su tarea");
+        }
+      });
   }
 
-  /*Método que para avanzar al siguiente paso del stepper*/
+  /*Método para avanzar al siguiente paso en el stepper*/
   nextStepAssignTasks() {
     this.stepper.next();
   }
 
-  /*Método que cambias las páginas de la tabla*/
+  /*Método que cambia las páginas de la tabla*/
   changePage(e: PageEvent) {
     this.itemsForPage = e.pageSize;
     this.initialPage = e.pageIndex * this.itemsForPage;
