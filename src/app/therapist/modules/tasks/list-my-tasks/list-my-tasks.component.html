@@ -58,7 +58,7 @@
                 <tr
                   *ngFor="let task of arrayTasks | slice:initialPage:finalPage | searchRegisters:tasksToSearch:optionFilter; let i = index">
                   <th scope="row">{{i+1}}</th>
-                  <td>{{task.title}}</td>
+                  <td data-bs-toggle="mensaje" title="{{task.title}}">{{task.title}}</td>
                   <td>{{task.estimatedTime + " minutos"}}</td>
                   <td class="iconPublicPrivate">
                     <fa-icon [icon]="task.isPublic ? iconPublic : iconPrivate"></fa-icon>

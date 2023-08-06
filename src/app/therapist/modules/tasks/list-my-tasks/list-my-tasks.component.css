@@ -86,6 +86,16 @@ thead {
   position: sticky;
 }
 
+/* Ajusta el ancho para la columna "Título" */
+#htmlExcelTable td:nth-child(2),
+#htmlExcelTable th:nth-child(2) {
+  max-width: 200px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
 #checkbox {
   margin-left: 17px;
 }

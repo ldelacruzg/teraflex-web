@@ -109,7 +109,8 @@
                                 </div>
                                 <div class="action-buttons mb-3">
                                     <button [disabled]="!uploadTaskForm.valid" mat-button type="button"
-                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">Siguiente</button>
+                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">
+                                        Siguiente <fa-icon [icon]="iconNextStep"></fa-icon></button>
                                 </div>
                             </form>
                         </mat-step>
@@ -174,7 +175,8 @@
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3">
                                 <button mat-button matStepperPrevious type="button"
-                                    class="btn btn-secondary btn-md">Regresar</button>
+                                    class="btn btn-secondary btn-md">
+                                    <fa-icon [icon]="iconPreviousStep"></fa-icon> Regresar</button>
                                 <button mat-button (click)="registerTaskDetail()" type="button"
                                     class="btn btn-primary btn-md">Aceptar</button>
                             </div>
@@ -278,7 +280,8 @@
                                 </div>
                                 <div class="action-buttons mb-3">
                                     <button [disabled]="!uploadTaskForm.valid" mat-button type="button"
-                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">Siguiente</button>
+                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">
+                                        Siguiente <fa-icon [icon]="iconNextStep"></fa-icon></button>
                                 </div>
                             </form>
                         </mat-step>
@@ -343,7 +346,8 @@
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3 mt-3">
                                 <button mat-button matStepperPrevious type="button"
-                                    class="btn btn-secondary btn-md col-sm-12 mb-2">Regresar</button>
+                                    class="btn btn-secondary btn-md col-sm-12 mb-2">
+                                    <fa-icon [icon]="iconPreviousStep"></fa-icon> Regresar</button>
                                 <button mat-button (click)="registerTaskDetail()" type="button"
                                     class="btn btn-primary btn-md col-sm-12">Aceptar</button>
                             </div>

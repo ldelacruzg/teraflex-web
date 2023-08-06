@@ -145,9 +145,10 @@ export class DashboardComponent {
   iconHome = iconos.faHome;
   iconTasks = iconos.faListCheck;
   iconMyTasks = iconos.faFileLines;
-  iconUploadVideos = iconos.faVideoCamera;
   iconAsignTasks = iconos.faCalendarDay;
   iconInformation = iconos.faInfoCircle;
+  iconResources = iconos.faFilm;
+  iconUploadVideos = iconos.faVideoCamera;
   iconPatients = iconos.faUsers;
   iconMyPatients = iconos.faPeopleRoof;
   iconViewProgress = iconos.faChartSimple;

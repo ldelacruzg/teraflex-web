@@ -194,4 +194,6 @@ export class CreateTaskComponent {
   iconCreateTask = iconos.faFile;
   iconVerDetalles = iconos.faEye;
   iconBack = iconos.faArrowLeft;
+  iconNextStep = iconos.faArrowRight;
+  iconPreviousStep = iconos.faArrowLeft;
 }

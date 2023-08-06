@@ -6,14 +6,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SearchRegistersPipe implements PipeTransform {
 
   transform(value: any, arg: any, filter:string): any {
-    const resultRegistro = [];
+    const resultRegister = [];
     let i = 0;
     for (const temp of value) {
       if (temp[filter].indexOf(arg) > -1) {
-        resultRegistro.push(temp);
+        resultRegister.push(temp);
       }
       i++;
     };
-    return resultRegistro;
+    return resultRegister;
   }
 }
