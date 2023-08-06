@@ -4,4 +4,6 @@ export const environment = {
     THERAPIST: "THERAPIST",
     ADMIN: "ADMIN",
     PATIENT: "PATIENT",
+    TITLE: "title",
+    NAMES: "firstName"
   };

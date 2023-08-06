@@ -9,7 +9,7 @@ body {
     justify-content: space-between;
 }
 
-.div>button{
+.div>button {
     border-radius: 50px;
 }
 
@@ -39,4 +39,15 @@ body {
 .btn-secondary {
     margin-right: 10px;
     border-radius: 50px;
+}
+
+/*Responsive Web Design*/
+@media screen and (max-width: 760px) {
+    .button-back {
+        text-align: end;
+    }
+
+    .action-buttons>button{
+        width: 100%;
+    }
 }

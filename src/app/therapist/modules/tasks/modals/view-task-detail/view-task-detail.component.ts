@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 import { DashboardComponent } from '../../../home/dashboard/dashboard.component';
 import { ApiResponseGetTaskByIdI, TaskDetailByIdI } from 'src/app/therapist/interfaces/my-tasks.interface';
+import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,7 +11,6 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./view-task-detail.component.css']
 })
 export class ViewTaskDetailComponent {
-
   /*Variables*/
   static taskID: number = 0;
   taskDetail: TaskDetailByIdI = {
@@ -32,6 +31,7 @@ export class ViewTaskDetailComponent {
       {
         id: 0,
         url: "--",
+        title: "--",
         type: "--"
       }
     ]
@@ -39,9 +39,9 @@ export class ViewTaskDetailComponent {
 
   /*Constructor*/
   constructor(
-    public modal: NgbModal,
+    private headers: DashboardComponent,
     private tasksService: MyTasksService,
-    private headers: DashboardComponent
+    public modal: NgbModal
   ) { }
 
   /*ngOnInit*/

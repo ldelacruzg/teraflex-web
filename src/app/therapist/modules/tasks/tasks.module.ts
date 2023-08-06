@@ -1,28 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { ListMyTasksComponent } from './list-my-tasks/list-my-tasks.component';
+import { CreateTaskComponent } from './create-task/create-task.component';
+import { EditMyTasksComponent } from './edit-my-tasks/edit-my-tasks.component';
+import { ViewTaskDetailComponent } from './modals/view-task-detail/view-task-detail.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
+import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-task-to-assign.component';
+import { SearchRegistersPipe } from 'src/app/pipes/search-registers.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
-import { CreateTaskComponent } from './create-task/create-task.component';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { SweetAlerts } from '../../alerts/alerts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { MatStepperIntl, MatStepperModule } from '@angular/material/stepper';
-import { ViewTaskDetailComponent } from './modals/view-task-detail/view-task-detail.component';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-task-to-assign.component';
 
 @NgModule({
   declarations: [
-    MyTasksComponent,
-    AssignTasksComponent,
+    ListMyTasksComponent,
     CreateTaskComponent,
+    EditMyTasksComponent,
     ViewTaskDetailComponent,
-    EditTaskToAssignComponent
+    AssignTasksComponent,
+    EditTaskToAssignComponent,
+    SearchRegistersPipe
   ],
   imports: [
     CommonModule,
@@ -38,12 +42,11 @@ import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-tas
     MatAutocompleteModule
   ],
   exports: [
-    MyTasksComponent,
+    ListMyTasksComponent,
     AssignTasksComponent
   ],
   providers:[
-    SweetAlerts,
-   /*  {provide: MatStepperIntl, useClass: MyIntl}, */
+    SweetAlerts
   ]
 })
 export class TasksModule { }

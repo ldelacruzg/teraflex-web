@@ -51,10 +51,7 @@ body {
   color: #bebebe;
 }
 
-
-
-
-
+/*Tabla con datos*/
 table td,
 table th {
   text-overflow: ellipsis;
@@ -87,6 +84,16 @@ td {
 thead {
   top: 0;
   position: sticky;
+}
+
+/* Ajusta el ancho para la columna "Título" */
+#htmlExcelTable td:nth-child(2),
+#htmlExcelTable th:nth-child(2) {
+  max-width: 200px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
 }
 
 #checkbox {
@@ -134,9 +141,9 @@ thead {
   color: rgb(243, 36, 36);
 }
 
-/*Responsive*/
+/*Responsive Web Design*/
 @media screen and (max-width: 760px) {
-  #titulo {
+  #title {
     font-size: 20px;
     margin-bottom: 15px;
   }
@@ -155,19 +162,17 @@ thead {
     margin-bottom: 8px;
   }
 
-  .botones-exportar {
+  .export-buttons {
     width: 100%;
     text-align: center;
   }
 
-  .botones-exportar .save-pdf {
-    margin-bottom: 8px;
-    width: 100%;
+  .export-buttons .save-pdf {
+    width: 46%;
   }
 
-  .botones-exportar .save-xlsx {
-    margin-bottom: 14px;
-    width: 100%;
+  .export-buttons .save-xlsx {
+    width: 46%;
   }
 
   #paginacion {
@@ -194,11 +199,5 @@ thead {
     margin-bottom: 20px;
    margin-left: 0px;
     width: 100%;
-  }
-
-  .botones-exportar{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
   }
 }

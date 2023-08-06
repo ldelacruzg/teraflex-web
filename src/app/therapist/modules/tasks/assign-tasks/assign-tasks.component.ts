@@ -1,45 +1,46 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { PatientsService } from 'src/app/therapist/services/patients.service';
+import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router'
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { EditTaskToAssignComponent } from '../modals/edit-task-to-assign/edit-task-to-assign.component';
 import { ApiResponseGetMyPatientsI, MyPatientDetailI, ApiResponseGetMyPatientByIdI, MyPatientDetailByIdI } from 'src/app/therapist/interfaces/patients.interface';
 import { ApiResponseMyTasksI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
-import { PageEvent } from '@angular/material/paginator';
+import { AssignTasksToPatientI, BodyTaskToAssignI } from 'src/app/therapist/interfaces/assigments.interface';
+import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EditTaskToAssignComponent } from '../modals/edit-task-to-assign/edit-task-to-assign.component';
 import { AssigmentsService } from 'src/app/therapist/services/assignments.service';
 import { ToastrService } from 'ngx-toastr';
-import { AssignTasksToPatientI, BodyTaskToAssignI } from 'src/app/therapist/interfaces/assigments.interface';
-import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-assign-tasks',
   templateUrl: './assign-tasks.component.html',
-  styleUrls: ['./assign-tasks.component.css', './../create-task/create-task.component.css', './../my-tasks/my-tasks.component.css']
+  styleUrls: ['./assign-tasks.component.css', './../create-task/create-task.component.css', './../list-my-tasks/list-my-tasks.component.css']
 })
 export class AssignTasksComponent {
-
   /*Variables*/
-  spinnerStatus: boolean = false;
+  @ViewChild('stepper') stepper!: MatStepper;
+  optionFilter: string = environment.TITLE;
   patientForm!: FormGroup;
   assignTasksForm!: FormGroup;
-  @ViewChild('stepper') stepper!: MatStepper;
-  infoPatientById!: MyPatientDetailByIdI;
   /*Para el input search de buscar paciente*/
   control = new FormControl('');
-  arrayPatients: MyPatientDetailI[] = []; //Array que almacena los pacientes que me devuelve el servicio
-  filteredPatientsNames: MyPatientDetailI[] = []; //Array para filtrarlos en la búsqueda
-
-  arrayTasks: MyTasksI[] = [];
+  infoPatientById!: MyPatientDetailByIdI;
+  spinnerStatus: boolean = false;
+  isMobileView: boolean = false;
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
+  arrayTasks: MyTasksI[] = [];
+  tasksToSearch: MyTasksI[] = [];
+  arrayPatients: MyPatientDetailI[] = []; //Array que almacena los pacientes que me devuelve el servicio
+  filteredPatientsNames: MyPatientDetailI[] = []; //Array para filtrarlos en la búsqueda
   selectedCheckboxes: { [key: number]: boolean } = {}; /*Array que contiene temporalmente el valor de los checks*/
   arrayTasksId: number[] = []; /*Array que contiene los id de los videos*/
-
   //Donde se guardará la data a enviar finalmente en la asignación
   static arrayTasksDetailToSend: BodyTaskToAssignI[] = [];
   idPatientToAssignTasks!: number;
@@ -47,14 +48,22 @@ export class AssignTasksComponent {
   /*Constructor*/
   constructor(
     private formBuilder: FormBuilder,
-    private myPatientsService: PatientsService,
     private headers: DashboardComponent,
-    private myTasksService: MyTasksService,
-    private modal: NgbModal,
     private assigmentsService: AssigmentsService,
+    private myPatientsService: PatientsService,
+    private myTasksService: MyTasksService,
     private toastr: ToastrService,
+    private modal: NgbModal,
     private router: Router
-  ) { }
+  ) {
+    this.isMobileView = window.innerWidth <= 760;
+  }
+
+  /*Verifica el tamaño de la pantalla para cambiar a móvil*/
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobileView = window.innerWidth <= 760;
+  }
 
   /*ngOnInit*/
   ngOnInit() {
@@ -75,8 +84,6 @@ export class AssignTasksComponent {
           data.data.forEach(element => {
             this.arrayPatients.push(element.patient);
           })
-          console.log("Viendo data");
-          console.log(this.arrayPatients);
         },
         error: (error) => {
           alert("No se pudieron obtener los pacientes")
@@ -111,7 +118,7 @@ export class AssignTasksComponent {
           this.patientForm.get('age')?.setValue(this.calculateAge(this.infoPatientById.birthDate) + " años");
         },
         error: (error) => {
-          alert("No se pudieron obtener los datos del paciente")
+          this.showToastError("Error", "No se pudieron obtener los datos del paciente")
         }
       })
   }
@@ -140,10 +147,8 @@ export class AssignTasksComponent {
       age: ['',
         [Validators.required],
       ],
-      phone: ['',
-       /*  [Validators.required], */
-      ],
-      description: ['',],
+      phone: [''],
+      description: [''],
     });
   }
 
@@ -197,17 +202,16 @@ export class AssignTasksComponent {
           isPublic: element.isPublic,
           createdAt: element.createdAt,
           updatedAt: element.updatedAt,
-          disabled: true
+          disabled: true,
+          categoryIds: element.categoryIds
         }
         this.arrayTasks.push(tempTask);
       })
       this.spinnerStatus = true;
     }, (error) => {
       this.spinnerStatus = true;
-      //this.showToastError("Error", "Error al obtener el listado de tareas");
     });
   }
-
 
   /*Método que muestra modal para editar la tarea que se va a asignar*/
   openModalEditTaskToAssign(viewTaskDetail: any, taskID: number) {
@@ -239,11 +243,11 @@ export class AssignTasksComponent {
       tasks: AssignTasksComponent.arrayTasksDetailToSend,
       dueDate: this.assignTasksForm.get('dueDate')?.value
     }
-    if(this.assignTasksForm.get('dueDate')?.value.length > 0) {
+    if (this.assignTasksForm.get('dueDate')?.value.length > 0) {
       if (AssignTasksComponent.arrayTasksDetailToSend.length > 0) {
         this.assigmentsService.registerTasksAssignToPatient(this.headers.getHeaders(), this.idPatientToAssignTasks, body)
-        .subscribe({
-          next: (data: any) => {
+          .subscribe({
+            next: (data: any) => {
               this.spinnerStatus = false;
               this.showToastSuccess(data.message, "Éxito");
               this.spinnerStatus = true;
@@ -259,9 +263,9 @@ export class AssignTasksComponent {
         this.showToastError("Error", "Debe seleccionar al menos una tarea");
       }
     }
-    else{
+    else {
       this.showToastError("Error", "Debe ingresar una fecha de vencimiento");
-    }    
+    }
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/

@@ -17,7 +17,7 @@ import { ViewMyPatientsComponent } from '../modals/view-my-patients/view-my-pati
 @Component({
   selector: 'app-list-my-patients',
   templateUrl: './list-my-patients.component.html',
-  styleUrls: ['./list-my-patients.component.css', './../../tasks/my-tasks/my-tasks.component.css']
+  styleUrls: ['./list-my-patients.component.css', './../../tasks/list-my-tasks/list-my-tasks.component.css']
 })
 export class ListMyPatientsComponent {
   /*Variables*/

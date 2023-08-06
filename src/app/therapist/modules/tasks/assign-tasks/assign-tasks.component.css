@@ -13,3 +13,10 @@
     margin-right: 10px;
     border-radius: 50px;
 }
+
+/*Responsive Web Design*/
+@media screen and (max-width: 760px) {
+    .action-buttons>button{
+        width: 100%;
+    }
+}
