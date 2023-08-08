@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+import { ApiResponseGetMyInformationI, InformationTerapistDetailI } from 'src/app/therapist/interfaces/profile.interface';
+import { ProfileService } from 'src/app/therapist/services/profile.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,17 +16,34 @@ export class DashboardComponent {
   optionMenu = 0;
   userRole = "role";
   spinnerStatus = true;
-
+  detailInfoTerapist: InformationTerapistDetailI = {
+    id: 0,
+    firstName: "",
+    lastName: "",
+    docNumber: "",
+    phone: "",
+    description: "",
+    birthDate: "",
+    createdAt: "",
+    updatedAt: "",
+    role: "",
+    categoryId: 0,
+    categoryName: "",
+    status: false,
+  };
 
   /*Constructor*/
   constructor(
     private ruta: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private myProfileService: ProfileService,
+    private toastr: ToastrService
   ) { }
 
 
   /*ngOnInit*/
   ngOnInit(): void {
+    this.getMyInformation();
     this.showHideChildsOption();
     this.showHideMenuProfile();
     this.showHideSidebar();
@@ -137,6 +157,27 @@ export class DashboardComponent {
         });
         link.classList.add('active');
       });
+    });
+  }
+
+  /*Método que obtiene la información personal de un terapeuta, para mostrar en el perfil*/
+  getMyInformation(){
+    this.myProfileService.getMyInformation(this.getHeaders())
+      .subscribe({
+        next: (data: ApiResponseGetMyInformationI) => {
+          this.detailInfoTerapist = data.data;
+        },
+        error: (error) => {
+          this.showToastError("Error", "No se pudo obtener su información");
+        }
+      })
+  }
+
+  /*Método que muestra un toast con mensaje de ERROR*/
+  showToastError(title: string, message: string) {
+    this.toastr.error(message, title, {
+      progressBar: true,
+      timeOut: 3000,
     });
   }
 

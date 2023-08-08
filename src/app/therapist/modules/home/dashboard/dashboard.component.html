@@ -63,11 +63,11 @@
                 <img src="../../../../../assets/pictures/user-profile.jpg" alt="img-profile">
                 <ul class="profile-link">
                     <div class="info">
-                        <p><small><i>Terapeuta</i></small> <br />Iván Manzaba</p>
+                        <p><small><i>Terapeuta</i></small> <br />{{detailInfoTerapist.firstName + " " +detailInfoTerapist.lastName}}</p>
                     </div>
                     <hr>
-                    <li><a href="#"><fa-icon [icon]="iconProfile"></fa-icon> Mi perfil</a></li>
-                    <li><a href="#"><fa-icon [icon]="iconSettings"></fa-icon> Configuración</a></li>
+                    <li><a [routerLink]="'profile/my-profile'"><fa-icon [icon]="iconProfile"></fa-icon> Mi perfil</a></li>
+                    <li><a [routerLink]="''"><fa-icon [icon]="iconSettings"></fa-icon> Configuración</a></li>
                     <li><a (click)="signOut()"><fa-icon [icon]="iconLogOut"></fa-icon> Cerrar sesión</a></li>
                 </ul>
             </div>
