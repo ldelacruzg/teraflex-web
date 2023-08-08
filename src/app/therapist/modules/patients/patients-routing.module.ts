@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterMyPatientsComponent } from './register-my-patients/register-my-patients.component';
 import { ListMyPatientsComponent } from './list-my-patients/list-my-patients.component';
 import { EditMyPatientsComponent } from './edit-my-patients/edit-my-patients.component';
+import { ViewProgressMyPatientsComponent } from './view-progress-my-patients/view-progress-my-patients.component';
 
 
 //Rutas hijas
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'edit-patient', component: EditMyPatientsComponent
+  },
+  {
+    path: 'view-progress', component: ViewProgressMyPatientsComponent
   },
   {
     path: "",

@@ -43,3 +43,50 @@ export interface ApiResponseAssignTasksToPatientI {
         ]
     }
 }
+
+/*Interfaz de respuesta de la API para visualizar la lista de tareas asignadas a un paciente por ID*/
+export interface ApiResponseListTasksAssignsToPatientI {
+    statusCode: number;
+    message: string;
+    data: TaskDetailAssignToPatientI[];
+}
+
+/*Interfaz que viene dentro de la interfaz de arriba, contiene el detalle de la tarea asignada*/
+export interface TaskDetailAssignToPatientI {
+    id: number;
+    task: {
+        id: number;
+        title: string;
+        description: string;
+        estimatedTime: number;
+    }
+    createdAt: string;
+    dueDate: string;
+}
+
+/*Interfaz de respuesta de la API para cuando se obtiene el detalle de una tarea Asignada*/
+export interface ApiResponseTaskDetailExtendAssignToPatientI{
+    statusCode: number;
+    message: string;
+    data: TaskDetailExtendAssignToPatientI[];
+}
+
+/*Ibterfaz que viene dentro de data de la interfaz de arriba*/
+export interface TaskDetailExtendAssignToPatientI{
+    assignmentId: number;
+    taskId: number;
+    title: string;
+    description: string;
+    estimatedTime: number;
+    isCompleted: boolean;
+    createdAt: string;
+    dueDate: string;
+    files: [
+      {
+        id: number;
+        url: string;
+        title: string;
+        type: string;
+      }
+    ]
+}

@@ -11,6 +11,10 @@ import { RegisterMyPatientsComponent } from './register-my-patients/register-my-
 import { EditMyPatientsComponent } from './edit-my-patients/edit-my-patients.component';
 import { SweetAlerts } from '../../alerts/alerts.component';
 import { ViewMyPatientsComponent } from './modals/view-my-patients/view-my-patients.component';
+import { ViewProgressMyPatientsComponent } from './view-progress-my-patients/view-progress-my-patients.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ViewDetailProgressMyPatientsComponent } from './modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,8 @@ import { ViewMyPatientsComponent } from './modals/view-my-patients/view-my-patie
     ListMyPatientsComponent,
     EditMyPatientsComponent,
     ViewMyPatientsComponent,
+    ViewProgressMyPatientsComponent,
+    ViewDetailProgressMyPatientsComponent,
   ],
   imports: [
     CommonModule,
@@ -27,9 +33,11 @@ import { ViewMyPatientsComponent } from './modals/view-my-patients/view-my-patie
     MatPaginatorModule,
     FormsModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatAutocompleteModule,
   ],
   exports:[
-    RegisterMyPatientsComponent
+    RegisterMyPatientsComponent,
   ],
   providers:[
     SweetAlerts
