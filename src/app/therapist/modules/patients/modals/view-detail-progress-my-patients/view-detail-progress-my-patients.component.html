@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="info mb-4">
-                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Titulo</b></label>
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Título</b></label>
                     <p *ngIf="taskDetailAssign.title!='--'; else noResults">{{taskDetailAssign.title}}</p>
                     <ng-template #noResults>
                         <div class="spinner">
@@ -37,9 +37,9 @@
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label><br/>
                     <span *ngIf="taskDetailAssign.isCompleted!='--'; else noResults"
-                        [style.background-color]="taskDetailAssign.isCompleted ? '#81D43A' : 'grey'"
+                        [style.background-color]="taskDetailAssign.isCompleted ? '#198754' : '#ccc'"
                         [style.border-radius]="taskDetailAssign.isCompleted ? '5px' : '5px'"
-                        [style.padding]="taskDetailAssign.isCompleted ? '2px' : '2px'"
+                        [style.padding]="taskDetailAssign.isCompleted ? '3px' : '3px'"
                         [style.color]="taskDetailAssign.isCompleted ? 'white' : 'black'">
                         {{taskDetailAssign.isCompleted ? " Completada " : " Pendiente "}}</span>
                     <ng-template #noResults>

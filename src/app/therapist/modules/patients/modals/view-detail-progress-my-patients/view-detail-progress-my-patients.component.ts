@@ -68,6 +68,6 @@ export class ViewDetailProgressMyPatientsComponent {
   }
 
   /*Icons to use*/
-  iconDetailProgress = iconos.faChartBar;
+  iconDetailProgress = iconos.faListUl;
   iconArrowRight = iconos.faCaretRight;
 }

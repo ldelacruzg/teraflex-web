@@ -95,7 +95,7 @@ export class ViewProgressMyPatientsComponent {
           })
         },
         error: (error) => {
-          alert("No se pudieron obtener los pacientes")
+          this.showToastError("Error", "No se pudo obtener el listado de pacientes")
         }
       })
   }
@@ -143,6 +143,7 @@ export class ViewProgressMyPatientsComponent {
 
   /*Icons to use*/
   iconViewProgress = iconos.faChartSimple;
+  iconDelete = iconos.faTrash;
   iconBack = iconos.faArrowLeft;
   iconViewDetails = iconos.faEye;
 }
