@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewDetailProgressMyPatientsComponent } from '../modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
+import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 
 @Component({
   selector: 'app-view-progress-my-patients',
@@ -39,7 +40,8 @@ export class ViewProgressMyPatientsComponent {
     private assigmentsService: AssigmentsService,
     private myPatientsService: PatientsService,
     private toastr: ToastrService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private sweetAlerts: SweetAlerts
   ) { }
 
   /*ngOnInit*/
@@ -134,11 +136,40 @@ export class ViewProgressMyPatientsComponent {
     });
   }
 
+   /*Método que muestra un toast con mensaje de ÉXITO*/
+   showToastSuccess(message: string, title: string){
+    this.toastr.success(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
   /*Método que abre el modal para ver el detalle de la tarea asignada*/
-  openModalViewTaskDetailAssign(viewTaskDetailAssign: any, idTaskAssign: number){
+  openModalViewTaskDetailAssign(viewTaskDetailAssign: any, idTaskAssign: number) {
     this.modal.open(viewTaskDetailAssign, { size: 'lg', centered: true });
     ViewDetailProgressMyPatientsComponent.taskDetailAssignId = idTaskAssign;
+  }
 
+  /*Método que elimina una tarea*/
+  deleteTask(idAssignment: number, nameAssignment: string) {
+    this.sweetAlerts.alertConfirmCancel("Eliminar asignación", "¿Está seguro de eliminar la tarea \"" + nameAssignment + "\", asignada al paciente?").then(respuesta => {
+      if (respuesta.value == true) {
+        let arrayAssigments: number[] = [idAssignment]
+        this.assigmentsService.deleteTaskAssignToPatient(this.headers.getHeaders(), arrayAssigments)
+          .subscribe({
+            next: (data: string) => {
+              this.spinnerStatus = false;
+              window.location.reload();
+              this.showToastSuccess("La asignación fue eliminada con éxito", "Asignación eliminada");
+              this.spinnerStatus = true;
+            },
+            error: (error) => {
+              this.spinnerStatus = true;
+              this.showToastError("Error", "No se pudo eliminar la asignación");
+            }
+          })
+      }
+    });
   }
 
   /*Icons to use*/

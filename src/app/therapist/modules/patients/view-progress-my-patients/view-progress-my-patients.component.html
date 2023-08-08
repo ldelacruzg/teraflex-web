@@ -61,7 +61,7 @@
                                         <fa-icon (click)="openModalViewTaskDetailAssign(viewTaskDetailAssign, task.id)" 
                                         data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                         [icon]="iconViewDetails"></fa-icon>
-                                        <fa-icon 
+                                        <fa-icon (click)="deleteTask(task.id, task.task.title)"
                                         data-bs-toggle="mensaje" title="Eliminar asignación" id="iconEliminar"
                                         [icon]="iconDelete"></fa-icon>
                                     </td>
