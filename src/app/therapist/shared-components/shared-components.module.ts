@@ -7,6 +7,7 @@ import { TasksToReviewComponent } from './tasks-to-review/tasks-to-review.compon
 import { SliderVideosComponent } from './slider-videos/slider-videos.component';
 import { ChatIAComponent } from './chat-ia/chat-ia.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { SearchRegistersPipe } from './pipes/search-registers.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     LastLoginsComponent,
     TasksToReviewComponent,
     ChatIAComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SearchRegistersPipe
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     TasksToReviewComponent,
     SliderVideosComponent,
     ChatIAComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SearchRegistersPipe
   ]
 })
 export class SharedComponentsModule { }

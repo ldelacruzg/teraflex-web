@@ -1,0 +1,11 @@
+.action-buttons {
+    text-align: end;
+}
+
+.btn-danger{
+    border-radius: 50px;
+}
+
+.btn-primary{
+    margin-right: 10px;
+}

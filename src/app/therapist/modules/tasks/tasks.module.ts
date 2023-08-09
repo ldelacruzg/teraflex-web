@@ -6,7 +6,6 @@ import { EditMyTasksComponent } from './edit-my-tasks/edit-my-tasks.component';
 import { ViewTaskDetailComponent } from './modals/view-task-detail/view-task-detail.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-task-to-assign.component';
-import { SearchRegistersPipe } from 'src/app/pipes/search-registers.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
@@ -26,7 +25,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ViewTaskDetailComponent,
     AssignTasksComponent,
     EditTaskToAssignComponent,
-    SearchRegistersPipe
   ],
   imports: [
     CommonModule,

@@ -39,7 +39,6 @@
                             <small>¡Solo se permiten letras!</small>
                           </div>
                     </div>
-
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-1"><b>Adjuntar un video</b></label>
                         <div class="container-video" id="container-video">
@@ -87,7 +86,8 @@
                     </div>
                 </form>
                 <div class="action-buttons mb-3">
-                    <button (click)="registerVideo()" type="button" class="btn btn-primary btn-md">Aceptar</button>
+                    <button (click)="registerVideo()" type="button" class="btn btn-primary btn-md"
+                    [disabled]="uploadVideoForm.invalid">Aceptar</button>
                     <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md">Cancelar</button>
                 </div>
             </ng-container>
@@ -166,7 +166,8 @@
                     </div>
                 </form>
                 <div class="action-buttons mb-3">
-                    <button (click)="registerVideoLink()" type="button" class="btn btn-primary btn-md">Aceptar</button>
+                    <button (click)="registerVideoLink()" type="button" class="btn btn-primary btn-md"
+                    [disabled]="uploadLinkForm.invalid">Aceptar</button>
                     <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md">Cancelar</button>
                 </div>
             </ng-template>

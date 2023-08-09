@@ -11,6 +11,7 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 import * as XLSX from 'xlsx';
 import { ViewMyVideosComponent } from '../modals/view-my-videos/view-my-videos.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-my-videos',
@@ -32,7 +33,8 @@ export class ListMyVideosComponent {
     private headers: DashboardComponent,
     private myVideosService: VideosService,
     private toastr: ToastrService,
-    public modal: NgbModal
+    public modal: NgbModal,
+    private router: Router,
   ) { }
 
   /*ngOnInit*/
@@ -142,6 +144,11 @@ export class ListMyVideosComponent {
     this.modal.open(viewVideoDetail, { size: 'lg', centered: true });
     ViewMyVideosComponent.videoDetailRecibed = videoDetail;
     ViewMyVideosComponent.videoType = videoType;
+  }
+
+  /*Método que redirige al componente de editar un video*/
+  goToEditVideo() {
+    this.router.navigateByUrl("/therapist/home/dashboard/videos/edit-video")
   }
 
   /*Icons to user*/

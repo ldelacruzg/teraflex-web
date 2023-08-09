@@ -12,6 +12,7 @@
             <!--Campos para filtrar y buscar-->
             <div class="parent-container">
                 <div class="inputs-form">
+                    <!--Filtrar los videos por activos o inactivos-->
                     <form id="select">
                         <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;">
                             <option value="empresa" selected disabled> Filtrar por </option>
@@ -19,11 +20,11 @@
                             <option value="false">Inactivos (Eliminados)</option>
                         </select>
                     </form>
+                    <!--Buscar los video por título-->
                     <form id="search">
                         <input class="form-control me-1" type="text" placeholder="Buscar..." name="buscarMovimientos"
                             [(ngModel)]="videosToSearch">
                     </form>
-
                     <!--Botones para exportar en .pdf y .xlsx-->
                     <div class="export-buttons mb-3">
                         <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
@@ -50,7 +51,6 @@
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Visibilidad</th>
                                 <th scope="col">Fecha creación</th>
-                                <!-- <th scope="col">Fecha actualización</th> -->
                                 <th scope="col">URL</th>
                                 <th scope="col">Acciones</th>
                             </tr>
@@ -67,13 +67,12 @@
                                         {{video.isPublic ? "Público" : " Privado"}}
                                     </td>
                                     <td>{{video.createdAt}}</td>
-                                    <!-- <td>{{video.updatedAt}}</td> -->
                                     <td data-bs-toggle="mensaje" title="{{video.url}}">{{video.url}}</td>
                                     <td class="acciones">
                                         <fa-icon (click)="openModalViewVideoDetail(viewVideoDetail, video, video.type)"
                                             data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconVerDetalles"></fa-icon>
-                                        <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar"
+                                        <fa-icon (click)="goToEditVideo()" data-bs-toggle="mensaje" title="Editar" id="iconEditar"
                                             [icon]="iconEditar"></fa-icon>
                                     </td>
                                 </tr>
