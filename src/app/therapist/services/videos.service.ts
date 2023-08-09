@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
@@ -40,5 +40,11 @@ export class VideosService {
     registerVideoLink(headers: Map<string, any>, body: any): Observable<ApiResponseRegisterVideoLocalI> {
         this.options = this.authService.getHeaders(headers);
         return this.http.post<ApiResponseRegisterVideoLocalI>(this.urlApi + "/multimedia/upload/online", body, this.options);
+    }
+
+    /*Método que trae un video del back*/
+    getVideo(headers: Map<string, any>, idVideo: number): Observable<Blob> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.get(this.urlApi + `/multimedia/download/${idVideo}`, { ...this.options, responseType: 'blob' });
     }
 }

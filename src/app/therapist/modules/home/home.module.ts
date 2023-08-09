@@ -18,7 +18,7 @@ import { ProfileModule } from '../profile/profile.module';
   imports: [
     CommonModule,
     FontAwesomeModule,
-    TasksModule,
+    //TasksModule,
     PatientsModule,
     HelpModule,
     ProfileModule,
