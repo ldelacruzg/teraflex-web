@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
 import { ApiResponseGetMyInformationI, InformationTerapistDetailI } from 'src/app/therapist/interfaces/profile.interface';
 import { ProfileService } from 'src/app/therapist/services/profile.service';
+import { ToastrService } from 'ngx-toastr';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +11,10 @@ import { ProfileService } from 'src/app/therapist/services/profile.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-
   //Variables
-  optionMenu = 0;
-  userRole = "role";
-  spinnerStatus = true;
+  spinnerStatus: boolean = true;
+  optionMenu: number = 0;
+  userRole: string = "role";
   detailInfoTerapist: InformationTerapistDetailI = {
     id: 0,
     firstName: "",
@@ -68,7 +67,7 @@ export class DashboardComponent {
     setTimeout(() => {
       this.spinnerStatus = true;
       this.ruta.navigateByUrl('therapist/auth/login');
-    }, 2100);
+    }, 2000);
   }
 
   /*Método que muestra y oculta los hijos de una opción del menú*/

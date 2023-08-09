@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { ProfileService } from 'src/app/therapist/services/profile.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ApiResponseGetMyInformationI, InformationTerapistDetailI } from 'src/app/therapist/interfaces/profile.interface';
+import { ToastrService } from 'ngx-toastr';
+import { ProfileService } from 'src/app/therapist/services/profile.service';
 
 @Component({
   selector: 'app-options-home',
@@ -61,5 +61,4 @@ export class OptionsHomeComponent {
       timeOut: 3000,
     });
   }
-
 }

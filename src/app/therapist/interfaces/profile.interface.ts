@@ -5,6 +5,7 @@ export interface ApiResponseGetMyInformationI{
     data: InformationTerapistDetailI;
 }
 
+/*Interfaz que contiene el detalle de la información personal del terapeuta*/
 export interface InformationTerapistDetailI{
     id: number;
     firstName: string;

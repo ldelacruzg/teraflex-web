@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ProfileService } from 'src/app/therapist/services/profile.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ApiResponseGetMyInformationI, InformationTerapistDetailI } from 'src/app/therapist/interfaces/profile.interface';
+import { ProfileService } from 'src/app/therapist/services/profile.service';
 import { ToastrService } from 'ngx-toastr';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view-my-profile',
@@ -29,7 +29,7 @@ export class ViewMyProfileComponent {
     status: false,
   };
 
-  /*constructor*/
+  /*Constructor*/
   constructor(
     private headers: DashboardComponent,
     private myProfileService: ProfileService,
@@ -71,4 +71,5 @@ export class ViewMyProfileComponent {
   iconEdit = iconos.faEdit;
   iconInformation = iconos.faList;
   iconStatistics = iconos.faChartSimple;
+  iconVerified = iconos.faCircleCheck;
 }
