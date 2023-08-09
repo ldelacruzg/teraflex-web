@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OptionsHomeComponent } from './options-home/options-home.component';
 
-//Rutas hijas
 const routes: Routes = [
   {
     path: 'home',
@@ -27,13 +26,16 @@ const routes: Routes = [
           loadChildren:()=>import("../help/help.module").then(m=>m.HelpModule)
         },
         {
+          path: 'profile', 
+          loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)
+        },
+        {
           path: 'options-home', component: OptionsHomeComponent
         },
       ]
       },
     ] 
   },
-  
 ]
 
 @NgModule({

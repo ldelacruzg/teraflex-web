@@ -6,6 +6,7 @@ import { HomeRoutingModule } from './modules/home/home-routing.module';
 import { TasksRoutingModule } from './modules/tasks/tasks-routing.module';
 import { PatientsRoutingModule } from './modules/patients/patients-routing.module';
 import { HelpRoutingModule } from './modules/help/help-routing.module';
+import { ProfileModule } from './modules/profile/profile.module';
 /* import { SharedComponentsModule } from './shared-components/shared-components.module'; */
 
 @NgModule({
@@ -18,7 +19,8 @@ import { HelpRoutingModule } from './modules/help/help-routing.module';
     HomeRoutingModule,
     TasksRoutingModule,
     PatientsRoutingModule,
-    HelpRoutingModule
+    HelpRoutingModule,
+    ProfileModule
   ]
 })
 export class TherapistModule { }

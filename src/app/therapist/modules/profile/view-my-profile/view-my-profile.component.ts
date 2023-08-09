@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ApiResponseGetMyInformationI, InformationTerapistDetailI } from 'src/app/therapist/interfaces/profile.interface';
-import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/therapist/services/profile.service';
+import { ToastrService } from 'ngx-toastr';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-options-home',
-  templateUrl: './options-home.component.html',
-  styleUrls: ['./options-home.component.css']
+  selector: 'app-view-my-profile',
+  templateUrl: './view-my-profile.component.html',
+  styleUrls: ['./view-my-profile.component.css', './../../tasks/list-my-tasks/list-my-tasks.component.css']
 })
-export class OptionsHomeComponent {
+export class ViewMyProfileComponent {
   /*Variables*/
-  spinnerStatus = true;
+  spinnerStatus: boolean = true;
   detailInfoTerapist: InformationTerapistDetailI = {
     id: 0,
     firstName: "",
@@ -37,18 +38,21 @@ export class OptionsHomeComponent {
 
   /*ngOnInit*/
   ngOnInit(){
+    this.spinnerStatus = true;
     this.getMyInformation();
   }
 
-
   /*Método que obtiene la información personal de un terapeuta, para mostrar en el perfil*/
   getMyInformation(){
+    this.spinnerStatus = false;
     this.myProfileService.getMyInformation(this.headers.getHeaders())
       .subscribe({
         next: (data: ApiResponseGetMyInformationI) => {
           this.detailInfoTerapist = data.data;
+          this.spinnerStatus = true;
         },
         error: (error) => {
+          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudo obtener su información");
         }
       })
@@ -61,4 +65,11 @@ export class OptionsHomeComponent {
       timeOut: 3000,
     });
   }
+
+  /*Icons to use*/
+  iconMyProfile = iconos.faUser;
+  iconEdit = iconos.faEdit;
+  iconInformation = iconos.faList;
+  iconStatistics = iconos.faChartSimple;
+  iconVerified = iconos.faCircleCheck;
 }

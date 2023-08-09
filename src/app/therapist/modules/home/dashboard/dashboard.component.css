@@ -19,11 +19,6 @@
     --red: #FC3B56;
 }
 
-main{
-    background-color: #F1F0F6;
-    height: 100vh;
-}
-
 a {
     text-decoration: none;
 }
@@ -366,11 +361,17 @@ nav .profile-link .info>p{
     color: #808080;
 }
 
-main{
-    padding: 20px 30px;
+body{
+    background-color: #f1f0f6;
 }
 
-
+main {
+    background-color: #f1f0f6;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    height: auto;
+}
 
 /*-------------Responsive Web Design------------*/
 @media screen and (max-width: 768px){

@@ -8,6 +8,7 @@ import { PatientsModule } from '../patients/patients.module';
 import { HelpModule } from '../help/help.module';
 import { SharedComponentsModule } from '../../shared-components/shared-components.module';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { ProfileModule } from '../profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     TasksModule,
     PatientsModule,
     HelpModule,
+    ProfileModule,
     SharedComponentsModule,
     AppRoutingModule
   ]
