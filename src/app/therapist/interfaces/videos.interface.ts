@@ -1,3 +1,5 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
+
 export interface ApiResponseMyVideosI {
     statusCode: number;
     message: string;
@@ -50,4 +52,23 @@ export interface RegisterVideoLocalResponse {
     id: number;
     title: string;
     url: string; /*Esto estaba con comillas*/
+}
+
+/*Interfaz de respuesta para cuando se intenta obtener un video que no es descargable*/
+export interface ApiResponseGetVideo{
+    message: string;
+    error: string;
+    statusCode: number;
+}
+
+/*Interfaz de respuesta de la API para cuando se edita un video*/
+export interface ApiResponseEditDesactivateVideoI{
+    statusCode: number;
+    message: string;
+}
+
+/*Interfaz que contiene el body para editar un video*/
+export interface editVideoI{
+    isPublic: boolean;
+    description: string;
 }

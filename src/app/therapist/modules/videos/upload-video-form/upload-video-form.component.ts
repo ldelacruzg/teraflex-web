@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
-import { ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, RegisterVideoLinkI, RegisterVideoLocal } from 'src/app/therapist/interfaces/videos.interface';
-import { VideosService } from 'src/app/therapist/services/videos.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { ApiResponseRegisterVideoLocalI, RegisterVideoLinkI } from 'src/app/therapist/interfaces/videos.interface';
+import { VideosService } from 'src/app/therapist/services/videos.service';
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-upload-video-form',
@@ -14,16 +14,15 @@ import { Router } from '@angular/router';
 })
 export class UploadVideoFormComponent {
   /*Variables*/
-  optionSelected = "video";
-  optionVisibilityVideo = "";
-  optionVisibilityLink = "";
-  uploadVideoForm!: FormGroup;
-  uploadLinkForm!: FormGroup;
-  spinnerStatus = false;
-
   formSelect = new FormGroup({
     filtro: new FormControl('video'),
   });
+  uploadVideoForm!: FormGroup;
+  uploadLinkForm!: FormGroup;
+  spinnerStatus: boolean = false;
+  optionSelected: string = "video";
+  optionVisibilityVideo: string = "";
+  optionVisibilityLink: string = "";
 
   /*Constructor*/
   constructor(
@@ -53,13 +52,13 @@ export class UploadVideoFormComponent {
         [Validators.required],
       ],
       title: ['',
-        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.: ]*$")],
+        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ!@#$%^&*(),.: ]*$")],
       ],
       visibility: ['',
         [Validators.required],
       ],
       description: ['',
-        [Validators.required, Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚ!@#$%^&*()]*$")],
+        [Validators.required, Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ!@#$%^&*(),.: ]*$")],
       ],
     });
   }
@@ -74,10 +73,10 @@ export class UploadVideoFormComponent {
         [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.: ]*$")],
       ],
       link: ['',
-        [Validators.required, Validators.pattern("^(https?://)?(www\\.)?youtube\\.com/(watch\\?v=|embed/|v/|\\w+/|\\d+/|\\?v=)?([\\w-]+)(&[\\w-]+=[\\w-]+)*$")],
+        [Validators.required],
       ],
       description: ['',
-        [Validators.required, Validators.pattern("^[a-zA-Z0-9!@#$%^&*()]*$")],
+        [Validators.required, Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ!@#$%^&*(),.: ]*$")],
       ],
     });
   }
@@ -110,7 +109,7 @@ export class UploadVideoFormComponent {
     inputFile.addEventListener('change', () => {
       if (inputFile.files && inputFile.files.length > 0) {
         const video = inputFile.files[0];
-        if (video.size < 6000000) {
+        if (video.size < 20000000) {
           const reader = new FileReader();
           reader.onload = () => {
             const allVideos = videoArea.querySelectorAll('video');
@@ -125,7 +124,7 @@ export class UploadVideoFormComponent {
           };
           reader.readAsDataURL(video);
         } else {
-          this.showToastError('Error', 'El video no puede pesar más de 6MB');
+          this.showToastError('Error', 'El video no puede pesar más de 2MB');
         }
       }
     });
