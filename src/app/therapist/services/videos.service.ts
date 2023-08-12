@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseEditVideoI, ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, editVideoI } from '../interfaces/videos.interface';
+import { ApiResponseEditDesactivateVideoI, ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, editVideoI } from '../interfaces/videos.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -49,8 +49,14 @@ export class VideosService {
     }
 
     /*Método que edita los datos de un videos*/
-    editVideo(headers: Map<string, any>, idVideo: number, body: editVideoI): Observable<ApiResponseEditVideoI> {
+    editVideo(headers: Map<string, any>, idVideo: number, body: editVideoI): Observable<ApiResponseEditDesactivateVideoI> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.put<ApiResponseEditVideoI>(this.urlApi + `/multimedia/update/${idVideo}`, body, this.options);
+        return this.http.put<ApiResponseEditDesactivateVideoI>(this.urlApi + `/multimedia/update/${idVideo}`, body, this.options);
+    }
+
+    /*Método que cambia el estado de un video (Desactivar o Eliminar)*/
+    desactivateVideo(headers: Map<string, any>, idVideo: number): Observable<ApiResponseEditDesactivateVideoI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.patch<ApiResponseEditDesactivateVideoI>(this.urlApi + `/multimedia/update/${idVideo}/status`, this.options);
     }
 }

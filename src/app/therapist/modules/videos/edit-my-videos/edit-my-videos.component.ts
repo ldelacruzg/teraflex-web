@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ApiResponseEditVideoI, GetAllMyVideosI, editVideoI } from 'src/app/therapist/interfaces/videos.interface';
-import { VideosService } from 'src/app/therapist/services/videos.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { ApiResponseEditDesactivateVideoI, GetAllMyVideosI, editVideoI } from 'src/app/therapist/interfaces/videos.interface';
+import { VideosService } from 'src/app/therapist/services/videos.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-my-videos',
@@ -14,9 +14,9 @@ import { Router } from '@angular/router';
 })
 export class EditMyVideosComponent {
   /*Variables*/
+  editVideoForm!: FormGroup;
   spinnerStatus: boolean = false;
   optionVisibilitySelected: string = "";
-  editVideoForm!: FormGroup;
   static editVideoDetail: GetAllMyVideosI = {
     id: 0,
     url: "",
@@ -76,12 +76,12 @@ export class EditMyVideosComponent {
     this.spinnerStatus = false;
     this.videosService.editVideo(this.headers.getHeaders(), EditMyVideosComponent.editVideoDetail.id, this.getInfoToEditVideo())
       .subscribe({
-        next: (data: ApiResponseEditVideoI) => {
+        next: (data: ApiResponseEditDesactivateVideoI) => {
           this.spinnerStatus = true;
           this.showToastSuccess(data.message, "Éxito");
           this.router.navigateByUrl("/therapist/home/dashboard/videos/list-videos")
         },
-        error: (data: ApiResponseEditVideoI) => {
+        error: (data: ApiResponseEditDesactivateVideoI) => {
           this.spinnerStatus = true;
           this.showToastError("Error", data.message);
         }
@@ -95,9 +95,6 @@ export class EditMyVideosComponent {
       isPublic: isPublicValue,
       description: this.editVideoForm.get('description')?.value
     };
-    console.log("VISIBILIDAD")
-    console.log(isPublicValue)
-    console.log(body);
     return body;
   }
 

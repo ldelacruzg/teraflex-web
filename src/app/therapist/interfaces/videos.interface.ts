@@ -62,7 +62,7 @@ export interface ApiResponseGetVideo{
 }
 
 /*Interfaz de respuesta de la API para cuando se edita un video*/
-export interface ApiResponseEditVideoI{
+export interface ApiResponseEditDesactivateVideoI{
     statusCode: number;
     message: string;
 }

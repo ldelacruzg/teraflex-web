@@ -14,12 +14,11 @@
                 <div class="inputs-form">
                     <!--Filtrar los videos por activos o inactivos-->
                     <form id="select">
-                        <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;">
-                            <option value="empresa" selected disabled> Filtrar por </option>
-                            <option value="true">Activos</option>
-                            <option value="false">Inactivos (Eliminados)</option>
+                        <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;" (change)="onFilterChange($event)">
+                          <option value="true" selected>Activos</option>
+                          <option value="false">Inactivos</option>
                         </select>
-                    </form>
+                      </form>                      
                     <!--Buscar los video por título-->
                     <form id="search">
                         <input class="form-control me-1" type="text" placeholder="Buscar..." name="buscarMovimientos"
@@ -72,8 +71,10 @@
                                         <fa-icon (click)="openModalViewVideoDetail(viewVideoDetail, video, video.type)"
                                             data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconVerDetalles"></fa-icon>
-                                        <fa-icon (click)="goToEditVideo(video)" data-bs-toggle="mensaje" title="Editar" id="iconEditar"
-                                            [icon]="iconEditar"></fa-icon>
+                                        <fa-icon (click)="goToEditVideo(video)" data-bs-toggle="mensaje" title="Editar"
+                                            id="iconEditar" [icon]="iconEditar"></fa-icon>
+                                        <fa-icon (click)="deleteVideo(video.id, video.title)" data-bs-toggle="mensaje"
+                                            title="Eliminar" id="iconEliminar" [icon]="iconDesactivate"></fa-icon>
                                     </td>
                                 </tr>
                             </ng-container>

@@ -2,17 +2,18 @@ import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { environment } from 'src/environments/environment';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ApiResponseMyVideosI, GetAllMyVideosI } from 'src/app/therapist/interfaces/videos.interface';
+import { ViewMyVideosComponent } from '../modals/view-my-videos/view-my-videos.component';
+import { EditMyVideosComponent } from '../edit-my-videos/edit-my-videos.component';
+import { ApiResponseEditDesactivateVideoI, ApiResponseMyVideosI, GetAllMyVideosI } from 'src/app/therapist/interfaces/videos.interface';
 import { VideosService } from 'src/app/therapist/services/videos.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import * as XLSX from 'xlsx';
-import { ViewMyVideosComponent } from '../modals/view-my-videos/view-my-videos.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
-import { EditMyVideosComponent } from '../edit-my-videos/edit-my-videos.component';
 
 @Component({
   selector: 'app-list-my-videos',
@@ -36,23 +37,37 @@ export class ListMyVideosComponent {
     private toastr: ToastrService,
     public modal: NgbModal,
     private router: Router,
+    private sweetAlerts: SweetAlerts
   ) { }
 
   /*ngOnInit*/
   ngOnInit() {
-    this.getAllMyVideos();
+    this.getAllMyVideos(true);
   }
 
   /*Método que obtiene el listado de todos los videos que ha subido un terapeuta*/
-  getAllMyVideos() {
-    this.myVideosService.getAllMyVideos(this.headers.getHeaders(), true).subscribe((data: ApiResponseMyVideosI) => {
-      this.spinnerStatus = false;
-      this.arrayVideos = data.data;
-      this.spinnerStatus = true;
-    }, error => {
-      this.spinnerStatus = true;
-      this.showToastError("Error", "No se pudo obtener el listado de videos");
+  getAllMyVideos(status: boolean) {
+    this.spinnerStatus = false;
+    this.myVideosService.getAllMyVideos(this.headers.getHeaders(), status).subscribe({
+      next: (data: ApiResponseMyVideosI) => {
+        this.arrayVideos = data.data;
+        this.spinnerStatus = true;
+      },
+      error: () => {
+        this.spinnerStatus = true;
+        this.showToastError("Error", "No se pudo obtener el listado de videos");
+      }
     });
+  }
+
+  /*Método que cambia el filtro entre los activos e inactivos (Eliminados)*/
+  onFilterChange(event: any) {
+    const value = event.target.value;
+    if (value === "true")
+      this.getAllMyVideos(true);
+    else if (value === "false")
+      this.getAllMyVideos(false);
+
   }
 
   /*Método que cambias las páginas de la tabla*/
@@ -136,8 +151,34 @@ export class ListMyVideosComponent {
     });
   }
 
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
+    this.toastr.success(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
   /*Método que elimina un video*/
-  deleteVideo(id: number) {
+  deleteVideo(idVideo: number, videoTitle: string) {
+    this.sweetAlerts.alertConfirmCancel("Desactivar video", "¿Está seguro de desactivar el video \"" + videoTitle + "\"?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.myVideosService.desactivateVideo(this.headers.getHeaders(), idVideo)
+            .subscribe({
+              next: (data: ApiResponseEditDesactivateVideoI) => {
+                this.spinnerStatus = false;
+                this.showToastSuccess("Video desactivado con éxito", "Tarea eliminada");
+                this.getAllMyVideos(true);
+                this.spinnerStatus = true;
+              },
+              error: (error) => {
+                this.spinnerStatus = true;
+                this.showToastError("Error", "No se pudo desactivar el video");
+              }
+            })
+        }
+      });
   }
 
   /*Método que muestra modal para ver el detalle de una tarea*/
@@ -161,7 +202,7 @@ export class ListMyVideosComponent {
 
   iconVerDetalles = iconos.faEye;
   iconEditar = iconos.faEdit;
-  iconEliminar = iconos.faTrash;
+  iconDesactivate = iconos.faToggleOff;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;
