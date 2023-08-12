@@ -24,6 +24,7 @@ export class ListMyVideosComponent {
   /*Variables*/
   optionFilter: string = environment.TITLE;
   spinnerStatus: boolean = false;
+  statusVideo: boolean = false;
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
@@ -47,6 +48,7 @@ export class ListMyVideosComponent {
 
   /*Método que obtiene el listado de todos los videos que ha subido un terapeuta*/
   getAllMyVideos(status: boolean) {
+    this.statusVideo = status;
     this.spinnerStatus = false;
     this.myVideosService.getAllMyVideos(this.headers.getHeaders(), status).subscribe({
       next: (data: ApiResponseMyVideosI) => {
@@ -159,8 +161,8 @@ export class ListMyVideosComponent {
     });
   }
 
-  /*Método que elimina un video*/
-  deleteVideo(idVideo: number, videoTitle: string) {
+  /*Método que desactiva un video*/
+  desactivateVideo(idVideo: number, videoTitle: string){
     this.sweetAlerts.alertConfirmCancel("Desactivar video", "¿Está seguro de desactivar el video \"" + videoTitle + "\"?")
       .then(respuesta => {
         if (respuesta.value == true) {
@@ -200,9 +202,9 @@ export class ListMyVideosComponent {
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;
 
-  iconVerDetalles = iconos.faEye;
-  iconEditar = iconos.faEdit;
-  iconDesactivate = iconos.faToggleOff;
+  iconViewDetails = iconos.faEye;
+  iconEdit = iconos.faEdit;
+  iconActivate = iconos.faToggleOn;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;

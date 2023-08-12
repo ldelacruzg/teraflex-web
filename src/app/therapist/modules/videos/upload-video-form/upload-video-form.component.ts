@@ -109,7 +109,7 @@ export class UploadVideoFormComponent {
     inputFile.addEventListener('change', () => {
       if (inputFile.files && inputFile.files.length > 0) {
         const video = inputFile.files[0];
-        if (video.size < 6000000) {
+        if (video.size < 20000000) {
           const reader = new FileReader();
           reader.onload = () => {
             const allVideos = videoArea.querySelectorAll('video');
@@ -124,7 +124,7 @@ export class UploadVideoFormComponent {
           };
           reader.readAsDataURL(video);
         } else {
-          this.showToastError('Error', 'El video no puede pesar más de 6MB');
+          this.showToastError('Error', 'El video no puede pesar más de 2MB');
         }
       }
     });

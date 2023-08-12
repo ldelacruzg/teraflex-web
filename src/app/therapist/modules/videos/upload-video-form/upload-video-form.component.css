@@ -20,7 +20,7 @@ body {
     border: 2px dashed #ccc;
     border-radius: 8px;
     height: 270px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .video-area {

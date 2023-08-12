@@ -36,7 +36,6 @@ video, iframe{
     border-radius: 10px;
 }
 
-
 /*-------------Responsive Web Design------------*/
 @media screen and (max-width: 768px){
     .centered-video-youtube {
