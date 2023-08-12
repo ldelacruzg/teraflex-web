@@ -60,3 +60,15 @@ export interface ApiResponseGetVideo{
     error: string;
     statusCode: number;
 }
+
+/*Interfaz de respuesta de la API para cuando se edita un video*/
+export interface ApiResponseEditVideoI{
+    statusCode: number;
+    message: string;
+}
+
+/*Interfaz que contiene el body para editar un video*/
+export interface editVideoI{
+    isPublic: boolean;
+    description: string;
+}

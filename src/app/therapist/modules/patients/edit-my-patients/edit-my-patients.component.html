@@ -63,7 +63,8 @@
                         <input type="date" class="form-control form-control-lg bg-light fs-6"
                             formControlName="birthDate" placeholder="Fecha de nacimiento*"
                             [ngClass]="{
-                                'is-invalid': editPatientForm.get('birthDate')?.hasError('required') && editPatientForm.get('birthDate')?.touched}">
+                                'is-invalid': editPatientForm.get('birthDate')?.hasError('required') && editPatientForm.get('birthDate')?.touched}"
+                                readonly>
                         <div class="validators"
                             *ngIf="editPatientForm.get('birthDate')?.hasError('required') && editPatientForm.get('birthDate')?.touched">
                             <small>¡Este campo es requerido!</small>

@@ -12,6 +12,7 @@ import * as XLSX from 'xlsx';
 import { ViewMyVideosComponent } from '../modals/view-my-videos/view-my-videos.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { EditMyVideosComponent } from '../edit-my-videos/edit-my-videos.component';
 
 @Component({
   selector: 'app-list-my-videos',
@@ -147,7 +148,8 @@ export class ListMyVideosComponent {
   }
 
   /*Método que redirige al componente de editar un video*/
-  goToEditVideo() {
+  goToEditVideo(editVideoDetail: GetAllMyVideosI) {
+    EditMyVideosComponent.editVideoDetail = editVideoDetail;
     this.router.navigateByUrl("/therapist/home/dashboard/videos/edit-video")
   }
 

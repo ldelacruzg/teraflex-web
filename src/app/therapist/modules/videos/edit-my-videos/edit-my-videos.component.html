@@ -1,4 +1,5 @@
 <app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
 <body>
     <div class="row justify-content-center">
         <div class="col-12 container-info">
@@ -6,7 +7,7 @@
                 <h4 id="title"><fa-icon [icon]="iconVideo" class="icon-title"></fa-icon> Editar video</h4>
             </div>
             <div class="row mt-4">
-                <form [formGroup]="editVideoForm">                        
+                <form [formGroup]="editVideoForm">
                     <!--Título-->
                     <div class="row">
                         <div class="col-12 mb-4">
@@ -14,31 +15,29 @@
                             <input type="text" class="form-control form-control-lg bg-light fs-6"
                                 formControlName="title" placeholder="Título*" [ngClass]="{
                                 'is-invalid': editVideoForm.get('title')?.hasError('required') && editVideoForm.get('title')?.touched || editVideoForm.get('title')?.hasError('pattern')
-                            }" [maxlength]="100">
+                            }" [maxlength]="100" readonly>
                             <div class="validators"
                                 *ngIf="editVideoForm.get('title')?.hasError('required') && editVideoForm.get('title')?.touched">
                                 <small>¡Este campo es requerido!</small>
                             </div>
-                            <div class="validators"
-                                *ngIf="editVideoForm.get('title')?.hasError('pattern')">
+                            <div class="validators" *ngIf="editVideoForm.get('title')?.hasError('pattern')">
                                 <small>¡Solo se permiten letras!</small>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                         <!--Tipo-->
-                         <div class="mb-4 col-12 col-md-4">
+                        <!--Tipo-->
+                        <div class="mb-4 col-12 col-md-4">
                             <label class="mb-1"><b>Tipo</b></label>
-                            <input type="text" class="form-control form-control-lg bg-light fs-6"
-                                formControlName="type" placeholder="Tipo*" [ngClass]="{
+                            <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="type"
+                                placeholder="Tipo*" [ngClass]="{
                                 'is-invalid': editVideoForm.get('type')?.hasError('required') && editVideoForm.get('type')?.touched || editVideoForm.get('type')?.hasError('pattern')
-                            }" [maxlength]="2">
+                            }" [maxlength]="2" readonly>
                             <div class="validators"
                                 *ngIf="editVideoForm.get('type')?.hasError('required') && editVideoForm.get('type')?.touched">
                                 <small>¡Este campo es requerido!</small>
                             </div>
-                            <div class="validators"
-                                *ngIf="editVideoForm.get('type')?.hasError('pattern')">
+                            <div class="validators" *ngIf="editVideoForm.get('type')?.hasError('pattern')">
                                 <small>¡Solo se permiten números!</small>
                             </div>
                         </div>
@@ -62,16 +61,32 @@
                         <div class="mb-4 col-12 col-md-4">
                             <label class="mb-1"><b>Fecha de creación</b></label>
                             <input type="text" class="form-control form-control-lg bg-light fs-6"
-                                formControlName="timeEstimated" placeholder="Fecha de creación*" [ngClass]="{
-                                'is-invalid': editVideoForm.get('timeEstimated')?.hasError('required') && editVideoForm.get('timeEstimated')?.touched || editVideoForm.get('timeEstimated')?.hasError('pattern')
-                            }" [maxlength]="2">
+                                formControlName="createdAt" placeholder="Fecha de creación*" [ngClass]="{
+                                'is-invalid': editVideoForm.get('createdAt')?.hasError('required') && editVideoForm.get('createdAt')?.touched || editVideoForm.get('createdAt')?.hasError('pattern')
+                            }" [maxlength]="2" readonly>
                             <div class="validators"
-                                *ngIf="editVideoForm.get('timeEstimated')?.hasError('required') && editVideoForm.get('timeEstimated')?.touched">
+                                *ngIf="editVideoForm.get('createdAt')?.hasError('required') && editVideoForm.get('createdAt')?.touched">
                                 <small>¡Este campo es requerido!</small>
                             </div>
-                            <div class="validators"
-                                *ngIf="editVideoForm.get('timeEstimated')?.hasError('pattern')">
+                            <div class="validators" *ngIf="editVideoForm.get('createdAt')?.hasError('pattern')">
                                 <small>¡Solo se permiten números!</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--URL-->
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <label class="mb-1"><b>URL</b></label>
+                            <input type="text" class="form-control form-control-lg bg-light fs-6"
+                                formControlName="url" placeholder="URL*" [ngClass]="{
+                                'is-invalid': editVideoForm.get('url')?.hasError('required') && editVideoForm.get('url')?.touched || editVideoForm.get('url')?.hasError('pattern')
+                            }" [maxlength]="100" readonly>
+                            <div class="validators"
+                                *ngIf="editVideoForm.get('url')?.hasError('required') && editVideoForm.get('url')?.touched">
+                                <small>¡Este campo es requerido!</small>
+                            </div>
+                            <div class="validators" *ngIf="editVideoForm.get('url')?.hasError('pattern')">
+                                <small>¡Solo se permiten letras!</small>
                             </div>
                         </div>
                     </div>
@@ -79,8 +94,8 @@
                     <div class="row">
                         <div class="mb-3">
                             <label class="mb-1"><b>Descripción</b></label>
-                            <textarea class="form-control form-control-lg bg-light fs-6"
-                                formControlName="description" placeholder="Descripción*" rows="7" [ngClass]="{
+                            <textarea class="form-control form-control-lg bg-light fs-6" formControlName="description"
+                                placeholder="Descripción*" rows="7" [ngClass]="{
                                 'is-invalid': editVideoForm.get('description')?.hasError('required') && editVideoForm.get('description')?.touched
                             }" [maxlength]="600"></textarea>
                             <div class="validators"
@@ -92,8 +107,10 @@
                     <div class="action-buttons mb-3">
                         <!--Botones de regresar y registrar tarea-->
                         <div class="action-buttons mb-3">
-                            <button mat-button (click)="editVideoDetail()" type="button" class="btn btn-primary btn-md">Aceptar</button>
-                            <button mat-button [routerLink]="'../my-tasks'" type="button" class="btn btn-danger btn-md">Cancelar</button>
+                            <button mat-button (click)="editVideoDetail()" type="button"
+                                class="btn btn-primary btn-md">Aceptar</button>
+                            <button mat-button [routerLink]="'../list-videos'" type="button"
+                                class="btn btn-danger btn-md">Cancelar</button>
                         </div>
                     </div>
                 </form>

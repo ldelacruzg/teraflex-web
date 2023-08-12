@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, RegisterVideoLinkI, RegisterVideoLocal } from '../interfaces/videos.interface';
+import { ApiResponseEditVideoI, ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, editVideoI } from '../interfaces/videos.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -46,5 +46,11 @@ export class VideosService {
     getVideo(headers: Map<string, any>, idVideo: number): Observable<Blob> {
         this.options = this.authService.getHeaders(headers);
         return this.http.get(this.urlApi + `/multimedia/download/${idVideo}`, { ...this.options, responseType: 'blob' });
+    }
+
+    /*Método que edita los datos de un videos*/
+    editVideo(headers: Map<string, any>, idVideo: number, body: editVideoI): Observable<ApiResponseEditVideoI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.put<ApiResponseEditVideoI>(this.urlApi + `/multimedia/update/${idVideo}`, body, this.options);
     }
 }
