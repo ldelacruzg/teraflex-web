@@ -8,6 +8,7 @@ import { SliderVideosComponent } from './slider-videos/slider-videos.component';
 import { ChatIAComponent } from './chat-ia/chat-ia.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SearchRegistersPipe } from './pipes/search-registers.pipe';
+import { CreditsInfoComponent } from './credits-info/credits-info.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SearchRegistersPipe } from './pipes/search-registers.pipe';
     TasksToReviewComponent,
     ChatIAComponent,
     SpinnerComponent,
-    SearchRegistersPipe
+    SearchRegistersPipe,
+    CreditsInfoComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { SearchRegistersPipe } from './pipes/search-registers.pipe';
     SliderVideosComponent,
     ChatIAComponent,
     SpinnerComponent,
-    SearchRegistersPipe
+    SearchRegistersPipe,
+    CreditsInfoComponent
   ]
 })
 export class SharedComponentsModule { }
