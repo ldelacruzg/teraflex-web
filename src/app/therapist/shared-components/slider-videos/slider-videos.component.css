@@ -13,7 +13,7 @@ h5 {
   justify-content: center;
 }
 
-.card img {
+.card iframe {
   max-width: 100%;
   max-height: 100%;
 }
@@ -24,6 +24,7 @@ h5 {
   border: none;
   border-radius: 5px;
   width: calc(100%/3);
+  cursor: pointer;
 }
 
 .carousel-inner {
@@ -45,12 +46,21 @@ h5 {
   transform: translateY(-50%);
 }
 
-@media (min-width: 768px) {
-  .card img {
-    height: 11em;
+/*Responsive Web Design*/
+@media (max-width: 767px) {
+  .cards-wrapper {
+    flex-direction: column;
+    overflow-x: hidden;
   }
 
-  .cards-wrapper>.card {
-    width: 100%;
+  .card {
+    margin: 0.5em auto; 
+    width: 90%;
+    overflow: hidden;
+    display: none;
+  }
+
+  .card:first-child {
+    display: block;
   }
 }

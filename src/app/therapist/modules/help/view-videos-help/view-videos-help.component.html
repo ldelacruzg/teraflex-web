@@ -1,0 +1,36 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-12 container-info">
+            <div class="div col-12 mt-3 mx-1">
+                <h5 id="title"><fa-icon [icon]="iconVideoHelp" class="icon-title"></fa-icon> Reproductor de video</h5>
+                <div class="button-back">
+                    <button [routerLink]="'../tutorial-videos'" type="button" class="btn btn-secondary btn-sm">
+                        <fa-icon [icon]="iconBack"></fa-icon> Atrás</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row container-videos">
+            <!--Muestra el video seleccionado pra reproducir-->
+            <div class="col-12 col-lg-8 play-video mb-4">
+                <h6 class="mb-2"><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Mover brazos y piernas</b></h6>
+                <iframe src="https://www.youtube.com/embed/LnqHQpwc0sg" title="FyCUTEQ | MoneyGame v1 - Presentación"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+            </div>
+            <!--Muestra los videos sugeridos-->
+            <div class="col-12 col-lg-4 suggested-videos">
+                <h6 class="mb-2"><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Videos sugeridos</b></h6>
+                <img (click)="goToVideoDetail()"
+                    src="https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg"
+                    class="mb-2">
+                <img (click)="goToVideoDetail()"
+                    src="https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg"
+                    class="mb-2">
+            </div>
+        </div>
+    </div>
+</body>
