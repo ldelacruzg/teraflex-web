@@ -30,6 +30,10 @@ const routes: Routes = [
           loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)
         },
         {
+          path: 'credits', 
+          loadChildren:()=>import("../credits/credits.module").then(m=>m.CreditsModule)
+        },
+        {
           path: 'options-home', component: OptionsHomeComponent
         },
       ]

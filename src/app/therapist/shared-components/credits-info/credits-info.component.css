@@ -1,0 +1,78 @@
+.card-box {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    background-color: #9CD3DD;
+}
+
+.social-links li a {
+    border-radius: 50%;
+    color: #00679e;
+    display: inline-block;
+    height: 30px;
+    line-height: 27px;
+    border: 1.5px solid #00679e;
+    text-align: center;
+    width: 30px
+}
+
+.social-links li a:hover {
+    color: #797979;
+    border: 1.5px solid #797979
+}
+
+.thumb-lg>img {
+    height: 88px;
+    width: 88px;
+    border-radius: 50%;
+}
+
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #fff;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+}
+
+h6 {
+    font-weight: 700;
+}
+
+.container-info-credits{
+    text-align: center;
+}
+
+.container-developers {
+    text-align: center;
+}
+
+.container-professors {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.container-administration {
+    text-align: center;
+}
+
+.container-administration {
+    text-align: center;
+}
+
+.container-more-information {
+    text-align: center;
+}
+
+.container-more-information>a {
+    color: #00679e !important;
+}
+
+.container-info-university{
+    text-align: center;
+}
+
+.container-info-university>a{
+    color: #00679e !important;
+}

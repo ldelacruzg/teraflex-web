@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TutorialVideosComponent } from './tutorial-videos/tutorial-videos.component';
+import { ListVideosHelpComponent } from './list-videos-help/list-videos-help.component';
+import { ViewVideosHelpComponent } from './view-videos-help/view-videos-help.component';
 
 
 //Rutas hijas
 const routes: Routes = [
   {
-    path: 'tutorial-videos', component: TutorialVideosComponent
+    path: 'tutorial-videos', component: ListVideosHelpComponent
+  },
+  {
+    path: 'video-detail', component: ViewVideosHelpComponent
   },
   {
     path: "",
@@ -19,6 +23,9 @@ const routes: Routes = [
   declarations: [],
   imports: [
     RouterModule.forChild(routes)
+  ],
+  exports: [
+    RouterModule
   ]
 })
 export class HelpRoutingModule { }
