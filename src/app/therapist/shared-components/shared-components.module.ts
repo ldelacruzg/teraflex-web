@@ -9,6 +9,9 @@ import { ChatIAComponent } from './chat-ia/chat-ia.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SearchRegistersPipe } from './pipes/search-registers.pipe';
 import { CreditsInfoComponent } from './credits-info/credits-info.component';
+import { CircleStatisticsComponent } from './circle-statistics/circle-statistics.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { LinearStatisticsComponent } from './linear-statistics/linear-statistics.component'
 
 @NgModule({
   declarations: [
@@ -19,11 +22,14 @@ import { CreditsInfoComponent } from './credits-info/credits-info.component';
     ChatIAComponent,
     SpinnerComponent,
     SearchRegistersPipe,
-    CreditsInfoComponent
+    CreditsInfoComponent,
+    CircleStatisticsComponent,
+    LinearStatisticsComponent
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgApexchartsModule
   ],
   exports:[
     InfoLoginComponent,
@@ -33,7 +39,9 @@ import { CreditsInfoComponent } from './credits-info/credits-info.component';
     ChatIAComponent,
     SpinnerComponent,
     SearchRegistersPipe,
-    CreditsInfoComponent
+    CreditsInfoComponent,
+    CircleStatisticsComponent,
+    LinearStatisticsComponent
   ]
 })
 export class SharedComponentsModule { }
