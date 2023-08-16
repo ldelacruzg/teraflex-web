@@ -12,7 +12,7 @@
             <form [formGroup]="patientForm" class="row mt-4">
                 <!--Apellidos (Buscar)-->
                 <div class="col-12 col-md-5 mb-3">
-                    <label class="mb-1"><b>Apellidos y Nombres</b></label>
+                    <label class="mb-1"><b>Nombres y Apellidos</b></label>
                     <input type="text" placeholder="Buscar..." [matAutocomplete]="auto"
                         class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
                         (input)="onSearch($event)" formControlName="names" />
@@ -20,9 +20,9 @@
                         [ngClass]="{
                         'is-invalid': patientForm.get('names')?.hasError('required') && patientForm.get('names')?.touched || patientForm.get('names')?.hasError('pattern')}">
                         <mat-option *ngFor="let patientName of filteredPatientsNames"
-                            [value]="patientName.lastName + ' ' + patientName.firstName"
+                            [value]="patientName.firstName+ ' ' + patientName.lastName"
                             (click)="getInfoTasksAssigns(patientName.id)">
-                            {{ patientName.lastName + ' ' + patientName.firstName }}
+                            {{ patientName.firstName + ' ' + patientName.lastName }}
                         </mat-option>
                         <mat-option *ngIf="filteredPatientsNames.length === 0" [value]="'Sin resultados'">
                             Sin resultados...

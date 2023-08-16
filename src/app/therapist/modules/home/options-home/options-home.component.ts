@@ -11,7 +11,7 @@ import { ProfileService } from 'src/app/therapist/services/profile.service';
 })
 export class OptionsHomeComponent {
   /*Variables*/
-  spinnerStatus = true;
+  @Output() carouselExample1: string ="carouselExample1";
   @Output() arrayVideosDetail1: any[] = [
     {
       picture: "https://i.ytimg.com/vi/YfF0mvi0SQs/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAcuxccjSWrIhzP--GCSRJLjm0fQ",
@@ -26,7 +26,7 @@ export class OptionsHomeComponent {
       title: "Pasos para registrar pacientes",
     },
   ];
-
+  
   @Output() arrayVideosDetail2: any[] = [
     {
       picture: "https://i.ytimg.com/vi/YfF0mvi0SQs/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAcuxccjSWrIhzP--GCSRJLjm0fQ",
@@ -56,7 +56,8 @@ export class OptionsHomeComponent {
     categoryName: "",
     status: false,
   };
-
+  spinnerStatus: boolean = true;
+  
   /*Constructor*/
   constructor(
     private headers: DashboardComponent,

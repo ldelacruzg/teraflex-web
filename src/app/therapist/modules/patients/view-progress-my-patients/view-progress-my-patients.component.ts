@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { ViewDetailProgressMyPatientsComponent } from '../modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
 import { ApiResponseListTasksAssignsToPatientI } from 'src/app/therapist/interfaces/assigments.interface';
 import { ApiResponseGetMyPatientsI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
 import { MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
@@ -9,10 +10,9 @@ import { AssigmentsService } from 'src/app/therapist/services/assignments.servic
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ViewDetailProgressMyPatientsComponent } from '../modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
 import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view-progress-my-patients',

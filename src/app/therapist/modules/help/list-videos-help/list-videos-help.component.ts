@@ -6,6 +6,8 @@ import { Component, Output } from '@angular/core';
   styleUrls: ['./list-videos-help.component.css']
 })
 export class ListVideosHelpComponent {
+  @Output() carouselExample1: string ="carouselExample1";
+  @Output() carouselExample2: string ="carouselExample2";
   @Output() arrayVideosDetail1: any[] = [
     {
       picture: "https://i.ytimg.com/vi/YfF0mvi0SQs/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAcuxccjSWrIhzP--GCSRJLjm0fQ",
