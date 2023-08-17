@@ -5,30 +5,25 @@
         <div class="col-12 container-info">
             <div class="div mt-3 mx-1">
                 <h4 id="titulo"><fa-icon [icon]="iconMyPatients" class="icon-title"></fa-icon> Mis pacientes</h4>
-                <!--[routerLink]="'../register-patients'"-->
-                <button [routerLink]="'../register-patients'" type="button" class="btn btn-primary btn-sm">
+                <button (click)="openModalSelectOptionRegisterPatient(optionsRegisterPatient)" type="button"
+                    class="btn btn-primary btn-sm">
                     <fa-icon [icon]="iconAdd"></fa-icon> Nuevo paciente</button>
             </div>
             <br />
             <div class="parent-container">
                 <div class="inputs-form">
-                    <form id="select">
-                        <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;">
-                            <option value="true" selected>Activos</option>
-                            <option value="false">Inactivos</option>
-                        </select>
-                    </form>
                     <form id="search">
                         <input class="form-control me-1" type="text" placeholder="Buscar..." name="buscarMovimientos"
-                        [(ngModel)]="patientsToSearch">
+                            [(ngModel)]="patientsToSearch">
                     </form>
 
-                    <div class="botones-exportar">
-                        <button type="button" (click)="downloadPDF()" class="btn save-pdf" data-bs-toggle="mensaje"
+                    <!--Botones para exportar en .pdf y .xlsx-->
+                    <div class="export-buttons mb-3">
+                        <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
                             title="Exportar a PDF">
                             <fa-icon [icon]="iconPdf"></fa-icon>
                         </button>
-                        <button type="button" (click)="downloadXLSX()" class="btn save-xlsx" data-bs-toggle="mensaje"
+                        <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
                             title="Exportar a XLSX">
                             <fa-icon [icon]="iconXlsx"></fa-icon>
                         </button>
@@ -62,11 +57,16 @@
                                     <td>{{patient.phone}}</td>
                                     <td>{{ calculateAge(patient.birthDate)}} años</td>
                                     <td class="acciones">
-                                        <fa-icon (click)="openModalViewPatientDetail(viewPatientDetail, patient.id)" data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                                        <fa-icon data-bs-toggle="mensaje" title="Desvincular paciente" id="iconUnBind"
+                                            [icon]="iconUnBindPatient"></fa-icon>
+                                        <fa-icon (click)="openModalViewPatientDetail(viewPatientDetail, patient.id)"
+                                            data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconViewDetail"></fa-icon>
-                                        <fa-icon (click)="goToEditPatient(patient)" data-bs-toggle="mensaje" title="Editar" id="iconEditar"
-                                            [icon]="iconEdit"></fa-icon>
-                                        <fa-icon (click)="deletePatient(patient.id, patient.firstName + ' ' + patient.lastName)" data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
+                                        <fa-icon (click)="goToEditPatient(patient)" data-bs-toggle="mensaje"
+                                            title="Editar" id="iconEditar" [icon]="iconEdit"></fa-icon>
+                                        <fa-icon
+                                            (click)="deletePatient(patient.id, patient.firstName + ' ' + patient.lastName)"
+                                            data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
                                             [icon]="iconDelete"></fa-icon>
                                     </td>
                                 </tr>
@@ -89,4 +89,8 @@
 
 <ng-template #viewPatientDetail>
     <app-view-my-patients></app-view-my-patients>
-  </ng-template>
+</ng-template>
+
+<ng-template #optionsRegisterPatient>
+    <app-create-or-link-my-patients></app-create-or-link-my-patients>
+</ng-template>

@@ -14,6 +14,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { RegisterMyPatientsComponent } from '../register-my-patients/register-my-patients.component';
 
 @Component({
   selector: 'app-list-my-patients',
@@ -220,6 +221,10 @@ export class ListMyPatientsComponent {
     return yearsDiff;
   }
 
+  /*Método que abre el modal para decidir si crear un nuevo paciente o registrar uno existente*/
+  openModalSelectOptionRegisterPatient(optionsRegisterPatient: any){
+    this.modal.open(optionsRegisterPatient, { size: 'lg', centered: true });
+  }
 
   /*Icons to use*/
   iconMyPatients = iconos.faUsers;
@@ -227,6 +232,7 @@ export class ListMyPatientsComponent {
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;
 
+  iconUnBindPatient = iconos.faUserSlash;
   iconViewDetail = iconos.faEye;
   iconEdit = iconos.faEdit;
   iconDelete = iconos.faTrash;

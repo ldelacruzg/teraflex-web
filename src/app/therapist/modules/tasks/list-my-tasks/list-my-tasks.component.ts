@@ -66,7 +66,7 @@ export class ListMyTasksComponent {
 
   /*Método que elimina una tarea*/
   deleteTask(idTask: number, nameTask: string) {
-    this.sweetAlerts.alertConfirmCancel("Eliminar tarea", "¿Está seguro de eliminar la tarea " + nameTask + "?").then(respuesta => {
+    this.sweetAlerts.alertConfirmCancel("Eliminar tarea", "¿Está seguro de eliminar la tarea \"" + nameTask + "\"?").then(respuesta => {
       if (respuesta.value == true) {
         this.myTasksService.deleteTask(idTask, this.getHeaders())
           .subscribe({

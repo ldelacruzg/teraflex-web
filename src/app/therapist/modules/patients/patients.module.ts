@@ -15,6 +15,7 @@ import { ViewProgressMyPatientsComponent } from './view-progress-my-patients/vie
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ViewDetailProgressMyPatientsComponent } from './modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
+import { CreateOrLinkMyPatientsComponent } from './modals/create-or-link-my-patients/create-or-link-my-patients.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ViewDetailProgressMyPatientsComponent } from './modals/view-detail-prog
     ViewMyPatientsComponent,
     ViewProgressMyPatientsComponent,
     ViewDetailProgressMyPatientsComponent,
+    CreateOrLinkMyPatientsComponent,
   ],
   imports: [
     CommonModule,
