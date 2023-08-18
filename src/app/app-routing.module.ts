@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./therapist/modules/home/home.module').then(m => m.HomeModule),
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
+    path: 'home-admin',
+    loadChildren: () => import('./admin/modules/home/home.module').then(m => m.HomeModule)
+  },
   { 
     path: '', 
     redirectTo: 'authentication/security/login', // Ruta relativa

@@ -1,62 +1,31 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiResponseGetMyInformationI, InformationTerapistDetailI } from 'src/app/therapist/interfaces/profile.interface';
-import { ProfileService } from 'src/app/therapist/services/profile.service';
-import { ToastrService } from 'ngx-toastr';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css', '../../../../therapist/modules/home/dashboard/dashboard.component.css']
 })
 export class DashboardComponent {
-  //Variables
-  spinnerStatus: boolean = true;
-  optionMenu: number = 0;
-  detailInfoTerapist: InformationTerapistDetailI = {
-    id: 0,
-    firstName: "",
-    lastName: "",
-    docNumber: "",
-    phone: "",
-    description: "",
-    birthDate: "",
-    createdAt: "",
-    updatedAt: "",
-    role: "",
-    categoryId: 0,
-    categoryName: "",
-    status: false,
-  };
-  isDropdownActive: boolean[] = [false, false, false, false];
+  /*Variables*/
+  spinnerStatus: boolean = false;
 
   /*Constructor*/
   constructor(
     private router: Router,
     private routerActivated: ActivatedRoute,
-    private myProfileService: ProfileService,
-    private toastr: ToastrService
-  ) { }
+  ){}
 
-
-  /*ngOnInit*/
-  ngOnInit(): void {
-    this.getMyInformation();
+  /*ngOnInit()*/
+  ngOnInit(){
+    this.spinnerStatus = true;
     this.showHideChildsOption();
     this.showHideMenuProfile();
     this.showHideSidebar();
     this.detectedScreen();
     this.optionSelectedOnMenu();
     this.router.navigate(['options-home'], { relativeTo: this.routerActivated })
-  }
-
-  /*Método que obtiene los headers*/
-  getHeaders(){
-    let headers = new Map();
-    headers.set("token", sessionStorage.getItem("token"));
-    headers.set("role", sessionStorage.getItem("role"));
-    return headers;
   }
 
   /*Método que cierra la sesión del usuario*/
@@ -89,15 +58,6 @@ export class DashboardComponent {
         item.classList.toggle('show');
       });
     });
-  }
-
-  toggleDropdown(index: number) {
-    for (let i = 0; i < this.isDropdownActive.length; i++) {
-      if (i !== index) {
-        this.isDropdownActive[i] = false;
-      }
-    }
-    this.isDropdownActive[index] = !this.isDropdownActive[index];
   }
 
   /*Método que muestra y oculta el menú de la foto de perfil*/
@@ -168,40 +128,17 @@ export class DashboardComponent {
     });
   }
 
-  /*Método que obtiene la información personal de un terapeuta, para mostrar en el perfil*/
-  getMyInformation(){
-    this.myProfileService.getMyInformation(this.getHeaders())
-      .subscribe({
-        next: (data: ApiResponseGetMyInformationI) => {
-          this.detailInfoTerapist = data.data;
-        },
-        error: (error) => {
-          this.showToastError("Error", "No se pudo obtener su información");
-        }
-      })
-  }
-
-  /*Método que muestra un toast con mensaje de ERROR*/
-  showToastError(title: string, message: string) {
-    this.toastr.error(message, title, {
-      progressBar: true,
-      timeOut: 3000,
-    });
-  }
 
   /*Icons to use*/
   iconBars = iconos.faBars;
   iconHome = iconos.faHome;
-  iconTasks = iconos.faListCheck;
-  iconMyTasks = iconos.faFileLines;
-  iconAsignTasks = iconos.faCalendarDay;
-  iconInformation = iconos.faInfoCircle;
-  iconResources = iconos.faFilm;
-  iconUploadVideos = iconos.faVideoCamera;
+
+  iconAdministration = iconos.faGear;
+  iconTerapists = iconos.faUserNurse;
+  iconCategories = iconos.faFolderTree;
   iconPatients = iconos.faUsers;
-  iconMyPatients = iconos.faPeopleRoof;
-  iconViewProgress = iconos.faChartSimple;
   iconHelp = iconos.faQuestionCircle;
+  iconInformation = iconos.faInfoCircle;
   iconArrowDown = iconos.faChevronDown;
 
   iconSearch = iconos.faSearch;

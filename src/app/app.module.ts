@@ -9,6 +9,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthModule } from './auth/auth.module';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     TherapistModule,
     AuthModule,
+    SharedComponentsModule,
+    AdminModule,
     FontAwesomeModule,
     MatPaginatorModule,
     BrowserAnimationsModule,

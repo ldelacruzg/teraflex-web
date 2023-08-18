@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/therapist/services/auth.service';
 import { environment } from 'src/environments/environment';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { DashboardComponent } from 'src/app/therapist/modules/home/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,7 @@ export class LoginComponent {
       }
       else if (data.role == environment.ADMIN) {
         this.spinnerStatus = true;
-        this.ruta.navigateByUrl('/therapist/home/dashboard');
+        this.ruta.navigateByUrl('/admin/home/dashboard');
         this.showToastSuccess("Inicio de sesión exitoso", "Administrador")
       }
       else{

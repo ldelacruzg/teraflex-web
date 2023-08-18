@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ViewVideosHelpComponent } from '../../modules/help/view-videos-help/view-videos-help.component';
+import { ViewVideosHelpComponent } from 'src/app/therapist/modules/help/view-videos-help/view-videos-help.component';
+
 
 @Component({
   selector: 'app-slider-videos',

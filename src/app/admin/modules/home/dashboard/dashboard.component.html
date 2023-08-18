@@ -11,42 +11,20 @@
                         Inicio</a>
                 </li>
                 <li>
-                    <a><fa-icon class="icon" [icon]="iconTasks"></fa-icon> Tareas <fa-icon class="icon-right"
+                    <a><fa-icon class="icon" [icon]="iconAdministration"></fa-icon> Administración <fa-icon class="icon-right"
                             [icon]="iconArrowDown"></fa-icon></a>
                     <ul class="side-dropdown">
                         <li>
-                            <a [routerLink]="'tasks'"><fa-icon class="icon" [icon]="iconMyTasks"></fa-icon> Mis
-                                tareas</a>
+                            <a [routerLink]="'tasks'"><fa-icon class="icon" [icon]="iconTerapists"></fa-icon> 
+                            Terapeutas</a>
                         </li>
                         <li>
-                            <a [routerLink]="'tasks/assign-tasks'"><fa-icon class="icon"
-                                    [icon]="iconAsignTasks"></fa-icon>
-                                Asignar tareas</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a><fa-icon class="icon" [icon]="iconResources"></fa-icon> Recursos <fa-icon
-                            class="icon-right" [icon]="iconArrowDown"></fa-icon></a>
-                    <ul class="side-dropdown">
-                        <li>
-                            <a [routerLink]="'videos/list-videos'"><fa-icon class="icon"
-                                    [icon]="iconUploadVideos"></fa-icon>Mis recursos</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a><fa-icon class="icon" [icon]="iconPatients"></fa-icon> Pacientes <fa-icon
-                            class="icon-right" [icon]="iconArrowDown"></fa-icon></a>
-                    <ul class="side-dropdown">
-                        <li>
-                            <a [routerLink]="'patients/my-patients'"><fa-icon class="icon"
-                                    [icon]="iconPatients"></fa-icon>
-                                Mis pacientes</a>
+                            <a [routerLink]="'tasks/assign-tasks'"><fa-icon class="icon" [icon]="iconCategories"></fa-icon>
+                            Categorías</a>
                         </li>
                         <li>
-                            <a [routerLink]="'patients/view-progress'"><fa-icon class="icon"
-                                    [icon]="iconViewProgress"></fa-icon> Ver progresos</a>
+                            <a [routerLink]="'tasks/assign-tasks'"><fa-icon class="icon" [icon]="iconPatients"></fa-icon>
+                            Pacientes</a>
                         </li>
                     </ul>
                 </li>
@@ -80,8 +58,7 @@
                 <img src="../../../../../assets/pictures/user-profile.jpg" alt="img-profile">
                 <ul class="profile-link">
                     <div class="info">
-                        <p><small><i>Terapeuta</i></small> <br />{{detailInfoTerapist.firstName + " "
-                            +detailInfoTerapist.lastName}}</p>
+                        <p><i>Administrador</i> <br /><small>Dirección de Gestión de Desarrollo Social de Quevedo</small></p>
                     </div>
                     <hr>
                     <li><a [routerLink]="'profile/my-profile'"><fa-icon [icon]="iconProfile"></fa-icon> Mi perfil</a>

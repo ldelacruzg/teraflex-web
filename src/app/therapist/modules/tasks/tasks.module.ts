@@ -8,7 +8,7 @@ import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 import { EditTaskToAssignComponent } from './modals/edit-task-to-assign/edit-task-to-assign.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { SharedComponentsModule } from '../../shared-components/shared-components.module';
+import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { SweetAlerts } from '../../alerts/alerts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

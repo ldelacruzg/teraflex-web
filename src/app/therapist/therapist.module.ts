@@ -7,6 +7,7 @@ import { PatientsRoutingModule } from './modules/patients/patients-routing.modul
 import { HelpRoutingModule } from './modules/help/help-routing.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { AuthRoutinModule } from '../auth/auth-rounting.module';
+import { SharedComponentsModule } from '../shared-components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AuthRoutinModule } from '../auth/auth-rounting.module';
     TasksRoutingModule,
     PatientsRoutingModule,
     HelpRoutingModule,
-    ProfileModule
+    ProfileModule,
+    SharedComponentsModule
   ]
 })
 export class TherapistModule { }

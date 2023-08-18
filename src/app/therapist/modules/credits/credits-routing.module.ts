@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreditsInfoComponent } from '../../shared-components/credits-info/credits-info.component';
+import { CreditsInfoComponent } from './credits-info/credits-info.component';
+
 
 const routes: Routes = [
   {
