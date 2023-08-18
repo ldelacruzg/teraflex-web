@@ -174,7 +174,7 @@ export class ViewProgressMyPatientsComponent {
 
   /*Icons to use*/
   iconViewProgress = iconos.faChartSimple;
-  iconDelete = iconos.faTrash;
+  iconDelete = iconos.faTrashCan;
   iconBack = iconos.faArrowLeft;
   iconViewDetails = iconos.faEye;
 }

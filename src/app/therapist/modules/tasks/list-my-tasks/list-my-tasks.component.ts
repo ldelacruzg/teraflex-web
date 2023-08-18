@@ -68,10 +68,10 @@ export class ListMyTasksComponent {
   deleteTask(idTask: number, nameTask: string) {
     this.sweetAlerts.alertConfirmCancel("Eliminar tarea", "¿Está seguro de eliminar la tarea \"" + nameTask + "\"?").then(respuesta => {
       if (respuesta.value == true) {
+        this.spinnerStatus = false;
         this.myTasksService.deleteTask(idTask, this.getHeaders())
           .subscribe({
             next: (data: string) => {
-              this.spinnerStatus = false;
               this.getListMyTasks();
               this.showToastSuccess("Tarea eliminada con éxito", "Tarea eliminada");
               this.spinnerStatus = true;
@@ -201,7 +201,7 @@ export class ListMyTasksComponent {
   iconAdd = iconos.faPlusCircle
   iconVerDetalles = iconos.faEye;
   iconEditar = iconos.faEdit;
-  iconEliminar = iconos.faTrash;
+  iconEliminar = iconos.faTrashCan;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;

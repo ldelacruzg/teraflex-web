@@ -6,8 +6,8 @@
             <div class="div col-12 mt-3 mx-1">
                 <h4 id="title"><fa-icon [icon]="iconCreateTask" class="icon-title"></fa-icon> Crear tarea</h4>
                 <div class="button-back">
-                    <button [routerLink]="'../my-tasks'" type="button" class="btn btn-secondary btn-sm">
-                        <fa-icon [icon]="iconBack"></fa-icon> Atrás</button>
+                    <button [routerLink]="'../my-tasks'" type="button" class="btn btn-danger">
+                        <fa-icon [icon]="iconBack"></fa-icon> Cancelar</button>
                 </div>
             </div>
             <!--Stepper-->
@@ -152,7 +152,9 @@
                                                     <td>{{video.type}}</td>
                                                     <td>{{video.url}}</td>
                                                     <td class="actions">
-                                                        <fa-icon data-bs-toggle="mensaje" title="Ver detalles"
+                                                        <fa-icon
+                                                            (click)="openModalViewInfoVideo(viewVideoDetail, video, video.type)"
+                                                            data-bs-toggle="mensaje" title="Ver detalles"
                                                             id="iconVerDetalles" [icon]="iconVerDetalles"></fa-icon>
                                                     </td>
                                                 </tr>
@@ -169,13 +171,11 @@
                             </div>
                             <!--Paginación-->
                             <mat-paginator id="paginacion" [pageSizeOptions]="[5, 10, 25, 100]"
-                                [pageSize]="itemsForPage" [length]="arrayVideosInfo.length"
-                                (page)="changePage($event)">
+                                [pageSize]="itemsForPage" [length]="arrayVideosInfo.length" (page)="changePage($event)">
                             </mat-paginator>
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3">
-                                <button mat-button matStepperPrevious type="button"
-                                    class="btn btn-secondary btn-md">
+                                <button mat-button matStepperPrevious type="button" class="btn btn-secondary btn-md">
                                     <fa-icon [icon]="iconPreviousStep"></fa-icon> Regresar</button>
                                 <button mat-button (click)="registerTaskDetail()" type="button"
                                     class="btn btn-primary btn-md">Aceptar</button>
@@ -323,7 +323,9 @@
                                                     <td>{{video.type}}</td>
                                                     <td>{{video.url}}</td>
                                                     <td class="actions">
-                                                        <fa-icon data-bs-toggle="mensaje" title="Ver detalles"
+                                                        <fa-icon
+                                                            (click)="openModalViewInfoVideo(viewVideoDetail, video, video.type)"
+                                                            data-bs-toggle="mensaje" title="Ver detalles"
                                                             id="iconVerDetalles" [icon]="iconVerDetalles"></fa-icon>
                                                     </td>
                                                 </tr>
@@ -340,8 +342,7 @@
                             </div>
                             <!--Paginación-->
                             <mat-paginator id="paginacion" [pageSizeOptions]="[5, 10, 25, 100]"
-                                [pageSize]="itemsForPage" [length]="arrayVideosInfo.length"
-                                (page)="changePage($event)">
+                                [pageSize]="itemsForPage" [length]="arrayVideosInfo.length" (page)="changePage($event)">
                             </mat-paginator>
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3 mt-3">
@@ -358,3 +359,8 @@
         </div>
     </div>
 </body>
+
+<!--Modal para ver los detalles del video-->
+<ng-template #viewVideoDetail>
+    <app-view-my-videos></app-view-my-videos>
+</ng-template>

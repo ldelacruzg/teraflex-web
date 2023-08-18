@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseGetMyPatientsI } from '../interfaces/patients.interface';
-import { ApiResponseGetMyPatientByIdI } from '../interfaces/patients.interface';
 import { ApiResponseAssignTasksToPatientI, ApiResponseListTasksAssignsToPatientI, ApiResponseTaskDetailExtendAssignToPatientI } from '../interfaces/assigments.interface';
 
 @Injectable({
@@ -42,6 +40,6 @@ export class AssigmentsService {
     /*Método que elimina una tarea asignada a un paciente*/
     deleteTaskAssignToPatient(headers: Map<string, any>, body: number[]): Observable<string> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.delete(this.urlApi + `/assignments`, { ...this.options, body: body, responseType: 'text' })
+        return this.http.delete(this.urlApi + `/assignments`, { ...this.options, body: null, responseType: 'text' })
     }
 }

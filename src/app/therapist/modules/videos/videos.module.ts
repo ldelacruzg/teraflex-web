@@ -31,6 +31,9 @@ import { SweetAlerts } from '../../alerts/alerts.component';
   ],
   providers:[
     SweetAlerts
+  ],
+  exports: [
+    ViewMyVideosComponent
   ]
 })
 export class VideosModule { }

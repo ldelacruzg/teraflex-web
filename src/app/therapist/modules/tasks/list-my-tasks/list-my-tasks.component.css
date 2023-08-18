@@ -138,18 +138,12 @@ thead {
   margin-right: 20px;
 }
 
-
 /*Para los botones de las acciones*/
 #iconEditar {
   margin-left: 7px;
   margin-right: 15px;
   font-size: 20px;
   color: rgb(64, 140, 202);
-}
-
-#iconEliminar {
-  font-size: 20px;
-  color: rgb(243, 36, 36);
 }
 
 /*Responsive Web Design*/

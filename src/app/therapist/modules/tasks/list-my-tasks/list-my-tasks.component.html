@@ -9,33 +9,25 @@
           <fa-icon [icon]="iconAdd"></fa-icon> Nueva tarea</button>
       </div>
       <br />
-      <div class="parent-container">
-        <div class="inputs-form">
-          <!--Filtrar las tareas por activas o inactivas-->
-          <form id="select">
-            <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;">
-              <option value=""> Filtrar por.. </option>
-              <option value="true" selected>Activas</option>
-              <option value="false">Inactivas (Eliminadas)</option>
-            </select>
-          </form>
-          <!--Buscar tareas por título-->
-          <form id="search">
-            <input class="form-control me-1" type="text" placeholder="Buscar..." name="tasksToSearch"
+      <!--Inputs para buscar e importar-->
+      <div class="row">
+        <!--Buscar paciente por nombre-->
+        <div class="col-12 col-md-4 col-lg-4 mb-3">
+          <form>
+            <input class="form-control me-1" type="text" placeholder="Buscar..." name="buscarMovimientos"
               [(ngModel)]="tasksToSearch">
           </form>
-
-          <!--Botones para exportar en .pdf y .xlsx-->
-          <div class="export-buttons mb-3">
-            <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
-              title="Exportar a PDF">
-              <fa-icon [icon]="iconPdf"></fa-icon>
-            </button>
-            <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
-              title="Exportar a XLSX">
-              <fa-icon [icon]="iconXlsx"></fa-icon>
-            </button>
-          </div>
+        </div>
+        <!--Importar los datos de la tabla-->
+        <div class="col-12 col-md-8 col-lg-8 export-buttons mb-3">
+          <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
+            title="Exportar a PDF">
+            <fa-icon [icon]="iconPdf"></fa-icon>
+          </button>
+          <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
+            title="Exportar a XLSX">
+            <fa-icon [icon]="iconXlsx"></fa-icon>
+          </button>
         </div>
       </div>
 

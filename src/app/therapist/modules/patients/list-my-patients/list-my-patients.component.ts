@@ -232,10 +232,10 @@ export class ListMyPatientsComponent {
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;
 
-  iconUnBindPatient = iconos.faUserSlash;
+  iconUnBindPatient = iconos.faBan;
   iconViewDetail = iconos.faEye;
   iconEdit = iconos.faEdit;
-  iconDelete = iconos.faTrash;
+  iconDelete = iconos.faTrashCan;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;

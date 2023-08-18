@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { VideosModule } from '../videos/videos.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatStepperModule,
     ToastrModule.forRoot(),
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    VideosModule
   ],
   exports: [
     ListMyTasksComponent,
