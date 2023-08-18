@@ -9,22 +9,31 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 })
 export class ViewVideosHelpComponent {
   /*Variables*/
+  static location: string;
   spinnerStatus: boolean = false;
 
   /*Constrcutor*/
   constructor(
     private router: Router
-  ){}
+  ) { }
 
   /*ngOnInit*/
-  ngOnInit(){
+  ngOnInit() {
     this.spinnerStatus = true;
   }
 
   /*Método que redirecciona al componente de ver el detalle de un video*/
-  goToVideoDetail(){
+  goToVideoDetail() {
     console.log("click");
     this.router.navigateByUrl("/therapist/home/dashboard/help/video-detail");
+  }
+
+  /*Método que verifica a que componente se regresa, si al de ayuda o al dashboard*/
+  goToComponent(){
+    if(ViewVideosHelpComponent.location == "dashboard")
+      this.router.navigateByUrl("/therapist/home/dashboard/options-home");
+    else
+    this.router.navigateByUrl("/therapist/home/dashboard/help/tutorial-videos");
   }
 
   /*Icons to use*/

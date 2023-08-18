@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { ViewVideosHelpComponent } from '../../modules/help/view-videos-help/view-videos-help.component';
 
 @Component({
   selector: 'app-slider-videos',
@@ -13,6 +14,7 @@ export class SliderVideosComponent {
   @Input() carouselExample: string = "";
   @Input() arrayVideosDetail1: any[] = []
   @Input() arrayVideosDetail2: any[] = [];
+  @Input() location: string = "";
 
   /*Constructor*/
   constructor(
@@ -21,6 +23,7 @@ export class SliderVideosComponent {
 
   /*Método que redirige al componente de ver reproductor de video*/
   goToVideoDetail(){
+    ViewVideosHelpComponent.location = this.location
     this.router.navigateByUrl("/therapist/home/dashboard/help/video-detail")
   }
 

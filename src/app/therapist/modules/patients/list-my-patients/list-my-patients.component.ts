@@ -174,6 +174,34 @@ export class ListMyPatientsComponent {
     return `${dia}/${mes}/${anio}`;
   }
 
+  /*Método que desvincula un paciente del terapeuta*/
+  unBindPatient(idPatient: number, namePatient: string) {
+    this.sweetAlerts.alertConfirmCancel("Desvincular paciente", "¿Está seguro de desvincular a " + (namePatient).toUpperCase() + ", de su listado de pacientes?")
+    .then(respuesta => {
+      if (respuesta.value == true) {
+        this.spinnerStatus = false;
+        this.myPatientsService.unBindPatient(this.headers.getHeaders(), idPatient)
+          .subscribe({
+            next: (data: string) => {
+              this.getAllMyPatients();
+              this.showToastSuccess("Paciente desvinculado con éxito", "Éxtio");
+              this.spinnerStatus = true;
+            },
+            error: (error: any) => {
+              this.spinnerStatus = true;
+              this.showToastError("Error", "No se pudo desvincular el paciente");
+            }
+          })
+      }
+    });
+  }
+
+  /*Método que abre el modal para ver la información detallada del paciente*/
+  openModalViewPatientDetail(viewPatientDetail: any, patientID: number) {
+    this.modal.open(viewPatientDetail, { size: 'lg', centered: true });
+    ViewMyPatientsComponent.patientID = patientID;
+  }
+
   /*Método que redirige al formulario de editar, pasandole el id del paciente*/
   goToEditPatient(patientDetail: MyPatientDetailI) {
     EditMyPatientsComponent.patientDetail = patientDetail;
@@ -202,12 +230,6 @@ export class ListMyPatientsComponent {
     });
   }
 
-  /*Método que abre el modal para ver la información detallada del paciente*/
-  openModalViewPatientDetail(viewPatientDetail: any, patientID: number) {
-    this.modal.open(viewPatientDetail, { size: 'lg', centered: true });
-    ViewMyPatientsComponent.patientID = patientID;
-  }
-
   /*Método que calcula la edad, enviándole la fecha de nacimiento*/
   calculateAge(birthDateString: string): any {
     const birthDate = new Date(birthDateString);
@@ -229,7 +251,7 @@ export class ListMyPatientsComponent {
 
   /*Icons to use*/
   iconMyPatients = iconos.faUsers;
-  iconAdd = iconos.faAdd;
+  iconAdd = iconos.faPlusCircle;
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;
 

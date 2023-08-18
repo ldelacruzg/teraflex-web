@@ -65,4 +65,10 @@ export class PatientsService {
         this.options = this.authService.getHeaders(headers);
         return this.http.patch<string>(this.urlApi + `/user/status/${idPatient}`, null, this.options);
     }
+
+    /*Método que desvincula un paciente del listado de pacientes del terapeuta*/
+    unBindPatient(headers: Map<string, any>, idPatient: number): Observable<string> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.patch<string>(this.urlApi + `/group/status/${idPatient}`, null, this.options);
+    }
 }

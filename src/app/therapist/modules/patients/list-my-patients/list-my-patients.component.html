@@ -59,7 +59,8 @@
                                     <td>{{patient.phone}}</td>
                                     <td>{{ calculateAge(patient.birthDate)}} años</td>
                                     <td class="acciones">
-                                        <fa-icon data-bs-toggle="mensaje" title="Desvincular paciente" id="iconUnBind"
+                                        <fa-icon (click)="unBindPatient(patient.id, patient.firstName + ' ' + patient.lastName)" 
+                                            data-bs-toggle="mensaje" title="Desvincular paciente" id="iconUnBind"
                                             [icon]="iconUnBindPatient"></fa-icon>
                                         <fa-icon (click)="openModalViewPatientDetail(viewPatientDetail, patient.id)"
                                             data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
