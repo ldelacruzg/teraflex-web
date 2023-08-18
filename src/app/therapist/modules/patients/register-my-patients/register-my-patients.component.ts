@@ -89,6 +89,7 @@ export class RegisterMyPatientsComponent {
   /*Método que crea el formulario*/
   createPatientForm() {
     this.patientForm = this.formBuilder.group({
+      fullNamesLink: [''],
       lastName: ['',
         [
           Validators.required,
@@ -153,20 +154,25 @@ export class RegisterMyPatientsComponent {
 
   /*Método que manda a vincular un paciente según su id*/
   linkMyPatient(patientID: number) {
-    this.spinnerStatus = false;
-    console.log(this.headers.getHeaders());
-    this.myPatientsService.linkMyPatient(this.headers.getHeaders(), patientID)
-      .subscribe({
-        next: (data: any) => {
-          this.showToastSuccess("Paciente vinculado con éxito", 'Éxito');
-          this.spinnerStatus = true;
-          this.router.navigateByUrl('/therapist/home/dashboard/patients/my-patients');
-        },
-        error: () => {
-          this.spinnerStatus = true;
-          this.showToastError("Error", "No se pudo vincular el paciente");
-        }
-      })
+    if(this.patientForm.get('fullNamesLink')?.value == '' || this.patientForm.get('fullNamesLink')?.value == 'Sin resultados'){
+      this.showToastWarning("Inválido", "Primero debe seleccionar un paciente");
+    }
+    else{
+      this.spinnerStatus = false;
+      console.log(this.headers.getHeaders());
+      this.myPatientsService.linkMyPatient(this.headers.getHeaders(), patientID)
+        .subscribe({
+          next: (data: any) => {
+            this.showToastSuccess("Paciente vinculado con éxito", 'Éxito');
+            this.spinnerStatus = true;
+            this.router.navigateByUrl('/therapist/home/dashboard/patients/my-patients');
+          },
+          error: () => {
+            this.spinnerStatus = true;
+            this.showToastError("Error", "No se pudo vincular el paciente");
+          }
+        })
+    }
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/
@@ -180,6 +186,14 @@ export class RegisterMyPatientsComponent {
   /*Método que muestra un toast con mensaje de ERROR*/
   showToastError(title: string, message: string) {
     this.toastr.error(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  /*Método que muestra un toast con mensaje de ADVERTENCIA*/
+  showToastWarning(title: string, message: string) {
+    this.toastr.warning(message, title, {
       progressBar: true,
       timeOut: 3000,
     });

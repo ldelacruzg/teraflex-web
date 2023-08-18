@@ -49,8 +49,8 @@
                                 [ngClass]="{
                                 'is-invalid': editVideoForm.get('visibility')?.hasError('required') && editVideoForm.get('visibility')?.touched}">
                                 <option value="" selected>Seleccione una opción</option>
-                                <option value="public">Pública</option>
-                                <option value="private">Privada</option>
+                                <option value="public">Público</option>
+                                <option value="private">Privado</option>
                             </select>
                             <div class="validators"
                                 *ngIf="editVideoForm.get('visibility')?.hasError('required') && editVideoForm.get('visibility')?.touched">

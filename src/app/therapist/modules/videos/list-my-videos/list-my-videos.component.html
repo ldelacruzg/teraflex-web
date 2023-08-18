@@ -13,7 +13,7 @@
             <div class="row">
                 <!--Para filtrar por activos o inactivos-->
                 <div class="col-12 col-md-2 col-lg-2">
-                    <form >
+                    <form>
                         <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
                             (change)="onFilterChange($event)">
                             <option value="true" selected>Activos</option>
@@ -24,8 +24,8 @@
                 <!--Buscar paciente por nombre-->
                 <div class="col-12 col-md-4 col-lg-4 mb-3">
                     <form>
-                        <input class="form-control me-1" type="text" placeholder="Buscar..."
-                            name="searchVideos" [(ngModel)]="videosToSearch">
+                        <input class="form-control me-1" type="text" placeholder="Buscar..." name="searchVideos"
+                            [(ngModel)]="videosToSearch">
                     </form>
                 </div>
                 <!--Importar los datos de la tabla-->
@@ -65,8 +65,9 @@
                                     <td data-bs-toggle="mensaje" title="{{video.title}}">{{video.title}}</td>
                                     <td>{{video.type}}</td>
                                     <td class="iconPublicPrivate">
-                                        <fa-icon [icon]="video.isPublic ? iconPublic : iconPrivate"></fa-icon>
-                                        {{video.isPublic ? "Público" : " Privado"}}
+                                        <fa-icon
+                                            [icon]="video.isPublic === 'true' ? iconPublic : iconPrivate"></fa-icon>
+                                        {{video.isPublic === 'true' ? " Público" : " Privado"}}
                                     </td>
                                     <td>{{video.createdAt}}</td>
                                     <td data-bs-toggle="mensaje" title="{{video.url}}">{{video.url}}</td>

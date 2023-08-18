@@ -180,21 +180,22 @@ export class ListMyPatientsComponent {
     this.router.navigateByUrl("/therapist/home/dashboard/patients/edit-patient")
   }
 
-  /*Método que elimina una tarea*/
+  /*Método que elimina un paciente*/
   deletePatient(idPatient: number, namePatient: string) {
-    this.sweetAlerts.alertConfirmCancel("Desactivar paciente", "¿Está seguro de desactivar el paciente " + (namePatient).toUpperCase() + "?").then(respuesta => {
+    this.sweetAlerts.alertConfirmCancel("Eliminar paciente", "¿Está seguro de eliminar el paciente " + (namePatient).toUpperCase() + "?")
+    .then(respuesta => {
       if (respuesta.value == true) {
+        this.spinnerStatus = false;
         this.myPatientsService.deletePatient(this.headers.getHeaders(), idPatient)
           .subscribe({
             next: (data: string) => {
-              this.spinnerStatus = false;
-              this.showToastSuccess("Paciente desactivado con éxito", "Éxtio");
               this.getAllMyPatients();
+              this.showToastSuccess("Paciente eliminado con éxito", "Éxtio");
               this.spinnerStatus = true;
             },
             error: (error: any) => {
               this.spinnerStatus = true;
-              this.showToastError("Error", "No se pudo desactivar el paciente");
+              this.showToastError("Error", "No se pudo eliminar el paciente");
             }
           })
       }
@@ -222,7 +223,7 @@ export class ListMyPatientsComponent {
   }
 
   /*Método que abre el modal para decidir si crear un nuevo paciente o registrar uno existente*/
-  openModalSelectOptionRegisterPatient(optionsRegisterPatient: any){
+  openModalSelectOptionRegisterPatient(optionsRegisterPatient: any) {
     this.modal.open(optionsRegisterPatient, { size: 'lg', centered: true });
   }
 

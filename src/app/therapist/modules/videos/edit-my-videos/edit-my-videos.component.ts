@@ -22,7 +22,7 @@ export class EditMyVideosComponent {
     url: "",
     title: "",
     type: "",
-    isPublic: true,
+    isPublic: "",
     description: "",
     createdAt: "",
     updatedAt: ""
@@ -65,7 +65,10 @@ export class EditMyVideosComponent {
   getInfoVideoDetail() {
     this.editVideoForm.get('title')?.setValue(EditMyVideosComponent.editVideoDetail.title);
     this.editVideoForm.get('type')?.setValue(EditMyVideosComponent.editVideoDetail.type);
-    this.optionVisibilitySelected = EditMyVideosComponent.editVideoDetail.isPublic ? 'public' : 'private';
+    if (EditMyVideosComponent.editVideoDetail.isPublic == "true")
+      this.optionVisibilitySelected = "public";
+    else
+      this.optionVisibilitySelected = "private";
     this.editVideoForm.get('createdAt')?.setValue(EditMyVideosComponent.editVideoDetail.createdAt);
     this.editVideoForm.get('url')?.setValue(EditMyVideosComponent.editVideoDetail.url);
     this.editVideoForm.get('description')?.setValue(EditMyVideosComponent.editVideoDetail.description);

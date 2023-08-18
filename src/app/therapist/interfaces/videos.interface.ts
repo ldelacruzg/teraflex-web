@@ -34,7 +34,7 @@ export interface GetAllMyVideosI {
     url: string,
     title: string;
     type: string;
-    isPublic: boolean;
+    isPublic: string;
     description: string;
     createdAt: string;
     updatedAt: string;

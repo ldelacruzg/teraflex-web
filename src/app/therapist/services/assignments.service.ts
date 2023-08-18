@@ -38,8 +38,10 @@ export class AssigmentsService {
     }
 
     /*Método que elimina una tarea asignada a un paciente*/
-    deleteTaskAssignToPatient(headers: Map<string, any>, body: number[]): Observable<string> {
+    deleteTaskAssignToPatient(headers: Map<string, any>, idTaskAssigned: number[]): Observable<string> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.delete(this.urlApi + `/assignments`, { ...this.options, body: null, responseType: 'text' })
+        let queryParams = "?";
+        queryParams += `id=${idTaskAssigned}`;
+        return this.http.delete<string>(this.urlApi + `/assignments${queryParams}`, this.options);
     }
 }

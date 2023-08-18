@@ -27,6 +27,7 @@ export class ViewProgressMyPatientsComponent {
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
+  idPatient: number = 0;
   arrayPatients: MyPatientDetailI[] = [];
   filteredPatientsNames: MyPatientDetailI[] = []; //Array para filtrarlos en la búsqueda
   arrayAssignsTasks: any[] = [];
@@ -104,6 +105,7 @@ export class ViewProgressMyPatientsComponent {
 
   /*Método que obtiene el listado de las tareas que tiene asignadas un paciente*/
   getInfoTasksAssigns(idPatient: number) {
+    this.idPatient = idPatient;
     this.spinnerStatus = false;
     this.assigmentsService.getListTasksAssingToPatient(this.headers.getHeaders(), idPatient)
       .subscribe({
@@ -136,8 +138,8 @@ export class ViewProgressMyPatientsComponent {
     });
   }
 
-   /*Método que muestra un toast con mensaje de ÉXITO*/
-   showToastSuccess(message: string, title: string){
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
     this.toastr.success(message, title, {
       progressBar: true,
       timeOut: 3000,
@@ -150,16 +152,16 @@ export class ViewProgressMyPatientsComponent {
     ViewDetailProgressMyPatientsComponent.taskDetailAssignId = idTaskAssign;
   }
 
-  /*Método que elimina una tarea*/
+  /*Método que elimina una tarea asignada al paciente seleccionado*/
   deleteTask(idAssignment: number, nameAssignment: string) {
     this.sweetAlerts.alertConfirmCancel("Eliminar asignación", "¿Está seguro de eliminar la tarea \"" + nameAssignment + "\", asignada al paciente?").then(respuesta => {
       if (respuesta.value == true) {
+        this.spinnerStatus = false;
         let arrayAssigments: number[] = [idAssignment]
         this.assigmentsService.deleteTaskAssignToPatient(this.headers.getHeaders(), arrayAssigments)
           .subscribe({
             next: (data: string) => {
-              this.spinnerStatus = false;
-              window.location.reload();
+              this.getInfoTasksAssigns(this.idPatient)
               this.showToastSuccess("La asignación fue eliminada con éxito", "Asignación eliminada");
               this.spinnerStatus = true;
             },
@@ -170,6 +172,28 @@ export class ViewProgressMyPatientsComponent {
           })
       }
     });
+  }
+
+  /*Función que formatea la fecha colocandole día*/
+  formatDate(inputDate: string): string {
+    const months = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+
+    const days = [
+      'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
+    ];
+
+    const date = new Date(inputDate);
+    const dayOfWeek = days[date.getDay()];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const hours = "23";
+    const minutes = "59";
+  
+    return `${dayOfWeek}, ${month} ${day} ${year}, ${hours}:${minutes}:${minutes} pm`;
   }
 
   /*Icons to use*/
