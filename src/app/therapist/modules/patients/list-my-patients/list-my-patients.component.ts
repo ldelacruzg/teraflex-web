@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { ViewMyPatientsComponent } from '../modals/view-my-patients/view-my-patients.component';
+import { EditMyPatientsComponent } from '../edit-my-patients/edit-my-patients.component';
 import { ApiResponseGetMyPatientsI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
+import { environment } from 'src/environments/environment';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { EditMyPatientsComponent } from '../edit-my-patients/edit-my-patients.component';
-import { Router } from '@angular/router';
-import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
-import { ViewMyPatientsComponent } from '../modals/view-my-patients/view-my-patients.component';
+import { RegisterMyPatientsComponent } from '../register-my-patients/register-my-patients.component';
 
 @Component({
   selector: 'app-list-my-patients',
@@ -21,11 +23,13 @@ import { ViewMyPatientsComponent } from '../modals/view-my-patients/view-my-pati
 })
 export class ListMyPatientsComponent {
   /*Variables*/
+  optionFilter: string = environment.FIRSTNAME;
   spinnerStatus: boolean = false;
-  arrayMyPatients: MyPatientDetailI[] = [];
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
+  arrayMyPatients: MyPatientDetailI[] = [];
+  patientsToSearch: MyPatientDetailI[] = [];
 
   /*Constructor*/
   constructor(
@@ -58,6 +62,27 @@ export class ListMyPatientsComponent {
           this.showToastError("Error", "No se pudo obtener el listado de pacientes");
         }
       })
+  }
+
+  /*Método que aobtiene la información cel paciente con la data formateada*/
+  getInfoPatientFormat(patient: MyPatientDetailI): MyPatientDetailI {
+    const patientBody: MyPatientDetailI = {
+      id: 9,
+      firstName: patient.firstName,
+      lastName: patient.lastName,
+      docNumber: patient.docNumber,
+      phone: patient.phone,
+      birthDate: this.calculateAge(patient.birthDate) + " años",
+      description: patient.description,
+      status: patient.status,
+      createdBy: patient.categoryId,
+      updatedBy: patient.updatedBy,
+      createdAt: patient.createdAt,
+      updatedAt: patient.updatedAt,
+      role: patient.role,
+      categoryId: patient.categoryId,
+    }
+    return patientBody;
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/
@@ -149,27 +174,22 @@ export class ListMyPatientsComponent {
     return `${dia}/${mes}/${anio}`;
   }
 
-  /*Método que redirige al formulario de editar, pasandole el id del paciente*/
-  goToEditPatient(patientDetail: MyPatientDetailI) {
-    EditMyPatientsComponent.patientDetail = patientDetail;
-    this.router.navigateByUrl("/therapist/home/dashboard/patients/edit-patient")
-  }
-
-  /*Método que elimina una tarea*/
-  deletePatient(idPatient: number, namePatient: string) {
-    this.sweetAlerts.alertConfirmCancel("Desactivar paciente", "¿Está seguro de desactivar el paciente " + (namePatient).toUpperCase() + "?").then(respuesta => {
+  /*Método que desvincula un paciente del terapeuta*/
+  unBindPatient(idPatient: number, namePatient: string) {
+    this.sweetAlerts.alertConfirmCancel("Desvincular paciente", "¿Está seguro de desvincular a " + (namePatient).toUpperCase() + ", de su listado de pacientes?")
+    .then(respuesta => {
       if (respuesta.value == true) {
-        this.myPatientsService.deletePatient(this.headers.getHeaders(), idPatient)
+        this.spinnerStatus = false;
+        this.myPatientsService.unBindPatient(this.headers.getHeaders(), idPatient)
           .subscribe({
             next: (data: string) => {
-              this.spinnerStatus = false;
-              this.showToastSuccess("Paciente desactivado con éxito", "Éxtio");
               this.getAllMyPatients();
+              this.showToastSuccess("Paciente desvinculado con éxito", "Éxtio");
               this.spinnerStatus = true;
             },
             error: (error: any) => {
               this.spinnerStatus = true;
-              this.showToastError("Error", "No se pudo desactivar el paciente");
+              this.showToastError("Error", "No se pudo desvincular el paciente");
             }
           })
       }
@@ -182,16 +202,63 @@ export class ListMyPatientsComponent {
     ViewMyPatientsComponent.patientID = patientID;
   }
 
+  /*Método que redirige al formulario de editar, pasandole el id del paciente*/
+  goToEditPatient(patientDetail: MyPatientDetailI) {
+    EditMyPatientsComponent.patientDetail = patientDetail;
+    this.router.navigateByUrl("/therapist/home/dashboard/patients/edit-patient")
+  }
+
+  /*Método que elimina un paciente*/
+  deletePatient(idPatient: number, namePatient: string) {
+    this.sweetAlerts.alertConfirmCancel("Eliminar paciente", "¿Está seguro de eliminar el paciente " + (namePatient).toUpperCase() + "?")
+    .then(respuesta => {
+      if (respuesta.value == true) {
+        this.spinnerStatus = false;
+        this.myPatientsService.deletePatient(this.headers.getHeaders(), idPatient)
+          .subscribe({
+            next: (data: string) => {
+              this.getAllMyPatients();
+              this.showToastSuccess("Paciente eliminado con éxito", "Éxtio");
+              this.spinnerStatus = true;
+            },
+            error: (error: any) => {
+              this.spinnerStatus = true;
+              this.showToastError("Error", "No se pudo eliminar el paciente");
+            }
+          })
+      }
+    });
+  }
+
+  /*Método que calcula la edad, enviándole la fecha de nacimiento*/
+  calculateAge(birthDateString: string): any {
+    const birthDate = new Date(birthDateString);
+    const today = new Date();
+    const yearsDiff = today.getFullYear() - birthDate.getFullYear();
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
+    ) {
+      return yearsDiff - 1;
+    }
+    return yearsDiff;
+  }
+
+  /*Método que abre el modal para decidir si crear un nuevo paciente o registrar uno existente*/
+  openModalSelectOptionRegisterPatient(optionsRegisterPatient: any) {
+    this.modal.open(optionsRegisterPatient, { size: 'lg', centered: true });
+  }
 
   /*Icons to use*/
   iconMyPatients = iconos.faUsers;
-  iconAdd = iconos.faAdd;
+  iconAdd = iconos.faPlusCircle;
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;
 
+  iconUnBindPatient = iconos.faBan;
   iconViewDetail = iconos.faEye;
   iconEdit = iconos.faEdit;
-  iconDelete = iconos.faTrash;
+  iconDelete = iconos.faTrashCan;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;

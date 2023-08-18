@@ -12,7 +12,7 @@
             <form [formGroup]="patientForm" class="row mt-4">
                 <!--Apellidos (Buscar)-->
                 <div class="col-12 col-md-5 mb-3">
-                    <label class="mb-1"><b>Apellidos y Nombres</b></label>
+                    <label class="mb-1"><b>Nombres y Apellidos</b></label>
                     <input type="text" placeholder="Buscar..." [matAutocomplete]="auto"
                         class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
                         (input)="onSearch($event)" formControlName="names" />
@@ -20,9 +20,9 @@
                         [ngClass]="{
                         'is-invalid': patientForm.get('names')?.hasError('required') && patientForm.get('names')?.touched || patientForm.get('names')?.hasError('pattern')}">
                         <mat-option *ngFor="let patientName of filteredPatientsNames"
-                            [value]="patientName.lastName + ' ' + patientName.firstName"
+                            [value]="patientName.firstName+ ' ' + patientName.lastName"
                             (click)="getInfoTasksAssigns(patientName.id)">
-                            {{ patientName.lastName + ' ' + patientName.firstName }}
+                            {{ patientName.firstName + ' ' + patientName.lastName }}
                         </mat-option>
                         <mat-option *ngIf="filteredPatientsNames.length === 0" [value]="'Sin resultados'">
                             Sin resultados...
@@ -45,6 +45,7 @@
                                 <th scope="col">Título</th>
                                 <th scope="col">Tiempo estimado</th>
                                 <th scope="col">Fecha de vencimiento</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -56,14 +57,23 @@
                                         {{task.task.title}}
                                     </td>
                                     <td>{{task.task.estimatedTime}} minutos</td>
-                                    <td>{{task.dueDate}}</td>
+                                    <td>{{formatDate(task.dueDate)}}</td>
+                                    <td> 
+                                        <div class="taskTatus"
+                                            [style.background-color]="task.isCompleted ? '#198754' : '#ccc'"
+                                            [style.border-radius]="task.isCompleted ? '5px' : '5px'"
+                                            [style.padding]="task.isCompleted ? '3px' : '3px'"
+                                            [style.color]="task.isCompleted ? 'white' : 'black'">
+                                        {{task.isCompleted ? "Completada" : "Pendiente"}}
+                                        </div>
+                                    </td>
+                                  
                                     <td class="acciones">
-                                        <fa-icon (click)="openModalViewTaskDetailAssign(viewTaskDetailAssign, task.id)" 
-                                        data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
-                                        [icon]="iconViewDetails"></fa-icon>
-                                        <fa-icon (click)="deleteTask(task.id, task.task.title)"
-                                        data-bs-toggle="mensaje" title="Eliminar asignación" id="iconEliminar"
-                                        [icon]="iconDelete"></fa-icon>
+                                        <fa-icon (click)="openModalViewTaskDetailAssign(viewTaskDetailAssign, task.id)"
+                                            data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                                            [icon]="iconViewDetails"></fa-icon>
+                                        <fa-icon (click)="deleteTask(task.id, task.task.title)" data-bs-toggle="mensaje"
+                                            title="Eliminar asignación" id="iconEliminar" [icon]="iconDelete"></fa-icon>
                                     </td>
                                 </tr>
                             </ng-container>

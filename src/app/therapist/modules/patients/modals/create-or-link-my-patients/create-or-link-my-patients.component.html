@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title"><fa-icon [icon]="iconOptionPatient"></fa-icon> Nuevo paciente</h4>
+        <button (click)="modal.dismissAll()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body mt-3 mb-5">
+        <div class="row container-options">
+            <button class="col-6 mb-3 option-create" (click)="goToCreateOrLinkPatient(false)">
+                <fa-icon [icon]="iconCreatePatient"></fa-icon>
+                <h5>Crear nuevo paciente</h5>
+            </button>
+            <button class="col-6 option-link" (click)="goToCreateOrLinkPatient(true)">
+                <fa-icon [icon]="iconLinkPatient"></fa-icon>
+                <h5>Vincular paciente existente</h5>
+            </button>
+        </div>
+    </div>
+</div>

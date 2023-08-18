@@ -9,33 +9,35 @@
                         [icon]="iconAdd"></fa-icon> Subir video</button>
             </div>
             <br />
-            <!--Campos para filtrar y buscar-->
-            <div class="parent-container">
-                <div class="inputs-form">
-                    <!--Filtrar los videos por activos o inactivos-->
-                    <form id="select">
+            <!--Inputs para buscar e importar-->
+            <div class="row">
+                <!--Para filtrar por activos o inactivos-->
+                <div class="col-12 col-md-2 col-lg-2">
+                    <form>
                         <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
                             (change)="onFilterChange($event)">
                             <option value="true" selected>Activos</option>
                             <option value="false">Inactivos</option>
                         </select>
                     </form>
-                    <!--Buscar los video por título-->
-                    <form id="search">
-                        <input class="form-control me-1" type="text" placeholder="Buscar..." name="buscarMovimientos"
+                </div>
+                <!--Buscar paciente por nombre-->
+                <div class="col-12 col-md-4 col-lg-4 mb-3">
+                    <form>
+                        <input class="form-control me-1" type="text" placeholder="Buscar..." name="searchVideos"
                             [(ngModel)]="videosToSearch">
                     </form>
-                    <!--Botones para exportar en .pdf y .xlsx-->
-                    <div class="export-buttons mb-3">
-                        <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
-                            title="Exportar a PDF">
-                            <fa-icon [icon]="iconPdf"></fa-icon>
-                        </button>
-                        <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
-                            title="Exportar a XLSX">
-                            <fa-icon [icon]="iconXlsx"></fa-icon>
-                        </button>
-                    </div>
+                </div>
+                <!--Importar los datos de la tabla-->
+                <div class="col-12 col-md-6 col-lg-6 export-buttons mb-3">
+                    <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
+                        title="Exportar a PDF">
+                        <fa-icon [icon]="iconPdf"></fa-icon>
+                    </button>
+                    <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
+                        title="Exportar a XLSX">
+                        <fa-icon [icon]="iconXlsx"></fa-icon>
+                    </button>
                 </div>
             </div>
 
@@ -63,8 +65,9 @@
                                     <td data-bs-toggle="mensaje" title="{{video.title}}">{{video.title}}</td>
                                     <td>{{video.type}}</td>
                                     <td class="iconPublicPrivate">
-                                        <fa-icon [icon]="video.isPublic ? iconPublic : iconPrivate"></fa-icon>
-                                        {{video.isPublic ? "Público" : " Privado"}}
+                                        <fa-icon
+                                            [icon]="video.isPublic === 'true' ? iconPublic : iconPrivate"></fa-icon>
+                                        {{video.isPublic === 'true' ? " Público" : " Privado"}}
                                     </td>
                                     <td>{{video.createdAt}}</td>
                                     <td data-bs-toggle="mensaje" title="{{video.url}}">{{video.url}}</td>

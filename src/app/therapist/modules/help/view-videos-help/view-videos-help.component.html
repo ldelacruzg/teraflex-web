@@ -2,24 +2,19 @@
 
 <body>
     <div class="row justify-content-center">
-        <div class="col-12 container-info">
-            <div class="div col-12 mt-3 mx-1">
-                <h5 id="title"><fa-icon [icon]="iconVideoHelp" class="icon-title"></fa-icon> Reproductor de video</h5>
-                <div class="button-back">
-                    <button [routerLink]="'../tutorial-videos'" type="button" class="btn btn-secondary btn-sm">
-                        <fa-icon [icon]="iconBack"></fa-icon> Atrás</button>
-                </div>
+        <div class="div col-12 container-info mt-3">
+            <h4 id="title"><fa-icon [icon]="iconVideoHelp" class="icon-title"></fa-icon> Reproductor de video</h4>
+            <div class="button-back">
+                <button (click)="goToComponent()" type="button" class="btn btn-secondary btn-sm">
+                    <fa-icon [icon]="iconBack"></fa-icon> Atrás</button>
             </div>
         </div>
 
         <div class="row container-videos">
             <!--Muestra el video seleccionado pra reproducir-->
             <div class="col-12 col-lg-8 play-video mb-4">
-                <h6 class="mb-2"><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Mover brazos y piernas</b></h6>
-                <iframe src="https://www.youtube.com/embed/LnqHQpwc0sg" title="FyCUTEQ | MoneyGame v1 - Presentación"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
+                <h6 class="mb-2"><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Título:</b> Pasos para registrar pacientes</h6>
+                <iframe src="https://www.youtube.com/embed/rU6bQcacc-8" title="GANÉ JUGANDO EN EL CASINO | 1 día solo en Ámsterdam 🎰🇳🇱" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
             <!--Muestra los videos sugeridos-->
             <div class="col-12 col-lg-4 suggested-videos">

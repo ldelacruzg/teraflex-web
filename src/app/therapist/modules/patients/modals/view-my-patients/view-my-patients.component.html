@@ -6,8 +6,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="info mb-4">
-                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Apellidos y nombres</b></label>
-                    <p>{{patientDetail.firstName + " " + patientDetail.lastName}}</p>
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Nombres y Apellidos</b></label>
+                    <p *ngIf="patientDetail.firstName!='--'; else noResults">{{patientDetail.firstName + " " + patientDetail.lastName}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
@@ -15,19 +21,37 @@
             <div class="col-12 col-md-4">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Cédula</b></label>
-                    <p>{{patientDetail.docNumber}}</p>
+                    <p *ngIf="patientDetail.docNumber!='--'; else noResults">{{patientDetail.docNumber}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Teléfono</b></label>
-                    <p>{{patientDetail.phone}}</p>
+                    <p *ngIf="patientDetail.phone!='--'; else noResults">{{patientDetail.phone}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Edad</b></label>
-                    <p>{{patientDetail.birthDate}} + años</p>
+                    <p *ngIf="patientDetail.birthDate!='--'; else noResults">{{patientDetail.birthDate}} años</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
@@ -35,13 +59,25 @@
             <div class="col-12 col-md-6">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de creación</b></label>
-                    <p>{{patientDetail.createdAt}}</p>
+                    <p *ngIf="patientDetail.createdAt!='--'; else noResults">{{patientDetail.createdAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de actualización</b></label>
-                    <p>{{patientDetail.updatedAt}}</p>
+                    <p *ngIf="patientDetail.updatedAt!='--'; else noResults">{{patientDetail.updatedAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
@@ -49,7 +85,13 @@
             <div class="col-12">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Descripción</b></label>
-                    <p>{{patientDetail.description}}</p>
+                    <p *ngIf="patientDetail.description!='--'; else noResults">{{patientDetail.description}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>

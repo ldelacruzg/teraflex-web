@@ -33,12 +33,27 @@ body {
 .btn-primary {
     border-radius: 50px;
     background-color: #007BBD !important;
-    cursor: pointer;
+    border-color: #007BBD !important;
 }
 
-.btn-secondary {
+.btn-primary:hover {
+    background-color: #01659b !important;
+    border-color: #01659b !important;
+}
+
+.btn-secondary, .btn-danger {
     margin-right: 10px;
     border-radius: 50px;
+}
+
+.btn-danger{
+    background-color: #FC3B56 !important;
+    border-color: #FC3B56 !important;
+}
+
+.btn-danger:hover{
+    background-color: #f72944 !important;
+    border-color: #f72944 !important;
 }
 
 /*Responsive Web Design*/

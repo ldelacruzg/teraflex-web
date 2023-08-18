@@ -245,10 +245,10 @@ export class AssignTasksComponent {
     }
     if (this.assignTasksForm.get('dueDate')?.value.length > 0) {
       if (AssignTasksComponent.arrayTasksDetailToSend.length > 0) {
+        this.spinnerStatus = false;
         this.assigmentsService.registerTasksAssignToPatient(this.headers.getHeaders(), this.idPatientToAssignTasks, body)
           .subscribe({
             next: (data: any) => {
-              this.spinnerStatus = false;
               this.showToastSuccess(data.message, "Éxito");
               this.spinnerStatus = true;
               this.router.navigateByUrl('/therapist/home/dashboard/tasks/assign-tasks');
@@ -288,4 +288,5 @@ export class AssignTasksComponent {
   iconAssignTasks = iconos.faCalendarDay;
   iconSearch = iconos.faSearch;
   iconEdit = iconos.faEdit;
+  iconBack = iconos.faArrowLeft;
 }

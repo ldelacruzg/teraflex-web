@@ -4,11 +4,42 @@
     <div class="row justify-content-center">
         <div class="col-12 container-info">
             <div class="col-12 mt-3 mx-1">
-                <h4 id="titulo"><fa-icon [icon]="iconAddPatient" class="icon-title"></fa-icon> Registrar paciente</h4>
+                <h4 id="titulo"><fa-icon [icon]="iconAddPatient" class="icon-title"></fa-icon> {{linkPatient2 ? " Vincular Paciente" : " Registrar Paciente"}}</h4>
             </div>
 
             <form [formGroup]="patientForm">
-                <div class="row mt-4">
+                <!--Buscar paciente en caso de vincularlo-->
+                <div class="row mt-4" *ngIf="linkPatient2">
+                    <!--Apellidos (Buscar)-->
+                    <div class="col-12 col-md-12 mb-3">
+                        <label class="mb-1"><b>Nombres y Apellidos</b></label>
+                        <input type="text" placeholder="Buscar..." formControlName="fullNamesLink" [matAutocomplete]="auto"
+                            class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
+                            (input)="onSearch($event)" />
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let patientName of filteredPatientsNames"
+                                [value]="patientName.lastName + ' ' + patientName.firstName"
+                                (click)="getInfoDetailPatient(patientName.id)">
+                                {{ patientName.lastName + ' ' + patientName.firstName }}
+                            </mat-option>
+                            <mat-option *ngIf="filteredPatientsNames.length === 0"
+                                [value]="'Sin resultados'">
+                                Sin resultados...
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <div class="validators"
+                            *ngIf="patientForm.get('lastName')?.hasError('required') && patientForm.get('lastName')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators"
+                            *ngIf="patientForm.get('lastName')?.hasError('pattern')">
+                            <small>¡Solo se permiten letras!</small>
+                        </div>
+                    </div>
+                </div>
+                <!--Apellidos y nombres para crear desde cero-->
+                <div class="row mt-4" *ngIf="!linkPatient2">
                     <!--Apellidos-->
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-1"><b>Apellidos</b></label>
@@ -42,6 +73,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <!--Cédula-->
                     <div class="col-12 col-md-4 mb-3">
@@ -51,7 +83,7 @@
                             [ngClass]="{
                                 'is-invalid': patientForm.get('docNumber')?.hasError('required') && patientForm.get('docNumber')?.touched || patientForm.get('docNumber')?.hasError('pattern'),
                                 'is-valid': patientForm.get('docNumber')?.value?.length == 10 && patientForm.get('docNumber')?.hasError('pattern') == false }"
-                            [maxlength]="10">
+                            [maxlength]="10" [readonly]="linkPatient2">
                         <div class="validators"
                             *ngIf="patientForm.get('docNumber')?.hasError('required') && patientForm.get('docNumber')?.touched">
                             <small>¡Este campo es requerido!</small>
@@ -67,7 +99,8 @@
                             formControlName="birthDate" placeholder="Fecha de nacimiento*"
                             [ngClass]="{
                                 'is-invalid': patientForm.get('birthDate')?.hasError('required') && patientForm.get('birthDate')?.touched,
-                                'is-valid': patientForm.get('birthDate')?.value !== 'dd/mm/aaaa' && patientForm.get('birthDate')?.valid && patientForm.get('birthDate')?.dirty}">
+                                'is-valid': patientForm.get('birthDate')?.value !== 'dd/mm/aaaa' && patientForm.get('birthDate')?.valid && patientForm.get('birthDate')?.dirty}"
+                            [readonly]="linkPatient2">
                         <div class="validators"
                             *ngIf="patientForm.get('birthDate')?.hasError('required') && patientForm.get('birthDate')?.touched">
                             <small>¡Este campo es requerido!</small>
@@ -81,7 +114,7 @@
                             [ngClass]="{
                                 'is-invalid': patientForm.get('phone')?.hasError('required') && patientForm.get('phone')?.touched || patientForm.get('phone')?.hasError('pattern'),
                                 'is-valid': patientForm.get('phone')?.value?.length == 10 && patientForm.get('phone')?.hasError('pattern') == false }"
-                            [maxlength]="10">
+                            [maxlength]="10" [readonly]="linkPatient2">
                         <div class="validators"
                             *ngIf="patientForm.get('phone')?.hasError('required') && patientForm.get('phone')?.touched">
                             <small>¡Este campo es requerido!</small>
@@ -91,15 +124,17 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Descripción-->
                 <div class="row">
-                    <!--Descripción-->
                     <div class="col-12 mb-3">
-                        <label class="mb-1"><b>Descripción</b></label>
+                        <label class="mb-1" id="description"><b>Descripción</b></label>
                         <textarea class="form-control form-control-lg bg-light fs-6" formControlName="description"
                             placeholder="Descripción*" rows="7"
                             [ngClass]="{
                                 'is-invalid': patientForm.get('description')?.hasError('required') && patientForm.get('description')?.touched || patientForm.get('description')?.hasError('pattern'),
-                                'is-valid': patientForm.get('description')?.value?.length >=5 && patientForm.get('description')?.hasError('pattern') == false }">
+                                'is-valid': patientForm.get('description')?.value?.length >=5 && patientForm.get('description')?.hasError('pattern') == false }"
+                            [readonly]="linkPatient2">
                             </textarea>
                         <div class="validators"
                             *ngIf="patientForm.get('phone')?.hasError('required') && patientForm.get('phone')?.touched">
@@ -108,7 +143,7 @@
                     </div>
                 </div>
                 <div class="action-buttons mb-3">
-                    <button (click)="registerMyPatient()" [disabled]="!patientForm.valid" mat-button type="button"
+                    <button (click)="registerOrLinkMyPatient()" [disabled]="!patientForm.valid && !linkPatient2" mat-button type="button"
                         class="btn btn-primary btn-md">Guardar</button>
                     <button [routerLink]="'../my-patients'" mat-button type="button"
                         class="btn btn-danger btn-md">Cancelar</button>

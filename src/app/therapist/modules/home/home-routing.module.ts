@@ -26,12 +26,12 @@ const routes: Routes = [
           loadChildren:()=>import("../help/help.module").then(m=>m.HelpModule)
         },
         {
-          path: 'profile', 
-          loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)
-        },
-        {
           path: 'credits', 
           loadChildren:()=>import("../credits/credits.module").then(m=>m.CreditsModule)
+        },
+        {
+          path: 'profile', 
+          loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)
         },
         {
           path: 'options-home', component: OptionsHomeComponent

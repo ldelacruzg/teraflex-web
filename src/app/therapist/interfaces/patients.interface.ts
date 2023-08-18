@@ -97,3 +97,30 @@ export interface EditPatientDetailI {
     role: string;
 }
 
+/*Interfaz de respuesta de la API para cuando se obtiene el array de usuarios externos*/
+export interface ApiResponseGetOutPatientsI{
+    statusCode: number;
+    message: string;
+    data: GetOutPatientsI[];
+}
+
+/*Body que viene dentro de la data al obtener los usuarios externos*/
+export interface GetOutPatientsI{
+    id: number;
+    firstName: string;
+    lastName: string;
+    docNumber: string;
+    phone: string;
+    description: string;
+    birthDate: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+/*Api de respuesta para cuando se asocia un paciente al terapeuta*/
+export interface ApiResponseLinkPatientI{
+    message: string;
+  error?: string;
+  statusCode: number;
+}
+

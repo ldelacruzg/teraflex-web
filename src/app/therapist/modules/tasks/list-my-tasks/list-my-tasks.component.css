@@ -4,50 +4,58 @@ body {
   padding: 0 0 10px 0;
 }
 
-.container-info{
+.container-info {
   padding: .5rem 2rem;
 }
 
-.icon-title{
-  color: #007BBD !important; 
+.icon-title {
+  color: #007BBD !important;
 }
 
-.div{
+.div {
   display: flex;
   justify-content: space-between;
 }
 
-.btn-primary{
+.btn-primary {
   border-radius: 50px;
   background-color: #007BBD !important;
 }
 
-.save-pdf, .save-xlsx{
+.save-pdf,
+.save-xlsx {
   background-color: transparent;
   border: 1px solid #007BBD !important;
   color: #007BBD !important;
 }
 
-#iconEditar, #iconVerDetalles, #iconEliminar{
+#iconEditar,
+#iconVerDetalles,
+#iconEliminar,
+#iconUnBind {
   font-size: 1rem !important;
-  margin-right: 7px;
+  margin-right: 8px;
   cursor: pointer;
 }
 
-#iconVerDetalles{
+#iconUnBind {
+  color: #808080;
+}
+
+#iconVerDetalles {
   color: #007BBD;
 }
 
-#iconEliminar{
+#iconEliminar {
   color: #FC3B56;
 }
 
-.no-results{
+.no-results {
   text-align: center;
   background-color: #fafafa;
 }
 
-.iconPublicPrivate>fa-icon{
+.iconPublicPrivate>fa-icon {
   color: #bebebe;
 }
 
@@ -89,7 +97,7 @@ thead {
 /* Ajusta el ancho para la columna "Título" */
 #htmlExcelTable td:nth-child(2),
 #htmlExcelTable th:nth-child(2) {
-  max-width: 200px; 
+  max-width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -117,16 +125,18 @@ thead {
   justify-content: space-between;
 }
 
+#select {
+  margin-right: 20px;
+}
+
 #search {
   flex: 1;
-  margin-left: 20px;
   margin-right: 20px;
 }
 
 .save-pdf {
   margin-right: 20px;
 }
-
 
 /*Para los botones de las acciones*/
 #iconEditar {
@@ -136,11 +146,6 @@ thead {
   color: rgb(64, 140, 202);
 }
 
-#iconEliminar {
-  font-size: 20px;
-  color: rgb(243, 36, 36);
-}
-
 /*Responsive Web Design*/
 @media screen and (max-width: 760px) {
   #title {
@@ -148,11 +153,11 @@ thead {
     margin-bottom: 15px;
   }
 
-  .div{
+  .div {
     display: block;
   }
 
-  .div .btn-primary{
+  .div .btn-primary {
     width: 100%;
     margin-bottom: 7px;
   }
@@ -197,7 +202,11 @@ thead {
 
   #search {
     margin-bottom: 20px;
-   margin-left: 0px;
+    margin-left: 0px;
     width: 100%;
+  }
+
+  #select {
+    margin-right: 0px;
   }
 }

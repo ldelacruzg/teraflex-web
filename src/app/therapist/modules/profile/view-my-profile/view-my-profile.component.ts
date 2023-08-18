@@ -49,6 +49,7 @@ export class ViewMyProfileComponent {
       .subscribe({
         next: (data: ApiResponseGetMyInformationI) => {
           this.detailInfoTerapist = data.data;
+          this.detailInfoTerapist.birthDate = this.calculateAge(this.detailInfoTerapist.birthDate)
           this.spinnerStatus = true;
         },
         error: (error) => {
@@ -56,6 +57,20 @@ export class ViewMyProfileComponent {
           this.showToastError("Error", "No se pudo obtener su información");
         }
       })
+  }
+
+  /*Método que calcula la edad, enviándole la fecha de nacimiento*/
+  calculateAge(birthDateString: string): any {
+    const birthDate = new Date(birthDateString);
+    const today = new Date();
+    const yearsDiff = today.getFullYear() - birthDate.getFullYear();
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
+    ) {
+      return yearsDiff - 1;
+    }
+    return yearsDiff;
   }
 
   /*Método que muestra un toast con mensaje de ERROR*/

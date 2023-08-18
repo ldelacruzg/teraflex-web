@@ -11,8 +11,10 @@ import { CategoriesService } from 'src/app/therapist/services/categories.service
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 import { VideosService } from 'src/app/therapist/services/videos.service';
 import { ToastrService } from 'ngx-toastr';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewMyVideosComponent } from '../../videos/modals/view-my-videos/view-my-videos.component';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-task',
@@ -46,6 +48,7 @@ export class CreateTaskComponent {
     private tasksService: MyTasksService,
     private toastr: ToastrService,
     private router: Router,
+    public modal: NgbModal
   ) {
     this.isMobileView = window.innerWidth <= 760;
   }
@@ -188,6 +191,13 @@ export class CreateTaskComponent {
       progressBar: true,
       timeOut: 3000,
     });
+  }
+
+  /*Método que muestra modal para ver el detalle de una tarea*/
+  openModalViewInfoVideo(viewVideoDetail: any, videoDetail: any, videoType: string) {
+    this.modal.open(viewVideoDetail, { size: 'lg', centered: true });
+    ViewMyVideosComponent.videoDetailRecibed = videoDetail;
+    ViewMyVideosComponent.videoType = videoType;
   }
 
   /*Icons to use*/

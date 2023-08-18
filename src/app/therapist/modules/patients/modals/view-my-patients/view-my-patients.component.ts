@@ -48,8 +48,23 @@ export class ViewMyPatientsComponent {
     .subscribe({
       next: (data: ApiResponseGetMyPatientByIdI) => {
         this.patientDetail = data.data;
+        this.patientDetail.birthDate = this.calculateAge(this.patientDetail.birthDate);
       }
     });   
+  }
+
+   /*Método que calcula la edad, enviándole la fecha de nacimiento*/
+   calculateAge(birthDateString: string): any {
+    const birthDate = new Date(birthDateString);
+    const today = new Date();
+    const yearsDiff = today.getFullYear() - birthDate.getFullYear();
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
+    ) {
+      return yearsDiff - 1;
+    }
+    return yearsDiff;
   }
 
   /*Icons to use*/

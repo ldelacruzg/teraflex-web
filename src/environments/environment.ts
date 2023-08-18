@@ -5,5 +5,5 @@ export const environment = {
     ADMIN: "ADMIN",
     PATIENT: "PATIENT",
     TITLE: "title",
-    NAMES: "firstName"
+    FIRSTNAME: "firstName",
   };

@@ -10,3 +10,8 @@
 #iconEliminar{
     margin-left: 10px !important;
 }
+
+.taskTatus{
+    width: 80px;
+    text-align: center;
+}

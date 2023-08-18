@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PatientsService } from 'src/app/therapist/services/patients.service';
+import { ApiResponseEditPatientI, EditMyPatientBodyI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ApiResponseEditPatientI, EditMyPatientBodyI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
 
 @Component({
   selector: 'app-edit-my-patients',
@@ -20,9 +20,9 @@ export class EditMyPatientsComponent {
 
   /*constructor*/
   constructor(
+    private headers: DashboardComponent,
     private formBuilder: FormBuilder,
     private patientsService: PatientsService,
-    private headers: DashboardComponent,
     private toastr: ToastrService,
     private router: Router
   ) { }

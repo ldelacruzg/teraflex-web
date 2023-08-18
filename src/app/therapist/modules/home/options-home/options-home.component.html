@@ -1,11 +1,25 @@
 <h3><b>Bienvenido {{detailInfoTerapist.firstName}}</b></h3>
 <div class="row mb-2">
-    <div class="col">
-        <app-last-logins></app-last-logins>
-    </div>
-    <div class="col">
+    <!--Últimas tareas por revisar-->
+    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
         <app-tasks-to-review></app-tasks-to-review>
     </div>
+    <!--Estadísticas circular-->
+    <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+        <circle-app-statistics></circle-app-statistics>
+    </div>
 </div>
-<app-slider-videos class="mb-2"></app-slider-videos>
-<!-- <app-chat-ia></app-chat-ia> -->
+<!--Videos instructivos de ayuda-->
+<app-slider-videos class="mb-2" [arrayVideosDetail1]="arrayVideosDetail1" [arrayVideosDetail2]="arrayVideosDetail2"
+    [carouselExample]="carouselExample1" [location]="'dashboard'"></app-slider-videos>
+<br />
+<div class="row mb-2">
+    <!--Chat con IA-->
+    <div class="col-sm-12 col-md-7 col-lg-7 mb-3">
+        <app-chat-ia class="mt-3"></app-chat-ia>
+    </div>
+    <!--Estadísticas lineales-->
+    <div class="col-sm-12 col-md-5 col-lg-5 mb-3">
+        <app-linear-statistics></app-linear-statistics>
+    </div>
+</div>

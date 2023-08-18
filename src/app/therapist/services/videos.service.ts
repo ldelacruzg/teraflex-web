@@ -57,6 +57,6 @@ export class VideosService {
     /*Método que cambia el estado de un video (Desactivar o Eliminar)*/
     desactivateVideo(headers: Map<string, any>, idVideo: number): Observable<ApiResponseEditDesactivateVideoI> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.patch<ApiResponseEditDesactivateVideoI>(this.urlApi + `/multimedia/update/${idVideo}/status`, this.options);
+        return this.http.patch<ApiResponseEditDesactivateVideoI>(this.urlApi + `/multimedia/update/${idVideo}/status`, null, this.options);
     }
 }

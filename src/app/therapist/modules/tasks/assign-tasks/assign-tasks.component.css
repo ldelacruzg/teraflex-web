@@ -14,6 +14,20 @@
     border-radius: 50px;
 }
 
+input[readonly] {
+    background-color: #f0f0f0 !important;
+    color: #6b6b6b;
+    border-color: #dbdbdb;
+    cursor: not-allowed;
+}
+
+textarea[readonly] {
+    background-color: #f0f0f0 !important;
+    color: #6b6b6b;
+    border-color: #dbdbdb;
+    cursor: not-allowed;
+}
+
 /*Responsive Web Design*/
 @media screen and (max-width: 760px) {
     .action-buttons>button{

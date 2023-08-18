@@ -8,7 +8,7 @@
 
 .play-video>iframe{
     width: 100%;
-    height: 96%;
+    height: 97%;
 }
 
 .suggested-videos>img{
@@ -18,4 +18,15 @@
 
 img, iframe{
     border-radius: 7px !important;
+}
+
+/*-------------Responsive Web Design------------*/
+@media screen and (max-width: 768px){
+    .button-back{
+        text-align: end;
+    }
+
+    .suggested-videos{
+        margin-top: 45px;
+    }
 }
