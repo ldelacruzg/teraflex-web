@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/therapist/services/auth.service';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/therapist/services/auth.service';
 import { environment } from 'src/environments/environment';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
   spinnerStatus = false;
 
   constructor(
@@ -45,9 +43,14 @@ export class LoginComponent {
         this.ruta.navigateByUrl('/therapist/home/dashboard');
         this.showToastSuccess("Inicio de sesión exitoso", "Bienvenido")
       }
-      else {
+      else if (data.role == environment.ADMIN) {
         this.spinnerStatus = true;
+        this.ruta.navigateByUrl('/therapist/home/dashboard');
         this.showToastSuccess("Inicio de sesión exitoso", "Administrador")
+      }
+      else{
+        this.spinnerStatus = true;
+        this.showToastError("Error", "Credenciales incorrectas")
       }
     }, error => {
       this.spinnerStatus = true;

@@ -66,7 +66,7 @@ export class DashboardComponent {
     sessionStorage.removeItem("role");
     setTimeout(() => {
       this.spinnerStatus = true;
-      this.ruta.navigateByUrl('therapist/auth/login');
+      this.ruta.navigateByUrl('authentication/security/login');
     }, 2000);
   }
 
