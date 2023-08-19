@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ApiResponseRegisterTherapistI, RegisterTherapistI } from 'src/app/admin/interfaces/therapists.interface';
+import { ApiResponseRegisterTherapistI, TherapistDetailI } from 'src/app/admin/interfaces/therapists.interface';
 import { TherapistsService } from 'src/app/admin/services/therapists.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -9,6 +9,8 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewTherapistsDetailComponent } from '../modals/view-therapists-detail/view-therapists-detail.component';
 
 @Component({
   selector: 'app-list-therapists',
@@ -23,20 +25,21 @@ export class ListTherapistsComponent {
   initialPage: number = 0;
   finalPage: number = 5;
   optionsPage: any;
-  arrayTherapists: RegisterTherapistI[] = [];
-  therapistsToSearch: RegisterTherapistI[] = [];
+  arrayTherapists: TherapistDetailI[] = [];
+  therapistsToSearch: TherapistDetailI[] = [];
 
   /*Constructor*/
   constructor(
     public therapistsService: TherapistsService,
     private headers: DashboardComponent,
     private toastr: ToastrService,
+    private modal: NgbModal
   ) { }
 
   /*ngOninit*/
   ngOnInit() {
     this.spinnerStatus = true;
-    //this.getAllTherapists();
+    this.getAllTherapists();
   }
 
   /*Método que obtiene el listado de las tareas que ha creado un terapeuta*/
@@ -134,6 +137,12 @@ export class ListTherapistsComponent {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Mis-Tareas');
     XLSX.writeFile(workbook, `${this.getCurrentDate()}_mis_tareas.xlsx`);
+  }
+
+  /*Método que abre el modal para mostrar el detalle de los terapeutas*/
+  openModalViewtherapistDetail(viewTherapistDetail: any, therapistID: number) {
+    this.modal.open(viewTherapistDetail, { size: 'lg', centered: true });
+    ViewTherapistsDetailComponent.therapistID = therapistID;
   }
 
   /*Icons to use*/

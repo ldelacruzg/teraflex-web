@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment'
-import { ApiResponseRegisterTherapistI } from '../interfaces/therapists.interface';
+import { ApiResponseGetTherapistDetailI, ApiResponseGetTherapistsI, ApiResponseRegisterTherapistI, RegisterTherapistI } from '../interfaces/therapists.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -38,10 +38,22 @@ export class TherapistsService {
     }
 
     /*Método que obtiene el listado de todas las tareas de un terapeuta*/
-    getAllTherapists(headers: Map<string, any>, status: boolean): Observable<ApiResponseRegisterTherapistI> {
+    getAllTherapists(headers: Map<string, any>, status: boolean): Observable<ApiResponseGetTherapistsI> {
         let queryParams = "?";
         queryParams += `status=${status}`;
         this.options = this.getHeaders(headers);
-        return this.http.get<ApiResponseRegisterTherapistI>(this.urlApi + `/logged/tasks/${queryParams}`, this.options);
+        return this.http.get<ApiResponseGetTherapistsI>(this.urlApi + `/admin/terapists/${queryParams}`, this.options);
+    }
+
+    /*Método que obtiene el detalle de un terapeuta por su ID*/
+    getTherapistDetailById(headers: Map<string, any>, patientId: number): Observable<ApiResponseGetTherapistDetailI> {
+        this.options = this.getHeaders(headers);
+        return this.http.get<ApiResponseGetTherapistDetailI>(this.urlApi + `/user/by-id/${patientId}`, this.options);
+    }
+
+    /*Método que registra un nuevo terapeuta*/
+    registerTherapist(headers: Map<string, any>, body: RegisterTherapistI): Observable<ApiResponseRegisterTherapistI> {
+        this.options = this.getHeaders(headers);
+        return this.http.post<ApiResponseRegisterTherapistI>(this.urlApi + `/user/therapist`, body, this.options);
     }
 }

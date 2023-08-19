@@ -5,7 +5,7 @@
     <div class="col-12 container-info">
       <div class="div mt-3 mx-1">
         <h4 id="titulo"><fa-icon [icon]="iconTherapists" class="icon-title"></fa-icon> Listado de terapeutas</h4>
-        <button [routerLink]="'../create-task'" type="button" class="btn btn-primary btn-sm">
+        <button [routerLink]="'../create-therapist'" type="button" class="btn btn-primary btn-sm">
           <fa-icon [icon]="iconAdd"></fa-icon> Nuevo terapeuta</button>
       </div>
       <br />
@@ -49,25 +49,25 @@
             <tbody>
               <ng-container *ngIf="arrayTherapists.length > 0; else noResults">
                 <tr
-                  *ngFor="let task of arrayTherapists | slice:initialPage:finalPage | searchRegisters:therapistsToSearch:optionFilter; let i = index">
+                  *ngFor="let therapist of arrayTherapists | slice:initialPage:finalPage | searchRegisters:therapistsToSearch:optionFilter; let i = index">
                   <th scope="row">{{i+1}}</th>
-                  <td data-bs-toggle="mensaje" title="{{task.title}}">{{task.title}}</td>
-                  <td>{{task.estimatedTime + " minutos"}}</td>
-                  <td class="iconPublicPrivate">
-                    <fa-icon [icon]="task.isPublic ? iconPublic : iconPrivate"></fa-icon>
-                    {{task.isPublic ? " Pública" : " Privada"}}
+                  <td>{{therapist.docNumber}}</td>
+                  <td>{{therapist.firstName}}</td>
+                  <td>{{therapist.lastName}}</td>
+                  <td>{{therapist.phone}}</td>
+                  <td>
+                    <ng-container *ngIf="therapist.category; else noCategory">{{ therapist.category.name }}</ng-container>
+                    <ng-template #noCategory>Sin departamento</ng-template>
                   </td>
-                  <td>{{task.createdAt}}</td>
                   <td class="actions">
-                    <!--(click)="openModalViewTaskDetail(viewTaskDetail, task.id)"-->
-                    <fa-icon  data-bs-toggle="mensaje"
-                      title="Ver detalles" id="iconVerDetalles" [icon]="iconVerDetalles"></fa-icon>
-                      <!--(click)="goToEditMyTask(task)"-->
-                    <fa-icon  data-bs-toggle="mensaje" title="Editar" id="iconEditar"
-                      [icon]="iconEditar"></fa-icon>
-                      <!--(click)="deleteTask(task.id, task.title)"-->
-                    <fa-icon  data-bs-toggle="mensaje" title="Eliminar"
-                      id="iconEliminar" [icon]="iconEliminar"></fa-icon>
+                    <fa-icon (click)="openModalViewtherapistDetail(viewtherapistDetail, therapist.id)"
+                       data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                      [icon]="iconVerDetalles"></fa-icon>
+                    <!--(click)="goToEditMytherapist(therapist)"-->
+                    <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar" [icon]="iconEditar"></fa-icon>
+                    <!--(click)="deletetherapist(therapist.id, therapist.title)"-->
+                    <fa-icon data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
+                      [icon]="iconEliminar"></fa-icon>
                   </td>
                 </tr>
               </ng-container>
@@ -89,7 +89,7 @@
   </div>
 </body>
 
-<!--Modal para ver los detalles de la tarea-->
-<!-- <ng-template #viewTaskDetail>
-  <app-view-task-detail></app-view-task-detail>
-</ng-template> -->
+<!--Modal para ver la información a detalle del terapeuta-->
+<ng-template #viewtherapistDetail>
+  <app-view-therapists-detail></app-view-therapists-detail>
+</ng-template>

@@ -1,0 +1,161 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title"><fa-icon [icon]="iconTherapist"></fa-icon> Detalle del terapeuta</h4>
+    </div>
+    <div class="modal-body">
+       
+        <div class="row">
+            <!--Nombres y Apellidos-->
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Nombres y apellidos</b></label>
+                    <p *ngIf="therapistDetail.firstName != '--'; else noResults">{{therapistDetail.firstName + " " + therapistDetail.lastName}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Cédula-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Cedula</b></label>
+                    <p *ngIf="therapistDetail.docNumber != '--'; else noResults">{{therapistDetail.docNumber}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Teléfono-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Teléfono</b></label>
+                    <p *ngIf="therapistDetail.phone!='--'; else noResults">{{therapistDetail.phone}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+             <!--Edad-->
+             <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Edad</b></label>
+                    <p *ngIf="therapistDetail.birthDate != '--'; else noResults">{{calculateAge(therapistDetail.birthDate)}} años</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Rol-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Rol de usuario</b></label>
+                    <p *ngIf="therapistDetail.role!='--'; else noResults">
+                        <ng-container *ngIf="therapistDetail.role=='THERAPIST'; else userRole">Terapeuta</ng-container>
+                        <ng-template #userRole>Usuario</ng-template>
+                    </p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Departamento-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Departamento</b></label>
+                    <p *ngIf="therapistDetail.categoryName!='--'; else noResults">
+                        <ng-container *ngIf="therapistDetail.categoryName; else noDeparment">{{ therapistDetail.categoryName }}</ng-container>
+                        <ng-template #noDeparment>Sin departamento</ng-template>
+                    </p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Estado-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label>
+                    <p *ngIf="therapistDetail.status!='--'; else noResults">{{therapistDetail.status ? "Activo" : "Inactivo"}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!--Fecha de creación-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de creación</b></label>
+                    <p *ngIf="therapistDetail.createdAt!='--'; else noResults">{{therapistDetail.createdAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Fecha de actualización-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de actualización</b></label>
+                    <p *ngIf="therapistDetail.updatedAt!='--'; else noResults">{{therapistDetail.updatedAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Descripción-->
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Descripción</b></label>
+                    <p *ngIf="therapistDetail.description!='--'; else noResults">{{therapistDetail.description}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button (click)="modal.dismissAll()" type="button" class="btn btn-primary btn">Aceptar</button>
+    </div>
+</div>
