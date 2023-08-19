@@ -15,15 +15,15 @@
                             [icon]="iconArrowDown"></fa-icon></a>
                     <ul class="side-dropdown">
                         <li>
-                            <a [routerLink]="'tasks'"><fa-icon class="icon" [icon]="iconTerapists"></fa-icon> 
+                            <a [routerLink]="'therapists'"><fa-icon class="icon" [icon]="iconTerapists"></fa-icon> 
                             Terapeutas</a>
                         </li>
                         <li>
-                            <a [routerLink]="'tasks/assign-tasks'"><fa-icon class="icon" [icon]="iconCategories"></fa-icon>
+                            <a [routerLink]="'categories'"><fa-icon class="icon" [icon]="iconCategories"></fa-icon>
                             Categorías</a>
                         </li>
                         <li>
-                            <a [routerLink]="'tasks/assign-tasks'"><fa-icon class="icon" [icon]="iconPatients"></fa-icon>
+                            <a [routerLink]="'patients'"><fa-icon class="icon" [icon]="iconPatients"></fa-icon>
                             Pacientes</a>
                         </li>
                     </ul>
@@ -63,7 +63,7 @@
                     <hr>
                     <li><a [routerLink]="'profile/my-profile'"><fa-icon [icon]="iconProfile"></fa-icon> Mi perfil</a>
                     </li>
-                    <li><a [routerLink]="''"><fa-icon [icon]="iconSettings"></fa-icon> Configuración</a></li>
+                    <li><a [routerLink]="''"><fa-icon [icon]="iconPassword"></fa-icon> Contraseña</a></li>
                     <li><a (click)="signOut()"><fa-icon [icon]="iconLogOut"></fa-icon> Cerrar sesión</a></li>
                 </ul>
             </div>
