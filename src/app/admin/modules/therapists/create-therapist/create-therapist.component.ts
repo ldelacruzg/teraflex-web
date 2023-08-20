@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ViewCredentialsLoginComponent } from '../modals/view-credentials-login/view-credentials-login.component';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ApiResponseRegisterTherapistI, RegisterTherapistI } from 'src/app/admin/interfaces/therapists.interface';
 import { ApiResponseCategoriesI, GetCategoryI } from 'src/app/therapist/interfaces/categories.interface';
 import { TherapistsService } from 'src/app/admin/services/therapists.service';
 import { CategoriesService } from 'src/app/admin/services/categories.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ViewCredentialsLoginComponent } from '../modals/view-credentials-login/view-credentials-login.component';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-therapist',
@@ -31,7 +30,6 @@ export class CreateTherapistComponent {
     private therapistService: TherapistsService,
     private categoriesService: CategoriesService,
     private toastr: ToastrService,
-    private router: Router,
     private modal: NgbModal
   ) { }
 

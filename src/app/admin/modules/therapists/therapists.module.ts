@@ -10,6 +10,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ViewTherapistsDetailComponent } from './modals/view-therapists-detail/view-therapists-detail.component';
 import { CreateTherapistComponent } from './create-therapist/create-therapist.component';
 import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/view-credentials-login.component';
+import { SweetAlerts } from '../../alerts/alerts.component';
+import { EditTherapistComponent } from './edit-therapist/edit-therapist.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/v
     ViewTherapistsDetailComponent,
     CreateTherapistComponent,
     ViewCredentialsLoginComponent,
+    EditTherapistComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,9 @@ import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/v
     ReactiveFormsModule,
     FormsModule,
     MatPaginatorModule
+  ],
+  providers:[
+    SweetAlerts
   ]
 })
 export class TherapistsModule { }

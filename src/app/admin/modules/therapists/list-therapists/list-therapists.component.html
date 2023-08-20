@@ -11,6 +11,16 @@
       <br />
       <!--Inputs para buscar e importar-->
       <div class="row">
+        <!--Para filtrar por activos o inactivos-->
+        <div class="col-12 col-md-2 col-lg-2">
+          <form>
+            <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
+              (change)="onFilterChange($event)" >
+              <option value="true" selected>Activos</option>
+              <option value="false">Inactivos</option>
+            </select>
+          </form>
+        </div>
         <!--Buscar paciente por nombre-->
         <div class="col-12 col-md-4 col-lg-4 mb-3">
           <form>
@@ -19,7 +29,7 @@
           </form>
         </div>
         <!--Importar los datos de la tabla-->
-        <div class="col-12 col-md-8 col-lg-8 export-buttons mb-3">
+        <div class="col-12 col-md-6 col-lg-6 export-buttons mb-3">
           <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
             title="Exportar a PDF">
             <fa-icon [icon]="iconPdf"></fa-icon>
@@ -56,18 +66,21 @@
                   <td>{{therapist.lastName}}</td>
                   <td>{{therapist.phone}}</td>
                   <td>
-                    <ng-container *ngIf="therapist.category; else noCategory">{{ therapist.category.name }}</ng-container>
+                    <ng-container *ngIf="therapist.category; else noCategory">{{ therapist.category.name
+                      }}</ng-container>
                     <ng-template #noCategory>Sin departamento</ng-template>
                   </td>
                   <td class="actions">
                     <fa-icon (click)="openModalViewtherapistDetail(viewtherapistDetail, therapist.id)"
-                       data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
-                      [icon]="iconVerDetalles"></fa-icon>
-                    <!--(click)="goToEditMytherapist(therapist)"-->
-                    <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar" [icon]="iconEditar"></fa-icon>
-                    <!--(click)="deletetherapist(therapist.id, therapist.title)"-->
-                    <fa-icon data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
-                      [icon]="iconEliminar"></fa-icon>
+                      data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                      [icon]="iconViewDetails"></fa-icon>
+                    <fa-icon (click)="goToEditTherapist(therapist)"
+                    data-bs-toggle="mensaje" title="Editar" id="iconEditar" 
+                    *ngIf="statusTherapist" [icon]="iconEdit"></fa-icon>
+                    <fa-icon
+                      (click)="desactivateTherapist(therapist.id, therapist.firstName + ' ' + therapist.lastName, statusTherapist ? 'Desactivar' : 'Activar')"
+                      data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar" 
+                      [icon]="statusTherapist ? iconDesactivate : iconActivate"></fa-icon>
                   </td>
                 </tr>
               </ng-container>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ApiResponseRegisterTherapistI, TherapistDetailI } from 'src/app/admin/interfaces/therapists.interface';
+import { ApiResponseRegisterTherapistI, ApiResponseStatusTherapist, TherapistDetailI } from 'src/app/admin/interfaces/therapists.interface';
 import { TherapistsService } from 'src/app/admin/services/therapists.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,9 @@ import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewTherapistsDetailComponent } from '../modals/view-therapists-detail/view-therapists-detail.component';
+import { SweetAlerts } from 'src/app/admin/alerts/alerts.component';
+import { EditTherapistComponent } from '../edit-therapist/edit-therapist.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-therapists',
@@ -21,6 +24,7 @@ export class ListTherapistsComponent {
   /*Variables*/
   optionFilter: string = environment.FIRSTNAME;
   spinnerStatus: boolean = false;
+  statusTherapist: boolean = false;
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
@@ -32,20 +36,23 @@ export class ListTherapistsComponent {
   constructor(
     public therapistsService: TherapistsService,
     private headers: DashboardComponent,
+    private sweetAlerts: SweetAlerts,
     private toastr: ToastrService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private router: Router
   ) { }
 
   /*ngOninit*/
   ngOnInit() {
     this.spinnerStatus = true;
-    this.getAllTherapists();
+    this.getAllTherapists(true);
   }
 
   /*Método que obtiene el listado de las tareas que ha creado un terapeuta*/
-  getAllTherapists() {
+  getAllTherapists(status: boolean) {
+    this.statusTherapist = status;
     this.spinnerStatus = false;
-    this.therapistsService.getAllTherapists(this.headers.getHeaders(), true)
+    this.therapistsService.getAllTherapists(this.headers.getHeaders(), status)
       .subscribe({
         next: (data: ApiResponseRegisterTherapistI) => {
           this.arrayTherapists = data.data;
@@ -95,7 +102,7 @@ export class ListTherapistsComponent {
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = { background: 'white', scale: 3 };
     //Datos para el encabezado
-    const company = '          TeraFlex\nListado de Mis Tareas';
+    const company = '          TeraFlex\nListado de Terapeutas';
     const dateEmision = 'Fecha de emisión: ' + this.getCurrentDate();
     html2canvas(DATA, options).then((canvas) => {
       const img = canvas.toDataURL('image/PNG');
@@ -114,7 +121,7 @@ export class ListTherapistsComponent {
       doc.text(dateEmision, 15, 140);
       return doc;
     }).then((docResult) => {
-      docResult.save(`${this.getCurrentDate()}_mis_tareas.pdf`);
+      docResult.save(`${this.getCurrentDate()}_listado_terapeutas.pdf`);
       //this.estadoSpinner = true;
     });
   }
@@ -135,8 +142,8 @@ export class ListTherapistsComponent {
 
     const worksheet = XLSX.utils.aoa_to_sheet(rows);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Mis-Tareas');
-    XLSX.writeFile(workbook, `${this.getCurrentDate()}_mis_tareas.xlsx`);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Terapeutas');
+    XLSX.writeFile(workbook, `${this.getCurrentDate()}_listado_terapeutas.xlsx`);
   }
 
   /*Método que abre el modal para mostrar el detalle de los terapeutas*/
@@ -145,12 +152,62 @@ export class ListTherapistsComponent {
     ViewTherapistsDetailComponent.therapistID = therapistID;
   }
 
+  /*Método que elimina un terapeuta*/
+  desactivateTherapist(idTherapist: number, nameTherapist: string, status: string) {
+    this.sweetAlerts.alertConfirmCancel(status + " terapeuta", "¿Está seguro de " + (status).toLowerCase() + " el terapeuta " + (nameTherapist).toUpperCase() + " del sistema TeraFlex?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.spinnerStatus = false;
+          this.therapistsService.activateOrDesactivateTherapist(this.headers.getHeaders(), idTherapist)
+            .subscribe({
+              next: (data: ApiResponseStatusTherapist) => {
+                if (status == "Activar")
+                  this.getAllTherapists(false);
+                else
+                  this.getAllTherapists(true);
+                this.showToastSuccess("Terapeuta actualizado con éxito", "Éxtio");
+                this.spinnerStatus = true;
+              },
+              error: (error: any) => {
+                this.spinnerStatus = true;
+                this.showToastError("Error", "No se pudo " + (status).toLowerCase() + " el terapeuta");
+              }
+            })
+        }
+      });
+  }
+
+  /*Método que cambia el filtro entre los activos e inactivos (Eliminados)*/
+  onFilterChange(event: any) {
+    const value = event.target.value;
+    if (value === "true")
+      this.getAllTherapists(true);
+    else if (value === "false")
+      this.getAllTherapists(false);
+
+  }
+
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
+    this.toastr.success(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  /*Método que redirecciona al componente de editar terapeuta pasando la data*/
+  goToEditTherapist(therapistDetail: TherapistDetailI) {
+    EditTherapistComponent.therapistDetail = therapistDetail;
+    this.router.navigateByUrl("/admin/home/dashboard/therapists/edit-therapist")
+  }
+
   /*Icons to use*/
   iconTherapists = iconos.faUserNurse;
   iconAdd = iconos.faPlusCircle
-  iconVerDetalles = iconos.faEye;
-  iconEditar = iconos.faEdit;
-  iconEliminar = iconos.faTrashCan;
+  iconViewDetails = iconos.faEye;
+  iconEdit = iconos.faEdit;
+  iconDesactivate = iconos.faToggleOn;
+  iconActivate = iconos.faToggleOff;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;

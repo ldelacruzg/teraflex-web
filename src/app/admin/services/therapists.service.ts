@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment'
-import { ApiResponseGetTherapistDetailI, ApiResponseGetTherapistsI, ApiResponseRegisterTherapistI, RegisterTherapistI } from '../interfaces/therapists.interface';
+import { ApiResponseEditTherapistI, ApiResponseGetTherapistDetailI, ApiResponseGetTherapistsI, ApiResponseRegisterTherapistI, ApiResponseStatusTherapist, RegisterTherapistI, bodyEditTherapistI } from '../interfaces/therapists.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -55,5 +55,17 @@ export class TherapistsService {
     registerTherapist(headers: Map<string, any>, body: RegisterTherapistI): Observable<ApiResponseRegisterTherapistI> {
         this.options = this.getHeaders(headers);
         return this.http.post<ApiResponseRegisterTherapistI>(this.urlApi + `/user/therapist`, body, this.options);
+    }
+
+    /*Método que cambia el estado de un terapeuta (Activar o desactivar)*/
+    activateOrDesactivateTherapist(headers: Map<string, any>, idTherapist: number): Observable<ApiResponseStatusTherapist> {
+        this.options = this.getHeaders(headers);
+        return this.http.patch<ApiResponseStatusTherapist>(this.urlApi + `/user/status/${idTherapist}`, null, this.options);
+    }
+
+     /*Método que editar la información de un terapeuta*/
+     editTherapist(headers: Map<string, any>, body: bodyEditTherapistI, idTherapist: number): Observable<ApiResponseEditTherapistI> {
+        this.options = this.getHeaders(headers);
+        return this.http.patch<ApiResponseEditTherapistI>(this.urlApi + `/user/update/${idTherapist}`, body, this.options);
     }
 }
