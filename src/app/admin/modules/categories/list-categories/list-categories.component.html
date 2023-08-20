@@ -1,0 +1,101 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-12 container-info">
+            <div class="div mt-3 mx-1">
+                <h4 id="titulo"><fa-icon [icon]="iconCategories" class="icon-title"></fa-icon> Listado de categorías
+                </h4>
+                <button [routerLink]="'../create-therapist'" type="button" class="btn btn-primary btn-sm">
+                    <fa-icon [icon]="iconAdd"></fa-icon> Nueva categoría</button>
+            </div>
+            <br />
+            <!--Inputs para buscar e importar-->
+            <div class="row">
+                <!--Buscar paciente por nombre-->
+                <div class="col-12 col-md-5 col-lg-5 mb-3">
+                    <form>
+                        <input class="form-control me-1" type="text" placeholder="Buscar..." name="searchTherapists"
+                            [(ngModel)]="categoriesToSearch">
+                    </form>
+                </div>
+                <!--Importar los datos de la tabla-->
+                <div class="col-12 col-md-7 col-lg-7 export-buttons mb-3">
+                    <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
+                        title="Exportar a PDF">
+                        <fa-icon [icon]="iconPdf"></fa-icon>
+                    </button>
+                    <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
+                        title="Exportar a XLSX">
+                        <fa-icon [icon]="iconXlsx"></fa-icon>
+                    </button>
+                </div>
+            </div>
+
+            <!--Tabla con la lista de tareas-->
+            <div class="card" id="htmlTablePDF">
+                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
+                    style="position: relative;">
+                    <table class="table table-striped mb-0" id="htmlExcelTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">N°</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Creado por</th>
+                                <th scope="col">Fecha de creación</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="arrayCategories.length > 0; else noResults">
+                                <tr
+                                    *ngFor="let category of arrayCategories | slice:initialPage:finalPage | searchRegisters:categoriesToSearch:optionFilter; let i = index">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{category.name}}</td>
+                                    <td>
+                                        <div class="taskTatus"
+                                            [style.background-color]="category.status ? '#198754' : '#ccc'"
+                                            [style.border-radius]="category.status ? '5px' : '5px'"
+                                            [style.padding]="category.status ? '3px' : '3px'"
+                                            [style.color]="category.status ? 'white' : 'black'">
+                                            {{category.status? "Activa" : "Inactiva"}}
+                                        </div>
+                                    </td>
+                                    <td>{{category.createdById==1?"ADMIN":"TERAPEUTA"}}</td>
+                                    <td>{{category.createdAt}}</td>
+                                    <td class="actions">
+                                        <!--(click)="openModalViewCategoriesDetail(viewtherapistDetail, therapist.id)"-->
+                                        <fa-icon data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                                            [icon]="iconViewDetails"></fa-icon>
+                                        <!--(click)="goToEditTherapist(therapist)"-->
+                                        <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar"
+                                            [icon]="iconEdit"></fa-icon>
+                                        <!--(click)="desactivateTherapist(therapist.id, therapist.firstName + ' ' + therapist.lastName, statusTherapist ? 'Desactivar' : 'Activar')"-->
+                                        <fa-icon data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
+                                            [icon]="iconDelete"></fa-icon>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <!--Para cuando no cargue la data-->
+                            <ng-template #noResults>
+                                <tr>
+                                    <td colspan="7" class="no-results">Sin resultados...</td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--Paginación-->
+            <mat-paginator id="paginacion" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="itemsForPage"
+                [length]="arrayCategories.length" (page)="changePage($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</body>
+
+<!--Modal para ver la información a detalle del terapeuta-->
+<!-- <ng-template #viewtherapistDetail>
+  <app-view-therapists-detail></app-view-therapists-detail>
+</ng-template> -->

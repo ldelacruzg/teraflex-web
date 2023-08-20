@@ -6,4 +6,5 @@ export const environment = {
     PATIENT: "PATIENT",
     TITLE: "title",
     FIRSTNAME: "firstName",
+    CATEGORYNAME: "name"
   };
