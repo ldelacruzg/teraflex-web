@@ -28,6 +28,14 @@ export class DashboardComponent {
     this.router.navigate(['options-home'], { relativeTo: this.routerActivated })
   }
 
+  /*Método que obtiene los headers*/
+  getHeaders(){
+    let headers = new Map();
+    headers.set("token", sessionStorage.getItem("token"));
+    headers.set("role", sessionStorage.getItem("role"));
+    return headers;
+  }
+
   /*Método que cierra la sesión del usuario*/
   signOut() {
     this.spinnerStatus = false;
@@ -146,6 +154,6 @@ export class DashboardComponent {
   iconMessage = iconos.faMessage;
 
   iconProfile = iconos.faUserCircle;
-  iconSettings = iconos.faGear;
+  iconPassword = iconos.faLock;
   iconLogOut = iconos.faArrowRightFromBracket;
 }

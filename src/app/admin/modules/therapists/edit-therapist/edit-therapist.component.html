@@ -1,0 +1,137 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-12 container-info">
+            <div class="col-12 mt-3 mx-1">
+                <h4 id="titulo"><fa-icon [icon]="iconEditTherapist" class="icon-title"></fa-icon> Editar terapeuta
+                </h4>
+            </div>
+
+            <form [formGroup]="editTherapistForm">
+                <div class="row mt-4">
+                    <!--Nombres-->
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="mb-1"><b>Nombres</b></label>
+                        <input type="text" placeholder="Nombres*" class="form-control form-control-lg bg-light fs-6"
+                            formControlName="firstName"
+                            [ngClass]="{
+                                'is-invalid': editTherapistForm.get('firstName')?.hasError('required') && editTherapistForm.get('firstName')?.touched || editTherapistForm.get('firstName')?.hasError('pattern')}"
+                            [maxlength]="50" />
+                        <div class="validators"
+                            *ngIf="editTherapistForm.get('firstName')?.hasError('required') && editTherapistForm.get('firstName')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" *ngIf="editTherapistForm.get('firstName')?.hasError('pattern')">
+                            <small>¡Solo se permiten letras!</small>
+                        </div>
+                    </div>
+                    <!--Apellidos-->
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="mb-1"><b>Apellidos</b></label>
+                        <input type="text" placeholder="Apellidos*" class="form-control form-control-lg bg-light fs-6"
+                            formControlName="lastName" [ngClass]="{
+                                'is-invalid': editTherapistForm.get('lastName')?.hasError('required') && editTherapistForm.get('lastName')?.touched || editTherapistForm.get('lastName')?.hasError('pattern')
+                            }" [maxlength]="50" />
+                        <div class="validators"
+                            *ngIf="editTherapistForm.get('lastName')?.hasError('required') && editTherapistForm.get('lastName')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" *ngIf="editTherapistForm.get('lastName')?.hasError('pattern')">
+                            <small>¡Solo se permiten letras!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!--Cédula-->
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="mb-1"><b>Cédula</b></label>
+                        <input type="text" class="form-control form-control-lg bg-light fs-6"
+                            formControlName="docNumber" placeholder="Cédula*"
+                            [ngClass]="{
+                                'is-invalid': editTherapistForm.get('docNumber')?.hasError('required') && editTherapistForm.get('docNumber')?.touched || editTherapistForm.get('docNumber')?.hasError('pattern')
+                            }"
+                            [maxlength]="10" readonly data-bs-toggle="mensaje" title="Este campo no se puede editar">
+                        <div class="validators"
+                            *ngIf="editTherapistForm.get('docNumber')?.hasError('required') && editTherapistForm.get('docNumber')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" *ngIf="editTherapistForm.get('docNumber')?.hasError('pattern')">
+                            <small>¡Solo se permiten números!</small>
+                        </div>
+                    </div>
+                    <!--Fecha de nacimiento-->
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="mb-1"><b>Fecha de nacimiento</b></label>
+                        <input type="date" class="form-control form-control-lg bg-light fs-6"
+                            formControlName="birthDate" placeholder="Fecha de nacimiento*"
+                            [ngClass]="{
+                                'is-invalid': editTherapistForm.get('birthDate')?.hasError('required') && editTherapistForm.get('birthDate')?.touched,
+                            }">
+                        <div class="validators"
+                            *ngIf="editTherapistForm.get('birthDate')?.hasError('required') && editTherapistForm.get('birthDate')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                    </div>
+                    <!--Teléfono-->
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="mb-1"><b>Teléfono</b></label>
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="phone"
+                            placeholder="Teléfono*"
+                            [ngClass]="{
+                                'is-invalid': editTherapistForm.get('phone')?.hasError('required') && editTherapistForm.get('phone')?.touched || editTherapistForm.get('phone')?.hasError('pattern'),
+                            }"
+                            [maxlength]="10">
+                        <div class="validators"
+                            *ngIf="editTherapistForm.get('phone')?.hasError('required') && editTherapistForm.get('phone')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" *ngIf="editTherapistForm.get('phone')?.hasError('pattern')">
+                            <small>¡Solo se permiten números!</small>
+                        </div>
+                    </div>
+                    <!--Departamento-->
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="mb-1"><b>Departamento</b></label>
+                        <select class="form-select form-select-md" aria-label=".form-select-lg example"
+                            [(ngModel)]="optionCategorySelected" formControlName="categoryID" [ngClass]="{
+                            'is-invalid': editTherapistForm.get('categoryID')?.hasError('required') && editTherapistForm.get('categoryID')?.touched
+                        }" readonly  data-bs-toggle="mensaje" title="Este campo no se puede editar">
+                            <option value="0" selected>Seleccione una opción</option>
+                            <option *ngFor="let category of arrayCategories" [value]="category.id">
+                                {{category.name}}</option>
+                        </select>
+                        <div class="validators"
+                            *ngIf="editTherapistForm.get('categoryID')?.hasError('required') && editTherapistForm.get('categoryID')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Descripción-->
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="mb-1" id="description"><b>Descripción</b></label>
+                        <textarea class="form-control form-control-lg bg-light fs-6" formControlName="description"
+                            placeholder="Descripción*" rows="7"
+                            [ngClass]="{
+                                'is-invalid': editTherapistForm.get('description')?.hasError('required') && editTherapistForm.get('description')?.touched || editTherapistForm.get('description')?.hasError('pattern'),
+                            }">
+                            </textarea>
+                        <div class="validators"
+                            *ngIf="editTherapistForm.get('phone')?.hasError('required') && editTherapistForm.get('phone')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons mb-3">
+                    <button (click)="editTherapist()" mat-button type="button"
+                        class="btn btn-primary btn-md">Actualizar</button>
+                    <button [routerLink]="'../list-therapists'" mat-button type="button"
+                        class="btn btn-danger btn-md">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

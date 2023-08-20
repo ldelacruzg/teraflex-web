@@ -1,0 +1,108 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+  <div class="row justify-content-center">
+    <div class="col-12 container-info">
+      <div class="div mt-3 mx-1">
+        <h4 id="titulo"><fa-icon [icon]="iconTherapists" class="icon-title"></fa-icon> Listado de terapeutas</h4>
+        <button [routerLink]="'../create-therapist'" type="button" class="btn btn-primary btn-sm">
+          <fa-icon [icon]="iconAdd"></fa-icon> Nuevo terapeuta</button>
+      </div>
+      <br />
+      <!--Inputs para buscar e importar-->
+      <div class="row">
+        <!--Para filtrar por activos o inactivos-->
+        <div class="col-12 col-md-2 col-lg-2">
+          <form>
+            <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
+              (change)="onFilterChange($event)" >
+              <option value="true" selected>Activos</option>
+              <option value="false">Inactivos</option>
+            </select>
+          </form>
+        </div>
+        <!--Buscar paciente por nombre-->
+        <div class="col-12 col-md-4 col-lg-4 mb-3">
+          <form>
+            <input class="form-control me-1" type="text" placeholder="Buscar..." name="searchTherapists"
+              [(ngModel)]="therapistsToSearch">
+          </form>
+        </div>
+        <!--Importar los datos de la tabla-->
+        <div class="col-12 col-md-6 col-lg-6 export-buttons mb-3">
+          <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
+            title="Exportar a PDF">
+            <fa-icon [icon]="iconPdf"></fa-icon>
+          </button>
+          <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
+            title="Exportar a XLSX">
+            <fa-icon [icon]="iconXlsx"></fa-icon>
+          </button>
+        </div>
+      </div>
+
+      <!--Tabla con la lista de tareas-->
+      <div class="card" id="htmlTablePDF">
+        <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative;">
+          <table class="table table-striped mb-0" id="htmlExcelTable">
+            <thead>
+              <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Cédula</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="arrayTherapists.length > 0; else noResults">
+                <tr
+                  *ngFor="let therapist of arrayTherapists | slice:initialPage:finalPage | searchRegisters:therapistsToSearch:optionFilter; let i = index">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{therapist.docNumber}}</td>
+                  <td>{{therapist.firstName}}</td>
+                  <td>{{therapist.lastName}}</td>
+                  <td>{{therapist.phone}}</td>
+                  <td>
+                    <ng-container *ngIf="therapist.category; else noCategory">{{ therapist.category.name
+                      }}</ng-container>
+                    <ng-template #noCategory>Sin departamento</ng-template>
+                  </td>
+                  <td class="actions">
+                    <fa-icon (click)="openModalViewtherapistDetail(viewtherapistDetail, therapist.id)"
+                      data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                      [icon]="iconViewDetails"></fa-icon>
+                    <fa-icon (click)="goToEditTherapist(therapist)"
+                    data-bs-toggle="mensaje" title="Editar" id="iconEditar" 
+                    *ngIf="statusTherapist" [icon]="iconEdit"></fa-icon>
+                    <fa-icon
+                      (click)="desactivateTherapist(therapist.id, therapist.firstName + ' ' + therapist.lastName, statusTherapist ? 'Desactivar' : 'Activar')"
+                      data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar" 
+                      [icon]="statusTherapist ? iconDesactivate : iconActivate"></fa-icon>
+                  </td>
+                </tr>
+              </ng-container>
+              <!--Para cuando no cargue la data-->
+              <ng-template #noResults>
+                <tr>
+                  <td colspan="7" class="no-results">Sin resultados...</td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--Paginación-->
+      <mat-paginator id="paginacion" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="itemsForPage"
+        [length]="arrayTherapists.length" (page)="changePage($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</body>
+
+<!--Modal para ver la información a detalle del terapeuta-->
+<ng-template #viewtherapistDetail>
+  <app-view-therapists-detail></app-view-therapists-detail>
+</ng-template>

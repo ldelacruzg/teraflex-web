@@ -10,10 +10,10 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard', component: DashboardComponent, children: [
-        /* {
-          path: 'terapists',
+        {
+          path: 'therapists',
           loadChildren:()=>import("../therapists/therapists.module").then(m=>m.TherapistsModule)
-        }, */
+        },
         {
           path: 'options-home', component: OptionsHomeComponent
         },
