@@ -6,7 +6,7 @@
             <div class="div mt-3 mx-1">
                 <h4 id="titulo"><fa-icon [icon]="iconCategories" class="icon-title"></fa-icon> Listado de categorías
                 </h4>
-                <button [routerLink]="'../create-therapist'" type="button" class="btn btn-primary btn-sm">
+                <button [routerLink]="'../create-category'" type="button" class="btn btn-primary btn-sm">
                     <fa-icon [icon]="iconAdd"></fa-icon> Nueva categoría</button>
             </div>
             <br />
@@ -65,14 +65,14 @@
                                     <td>{{category.createdById==1?"ADMIN":"TERAPEUTA"}}</td>
                                     <td>{{category.createdAt}}</td>
                                     <td class="actions">
-                                        <!--(click)="openModalViewCategoriesDetail(viewtherapistDetail, therapist.id)"-->
-                                        <fa-icon data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                                        <fa-icon (click)="openModalViewCategoryDetail(viewCategoryDetail, category.id)" 
+                                            data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconViewDetails"></fa-icon>
-                                        <!--(click)="goToEditTherapist(therapist)"-->
-                                        <fa-icon data-bs-toggle="mensaje" title="Editar" id="iconEditar"
+                                        <fa-icon (click)="goToEditCategory(category)" 
+                                            data-bs-toggle="mensaje" title="Editar" id="iconEditar"
                                             [icon]="iconEdit"></fa-icon>
-                                        <!--(click)="desactivateTherapist(therapist.id, therapist.firstName + ' ' + therapist.lastName, statusTherapist ? 'Desactivar' : 'Activar')"-->
-                                        <fa-icon data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
+                                        <fa-icon (click)="desactivateCategory(category.id, category.name)" 
+                                            data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
                                             [icon]="iconDelete"></fa-icon>
                                     </td>
                                 </tr>
@@ -95,7 +95,7 @@
     </div>
 </body>
 
-<!--Modal para ver la información a detalle del terapeuta-->
-<!-- <ng-template #viewtherapistDetail>
-  <app-view-therapists-detail></app-view-therapists-detail>
-</ng-template> -->
+<!--Modal para ver la información a detalle de la categoría-->
+<ng-template #viewCategoryDetail>
+  <app-view-categories-detail></app-view-categories-detail>
+</ng-template>

@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { EditCategoriesComponent } from '../edit-categories/edit-categories.component';
+import { ViewCategoriesDetailComponent } from '../modals/view-categories-detail/view-categories-detail.component';
 import { ApiResponseCategoriesI, GetCategoryI } from 'src/app/therapist/interfaces/categories.interface';
 import { CategoriesService } from 'src/app/admin/services/categories.service';
 import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { SweetAlerts } from 'src/app/admin/alerts/alerts.component';
 
 @Component({
   selector: 'app-list-categories',
@@ -31,7 +36,10 @@ export class ListCategoriesComponent {
   constructor(
     private headers: DashboardComponent,
     private categoriesService: CategoriesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sweetAlerts: SweetAlerts,
+    private modal: NgbModal,
+    private router: Router
   ) { }
 
   /*ngOnInit*/
@@ -139,9 +147,50 @@ export class ListCategoriesComponent {
       this.getAllCategories();
   }
 
+  /*Método que abre el modal para mostrar el detalle de los terapeutas*/
+  openModalViewCategoryDetail(viewCategoryDetail: any, categoryID: number) {
+    this.modal.open(viewCategoryDetail, { size: 'lg', centered: true });
+    ViewCategoriesDetailComponent.categoryID = categoryID;
+  }
+
+  /*Método que redirecciona al componente de editar una categoría*/
+  goToEditCategory(categoryDetail: any) {
+    EditCategoriesComponent.categoryDetail = categoryDetail;
+    this.router.navigateByUrl("/admin/home/dashboard/categories/edit-category")
+  }
+
+  /*Método que elimina una categoría*/
+  desactivateCategory(categoryID: number, categoryName: string) {
+    this.sweetAlerts.alertConfirmCancel("Desactivar categoría", "¿Está seguro de desactivar la categoría " + (categoryName).toUpperCase() + " del sistema TeraFlex?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.spinnerStatus = false;
+          this.categoriesService.deleteCategory(this.headers.getHeaders(), categoryID)
+            .subscribe({
+              next: (data: any) => {
+                this.getAllCategories();
+                this.showToastSuccess("Se desactivó la categoría correctamente", "Éxito");
+              },
+              error: (error) => {
+                this.showToastError("Error", "No se pudo desactivar la categoría");
+              }
+            });
+        }
+      });
+  }
+
+  
   /*Método que muestra un toast con mensaje de ERROR*/
   showToastError(title: string, message: string) {
     this.toastr.error(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
+    this.toastr.success(message, title, {
       progressBar: true,
       timeOut: 3000,
     });

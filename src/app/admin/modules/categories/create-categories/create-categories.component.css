@@ -1,0 +1,22 @@
+.validators {
+    color: #FC3B56;
+}
+
+.action-buttons{
+    text-align: end;
+}
+
+.btn-primary{
+    margin-right: 10px;
+}
+
+.btn-danger{
+    border-radius: 50px;
+}
+
+select[readonly] {
+    background-color: #f0f0f0 !important;
+    color: #6b6b6b;
+    border-color: #dbdbdb;
+    cursor: not-allowed;
+}

@@ -8,10 +8,16 @@ import { SharedComponentsModule } from 'src/app/shared-components/shared-compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SweetAlerts } from '../../alerts/alerts.component';
+import { CreateCategoriesComponent } from './create-categories/create-categories.component';
+import { ViewCategoriesDetailComponent } from './modals/view-categories-detail/view-categories-detail.component';
+import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
 
 @NgModule({
   declarations: [
-    ListCategoriesComponent
+    ListCategoriesComponent,
+    CreateCategoriesComponent,
+    ViewCategoriesDetailComponent,
+    EditCategoriesComponent
   ],
   imports: [
     CommonModule,
