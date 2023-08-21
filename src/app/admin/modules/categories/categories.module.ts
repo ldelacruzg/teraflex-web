@@ -29,7 +29,7 @@ import { EditCategoriesComponent } from './edit-categories/edit-categories.compo
     FormsModule,
     MatPaginatorModule
   ],
-  providers:[
+  providers: [
     SweetAlerts
   ]
 })

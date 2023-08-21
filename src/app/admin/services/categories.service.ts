@@ -37,7 +37,7 @@ export class CategoriesService {
         return this.options;
     }
 
-    /*Método que obtiene el listado de todas las categorias disponibles*/
+    /*Método que obtiene el listado de todas las categorías disponibles*/
     getAllCategories(headers: Map<string, any>): Observable<ApiResponseCategoriesI> {
         this.options = this.getHeaders(headers);
         return this.http.get<ApiResponseCategoriesI>(this.urlApi + `/categories`, this.options);

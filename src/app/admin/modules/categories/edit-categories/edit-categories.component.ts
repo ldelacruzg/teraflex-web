@@ -111,6 +111,7 @@ export class EditCategoriesComponent {
       timeOut: 3000,
     });
   }
+  
   /*Icons to use*/
   iconCategory = iconos.faFilePen;
 }

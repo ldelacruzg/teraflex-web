@@ -49,7 +49,7 @@
                         <input type="text" placeholder="Apellidos*" class="form-control form-control-lg bg-light fs-6"
                             formControlName="createdByUser" [ngClass]="{
                                 'is-invalid': categoryForm.get('createdByUser')?.hasError('required') && categoryForm.get('createdByUser')?.touched || categoryForm.get('createdByUser')?.hasError('pattern'),
-                            }" [maxlength]="50" readonly/>
+                            }" [maxlength]="50" readonly data-bs-toggle="mensaje" title="Este campo no se puede editar"/>
                         <div class="validators"
                             *ngIf="categoryForm.get('createdByUser')?.hasError('required') && categoryForm.get('createdByUser')?.touched">
                             <small>¡Este campo es requerido!</small>
@@ -86,8 +86,3 @@
         </div>
     </div>
 </body>
-
-<!--Modal para ver la información a detalle del terapeuta-->
-<!-- <ng-template #viewtherapistDetail>
-    <app-view-credentials-login></app-view-credentials-login>
-</ng-template> -->

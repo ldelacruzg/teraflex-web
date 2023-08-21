@@ -14,7 +14,7 @@
     border-radius: 50px;
 }
 
-select[readonly] {
+input[readonly] {
     background-color: #f0f0f0 !important;
     color: #6b6b6b;
     border-color: #dbdbdb;
