@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title"><fa-icon [icon]="iconPatient"></fa-icon> Detalle del paciente</h4>
+    </div>
+    <div class="modal-body">
+       
+        <div class="row">
+            <!--Nombres y Apellidos-->
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Nombres y apellidos</b></label>
+                    <p *ngIf="patientDetail.firstName != '--'; else noResults">{{patientDetail.firstName + " " + patientDetail.lastName}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Cédula-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Cedula</b></label>
+                    <p *ngIf="patientDetail.docNumber != '--'; else noResults">{{patientDetail.docNumber}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Teléfono-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Teléfono</b></label>
+                    <p *ngIf="patientDetail.phone!='--'; else noResults">{{patientDetail.phone}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+             <!--Edad-->
+             <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Edad</b></label>
+                    <p *ngIf="patientDetail.birthDate != '--'; else noResults">{{calculateAge(patientDetail.birthDate)}} años</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Terapeuta asignados-->
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="info mb-4" *ngIf="patientDetail.therapists.length > 0; else noVideos">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Terapeutas asignados</b></label>
+                    <p *ngFor="let therapist of patientDetail.therapists; let i = index">[{{i+1}}] {{therapist.firstName + ' ' + therapist.lastName}}</p>
+                </div>
+                <ng-template class="info mb-4" #noVideos>
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Terapeutas asignados</b></label>
+                    <p>Esta paciente no tiene terapeutas asignados</p>
+                </ng-template>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!--Fecha de creación-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de creación</b></label>
+                    <p *ngIf="patientDetail.createdAt!='--'; else noResults">{{patientDetail.createdAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Fecha de actualización-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de actualización</b></label>
+                    <p *ngIf="patientDetail.updatedAt!='--'; else noResults">{{patientDetail.updatedAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Descripción-->
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Descripción</b></label>
+                    <p *ngIf="patientDetail.description!='--'; else noResults">{{patientDetail.description}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button (click)="modal.dismissAll()" type="button" class="btn btn-primary btn">Aceptar</button>
+    </div>
+</div>

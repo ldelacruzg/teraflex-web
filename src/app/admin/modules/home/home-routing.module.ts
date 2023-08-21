@@ -19,6 +19,10 @@ const routes: Routes = [
           loadChildren:()=>import("../categories/categories.module").then(m=>m.CategoriesModule)
         },
         {
+          path: 'patients',
+          loadChildren:()=>import("../patients/patients.module").then(m=>m.PatientsModule)
+        },
+        {
           path: 'options-home', component: OptionsHomeComponent
         },
       ]
