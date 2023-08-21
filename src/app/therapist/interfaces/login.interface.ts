@@ -1,6 +1,10 @@
-export interface Login{
-    identification: string;
-    password: string;
-    token: string;
-    role: string;
+/*Interfaz de respuesta de la API para cuando se loguea*/
+export interface ApiResponseLoginUserI{
+    statusCode: number;
+    message: string;
+    data:{
+        token: string;
+        role: string;
+        firstTime: boolean;
+    }
 }

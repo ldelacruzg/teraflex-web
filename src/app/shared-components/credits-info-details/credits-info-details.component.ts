@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-credits-info',
-  templateUrl: './credits-info.component.html',
-  styleUrls: ['./credits-info.component.css', '../../modules/tasks/list-my-tasks/list-my-tasks.component.css']
+  selector: 'app-credits-info-details',
+  templateUrl: './credits-info-details.component.html',
+  styleUrls: ['./credits-info-details.component.css', '../../therapist/modules/tasks/list-my-tasks/list-my-tasks.component.css']
 })
-export class CreditsInfoComponent {
+export class CreditsInfoDetailsComponent {
   /*Variables*/
   spinnerStatus: boolean = false;
   infoCredits: string = "Esta aplicación web ha sido desarrollada como parte del proyecto de vinculación “Tecnologías de la Información y Comunicación enfocadas a la discapacidad en la zona de influencia de la UTEQ” (F&C), de la Carrera de Ingeniería en Sistemas/Software, perteneciente a la Facultad de Ciencias de la Ingeniería, de la Universidad Técnica Estatal de Quevedo, en cooperación con la Dirección de Gestión de Desarrollo Social del GAD de Quevedo. Con este proyecto, se pretende mejorar la atención de terapias de los pacientes de la ciudad de Quevedo."

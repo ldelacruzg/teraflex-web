@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,6 +12,7 @@ export class ViewVideosHelpComponent {
   /*Variables*/
   static location: string;
   spinnerStatus: boolean = false;
+  userRole: string = "--";
 
   /*Constrcutor*/
   constructor(
@@ -20,20 +22,23 @@ export class ViewVideosHelpComponent {
   /*ngOnInit*/
   ngOnInit() {
     this.spinnerStatus = true;
-  }
-
-  /*Método que redirecciona al componente de ver el detalle de un video*/
-  goToVideoDetail() {
-    console.log("click");
-    this.router.navigateByUrl("/therapist/home/dashboard/help/video-detail");
+    this.userRole = sessionStorage.getItem("role")!;
   }
 
   /*Método que verifica a que componente se regresa, si al de ayuda o al dashboard*/
-  goToComponent(){
-    if(ViewVideosHelpComponent.location == "dashboard")
-      this.router.navigateByUrl("/therapist/home/dashboard/options-home");
-    else
-    this.router.navigateByUrl("/therapist/home/dashboard/help/tutorial-videos");
+  goToComponent() {
+    if (this.userRole == environment.ADMIN) {
+      if (ViewVideosHelpComponent.location == "dashboard")
+        this.router.navigateByUrl("/admin/home/dashboard/options-home");
+      else
+        this.router.navigateByUrl("/admin/home/dashboard/help/tutorial-videos");
+    }
+    else {
+      if (ViewVideosHelpComponent.location == "dashboard")
+        this.router.navigateByUrl("/therapist/home/dashboard/options-home");
+      else
+        this.router.navigateByUrl("/therapist/home/dashboard/help/tutorial-videos");
+    }
   }
 
   /*Icons to use*/

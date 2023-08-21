@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { ViewVideosHelpComponent } from 'src/app/therapist/modules/help/view-videos-help/view-videos-help.component';
-
+import { environment } from 'src/environments/environment';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-slider-videos',
@@ -16,16 +16,29 @@ export class SliderVideosComponent {
   @Input() arrayVideosDetail1: any[] = []
   @Input() arrayVideosDetail2: any[] = [];
   @Input() location: string = "";
+  @Input() videoTitle: string = "Videos"
+  userRole: string = "--";
 
   /*Constructor*/
   constructor(
     private router: Router
   ){}
 
+  /*ngOnInit*/
+  ngOnInit(){
+    this.userRole = sessionStorage.getItem("role")!;
+  }
+
   /*Método que redirige al componente de ver reproductor de video*/
   goToVideoDetail(){
-    ViewVideosHelpComponent.location = this.location
-    this.router.navigateByUrl("/therapist/home/dashboard/help/video-detail")
+    if(this.userRole == environment.ADMIN){
+      ViewVideosHelpComponent.location = this.location;
+      this.router.navigateByUrl("/admin/home/dashboard/help/video-detail");
+    }
+    else{
+      ViewVideosHelpComponent.location = this.location;
+      this.router.navigateByUrl("/therapist/home/dashboard/help/video-detail");
+    }
   }
 
   /*Icons to use*/

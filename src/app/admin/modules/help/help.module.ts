@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreditsInfoComponent } from './credits-info/credits-info.component';
-import { CreditsRoutingModule } from './credits-routing.module';
+import { HelpRoutingModule } from './help-routing.module';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
-
-
+import { ListVideosHelpComponent } from './list-videos-help/list-videos-help.component';
 
 @NgModule({
   declarations: [
-    CreditsInfoComponent
+    ListVideosHelpComponent,
   ],
   imports: [
     CommonModule,
-    CreditsRoutingModule,
+    HelpRoutingModule,
     SharedComponentsModule
   ]
 })
-export class CreditsModule { }
+export class HelpModule { }

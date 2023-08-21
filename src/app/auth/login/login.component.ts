@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApiResponseLoginUserI } from 'src/app/therapist/interfaces/login.interface';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/therapist/services/auth.service';
 import { environment } from 'src/environments/environment';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { DashboardComponent } from 'src/app/therapist/modules/home/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,14 @@ import { DashboardComponent } from 'src/app/therapist/modules/home/dashboard/das
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  spinnerStatus = false;
+  /*Variables*/
+  spinnerStatus: boolean = false;
+  loginForm = new FormGroup({
+    identification: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  })
 
+  /*Constrcutor*/
   constructor(
     private ruta: Router,
     private api: AuthService,
@@ -23,44 +29,39 @@ export class LoginComponent {
     private toastr: ToastrService
   ) { }
 
-
+  /*ngOnInit*/
   ngOnInit() {
     this.spinnerStatus = true;
   }
 
-  loginForm = new FormGroup({
-    identification: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
-  })
-
   /*Método que inicia la sesión del usuario*/
   loginUser() {
     this.spinnerStatus = false;
-    this.api.loginUser(this.getHeaders()).subscribe(data => {
-      sessionStorage.setItem("token", data.token);
-      sessionStorage.setItem("role", data.role)
-      if (data.role == environment.THERAPIST) {
-        this.spinnerStatus = true;
-        this.ruta.navigateByUrl('/therapist/home/dashboard');
-        this.showToastSuccess("Inicio de sesión exitoso", "Bienvenido")
-      }
-      else if (data.role == environment.ADMIN) {
-        this.spinnerStatus = true;
-        this.ruta.navigateByUrl('/admin/home/dashboard');
-        this.showToastSuccess("Inicio de sesión exitoso", "Administrador")
-      }
-      else{
-        this.spinnerStatus = true;
-        this.showToastError("Error", "Credenciales incorrectas")
-      }
-    }, error => {
-      this.spinnerStatus = true;
-      this.showToastError("Error", "No se pudo inciar sesión")
-    })
+    this.api.loginUser(this.getHeaders())
+      .subscribe({
+        next: (res: ApiResponseLoginUserI) => {
+          sessionStorage.setItem("token", res.data.token);
+          sessionStorage.setItem("role", res.data.role)
+          if (res.data.role == environment.THERAPIST) {
+            this.spinnerStatus = true;
+            this.ruta.navigateByUrl('/therapist/home/dashboard');
+            this.showToastSuccess(res.message, "Bienvenido")
+          }
+          else if (res.data.role == environment.ADMIN) {
+            this.spinnerStatus = true;
+            this.ruta.navigateByUrl('/admin/home/dashboard');
+            this.showToastSuccess(res.message, "Administrador")
+          }
+        },
+        error: (resError: ApiResponseLoginUserI) => {
+          this.spinnerStatus = true;
+          this.showToastError("Error", "Credenciales incorrectas");
+        }
+      })
   }
 
   /*Obtiene y retorna los headers*/
-  getHeaders(){
+  getHeaders() {
     let headers = new Map();
     headers.set("identification", this.loginForm.value.identification);
     headers.set("password", this.loginForm.value.password);
@@ -68,7 +69,7 @@ export class LoginComponent {
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/
-  showToastSuccess(message: string, title: string){
+  showToastSuccess(message: string, title: string) {
     this.toastr.success(message, title, {
       progressBar: true,
       timeOut: 3000,
@@ -76,7 +77,7 @@ export class LoginComponent {
   }
 
   /*Método que muestra un toast con mensaje de ERROR*/
-  showToastError(title: string, message: string){
+  showToastError(title: string, message: string) {
     this.toastr.error(message, title, {
       progressBar: true,
       timeOut: 3000,
@@ -93,6 +94,6 @@ export class LoginComponent {
     this.modal.open(noAccount, { size: 'lg', centered: true });
   }
 
-  /*Iconos*/
+  /*Icons to use*/
   iconForgotPassword = iconos.faLock
 }
