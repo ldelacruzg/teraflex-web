@@ -1,0 +1,88 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-12 container-info">
+            <div class="col-12 mt-3 mx-1">
+                <h4 id="titulo"><fa-icon [icon]="iconCategory" class="icon-title"></fa-icon> Crear categoría
+                </h4>
+            </div>
+
+            <form [formGroup]="categoryForm">
+                <div class="row mt-4">
+                    <!--Nombre-->
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="mb-1"><b>Nombre</b></label>
+                        <input type="text" placeholder="Nombre*" class="form-control form-control-lg bg-light fs-6"
+                            formControlName="name" [ngClass]="{
+                                'is-invalid': categoryForm.get('name')?.hasError('required') && categoryForm.get('name')?.touched || categoryForm.get('name')?.hasError('pattern'),
+                                'is-valid': categoryForm.get('name')?.value?.length >= 4 && categoryForm.get('name')?.hasError('pattern') == false
+                              }" [maxlength]="50" />
+                        <div class="validators"
+                            *ngIf="categoryForm.get('name')?.hasError('required') && categoryForm.get('name')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" *ngIf="categoryForm.get('name')?.hasError('pattern')">
+                            <small>¡Solo se permiten letras!</small>
+                        </div>
+                    </div>
+                    <!--Estado-->
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="mb-1"><b>Estado</b></label>
+                            <select class="form-select form-select-md" aria-label=".form-select-lg example"
+                                [(ngModel)]="optionStatusSelected" formControlName="status" [ngClass]="{
+                                    'is-invalid': categoryForm.get('status')?.hasError('required') && categoryForm.get('status')?.touched,
+                                    'is-valid': optionStatusSelected === 'true' || optionStatusSelected === 'false'
+                                  }">
+                                <option value="" selected>Seleccione una opción</option>
+                                <option value="true">Activa</option>
+                                <option value="false">Inactiva</option>
+                            </select>
+                            <div class="validators"
+                                *ngIf="categoryForm.get('status')?.hasError('required') && categoryForm.get('status')?.touched">
+                                <small>¡Este campo es requerido!</small>
+                            </div>
+                    </div>
+                     <!--Creado por-->
+                     <div class="col-12 col-md-4 mb-3">
+                        <label class="mb-1"><b>Usuario de creación</b></label>
+                        <input type="text" placeholder="Apellidos*" class="form-control form-control-lg bg-light fs-6"
+                            formControlName="createdByUser" [ngClass]="{
+                                'is-invalid': categoryForm.get('createdByUser')?.hasError('required') && categoryForm.get('createdByUser')?.touched || categoryForm.get('createdByUser')?.hasError('pattern'),
+                            }" [maxlength]="50" readonly data-bs-toggle="mensaje" title="Este campo no se puede editar"/>
+                        <div class="validators"
+                            *ngIf="categoryForm.get('createdByUser')?.hasError('required') && categoryForm.get('createdByUser')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" *ngIf="categoryForm.get('createdByUser')?.hasError('pattern')">
+                            <small>¡Solo se permiten letras!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Descripción-->
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="mb-1" id="description"><b>Descripción</b></label>
+                        <textarea class="form-control form-control-lg bg-light fs-6" formControlName="description"
+                            placeholder="Descripción*" rows="7"
+                            [ngClass]="{
+                                'is-invalid': categoryForm.get('description')?.hasError('required') && categoryForm.get('description')?.touched || categoryForm.get('description')?.hasError('pattern'),
+                                'is-valid': categoryForm.get('description')?.value?.length >=5 && categoryForm.get('description')?.hasError('pattern') == false }">
+                            </textarea>
+                        <div class="validators"
+                            *ngIf="categoryForm.get('phone')?.hasError('required') && categoryForm.get('phone')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons mb-3">
+                    <button (click)="registerCategory()" [disabled]="!categoryForm.valid" mat-button type="button"
+                        class="btn btn-primary btn-md">Guardar</button>
+                    <button [routerLink]="'../list-categories'" mat-button type="button"
+                        class="btn btn-danger btn-md">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

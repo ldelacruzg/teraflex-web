@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title"><fa-icon [icon]="iconCategory"></fa-icon> Detalle de la categoría</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+            <!--Nombres de la categoría-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Nombre</b></label>
+                    <p *ngIf="categoryDetail.name != '--'; else noResults">{{categoryDetail.name}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Estado de la categoría-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label>
+                    <p>{{categoryDetail.status? "Activa": "Inactiva"}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--creado por-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Creada por</b></label>
+                    <p>{{categoryDetail.createdById==1?"ADMIN":"TERAPEUTA"}}</p>
+                </div>
+            </div>
+            <!--Actualizado por-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Actualizada por</b></label>
+                    <p>{{categoryDetail.createdById==1?"ADMIN":"TERAPEUTA"}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Fecha de creación-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de creación</b></label>
+                    <p *ngIf="categoryDetail.createdAt!='--'; else noResults">{{categoryDetail.createdAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!--Fecha de actualización-->
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de actualización</b></label>
+                    <p *ngIf="categoryDetail.updatedAt!='--'; else noResults">{{categoryDetail.updatedAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Descripción-->
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Descripción</b></label>
+                    <p *ngIf="categoryDetail.description!='--'; else noResults">{{categoryDetail.description}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button (click)="modal.dismissAll()" type="button" class="btn btn-primary btn">Aceptar</button>
+    </div>
+</div>

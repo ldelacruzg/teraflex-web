@@ -15,6 +15,10 @@ const routes: Routes = [
           loadChildren:()=>import("../therapists/therapists.module").then(m=>m.TherapistsModule)
         },
         {
+          path: 'categories',
+          loadChildren:()=>import("../categories/categories.module").then(m=>m.CategoriesModule)
+        },
+        {
           path: 'options-home', component: OptionsHomeComponent
         },
       ]
