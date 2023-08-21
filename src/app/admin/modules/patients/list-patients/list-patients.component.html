@@ -65,8 +65,7 @@
                   <td>{{patient.phone}}</td>
                   <td>{{calculateAge(patient.birthDate)}} años</td>
                   <td class="actions">
-                    <!--(click)="openModalViewtherapistDetail(viewtherapistDetail, therapist.id)"-->
-                    <fa-icon 
+                    <fa-icon (click)="openModalViewtherapistDetail(viewPatientsDetail, patient)"
                       data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                       [icon]="iconViewDetails"></fa-icon>
                   </td>
@@ -91,6 +90,6 @@
 </body>
 
 <!--Modal para ver la información a detalle del terapeuta-->
-<!-- <ng-template #viewtherapistDetail>
-  <app-view-therapists-detail></app-view-therapists-detail>
-</ng-template> -->
+<ng-template #viewPatientsDetail>
+  <app-view-patients-detail></app-view-patients-detail>
+</ng-template>

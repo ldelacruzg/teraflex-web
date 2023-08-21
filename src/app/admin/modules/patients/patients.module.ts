@@ -7,10 +7,12 @@ import { SharedComponentsModule } from 'src/app/shared-components/shared-compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ViewPatientsDetailComponent } from './modals/view-patients-detail/view-patients-detail.component';
 
 @NgModule({
   declarations: [
-    ListPatientsComponent
+    ListPatientsComponent,
+    ViewPatientsDetailComponent
   ],
   imports: [
     CommonModule,

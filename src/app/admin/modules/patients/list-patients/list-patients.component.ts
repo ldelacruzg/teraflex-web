@@ -9,6 +9,8 @@ import { ApiResponseGetAllPatientsI, GetPatientDetailI } from 'src/app/admin/int
 import { PatientsService } from 'src/app/admin/services/patients.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewPatientsDetailComponent } from '../modals/view-patients-detail/view-patients-detail.component';
 
 @Component({
   selector: 'app-list-patients',
@@ -30,7 +32,8 @@ export class ListPatientsComponent {
   constructor(
     private headers: DashboardComponent,
     private patientsService: PatientsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modal: NgbModal
   ) { }
 
   /*ngOnInit*/
@@ -157,6 +160,11 @@ export class ListPatientsComponent {
       return yearsDiff - 1;
     }
     return yearsDiff;
+  }
+
+  openModalViewtherapistDetail(viewTherapistDetail: any, patientDetail: GetPatientDetailI){
+    this.modal.open(viewTherapistDetail, { size: 'lg', centered: true });
+    ViewPatientsDetailComponent.patientDetailRecived = patientDetail;
   }
 
   /*Icons to use*/
