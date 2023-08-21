@@ -1,0 +1,96 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+  <div class="row justify-content-center">
+    <div class="col-12 container-info">
+      <div class="div mt-3 mx-1">
+        <h4 id="titulo"><fa-icon [icon]="iconPatients" class="icon-title"></fa-icon> Listado de pacientes</h4>
+      </div>
+      <br />
+      <!--Inputs para buscar e importar-->
+      <div class="row">
+        <!--Para filtrar por activos o inactivos-->
+        <div class="col-12 col-md-2 col-lg-2">
+          <form>
+            <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
+              (change)="onFilterChange($event)" >
+              <option value="true" selected>Activos</option>
+              <option value="false">Inactivos</option>
+            </select>
+          </form>
+        </div>
+        <!--Buscar paciente por nombre-->
+        <div class="col-12 col-md-4 col-lg-4 mb-3">
+          <form>
+            <input class="form-control me-1" type="text" placeholder="Buscar..." name="searchTherapists"
+              [(ngModel)]="patientsToSearch">
+          </form>
+        </div>
+        <!--Importar los datos de la tabla-->
+        <div class="col-12 col-md-6 col-lg-6 export-buttons mb-3">
+          <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
+            title="Exportar a PDF">
+            <fa-icon [icon]="iconPdf"></fa-icon>
+          </button>
+          <button (click)="downloadXLSX()" type="button" class="btn save-xlsx" data-bs-toggle="mensaje"
+            title="Exportar a XLSX">
+            <fa-icon [icon]="iconXlsx"></fa-icon>
+          </button>
+        </div>
+      </div>
+
+      <!--Tabla con la lista de tareas-->
+      <div class="card" id="htmlTablePDF">
+        <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative;">
+          <table class="table table-striped mb-0" id="htmlExcelTable">
+            <thead>
+              <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Cédula</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="arrayPatients.length > 0; else noResults">
+                <tr
+                  *ngFor="let patient of arrayPatients | slice:initialPage:finalPage | searchRegisters:patientsToSearch:optionFilter; let i = index">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{patient.docNumber}}</td>
+                  <td>{{patient.firstName}}</td>
+                  <td>{{patient.lastName}}</td>
+                  <td>{{patient.phone}}</td>
+                  <td>{{calculateAge(patient.birthDate)}} años</td>
+                  <td class="actions">
+                    <!--(click)="openModalViewtherapistDetail(viewtherapistDetail, therapist.id)"-->
+                    <fa-icon 
+                      data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                      [icon]="iconViewDetails"></fa-icon>
+                  </td>
+                </tr>
+              </ng-container>
+              <!--Para cuando no cargue la data-->
+              <ng-template #noResults>
+                <tr>
+                  <td colspan="7" class="no-results">Sin resultados...</td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--Paginación-->
+      <mat-paginator id="paginacion" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="itemsForPage"
+        [length]="arrayPatients.length" (page)="changePage($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</body>
+
+<!--Modal para ver la información a detalle del terapeuta-->
+<!-- <ng-template #viewtherapistDetail>
+  <app-view-therapists-detail></app-view-therapists-detail>
+</ng-template> -->
