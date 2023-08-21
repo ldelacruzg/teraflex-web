@@ -7,6 +7,7 @@ import { Component, Output } from '@angular/core';
 })
 export class OptionsHomeComponent {
   /*Variables*/
+  @Output() title1: string = "Videos de ayuda para módulo de terapeutas";
   @Output() carouselExample1: string ="carouselExample1";
   @Output() arrayVideosDetail1: any[] = [
     {

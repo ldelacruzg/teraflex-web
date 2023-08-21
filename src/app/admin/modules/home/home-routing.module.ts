@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OptionsHomeComponent } from './options-home/options-home.component';
 
-
 const routes: Routes = [
   {
     path: 'home',
@@ -24,6 +23,10 @@ const routes: Routes = [
         },
         {
           path: 'options-home', component: OptionsHomeComponent
+        },
+        {
+          path: 'help', 
+          loadChildren:()=>import("../help/help.module").then(m=>m.HelpModule)
         },
       ]
       },
