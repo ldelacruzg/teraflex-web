@@ -28,6 +28,10 @@ const routes: Routes = [
           path: 'help', 
           loadChildren:()=>import("../help/help.module").then(m=>m.HelpModule)
         },
+        {
+          path: 'credits', 
+          loadChildren:()=>import("../credits/credits.module").then(m=>m.CreditsModule)
+        },
       ]
       },
     ] 

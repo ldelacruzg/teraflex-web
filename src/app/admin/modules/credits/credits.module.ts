@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreditsInfoComponent } from './credits-info/credits-info.component';
+import { InfoCreditsComponent } from './info-credits/info-credits.component';
 import { CreditsRoutingModule } from './credits-routing.module';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 
@@ -8,7 +8,7 @@ import { SharedComponentsModule } from 'src/app/shared-components/shared-compone
 
 @NgModule({
   declarations: [
-    CreditsInfoComponent
+    InfoCreditsComponent
   ],
   imports: [
     CommonModule,

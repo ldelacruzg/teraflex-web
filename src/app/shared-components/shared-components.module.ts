@@ -7,11 +7,11 @@ import { TasksToReviewComponent } from './tasks-to-review/tasks-to-review.compon
 import { ChatIAComponent } from './chat-ia/chat-ia.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SearchRegistersPipe } from './pipes/search-registers.pipe';
-import { CreditsInfoComponent } from './credits-info/credits-info.component';
 import { CircleStatisticsComponent } from './circle-statistics/circle-statistics.component';
 import { LinearStatisticsComponent } from './linear-statistics/linear-statistics.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CreditsInfoDetailsComponent } from './credits-info-details/credits-info-details.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ChatIAComponent,
     SpinnerComponent,
     SearchRegistersPipe,
-    CreditsInfoComponent,
+    CreditsInfoDetailsComponent,
     CircleStatisticsComponent,
     LinearStatisticsComponent
   ],
@@ -39,7 +39,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ChatIAComponent,
     SpinnerComponent,
     SearchRegistersPipe,
-    CreditsInfoComponent,
+    CreditsInfoDetailsComponent,
     CircleStatisticsComponent,
     LinearStatisticsComponent
   ]

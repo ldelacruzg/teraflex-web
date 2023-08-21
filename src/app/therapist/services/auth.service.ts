@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Login } from '../interfaces/login.interface';
+import { ApiResponseLoginUserI } from '../interfaces/login.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -26,23 +26,13 @@ export class AuthService {
   ) { }
 
   /*Método que consume el servicio para login*/
-  loginUser(headers: Map<string, any>): Observable<Login> {
+  loginUser(headers: Map<string, any>): Observable<ApiResponseLoginUserI> {
     this.getHeaders(headers);
-    return this.http.post<Login>(this.urlApi + "/auth/login", null, this.options);
+    return this.http.post<ApiResponseLoginUserI>(this.urlApi + "/auth/login", null, this.options);
   }
 
   /*Método que obtiene los Headers*/
   public getHeaders(headers: Map<string, any> | undefined) {
-    /* if (headers != null) {
-      headers.forEach((value, key) => {
-        if(!this.headers.has(key)){
-          this.headers = this.headers.append(key, value || '');
-        }else {
-          this.headers=this.headers.delete(key);
-          this.headers=this.headers.append(key,value);
-        }
-      });
-    } */
     if (headers != null) {
       headers.forEach((value, key) => {
         this.headers = this.headers.append(key, value || '');
@@ -52,9 +42,9 @@ export class AuthService {
     this.headers = this.headers.append('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
     this.options = { headers: this.headers };
     return this.options;
-    /*  return headers != null; */
   }
 
+  /*Método que elimina headers*/
   public removeHeaders(headers: string[] | undefined) {
     if (headers != null) {
       headers.forEach((value) => {
