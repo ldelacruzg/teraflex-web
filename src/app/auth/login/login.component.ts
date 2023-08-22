@@ -35,7 +35,7 @@ export class LoginComponent {
   }
 
   /*Método que inicia la sesión del usuario*/
-  loginUser() {
+  loginUser(modalAlertChangePassword: any) {
     this.spinnerStatus = false;
     this.api.loginUser(this.getHeaders())
       .subscribe({
@@ -46,6 +46,9 @@ export class LoginComponent {
             this.spinnerStatus = true;
             this.ruta.navigateByUrl('/therapist/home/dashboard');
             this.showToastSuccess(res.message, "Bienvenido")
+            if (res.data.firstTime) {
+              this.modal.open(modalAlertChangePassword, { size: 'md', centered: true });
+            }
           }
           else if (res.data.role == environment.ADMIN) {
             this.spinnerStatus = true;

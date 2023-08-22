@@ -9,7 +9,7 @@
                 <h1 class="text-center">Inicio de sesión</h1>
             </div>
 
-            <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+            <form [formGroup]="loginForm" (ngSubmit)="loginUser(modalAlertChangePassword)">
                 <div class="mb-3">
                     <label class="mb-1"><b>Usuario</b></label>
                     <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="identification" placeholder="Usuario*">
@@ -35,3 +35,7 @@
 <ng-template #noAccount>
    <app-no-account></app-no-account>
 </ng-template>
+
+<ng-template #modalAlertChangePassword>
+    <app-warning-change-password></app-warning-change-password>
+ </ng-template>

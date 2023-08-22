@@ -10,6 +10,7 @@ import { NoAccountComponent } from './no-account/no-account.component';
 import { OtpCodeComponent } from './otp-code/otp-code.component';
 import { LoginComponent } from './login/login.component';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
+import { PasswordModule } from '../therapist/modules/password/password.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
     ReactiveFormsModule,
     FontAwesomeModule,
     SharedComponentsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    PasswordModule
   ]
 })
 export class AuthModule { }
