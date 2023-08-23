@@ -5,6 +5,7 @@ import { WarningChangePasswordComponent } from './modals/warning-change-password
 import { PasswordRoutingModule } from './password-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PasswordRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedComponentsModule
   ],
   exports:[
     WarningChangePasswordComponent

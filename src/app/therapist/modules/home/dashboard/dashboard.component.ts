@@ -209,6 +209,6 @@ export class DashboardComponent {
   iconMessage = iconos.faMessage;
 
   iconProfile = iconos.faUserCircle;
-  iconSettings = iconos.faGear;
+  iconPassword = iconos.faLock;
   iconLogOut = iconos.faArrowRightFromBracket;
 }
