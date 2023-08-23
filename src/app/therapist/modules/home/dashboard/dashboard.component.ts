@@ -64,6 +64,7 @@ export class DashboardComponent {
     this.spinnerStatus = false;
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
     setTimeout(() => {
       this.spinnerStatus = true;
       this.router.navigateByUrl('authentication/security/login');

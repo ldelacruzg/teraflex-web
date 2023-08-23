@@ -41,7 +41,7 @@ export class LoginComponent {
       .subscribe({
         next: (res: ApiResponseLoginUserI) => {
           sessionStorage.setItem("token", res.data.token);
-          sessionStorage.setItem("role", res.data.role)
+          sessionStorage.setItem("role", res.data.role);
           if (res.data.role == environment.THERAPIST) {
             this.spinnerStatus = true;
             this.ruta.navigateByUrl('/therapist/home/dashboard');
@@ -59,6 +59,9 @@ export class LoginComponent {
         error: (resError: ApiResponseLoginUserI) => {
           this.spinnerStatus = true;
           this.showToastError("Error", "Credenciales incorrectas");
+          setTimeout(() => {
+            window.location.reload();
+          }, 3100);
         }
       })
   }

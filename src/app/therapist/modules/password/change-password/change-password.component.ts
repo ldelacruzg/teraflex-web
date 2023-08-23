@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { PasswordService } from 'src/app/therapist/services/password.service';
+import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { ToastrService } from 'ngx-toastr';
+import { ApiResponseChangePasswordI, BodyChangePasswordI } from 'src/app/therapist/interfaces/password.interface';
 
 @Component({
   selector: 'app-change-password',
@@ -16,7 +20,10 @@ export class ChangePasswordComponent {
   /*Constructor*/
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private passwordService: PasswordService,
+    private headers: DashboardComponent,
+    private toastr: ToastrService
   ) { }
 
   /*ngOnInit*/
@@ -75,6 +82,44 @@ export class ChangePasswordComponent {
 
   /*Método que manda a cambiar la contraseña del usuario*/
   changePassword() {
+    this.spinnerStatus = false;
+    this.passwordService.changePassword(this.headers.getHeaders(), this.getNewPasswordToChange())
+      .subscribe({
+        next: (data: ApiResponseChangePasswordI) => {
+          this.showToastSuccess(data.message, 'Éxito');
+          this.spinnerStatus = true;
+          this.goToHome();
+        },
+        error: () => {
+          this.spinnerStatus = true;
+          this.showToastError("Error", "No se pudo cambiar la contraseña");
+        }
+      });
+  }
+
+  /*Método que obtiene la nueva contraseña, para poder enviarla al body*/
+  getNewPasswordToChange(){
+    let body: BodyChangePasswordI = {
+      password: this.passwordForm.get('newPassword')?.value
+    }
+    return body;
+  }
+  
+
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
+    this.toastr.success(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
+  }
+
+  /*Método que muestra un toast con mensaje de ERROR*/
+  showToastError(title: string, message: string) {
+    this.toastr.error(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
   }
 
   /*Método que redirige al apartado del inicio (Cancelar)*/
