@@ -16,7 +16,7 @@ export class CircleStatisticsComponent {
         width: 410,
         type: 'pie',
       },
-      labels: ['Pacientes', 'Tareas', 'Recursos locales', 'Rocarsos Externos', 'Asignaciones'],
+      labels: ['Pacientes', 'Tareas', 'Recursos locales', 'Recursos Externos', 'Asignaciones'],
       responsive: [{
         breakpoint: 480,
         options: {

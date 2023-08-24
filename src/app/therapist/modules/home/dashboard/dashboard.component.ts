@@ -64,6 +64,7 @@ export class DashboardComponent {
     this.spinnerStatus = false;
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("token");
     setTimeout(() => {
       this.spinnerStatus = true;
       this.router.navigateByUrl('authentication/security/login');
@@ -209,6 +210,6 @@ export class DashboardComponent {
   iconMessage = iconos.faMessage;
 
   iconProfile = iconos.faUserCircle;
-  iconSettings = iconos.faGear;
+  iconPassword = iconos.faLock;
   iconLogOut = iconos.faArrowRightFromBracket;
 }

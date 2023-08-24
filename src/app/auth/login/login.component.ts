@@ -35,17 +35,20 @@ export class LoginComponent {
   }
 
   /*Método que inicia la sesión del usuario*/
-  loginUser() {
+  loginUser(modalAlertChangePassword: any) {
     this.spinnerStatus = false;
     this.api.loginUser(this.getHeaders())
       .subscribe({
         next: (res: ApiResponseLoginUserI) => {
           sessionStorage.setItem("token", res.data.token);
-          sessionStorage.setItem("role", res.data.role)
+          sessionStorage.setItem("role", res.data.role);
           if (res.data.role == environment.THERAPIST) {
             this.spinnerStatus = true;
             this.ruta.navigateByUrl('/therapist/home/dashboard');
             this.showToastSuccess(res.message, "Bienvenido")
+            if (res.data.firstTime) {
+              this.modal.open(modalAlertChangePassword, { size: 'md', centered: true });
+            }
           }
           else if (res.data.role == environment.ADMIN) {
             this.spinnerStatus = true;
@@ -56,6 +59,9 @@ export class LoginComponent {
         error: (resError: ApiResponseLoginUserI) => {
           this.spinnerStatus = true;
           this.showToastError("Error", "Credenciales incorrectas");
+          setTimeout(() => {
+            window.location.reload();
+          }, 3100);
         }
       })
   }

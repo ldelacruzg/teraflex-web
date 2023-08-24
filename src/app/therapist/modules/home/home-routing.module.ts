@@ -34,6 +34,10 @@ const routes: Routes = [
           loadChildren:()=>import("../profile/profile.module").then(m=>m.ProfileModule)
         },
         {
+          path: 'password', 
+          loadChildren:()=>import("../password/password.module").then(m=>m.PasswordModule)
+        },
+        {
           path: 'options-home', component: OptionsHomeComponent
         },
       ]

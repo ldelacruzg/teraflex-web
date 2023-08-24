@@ -15,6 +15,7 @@ import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { RegisterMyPatientsComponent } from '../register-my-patients/register-my-patients.component';
+import { GenerateNewPasswordComponent } from '../modals/generate-new-password/generate-new-password.component';
 
 @Component({
   selector: 'app-list-my-patients',
@@ -59,6 +60,7 @@ export class ListMyPatientsComponent {
           this.spinnerStatus = true;
         },
         error: () => {
+          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudo obtener el listado de pacientes");
         }
       })
@@ -249,12 +251,24 @@ export class ListMyPatientsComponent {
     this.modal.open(optionsRegisterPatient, { size: 'lg', centered: true });
   }
 
+  /*Método que arroja una alerta para confirmar que desea generar una nueva contraseña*/
+  showAlertGeneratePassword(idPatient: number, namePatient: string, modalGenerateNewPassword: any) {
+    this.sweetAlerts.alertConfirmCancel("Generar contraseña", "¿Desea generar una nueva contraseña para el paciente \""+(namePatient).toUpperCase() +"\"?")
+    .then(respuesta => {
+      if (respuesta.value == true) {
+        this.modal.open(modalGenerateNewPassword, { size: 'md', centered: true });
+        GenerateNewPasswordComponent.idPatient = idPatient;
+      }
+    });
+  }
+
   /*Icons to use*/
   iconMyPatients = iconos.faUsers;
   iconAdd = iconos.faPlusCircle;
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;
 
+  iconGeneratePassword = iconos.faKey;
   iconUnBindPatient = iconos.faBan;
   iconViewDetail = iconos.faEye;
   iconEdit = iconos.faEdit;

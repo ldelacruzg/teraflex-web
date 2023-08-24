@@ -64,7 +64,7 @@
 
         <div class="row">
             <!--Terapeuta asignados-->
-            <div class="col-12 col-md-4 col-lg-4">
+            <div class="col-12 col-md-12 col-lg-12">
                 <div class="info mb-4" *ngIf="patientDetail.therapists.length > 0; else noVideos">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Terapeutas asignados</b></label>
                     <p *ngFor="let therapist of patientDetail.therapists; let i = index">[{{i+1}}] {{therapist.firstName + ' ' + therapist.lastName}}</p>

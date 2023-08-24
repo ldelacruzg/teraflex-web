@@ -143,13 +143,17 @@
                     </div>
                 </div>
                 <div class="action-buttons mb-3">
-                    <button (click)="registerOrLinkMyPatient()" [disabled]="!patientForm.valid && !linkPatient2" mat-button type="button"
+                    <button (click)="registerOrLinkMyPatient(viewPatientCredentials)" [disabled]="!patientForm.valid && !linkPatient2" mat-button type="button"
                         class="btn btn-primary btn-md">Guardar</button>
                     <button [routerLink]="'../my-patients'" mat-button type="button"
                         class="btn btn-danger btn-md">Cancelar</button>
                 </div>
             </form>
-
         </div>
     </div>
 </body>
+
+<!--Modal para ver las credenciales del terapeuta-->
+<ng-template #viewPatientCredentials>
+    <app-view-credentials-login></app-view-credentials-login>
+</ng-template>

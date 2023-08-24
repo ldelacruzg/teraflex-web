@@ -6,7 +6,6 @@ import { TasksRoutingModule } from './modules/tasks/tasks-routing.module';
 import { PatientsRoutingModule } from './modules/patients/patients-routing.module';
 import { HelpRoutingModule } from './modules/help/help-routing.module';
 import { ProfileModule } from './modules/profile/profile.module';
-import { AuthRoutinModule } from '../auth/auth-rounting.module';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
 
 @NgModule({

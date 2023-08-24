@@ -47,7 +47,7 @@ export class CreditsInfoDetailsComponent {
   arrayProfessors: any[] = [
     {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691905728/TeraFlex%20-%20Vinculaci%C3%B3n/user-profile_fbdmtf.png",
-      name: "Ing. Orlando Erazo PhD.",
+      name: "Orlando Erazo",
       position: "Director del proyecto de vinculación",
       whatsapp: "https://wa.me/+593999999999",
       mail: "mailto:oerazo@uteq.edu.ec",
@@ -55,7 +55,7 @@ export class CreditsInfoDetailsComponent {
     },
     {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691905728/TeraFlex%20-%20Vinculaci%C3%B3n/user-profile_fbdmtf.png",
-      name: "Ing. Rafael Salinas",
+      name: "Rafael Salinas",
       position: "Coordinador proyecto de vinculación",
       whatsapp: "https://wa.me/+593999999999",
       mail: "mailto:rsalinas@uteq.edu.ec",

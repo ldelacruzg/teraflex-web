@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ApiResponseGetMyPatientByIdI, ApiResponseGetOutPatientsI, ApiResponseRegisterPatientI, GetOutPatientsI, MyPatientDetailByIdI } from 'src/app/therapist/interfaces/patients.interface';
+import { ApiResponseGetMyPatientByIdI, ApiResponseGetOutPatientsI, ApiResponseRegisterPatientI, GetOutPatientsI, MyPatientDetailByIdI, RegisterPatientI } from 'src/app/therapist/interfaces/patients.interface';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewCredentialsLoginComponent } from '../modals/view-credentials-login/view-credentials-login.component';
 
 @Component({
   selector: 'app-register-my-patients',
@@ -30,7 +32,8 @@ export class RegisterMyPatientsComponent {
     private myPatientsService: PatientsService,
     private headers: DashboardComponent,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private modal: NgbModal
   ) { }
 
   /*ngOnInit*/
@@ -128,38 +131,40 @@ export class RegisterMyPatientsComponent {
   }
 
   /*Método que verifica si se va a registrar un paciente o se va a vincular*/
-  registerOrLinkMyPatient() {
+  registerOrLinkMyPatient(viewPatientCredentials: any) {
     if (this.linkPatient2)
       this.linkMyPatient(this.idPatientToLink);
     else
-      this.registerMyPatient();
+      this.registerMyPatient(viewPatientCredentials);
   }
 
   /*Método que manda a registrar desde cero los datos de un paciente*/
-  registerMyPatient() {
+  registerMyPatient(viewPatientCredentials: any) {
     this.spinnerStatus = false;
-    this.myPatientsService.registerMyPatient(this.headers.getHeaders(), this.patientForm.value)
+    this.myPatientsService.registerMyPatient(this.headers.getHeaders(), this.getInfoPatientRegister())
       .subscribe({
         next: (data: ApiResponseRegisterPatientI) => {
           this.showToastSuccess(data.message, 'Éxito');
           this.spinnerStatus = true;
-          this.router.navigateByUrl('/therapist/home/dashboard/patients/my-patients');
+          this.modal.open(viewPatientCredentials, { size: 'md', centered: true });
+          ViewCredentialsLoginComponent.user = this.patientForm.get('docNumber')?.value,
+          ViewCredentialsLoginComponent.password = this.patientForm.get('docNumber')?.value
+          //this.router.navigateByUrl('/therapist/home/dashboard/patients/my-patients');
         },
-        error: () => {
+        error: (data: ApiResponseRegisterPatientI) => {
           this.spinnerStatus = true;
-          this.showToastError("Error", "No se pudo registrar el paciente");
+          this.showToastError("Error", data.message);
         }
       })
   }
 
   /*Método que manda a vincular un paciente según su id*/
   linkMyPatient(patientID: number) {
-    if(this.patientForm.get('fullNamesLink')?.value == '' || this.patientForm.get('fullNamesLink')?.value == 'Sin resultados'){
+    if (this.patientForm.get('fullNamesLink')?.value == '' || this.patientForm.get('fullNamesLink')?.value == 'Sin resultados') {
       this.showToastWarning("Inválido", "Primero debe seleccionar un paciente");
     }
-    else{
+    else {
       this.spinnerStatus = false;
-      console.log(this.headers.getHeaders());
       this.myPatientsService.linkMyPatient(this.headers.getHeaders(), patientID)
         .subscribe({
           next: (data: any) => {
@@ -173,6 +178,19 @@ export class RegisterMyPatientsComponent {
           }
         })
     }
+  }
+
+  /*Método que obtiene la data del formulario para armar el body a registrar*/
+  getInfoPatientRegister(){
+    let body:RegisterPatientI = {
+      lastName: this.patientForm.get('lastName')?.value,
+      firstName: this.patientForm.get('firstName')?.value,
+      docNumber: this.patientForm.get('docNumber')?.value,
+      birthDate: this.patientForm.get('birthDate')?.value,
+      phone: this.patientForm.get('phone')?.value,
+      description: this.patientForm.get('description')?.value
+    }
+    return body;
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/
