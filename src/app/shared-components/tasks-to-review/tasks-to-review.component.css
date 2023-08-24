@@ -18,6 +18,10 @@ li {
     list-style: none;
 }
 
+li>fa-icon{
+    cursor: pointer;
+}
+
 .column {
     vertical-align: top;
     box-sizing: border-box;

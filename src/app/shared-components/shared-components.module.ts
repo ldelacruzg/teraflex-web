@@ -12,6 +12,7 @@ import { LinearStatisticsComponent } from './linear-statistics/linear-statistics
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CreditsInfoDetailsComponent } from './credits-info-details/credits-info-details.component';
+import { ViewDetailLastTasksCompletedComponent } from './view-detail-last-tasks-completed/view-detail-last-tasks-completed.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CreditsInfoDetailsComponent } from './credits-info-details/credits-info
     SearchRegistersPipe,
     CreditsInfoDetailsComponent,
     CircleStatisticsComponent,
-    LinearStatisticsComponent
+    LinearStatisticsComponent,
+    ViewDetailLastTasksCompletedComponent
   ],
   imports: [
     CommonModule,

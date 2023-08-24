@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title"><fa-icon [icon]="iconTask"></fa-icon> Detalle de la tarea completada</h4>
+    </div>
+    <div class="modal-body">
+        <!--Nombre de la tarea-->
+        <div class="row">
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Título de la tarea</b></label>
+                    <p *ngIf="taskCompletedDetail.title!='--'; else noResults">{{taskCompletedDetail.title}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <!--Nombre del paciente que la completó-->
+        <div class="row">
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Por el paciente</b></label>
+                    <p *ngIf="taskCompletedDetail.patientFullName!='--'; else noResults">{{taskCompletedDetail.patientFullName}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <!--Estado-->
+        <div class="row">
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label><br/>
+                    <span
+                        [style.background-color]="'#198754'"
+                        [style.border-radius]="'5px'"
+                        [style.padding]="'3px'"
+                        [style.color]="'white'">
+                        {{taskCompletedDetail.isCompleted ? " Completada " : " Completada "}}</span>
+                </div>
+            </div>
+        </div>
+        <!--Fecha de haberla completado-->
+        <div class="row">
+            <div class="col-12">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Completada el</b></label>
+                    <p *ngIf="taskCompletedDetail.updatedAt!='--'; else noResults">{{taskCompletedDetail.updatedAt}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button (click)="modal.dismissAll()" type="button" class="btn btn-next btn"
+            style="border-radius: 50px;">Aceptar</button>
+    </div>
+</div>

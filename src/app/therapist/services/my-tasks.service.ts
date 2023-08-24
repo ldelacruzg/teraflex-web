@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { ApiResponseEditTaskDetailI, ApiResponseGetTaskByIdI, ApiResponseMyTasksI, ApiResponseRegisterTaskDetailI, EditTaskDetailI, RegisterTaskDetailI } from '../interfaces/my-tasks.interface';
+import { ApiResponseEditTaskDetailI, ApiResponseGetLastTasksCompletedByPatientsI, ApiResponseGetTaskByIdI, ApiResponseMyTasksI, ApiResponseRegisterTaskDetailI, EditTaskDetailI, RegisterTaskDetailI } from '../interfaces/my-tasks.interface';
 import { environment } from '../../../environments/environment'
 
 @Injectable({
@@ -49,5 +49,11 @@ export class MyTasksService {
     editTaskDetail(headers: Map<string, any>, idTask: number, body: EditTaskDetailI): Observable<ApiResponseEditTaskDetailI> {
         this.options = this.authService.getHeaders(headers);
         return this.http.put<ApiResponseEditTaskDetailI>(this.urlApi + `/tasks/${idTask}`, body, this.options);
+    }
+
+     /*Método que obtiene el listado de las últimas tareas completadas por los pacientes*/
+     getLastTasksCompletedByPatients(headers: Map<string, any>, therapistID: number): Observable<ApiResponseGetLastTasksCompletedByPatientsI> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.get<ApiResponseGetLastTasksCompletedByPatientsI>(this.urlApi + `/therapists/${therapistID}/patients/last-completed`, this.options);
     }
 }

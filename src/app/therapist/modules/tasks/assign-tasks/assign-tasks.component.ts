@@ -78,7 +78,7 @@ export class AssignTasksComponent {
 
   /*Método que obtiene el listado de los pacientes*/
   getMyPatients() {
-    this.myPatientsService.getMyPatients(this.headers.getHeaders())
+    this.myPatientsService.getMyPatients(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseGetMyPatientsI) => {
           data.data.forEach(element => {
