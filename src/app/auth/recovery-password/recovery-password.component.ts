@@ -4,11 +4,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  selector: 'app-recovery-password',
+  templateUrl: './recovery-password.component.html',
+  styleUrls: ['./recovery-password.component.css']
 })
-export class ForgotPasswordComponent {
+export class RecoveryPasswordComponent {
 
   constructor(
     private ruta: Router,
@@ -17,7 +17,7 @@ export class ForgotPasswordComponent {
 
   /*Método que redirige al formulario de Login*/
   goToLogin(){
-    this.ruta.navigateByUrl('/auth/login');
+    this.ruta.navigateByUrl('/authentication/security/login');
   }
 
   /*Método que abre el modal para ingresar el código OTP*/

@@ -5,19 +5,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { NoAccountComponent } from './no-account/no-account.component';
-import { OtpCodeComponent } from './otp-code/otp-code.component';
+import { NoAccountComponent } from './modals/no-account/no-account.component';
+import { OtpCodeComponent } from './modals/otp-code/otp-code.component';
 import { LoginComponent } from './login/login.component';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
 import { PasswordModule } from '../therapist/modules/password/password.module';
+import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
+import { ForgotPasswordComponent } from './modals/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
-    ForgotPasswordComponent,
+    LoginComponent,
+    RecoveryPasswordComponent,
     NoAccountComponent,
     OtpCodeComponent,
-    LoginComponent
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
