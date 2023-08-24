@@ -81,8 +81,6 @@ export class ViewMyVideosComponent {
   /*Método que retorna la ruta concatenado de youtube+id del video*/
   getEmbeddedUrl(videoId: string): SafeResourceUrl {
     const url = `https://www.youtube.com/embed/${videoId}`;
-    console.log("RUTA FINAL");
-    console.log(url);
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 

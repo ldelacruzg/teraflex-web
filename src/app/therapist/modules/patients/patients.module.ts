@@ -15,6 +15,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ViewDetailProgressMyPatientsComponent } from './modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
 import { CreateOrLinkMyPatientsComponent } from './modals/create-or-link-my-patients/create-or-link-my-patients.component';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
+import { GenerateNewPasswordComponent } from './modals/generate-new-password/generate-new-password.component';
+import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/view-credentials-login.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { SharedComponentsModule } from 'src/app/shared-components/shared-compone
     ViewProgressMyPatientsComponent,
     ViewDetailProgressMyPatientsComponent,
     CreateOrLinkMyPatientsComponent,
+    GenerateNewPasswordComponent,
+    ViewCredentialsLoginComponent,
   ],
   imports: [
     CommonModule,
