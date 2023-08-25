@@ -38,9 +38,11 @@ export class CategoriesService {
     }
 
     /*Método que obtiene el listado de todas las categorías disponibles*/
-    getAllCategories(headers: Map<string, any>): Observable<ApiResponseCategoriesI> {
+    getAllCategories(headers: Map<string, any>, status:boolean): Observable<ApiResponseCategoriesI> {
         this.options = this.getHeaders(headers);
-        return this.http.get<ApiResponseCategoriesI>(this.urlApi + `/categories`, this.options);
+        let queryParams = "?";
+        queryParams += `isActive=${status}`;
+        return this.http.get<ApiResponseCategoriesI>(this.urlApi + `/categories${queryParams}`, this.options);
     }
 
     /*Método que crea una nueva categoría*/

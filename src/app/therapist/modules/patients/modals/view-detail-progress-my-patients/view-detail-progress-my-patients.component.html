@@ -36,12 +36,11 @@
             <div class="col-12 col-md-6">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label><br/>
-                    <span *ngIf="taskDetailAssign.isCompleted!='--'; else noResults"
-                        [style.background-color]="taskDetailAssign.isCompleted ? '#198754' : '#ccc'"
-                        [style.border-radius]="taskDetailAssign.isCompleted ? '5px' : '5px'"
-                        [style.padding]="taskDetailAssign.isCompleted ? '3px' : '3px'"
-                        [style.color]="taskDetailAssign.isCompleted ? 'white' : 'black'">
-                        {{taskDetailAssign.isCompleted ? " Completada " : " Pendiente "}}</span>
+                    <span  [style.background-color]="taskDetailAssign.isCompleted ? '#198754' : isTaskVencida(taskDetailAssign.dueDate) ? '#FC3B56' : '#ccc'"
+                    [style.border-radius]="taskDetailAssign.isCompleted || isTaskVencida(taskDetailAssign.dueDate) ? '5px' : '5px'"
+                    [style.padding]="taskDetailAssign.isCompleted || isTaskVencida(taskDetailAssign.dueDate) ? '3px' : '3px'"
+                    [style.color]="taskDetailAssign.isCompleted || isTaskVencida(taskDetailAssign.dueDate) ? 'white' : 'black'">
+                    {{taskDetailAssign.isCompleted ? 'Completada' : isTaskVencida(taskDetailAssign.dueDate) ? 'Vencida' : 'Pendiente'}}</span>
                     <ng-template #noResults>
                         <div class="spinner">
                             <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"

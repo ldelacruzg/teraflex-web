@@ -43,7 +43,7 @@ export class ChangePasswordComponent {
       newPassword: ['',
         [
           Validators.required,
-          Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/),
+          Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{6,}$/)
         ]
       ],
       confirmPassword: ['',

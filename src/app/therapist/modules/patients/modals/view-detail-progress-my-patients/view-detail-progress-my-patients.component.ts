@@ -46,6 +46,13 @@ export class ViewDetailProgressMyPatientsComponent {
     this.getTaskDetailAssign();
   }
 
+  /*Método que verifica si se pasó o no la fecha de vencimiento*/
+  isTaskVencida(dueDateRecived: string): boolean {
+    const dueDate = new Date(dueDateRecived);
+    const currentlyDate = new Date();
+    return dueDate < currentlyDate;
+  }
+
   /*Obtiene el detalle de la tarea asignada al paciente*/
   getTaskDetailAssign() {
     this.assignmentsService.getTaskDetailAssignToPatient(this.headers.getHeaders(), ViewDetailProgressMyPatientsComponent.taskDetailAssignId)

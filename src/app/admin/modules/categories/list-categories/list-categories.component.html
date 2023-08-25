@@ -12,6 +12,16 @@
             <br />
             <!--Inputs para buscar e importar-->
             <div class="row">
+                <!--Para filtrar por activos o inactivos-->
+                <div class="col-12 col-md-2 col-lg-2">
+                    <form>
+                        <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
+                            (change)="onFilterChange($event)">
+                            <option value="true" selected>Activos</option>
+                            <option value="false">Inactivos</option>
+                        </select>
+                    </form>
+                </div>
                 <!--Buscar paciente por nombre-->
                 <div class="col-12 col-md-5 col-lg-5 mb-3">
                     <form>
@@ -20,7 +30,7 @@
                     </form>
                 </div>
                 <!--Importar los datos de la tabla-->
-                <div class="col-12 col-md-7 col-lg-7 export-buttons mb-3">
+                <div class="col-12 col-md-5 col-lg-5 export-buttons mb-3">
                     <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
                         title="Exportar a PDF">
                         <fa-icon [icon]="iconPdf"></fa-icon>
@@ -65,15 +75,11 @@
                                     <td>{{category.createdById==1?"ADMIN":"TERAPEUTA"}}</td>
                                     <td>{{category.createdAt}}</td>
                                     <td class="actions">
-                                        <fa-icon (click)="openModalViewCategoryDetail(viewCategoryDetail, category.id)" 
+                                        <fa-icon (click)="openModalViewCategoryDetail(viewCategoryDetail, category.id)"
                                             data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconViewDetails"></fa-icon>
-                                        <fa-icon (click)="goToEditCategory(category)" 
-                                            data-bs-toggle="mensaje" title="Editar" id="iconEditar"
-                                            [icon]="iconEdit"></fa-icon>
-                                        <fa-icon (click)="desactivateCategory(category.id, category.name)" 
-                                            data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
-                                            [icon]="iconDelete"></fa-icon>
+                                        <fa-icon (click)="goToEditCategory(category)" data-bs-toggle="mensaje"
+                                            title="Editar" id="iconEditar" [icon]="iconEdit"></fa-icon>
                                     </td>
                                 </tr>
                             </ng-container>
@@ -97,5 +103,5 @@
 
 <!--Modal para ver la información a detalle de la categoría-->
 <ng-template #viewCategoryDetail>
-  <app-view-categories-detail></app-view-categories-detail>
+    <app-view-categories-detail></app-view-categories-detail>
 </ng-template>
