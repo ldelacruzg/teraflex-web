@@ -42,7 +42,7 @@ export class CreateTherapistComponent {
 
   /*Método que obtiene el listado de todas las categorías disponibles*/
   getAllCategories() {
-    this.categoriesService.getAllCategories(this.headers.getHeaders())
+    this.categoriesService.getAllCategories(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseCategoriesI) => {
           this.arrayCategories = data.data;

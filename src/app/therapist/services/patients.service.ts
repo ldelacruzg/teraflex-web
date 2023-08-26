@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseEditPatientI, ApiResponseGetMyPatientsI, ApiResponseGetOutPatientsI, ApiResponseLinkPatientI, ApiResponseRegisterPatientI, EditMyPatientBodyI, RegisterPatientI } from '../interfaces/patients.interface';
+import { ApiResponseActivateDesactivatePatientI, ApiResponseEditPatientI, ApiResponseGetMyPatientsI, ApiResponseGetOutPatientsI, ApiResponseLinkPatientI, ApiResponseRegisterPatientI, EditMyPatientBodyI, RegisterPatientI } from '../interfaces/patients.interface';
 import { ApiResponseGetMyPatientByIdI } from '../interfaces/patients.interface';
 
 @Injectable({
@@ -13,7 +13,6 @@ export class PatientsService {
     /*Variables*/
     urlApi = environment.urlApi;
     options = {}
-    options2 = {}
 
     /*Constructor*/
     constructor(
@@ -22,10 +21,11 @@ export class PatientsService {
     ) { }
 
     /*Método que obtiene el listado de los pacientes que tiene un terapeuta*/
-    getMyPatients(headers: Map<string, any>): Observable<ApiResponseGetMyPatientsI> {
+    getMyPatients(headers: Map<string, any>, status: boolean): Observable<ApiResponseGetMyPatientsI> {
         this.options = this.authService.getHeaders(headers);
-        this.options2 = this.authService.getHeaders(headers);
-        return this.http.get<ApiResponseGetMyPatientsI>(this.urlApi + `/group/all`, this.options);
+        let queryParams = "?";
+        queryParams += `status=${status}`;
+        return this.http.get<ApiResponseGetMyPatientsI>(this.urlApi + `/group/all${queryParams}`, this.options);
     }
 
     /*Método que obtiene el listado de pacientes externos que NO están asociados al terapeuta*/
@@ -60,10 +60,10 @@ export class PatientsService {
         return this.http.patch<ApiResponseEditPatientI>(this.urlApi + `/user/update/${idPatient}`, body, this.options);
     }
 
-    /*Método que consume el servicio que manda a eliminar un paciente*/
-    deletePatient(headers: Map<string, any>, idPatient: number): Observable<string> {
+    /*Método que consume el servicio que manda a cambiar el estado de un paciente (Activar o desactivar)*/
+    activateOrDesactivatePatient(headers: Map<string, any>, idPatient: number): Observable<ApiResponseActivateDesactivatePatientI> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.patch<string>(this.urlApi + `/user/status/${idPatient}`, null, this.options);
+        return this.http.patch<ApiResponseActivateDesactivatePatientI>(this.urlApi + `/user/status/${idPatient}`, null, this.options);
     }
 
     /*Método que desvincula un paciente del listado de pacientes del terapeuta*/

@@ -14,6 +14,7 @@ import { ViewTherapistsDetailComponent } from '../modals/view-therapists-detail/
 import { SweetAlerts } from 'src/app/admin/alerts/alerts.component';
 import { EditTherapistComponent } from '../edit-therapist/edit-therapist.component';
 import { Router } from '@angular/router';
+import { GenerateTempPasswordComponent } from '../modals/generate-temp-password/generate-temp-password.component';
 
 @Component({
   selector: 'app-list-therapists',
@@ -201,9 +202,21 @@ export class ListTherapistsComponent {
     this.router.navigateByUrl("/admin/home/dashboard/therapists/edit-therapist")
   }
 
+  /*Método que arroja una alerta para confirmar que desea generar una nueva contraseña*/
+  showAlertGeneratePassword(idPatient: number, namePatient: string, modalGenerateNewPassword: any) {
+    this.sweetAlerts.alertConfirmCancel("Generar contraseña", "¿Desea generar una nueva contraseña para el terapeuta \"" + (namePatient).toUpperCase() + "\"?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.modal.open(modalGenerateNewPassword, { size: 'md', centered: true });
+          GenerateTempPasswordComponent.idTherapist = idPatient;
+        }
+      });
+  }
+
   /*Icons to use*/
   iconTherapists = iconos.faUserNurse;
   iconAdd = iconos.faPlusCircle
+  iconGeneratePassword = iconos.faKey;
   iconViewDetails = iconos.faEye;
   iconEdit = iconos.faEdit;
   iconDesactivate = iconos.faToggleOn;

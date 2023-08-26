@@ -45,13 +45,13 @@ export class ListCategoriesComponent {
   /*ngOnInit*/
   ngOnInit() {
     this.spinnerStatus = true;
-    this.getAllCategories();
+    this.getAllCategories(true);
   }
 
   /*Método que obtiene el listado de las categorias*/
-  getAllCategories() {
+  getAllCategories(status:boolean) {
     this.spinnerStatus = false;
-    this.categoriesService.getAllCategories(this.headers.getHeaders())
+    this.categoriesService.getAllCategories(this.headers.getHeaders(), status)
       .subscribe({
         next: (data: ApiResponseCategoriesI) => {
           this.arrayCategories = data.data;
@@ -142,9 +142,9 @@ export class ListCategoriesComponent {
   onFilterChange(event: any) {
     const value = event.target.value;
     if (value === "true")
-      this.getAllCategories();
+      this.getAllCategories(true);
     else if (value === "false")
-      this.getAllCategories();
+      this.getAllCategories(false);
   }
 
   /*Método que abre el modal para mostrar el detalle de los terapeutas*/
@@ -157,26 +157,6 @@ export class ListCategoriesComponent {
   goToEditCategory(categoryDetail: any) {
     EditCategoriesComponent.categoryDetail = categoryDetail;
     this.router.navigateByUrl("/admin/home/dashboard/categories/edit-category")
-  }
-
-  /*Método que elimina una categoría*/
-  desactivateCategory(categoryID: number, categoryName: string) {
-    this.sweetAlerts.alertConfirmCancel("Desactivar categoría", "¿Está seguro de desactivar la categoría " + (categoryName).toUpperCase() + " del sistema TeraFlex?")
-      .then(respuesta => {
-        if (respuesta.value == true) {
-          this.spinnerStatus = false;
-          this.categoriesService.deleteCategory(this.headers.getHeaders(), categoryID)
-            .subscribe({
-              next: (data: any) => {
-                this.getAllCategories();
-                this.showToastSuccess("Se desactivó la categoría correctamente", "Éxito");
-              },
-              error: (error) => {
-                this.showToastError("Error", "No se pudo desactivar la categoría");
-              }
-            });
-        }
-      });
   }
 
   

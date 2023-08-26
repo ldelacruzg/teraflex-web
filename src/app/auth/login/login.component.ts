@@ -91,8 +91,8 @@ export class LoginComponent {
   }
 
   /*Método que redirige al módulo de recuperar la contraseña*/
-  goToForgotPassword() {
-    this.ruta.navigateByUrl('/auth/forgot-password');
+  goToForgotPassword(forgotPassword: any) {
+    this.modal.open(forgotPassword, { size: 'lg', centered: true });
   }
 
   /*Método que muestra modal para los usuarios que no tienen una cuenta*/

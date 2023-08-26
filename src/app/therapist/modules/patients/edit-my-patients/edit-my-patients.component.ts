@@ -50,11 +50,7 @@ export class EditMyPatientsComponent {
         ]
       ],
       docNumber: [''],
-      birthDate: ['',
-        [
-          Validators.required,
-        ]
-      ],
+      birthDate: [''],
       phone: ['',
         [
           Validators.required,

@@ -3,7 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ViewMyPatientsComponent } from '../modals/view-my-patients/view-my-patients.component';
 import { EditMyPatientsComponent } from '../edit-my-patients/edit-my-patients.component';
-import { ApiResponseGetMyPatientsI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
+import { ApiResponseActivateDesactivatePatientI, ApiResponseGetMyPatientsI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +26,7 @@ export class ListMyPatientsComponent {
   /*Variables*/
   optionFilter: string = environment.FIRSTNAME;
   spinnerStatus: boolean = false;
+  statusPatients: boolean = true;
   itemsForPage: number = 5;
   initialPage: number = 0;
   finalPage: number = 5;
@@ -45,13 +46,30 @@ export class ListMyPatientsComponent {
   /*ngOnInit*/
   ngOnInit() {
     this.spinnerStatus = true;
-    this.getAllMyPatients();
+    this.getAllMyPatients(true);
+  }
+
+  /*Método que cambia el filtro entre los pacientes activos e inactivos*/
+  onFilterChange(event: any) {
+    const value = event.target.value;
+    if (value === "true") {
+      this.statusPatients = true;
+      this.getAllMyPatients(true);
+      this.arrayMyPatients = [];
+      console.log(this.arrayMyPatients)
+    }
+    else if (value === "false") {
+      this.statusPatients = false;
+      this.getAllMyPatients(false);
+      this.arrayMyPatients = [];
+      console.log(this.arrayMyPatients)
+    }
   }
 
   /*Método que obtiene el listado de los pacientes que tiene un terapeuta*/
-  getAllMyPatients() {
+  getAllMyPatients(status: boolean) {
     this.spinnerStatus = false;
-    this.myPatientsService.getMyPatients(this.headers.getHeaders())
+    this.myPatientsService.getMyPatients(this.headers.getHeaders(), status)
       .subscribe({
         next: (data: ApiResponseGetMyPatientsI) => {
           data.data.forEach(element => {
@@ -178,24 +196,25 @@ export class ListMyPatientsComponent {
 
   /*Método que desvincula un paciente del terapeuta*/
   unBindPatient(idPatient: number, namePatient: string) {
-    this.sweetAlerts.alertConfirmCancel("Desvincular paciente", "¿Está seguro de desvincular a " + (namePatient).toUpperCase() + ", de su listado de pacientes?")
-    .then(respuesta => {
-      if (respuesta.value == true) {
-        this.spinnerStatus = false;
-        this.myPatientsService.unBindPatient(this.headers.getHeaders(), idPatient)
-          .subscribe({
-            next: (data: string) => {
-              this.getAllMyPatients();
-              this.showToastSuccess("Paciente desvinculado con éxito", "Éxtio");
-              this.spinnerStatus = true;
-            },
-            error: (error: any) => {
-              this.spinnerStatus = true;
-              this.showToastError("Error", "No se pudo desvincular el paciente");
-            }
-          })
-      }
-    });
+    this.sweetAlerts.alertConfirmCancel("Desvincular paciente", "¿Está seguro de desvincular a \"" + (namePatient).toUpperCase() + "\", de su listado de pacientes?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.spinnerStatus = false;
+          this.myPatientsService.unBindPatient(this.headers.getHeaders(), idPatient)
+            .subscribe({
+              next: (data: string) => {
+                this.arrayMyPatients = [];
+                this.getAllMyPatients(true);
+                this.showToastSuccess("Paciente desvinculado con éxito", "Éxtio");
+                this.spinnerStatus = true;
+              },
+              error: (error: any) => {
+                this.spinnerStatus = true;
+                this.showToastError("Error", "No se pudo desvincular el paciente");
+              }
+            })
+        }
+      });
   }
 
   /*Método que abre el modal para ver la información detallada del paciente*/
@@ -211,25 +230,32 @@ export class ListMyPatientsComponent {
   }
 
   /*Método que elimina un paciente*/
-  deletePatient(idPatient: number, namePatient: string) {
-    this.sweetAlerts.alertConfirmCancel("Eliminar paciente", "¿Está seguro de eliminar el paciente " + (namePatient).toUpperCase() + "?")
-    .then(respuesta => {
-      if (respuesta.value == true) {
-        this.spinnerStatus = false;
-        this.myPatientsService.deletePatient(this.headers.getHeaders(), idPatient)
-          .subscribe({
-            next: (data: string) => {
-              this.getAllMyPatients();
-              this.showToastSuccess("Paciente eliminado con éxito", "Éxtio");
-              this.spinnerStatus = true;
-            },
-            error: (error: any) => {
-              this.spinnerStatus = true;
-              this.showToastError("Error", "No se pudo eliminar el paciente");
-            }
-          })
-      }
-    });
+  activateOrDesactivatePatient(idPatient: number, namePatient: string, status: string) {
+    this.sweetAlerts.alertConfirmCancel(status + " paciente", "¿Está seguro de " + (status).toLowerCase() + " el paciente \"" + (namePatient).toUpperCase() + "\"?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.spinnerStatus = false;
+          this.myPatientsService.activateOrDesactivatePatient(this.headers.getHeaders(), idPatient)
+            .subscribe({
+              next: (data: ApiResponseActivateDesactivatePatientI) => {
+                this.showToastSuccess("Paciente actualizado con éxito", "Éxtio");
+                if (this.statusPatients){
+                  this.arrayMyPatients = [];
+                  this.getAllMyPatients(true);
+                }
+                else{
+                  this.arrayMyPatients = [];
+                  this.getAllMyPatients(false);
+                }
+                this.spinnerStatus = true;
+              },
+              error: (error: any) => {
+                this.spinnerStatus = true;
+                this.showToastError("Error", "No se pudo " + (status).toLowerCase() + " el paciente");
+              }
+            })
+        }
+      });
   }
 
   /*Método que calcula la edad, enviándole la fecha de nacimiento*/
@@ -253,13 +279,13 @@ export class ListMyPatientsComponent {
 
   /*Método que arroja una alerta para confirmar que desea generar una nueva contraseña*/
   showAlertGeneratePassword(idPatient: number, namePatient: string, modalGenerateNewPassword: any) {
-    this.sweetAlerts.alertConfirmCancel("Generar contraseña", "¿Desea generar una nueva contraseña para el paciente \""+(namePatient).toUpperCase() +"\"?")
-    .then(respuesta => {
-      if (respuesta.value == true) {
-        this.modal.open(modalGenerateNewPassword, { size: 'md', centered: true });
-        GenerateNewPasswordComponent.idPatient = idPatient;
-      }
-    });
+    this.sweetAlerts.alertConfirmCancel("Generar contraseña", "¿Desea generar una nueva contraseña para el paciente \"" + (namePatient).toUpperCase() + "\"?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.modal.open(modalGenerateNewPassword, { size: 'md', centered: true });
+          GenerateNewPasswordComponent.idPatient = idPatient;
+        }
+      });
   }
 
   /*Icons to use*/
@@ -272,7 +298,8 @@ export class ListMyPatientsComponent {
   iconUnBindPatient = iconos.faBan;
   iconViewDetail = iconos.faEye;
   iconEdit = iconos.faEdit;
-  iconDelete = iconos.faTrashCan;
+  iconDesactivate = iconos.faToggleOn;
+  iconActivate = iconos.faToggleOff;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;

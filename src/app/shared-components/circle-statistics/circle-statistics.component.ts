@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
+import { ApiResponseGetCircleStatistics } from 'src/app/shared-components/interfaces/statistics.interface';
+import { DashboardComponent } from 'src/app/therapist/modules/home/dashboard/dashboard.component';
+import { StatisticsService } from 'src/app/shared-components/services/statistics.service';
 
 @Component({
   selector: 'circle-app-statistics',
@@ -7,16 +10,46 @@ import * as ApexCharts from 'apexcharts';
   styleUrls: ['./circle-statistics.component.css', '../tasks-to-review/tasks-to-review.component.css']
 })
 export class CircleStatisticsComponent {
+  /*Variables*/
+  arrayTagAgeRange: string[] = [];
+  arrayQuantity: number[] = [];
 
-  /*ngOnInit con los datos de información del gráfico*/
+  /*constructor*/
+  constructor(
+    private statisticsService: StatisticsService,
+    private headers: DashboardComponent
+  ){}
+
+
+  /*ngOnInit*/
   ngOnInit(){
+   this.getCircleStatisticsAgePatients();
+   this.createCircleChart();
+  }
+
+  /*Método que consume el servicio, para obtener los valores que se mostraran en el gráfico*/
+  getCircleStatisticsAgePatients() {
+    this.statisticsService.getCircleStatisticsAgePatients(this.headers.getHeaders())
+    .subscribe({
+      next: (data: ApiResponseGetCircleStatistics) => {
+        data.data.forEach(element => {
+          this.arrayTagAgeRange.push(element.tag);
+          this.arrayQuantity.push(element.quantity);
+        });
+        this. createCircleChart();
+      }
+    })
+  }
+
+  /*Método que arma el gráfico circular*/
+  createCircleChart() {
     var options = {
-      series: [44, 55, 13, 43, 22],
+      series: this.arrayQuantity,
       chart: {
         width: 410,
         type: 'pie',
       },
-      labels: ['Pacientes', 'Tareas', 'Recursos locales', 'Recursos Externos', 'Asignaciones'],
+      labels: this.arrayTagAgeRange,
       responsive: [{
         breakpoint: 480,
         options: {

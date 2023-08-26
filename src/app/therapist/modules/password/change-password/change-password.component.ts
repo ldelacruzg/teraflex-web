@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { PasswordService } from 'src/app/therapist/services/password.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ToastrService } from 'ngx-toastr';
 import { ApiResponseChangePasswordI, BodyChangePasswordI } from 'src/app/therapist/interfaces/password.interface';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-change-password',
@@ -43,7 +43,7 @@ export class ChangePasswordComponent {
       newPassword: ['',
         [
           Validators.required,
-          Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/),
+          Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{6,}$/)
         ]
       ],
       confirmPassword: ['',
@@ -105,7 +105,6 @@ export class ChangePasswordComponent {
     return body;
   }
   
-
   /*Método que muestra un toast con mensaje de ÉXITO*/
   showToastSuccess(message: string, title: string) {
     this.toastr.success(message, title, {

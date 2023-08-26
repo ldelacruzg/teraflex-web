@@ -124,3 +124,8 @@ export interface ApiResponseLinkPatientI{
   statusCode: number;
 }
 
+/*Interfaz de respuesta de la API para cuando se activa o desactiva un paciente*/
+export interface ApiResponseActivateDesactivatePatientI{
+    statusCode: number;
+    message: string;
+}

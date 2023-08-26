@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="action-buttons mb-3">
                                     <button [disabled]="!patientForm.valid" mat-button type="button"
-                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">Siguiente
+                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">Siguiente <fa-icon [icon]="iconNext"></fa-icon>
                                     </button>
                                 </div>
                             </form>
@@ -95,8 +95,9 @@
                                         <label class="mb-1"><b>Fecha de vencimiento</b></label>
                                         <input type="date" placeholder="Fecha de vencimiento*"
                                             class="form-control form-control-lg bg-light fs-6"
-                                            formControlName="dueDate" />
+                                            formControlName="dueDate" [min]="minDate"/>
                                     </div>
+
                                     <!--Buscar tareas por titulo-->
                                     <form class="col-12 col-md-4 mb-3">
                                         <label class="mb-1"><b>Filtrar búsqueda</b></label>
@@ -155,7 +156,8 @@
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3">
                                 <button mat-button matStepperPrevious type="button"
-                                    class="btn btn-secondary btn-md"><fa-icon [icon]="iconBack"></fa-icon> Regresar</button>
+                                    class="btn btn-secondary btn-md"><fa-icon [icon]="iconBack"></fa-icon>
+                                    Regresar</button>
                                 <button mat-button (click)="registerAssignTaskToUser()" type="button"
                                     class="btn btn-primary btn-md">Guardar</button>
                             </div>
@@ -229,7 +231,7 @@
                                 </div>
                                 <div class="action-buttons mb-3">
                                     <button [disabled]="!patientForm.valid" mat-button type="button"
-                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">Siguiente
+                                        class="btn btn-primary btn-md" (click)="nextStepAssignTasks()">Siguiente <fa-icon [icon]="iconNext"></fa-icon>
                                     </button>
                                 </div>
                             </form>
@@ -309,7 +311,8 @@
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3">
                                 <button mat-button matStepperPrevious type="button"
-                                    class="btn btn-secondary btn-md col-sm-12 mb-2"><fa-icon [icon]="iconBack"></fa-icon> Regresar</button>
+                                    class="btn btn-secondary btn-md col-sm-12 mb-2"><fa-icon
+                                        [icon]="iconBack"></fa-icon> Regresar</button>
                                 <button mat-button (click)="registerAssignTaskToUser()" type="button"
                                     class="btn btn-primary btn-md col-sm-12">Guardar</button>
                             </div>

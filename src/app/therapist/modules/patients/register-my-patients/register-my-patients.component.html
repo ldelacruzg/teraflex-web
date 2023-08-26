@@ -18,9 +18,9 @@
                             (input)="onSearch($event)" />
                         <mat-autocomplete #auto="matAutocomplete">
                             <mat-option *ngFor="let patientName of filteredPatientsNames"
-                                [value]="patientName.lastName + ' ' + patientName.firstName"
+                                [value]="patientName.firstName + ' ' + patientName.lastName"
                                 (click)="getInfoDetailPatient(patientName.id)">
-                                {{ patientName.lastName + ' ' + patientName.firstName }}
+                                {{ patientName.firstName + ' ' + patientName.lastName }}
                             </mat-option>
                             <mat-option *ngIf="filteredPatientsNames.length === 0"
                                 [value]="'Sin resultados'">
@@ -40,22 +40,6 @@
                 </div>
                 <!--Apellidos y nombres para crear desde cero-->
                 <div class="row mt-4" *ngIf="!linkPatient2">
-                    <!--Apellidos-->
-                    <div class="col-12 col-md-6 mb-3">
-                        <label class="mb-1"><b>Apellidos</b></label>
-                        <input type="text" placeholder="Apellidos*" class="form-control form-control-lg bg-light fs-6"
-                            formControlName="lastName" [ngClass]="{
-                                'is-invalid': patientForm.get('lastName')?.hasError('required') && patientForm.get('lastName')?.touched || patientForm.get('lastName')?.hasError('pattern'),
-                                'is-valid': patientForm.get('lastName')?.value?.length >= 4 && patientForm.get('lastName')?.hasError('pattern') == false
-                              }" [maxlength]="50" />
-                        <div class="validators"
-                            *ngIf="patientForm.get('lastName')?.hasError('required') && patientForm.get('lastName')?.touched">
-                            <small>¡Este campo es requerido!</small>
-                        </div>
-                        <div class="validators" *ngIf="patientForm.get('lastName')?.hasError('pattern')">
-                            <small>¡Solo se permiten letras!</small>
-                        </div>
-                    </div>
                     <!--Nombres-->
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-1"><b>Nombres</b></label>
@@ -69,6 +53,22 @@
                             <small>¡Este campo es requerido!</small>
                         </div>
                         <div class="validators" *ngIf="patientForm.get('firstName')?.hasError('pattern')">
+                            <small>¡Solo se permiten letras!</small>
+                        </div>
+                    </div>
+                     <!--Apellidos-->
+                     <div class="col-12 col-md-6 mb-3">
+                        <label class="mb-1"><b>Apellidos</b></label>
+                        <input type="text" placeholder="Apellidos*" class="form-control form-control-lg bg-light fs-6"
+                            formControlName="lastName" [ngClass]="{
+                                'is-invalid': patientForm.get('lastName')?.hasError('required') && patientForm.get('lastName')?.touched || patientForm.get('lastName')?.hasError('pattern'),
+                                'is-valid': patientForm.get('lastName')?.value?.length >= 4 && patientForm.get('lastName')?.hasError('pattern') == false
+                              }" [maxlength]="50" />
+                        <div class="validators"
+                            *ngIf="patientForm.get('lastName')?.hasError('required') && patientForm.get('lastName')?.touched">
+                            <small>¡Este campo es requerido!</small>
+                        </div>
+                        <div class="validators" *ngIf="patientForm.get('lastName')?.hasError('pattern')">
                             <small>¡Solo se permiten letras!</small>
                         </div>
                     </div>

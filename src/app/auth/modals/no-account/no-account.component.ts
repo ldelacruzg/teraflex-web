@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-/*Para los íconos*/
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,6 +9,7 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 })
 export class NoAccountComponent {
 
+  /*Constructor*/
   constructor(
     public modal: NgbModal
   ){}

@@ -83,7 +83,7 @@ export interface TaskDetailByIdI {
 }
 
 /*Interfaz de respuesta de la API para cuando se edita una tarea*/
-export interface ApiResponseEditTaskDetailI{
+export interface ApiResponseEditTaskDetailI {
   statusCode: number;
   message: string;
   data: {
@@ -101,4 +101,20 @@ export interface EditTaskDetailI {
   estimatedTime: number;
   isPublic: boolean;
   categories: number[];
+}
+
+/*Interfaz de respuesta de la API para obtener el listado de las últimas tareas completadas por los pacientes*/
+export interface ApiResponseGetLastTasksCompletedByPatientsI {
+  statusCode: number;
+  message: string;
+  data: GetDetailLastTasksCompletedByPatientsI[];
+}
+
+/*Interfaz que contiene la data que viene dentro de la respuesta al obtener las últimas tareas completadas*/
+export interface GetDetailLastTasksCompletedByPatientsI {
+  assignmentId: number;
+  title: string;
+  isCompleted: boolean;
+  patientFullName: string;
+  updatedAt: string;
 }

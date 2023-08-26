@@ -44,6 +44,7 @@ export class AssignTasksComponent {
   //Donde se guardará la data a enviar finalmente en la asignación
   static arrayTasksDetailToSend: BodyTaskToAssignI[] = [];
   idPatientToAssignTasks!: number;
+  minDate: string ="";
 
   /*Constructor*/
   constructor(
@@ -57,6 +58,7 @@ export class AssignTasksComponent {
     private router: Router
   ) {
     this.isMobileView = window.innerWidth <= 760;
+    this.minDate = this.calculateMinDate();
   }
 
   /*Verifica el tamaño de la pantalla para cambiar a móvil*/
@@ -78,7 +80,7 @@ export class AssignTasksComponent {
 
   /*Método que obtiene el listado de los pacientes*/
   getMyPatients() {
-    this.myPatientsService.getMyPatients(this.headers.getHeaders())
+    this.myPatientsService.getMyPatients(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseGetMyPatientsI) => {
           data.data.forEach(element => {
@@ -86,7 +88,7 @@ export class AssignTasksComponent {
           })
         },
         error: (error) => {
-          alert("No se pudieron obtener los pacientes")
+         this.showToastError("Error", "No se pudieron obtener los pacientes. Recargue la página")
         }
       })
   }
@@ -284,9 +286,20 @@ export class AssignTasksComponent {
     });
   }
 
+  /*Método que calcula el minDate para dejar habilitado de la fecha actual en adelante*/
+  calculateMinDate(): string {
+    const today = new Date();
+    today.setDate(today.getDate() + 1); // Agrega un día
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   /*Icons to use*/
   iconAssignTasks = iconos.faCalendarDay;
   iconSearch = iconos.faSearch;
   iconEdit = iconos.faEdit;
   iconBack = iconos.faArrowLeft;
+  iconNext = iconos.faArrowRight;
 }

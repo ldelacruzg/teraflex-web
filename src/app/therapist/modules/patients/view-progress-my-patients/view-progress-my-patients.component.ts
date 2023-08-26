@@ -90,7 +90,7 @@ export class ViewProgressMyPatientsComponent {
 
   /*Método que obtiene el listado de los pacientes*/
   getMyPatients() {
-    this.myPatientsService.getMyPatients(this.headers.getHeaders())
+    this.myPatientsService.getMyPatients(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseGetMyPatientsI) => {
           data.data.forEach(element => {
@@ -192,8 +192,15 @@ export class ViewProgressMyPatientsComponent {
     const year = date.getFullYear();
     const hours = "23";
     const minutes = "59";
-  
+
     return `${dayOfWeek}, ${month} ${day} ${year}, ${hours}:${minutes}:${minutes} pm`;
+  }
+
+  /*Método que verifica si se pasó o no la fecha de vencimiento*/
+  isTaskVencida(dueDateRecived: string): boolean {
+    const dueDate = new Date(dueDateRecived);
+    const currentlyDate = new Date();
+    return dueDate < currentlyDate;
   }
 
   /*Icons to use*/

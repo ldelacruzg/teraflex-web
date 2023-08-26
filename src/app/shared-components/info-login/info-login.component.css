@@ -1,9 +1,15 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .left-content {
     background-color: #007BBD;
 }
 
 .content-image img {
-    width: 250px;
+    width: 220px;
 }
 
 .title,
@@ -13,8 +19,12 @@
     color: white;
 }
 
-.location {
-    position: fixed;
-    bottom: 0;
-    font-size: 20px;
+.content-image-institutions{
+    width:90px;
+}
+
+@media only screen and (max-width: 768px) {
+    .logo-institutions{
+        display: none;
+    }
 }
