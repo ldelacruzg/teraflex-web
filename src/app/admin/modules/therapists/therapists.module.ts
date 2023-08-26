@@ -12,6 +12,7 @@ import { CreateTherapistComponent } from './create-therapist/create-therapist.co
 import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/view-credentials-login.component';
 import { SweetAlerts } from '../../alerts/alerts.component';
 import { EditTherapistComponent } from './edit-therapist/edit-therapist.component';
+import { GenerateTempPasswordComponent } from './modals/generate-temp-password/generate-temp-password.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EditTherapistComponent } from './edit-therapist/edit-therapist.componen
     CreateTherapistComponent,
     ViewCredentialsLoginComponent,
     EditTherapistComponent,
+    GenerateTempPasswordComponent,
   ],
   imports: [
     CommonModule,

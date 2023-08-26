@@ -1,0 +1,13 @@
+<body>
+    <h5><b class="divider-title">|</b> Últimos pacientes registrados</h5>
+    <div class="row">
+        <div class="column">
+            <ul class="row mt-3">
+                <div class="col-10">
+                    <li class="mb-2" *ngFor="let patient of arrayLastPatients.slice(0, 7)"><fa-icon
+                        [icon]="iconUser"></fa-icon>&nbsp;&nbsp;{{patient.firstName + " " + patient.lastName}}</li>
+                </div>
+            </ul>
+        </div>
+    </div>
+</body>

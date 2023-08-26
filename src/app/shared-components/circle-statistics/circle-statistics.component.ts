@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
-import { ApiResponseGetCircleStatistics } from 'src/app/therapist/interfaces/statistics.interface';
+import { ApiResponseGetCircleStatistics } from 'src/app/shared-components/interfaces/statistics.interface';
 import { DashboardComponent } from 'src/app/therapist/modules/home/dashboard/dashboard.component';
-import { StatisticsService } from 'src/app/therapist/services/statistics.service';
+import { StatisticsService } from 'src/app/shared-components/services/statistics.service';
 
 @Component({
   selector: 'circle-app-statistics',
@@ -36,10 +36,6 @@ export class CircleStatisticsComponent {
           this.arrayTagAgeRange.push(element.tag);
           this.arrayQuantity.push(element.quantity);
         });
-        console.log("ARRAY DE TAGS")
-        console.log(this.arrayTagAgeRange)
-        console.log("ARRAY DE CANTIDADES")
-        console.log(this.arrayQuantity)
         this. createCircleChart();
       }
     })

@@ -16,6 +16,9 @@ import { SharedComponentsModule } from 'src/app/shared-components/shared-compone
     SharedComponentsModule,
     FontAwesomeModule,
     AppRoutingModule,
+  ],
+  exports: [
+    DashboardComponent
   ]
 })
 export class HomeModule { }

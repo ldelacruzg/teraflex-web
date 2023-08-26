@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
+import { ApiResponseGetTasksByCategories } from '../interfaces/statistics.interface';
+import { DashboardComponent } from 'src/app/admin/modules/home/dashboard/dashboard.component';
+import { StatisticsService } from '../services/statistics.service';
 
 @Component({
   selector: 'app-linear-statistics',
@@ -7,37 +10,62 @@ import * as ApexCharts from 'apexcharts';
   styleUrls: ['./linear-statistics.component.css', '../tasks-to-review/tasks-to-review.component.css']
 })
 export class LinearStatisticsComponent {
+  /*Variables*/
+  arrayCategories: string[] = [];
+  arrayValueCategories: number[] = [];
+  
+  /*constrcutor*/
+  constructor(
+    private headers: DashboardComponent,
+    private statisticsService: StatisticsService
+  ){}
 
   /*ngOnit con los datos de información del gráfico*/
-  ngOnInit(){
+  ngOnInit() {
+    this.getTasksByCategories();
+  }
+
+  /*Método que consume el servicio que obtiene la cantidad de tareas por categorías*/
+  getTasksByCategories(){
+    this.statisticsService.getLinearStatisticsTasks(this.headers.getHeaders())
+    .subscribe({
+      next: (data: ApiResponseGetTasksByCategories) => {
+        data.data.forEach((element, index) => {
+          if (index < 4) {  
+            this.arrayCategories.push(element.categoryName);
+            this.arrayValueCategories.push(element.totalTask);
+          }
+        });
+        this.createLinearChart();
+      }
+    })
+  }
+  
+
+  /*Método que crea el gráfico de barras con la información*/
+  createLinearChart(){
     var options = {
       series: [{
-      name: 'series1',
-      data: [31, 40, 28, 51, 42, 109, 100]
-    }, {
-      name: 'series2',
-      data: [11, 32, 45, 32, 34, 52, 41]
-    }],
+        data: this.arrayValueCategories,
+      }],
       chart: {
-      height: 350,
-      type: 'area'
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    xaxis: {
-      type: 'datetime',
-      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-    },
-    tooltip: {
-      x: {
-        format: 'dd/MM/yy HH:mm'
+        type: 'bar',
+        height: 250
       },
-    },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: true,
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      xaxis: {
+        categories: this.arrayCategories
+      }
     };
+
     var chart = new ApexCharts(document.querySelector("#chart2"), options);
     chart.render();
   }

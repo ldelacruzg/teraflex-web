@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PasswordService } from 'src/app/therapist/services/password.service';
+import { PasswordService } from 'src/app/admin/services/password.service';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ToastrService } from 'ngx-toastr';
-import { ApiResponseChangePasswordI, BodyChangePasswordI } from 'src/app/therapist/interfaces/password.interface';
+import { ApiResponseChangePasswordI, BodyChangePasswordI } from 'src/app/admin/interfaces/password.interface';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css', './../../videos/upload-video-form/upload-video-form.component.css']
+  styleUrls: ['./change-password.component.css', '../../../../therapist/modules/videos/upload-video-form/upload-video-form.component.css']
 })
 export class ChangePasswordComponent {
   /*Variables*/
@@ -71,7 +71,7 @@ export class ChangePasswordComponent {
   verifyPassword(): boolean {
     const newPasswordControl = this.passwordForm.get('newPassword');
     const confirmPasswordControl = this.passwordForm.get('confirmPassword');
-  
+
     if (newPasswordControl && confirmPasswordControl) {
       const newPassword = newPasswordControl.value;
       const confirmPassword = confirmPasswordControl.value;
@@ -98,13 +98,13 @@ export class ChangePasswordComponent {
   }
 
   /*Método que obtiene la nueva contraseña, para poder enviarla al body*/
-  getNewPasswordToChange(){
+  getNewPasswordToChange() {
     let body: BodyChangePasswordI = {
       password: this.passwordForm.get('newPassword')?.value
     }
     return body;
   }
-  
+
   /*Método que muestra un toast con mensaje de ÉXITO*/
   showToastSuccess(message: string, title: string) {
     this.toastr.success(message, title, {
@@ -122,8 +122,8 @@ export class ChangePasswordComponent {
   }
 
   /*Método que redirige al apartado del inicio (Cancelar)*/
-  goToHome(){
-    this.router.navigateByUrl("/therapist/home/dashboard/options-home");
+  goToHome() {
+    this.router.navigateByUrl("/admin/home/dashboard/options-home");
   }
 
   /*Icons to use*/

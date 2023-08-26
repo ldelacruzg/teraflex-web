@@ -15,7 +15,7 @@
         <div class="col-12 col-md-2 col-lg-2">
           <form>
             <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
-              (change)="onFilterChange($event)" >
+              (change)="onFilterChange($event)">
               <option value="true" selected>Activos</option>
               <option value="false">Inactivos</option>
             </select>
@@ -71,15 +71,18 @@
                     <ng-template #noCategory>Sin departamento</ng-template>
                   </td>
                   <td class="actions">
+                    <fa-icon
+                      (click)="showAlertGeneratePassword(therapist.id, therapist.firstName + ' ' + therapist.lastName, modalGenerateNewPassword)"
+                      data-bs-toggle="mensaje" title="Generar contraseña" id="iconGeneratePassword"
+                      [icon]="iconGeneratePassword"></fa-icon>
                     <fa-icon (click)="openModalViewtherapistDetail(viewtherapistDetail, therapist.id)"
                       data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                       [icon]="iconViewDetails"></fa-icon>
-                    <fa-icon (click)="goToEditTherapist(therapist)"
-                    data-bs-toggle="mensaje" title="Editar" id="iconEditar" 
-                    *ngIf="statusTherapist" [icon]="iconEdit"></fa-icon>
+                    <fa-icon (click)="goToEditTherapist(therapist)" data-bs-toggle="mensaje" title="Editar"
+                      id="iconEditar" *ngIf="statusTherapist" [icon]="iconEdit"></fa-icon>
                     <fa-icon
                       (click)="desactivateTherapist(therapist.id, therapist.firstName + ' ' + therapist.lastName, statusTherapist ? 'Desactivar' : 'Activar')"
-                      data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar" 
+                      data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"
                       [icon]="statusTherapist ? iconDesactivate : iconActivate"></fa-icon>
                   </td>
                 </tr>
@@ -105,4 +108,9 @@
 <!--Modal para ver la información a detalle del terapeuta-->
 <ng-template #viewtherapistDetail>
   <app-view-therapists-detail></app-view-therapists-detail>
+</ng-template>
+
+<!--Modal para generar una nueva contraseña al paciente-->
+<ng-template #modalGenerateNewPassword>
+  <app-generate-temp-password></app-generate-temp-password>
 </ng-template>

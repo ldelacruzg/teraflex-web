@@ -9,11 +9,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewDetailLastTasksCompletedComponent } from '../view-detail-last-tasks-completed/view-detail-last-tasks-completed.component';
 
 @Component({
-  selector: 'app-tasks-to-review',
-  templateUrl: './tasks-to-review.component.html',
-  styleUrls: ['./tasks-to-review.component.css']
+  selector: 'app-last-tasks-completed',
+  templateUrl: './last-tasks-completed.component.html',
+  styleUrls: ['./last-tasks-completed.component.css']
 })
-export class TasksToReviewComponent {
+export class LastTasksCompletedComponent {
   /*Variables*/
   therapistID: number = 0;
   arrayLastTasksCompletedByPatients: GetDetailLastTasksCompletedByPatientsI[] = [];

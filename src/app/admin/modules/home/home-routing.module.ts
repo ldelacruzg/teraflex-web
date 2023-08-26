@@ -32,6 +32,10 @@ const routes: Routes = [
           path: 'credits', 
           loadChildren:()=>import("../credits/credits.module").then(m=>m.CreditsModule)
         },
+        {
+          path: 'password', 
+          loadChildren:()=>import("../password/password.module").then(m=>m.PasswordModule)
+        },
       ]
       },
     ] 
