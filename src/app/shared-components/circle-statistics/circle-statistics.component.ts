@@ -7,7 +7,7 @@ import { StatisticsService } from 'src/app/shared-components/services/statistics
 @Component({
   selector: 'circle-app-statistics',
   templateUrl: './circle-statistics.component.html',
-  styleUrls: ['./circle-statistics.component.css', '../tasks-to-review/tasks-to-review.component.css']
+  styleUrls: ['./circle-statistics.component.css', '../last-tasks-completed/last-tasks-completed.component.css']
 })
 export class CircleStatisticsComponent {
   /*Variables*/
