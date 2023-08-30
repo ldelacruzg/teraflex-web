@@ -22,11 +22,11 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 export class ViewProgressMyPatientsComponent {
   /*Variables*/
   optionFilter: string = environment.TITLE;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   patientForm!: FormGroup;
   spinnerStatus: boolean = false;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
   idPatient: number = 0;
   arrayPatients: MyPatientDetailI[] = [];
   filteredPatientsNames: MyPatientDetailI[] = []; //Array para filtrarlos en la búsqueda

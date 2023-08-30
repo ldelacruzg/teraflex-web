@@ -7,7 +7,7 @@ import { StatisticsService } from '../services/statistics.service';
 @Component({
   selector: 'app-linear-statistics',
   templateUrl: './linear-statistics.component.html',
-  styleUrls: ['./linear-statistics.component.css', '../tasks-to-review/tasks-to-review.component.css']
+  styleUrls: ['./linear-statistics.component.css', '../last-tasks-completed/last-tasks-completed.component.css']
 })
 export class LinearStatisticsComponent {
   /*Variables*/

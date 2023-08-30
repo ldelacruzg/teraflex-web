@@ -20,10 +20,10 @@ import { ViewPatientsDetailComponent } from '../modals/view-patients-detail/view
 export class ListPatientsComponent {
   /*Variables*/
   optionFilter: string = environment.FIRSTNAME;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   spinnerStatus: boolean = false;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
   optionsPage: any;
   arrayPatients: GetPatientDetailI[] = [];
   patientsToSearch: GetPatientDetailI[] = [];

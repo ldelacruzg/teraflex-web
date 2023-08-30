@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://54.173.14.40:3000'
+    apiUrl: 'https://jordanfvc26-bookish-telegram-67g4q99rw4q24xg4-3000.app.github.dev'
   };
   

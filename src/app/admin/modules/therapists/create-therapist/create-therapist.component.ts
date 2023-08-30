@@ -60,13 +60,13 @@ export class CreateTherapistComponent {
       firstName: ['',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚ\\s]*$')
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$')
         ]
       ],
       lastName: ['',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚ\\s]*$')
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$')
         ]
       ],
       docNumber: ['',
@@ -113,7 +113,7 @@ export class CreateTherapistComponent {
         },
         error: (error) => {
           this.spinnerStatus = true;
-          this.showToastError("Error", "No ha podido registrar su tarea");
+          this.showToastError("Error", "No se ha podido registrar el terapeuta");
         }
       });
   }

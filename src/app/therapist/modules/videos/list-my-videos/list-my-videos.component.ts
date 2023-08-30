@@ -23,11 +23,11 @@ import * as XLSX from 'xlsx';
 export class ListMyVideosComponent {
   /*Variables*/
   optionFilter: string = environment.TITLE;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   spinnerStatus: boolean = false;
   statusVideo: boolean = false;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
   arrayVideos: GetAllMyVideosI[] = [];
   videosToSearch: GetAllMyVideosI[] = [];
 

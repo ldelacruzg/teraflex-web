@@ -96,13 +96,13 @@ export class RegisterMyPatientsComponent {
       lastName: ['',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚ\\s]*$')
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$')
         ]
       ],
       firstName: ['',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚ\\s]*$')
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$')
         ]
       ],
       docNumber: ['',

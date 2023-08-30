@@ -1,10 +1,12 @@
 export const environment = {
     production: false,
-    urlApi:"http://54.173.14.40:3000",
+    urlApi:"https://jordanfvc26-bookish-telegram-67g4q99rw4q24xg4-3000.app.github.dev",
     THERAPIST: "THERAPIST",
     ADMIN: "ADMIN",
     PATIENT: "PATIENT",
     TITLE: "title",
     FIRSTNAME: "firstName",
-    CATEGORYNAME: "name"
+    CATEGORYNAME: "name",
+    ITEMS_FOR_PAGE: 10,
+    INITIAL_PAGE: 0
   };
