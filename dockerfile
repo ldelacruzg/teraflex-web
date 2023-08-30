@@ -3,7 +3,7 @@ FROM node:12.7-alpine AS builder
 WORKDIR /app
 COPY . .
 RUN npm install
-RUN npm run build
+RUN ng build
 
 # Segunda etapa: servir la aplicación compilada con Nginx
 # Etapa de producción

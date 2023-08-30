@@ -134,7 +134,7 @@ export class ChangePasswordComponent {
       this.showPassword = !this.showPassword;
     else if (input == 2)
       this.showPassword2 = !this.showPassword2;
-    else  (input == 3)
+    else if (input == 3)
       this.showPassword3 = !this.showPassword3;
   }
 
@@ -145,10 +145,8 @@ export class ChangePasswordComponent {
         return this.showPassword ? 'text' : 'password';
       case 2:
         return this.showPassword2 ? 'text' : 'password';
-      case 3:
-        return this.showPassword3 ? 'text' : 'password';
       default:
-        return this.showPassword ? 'text' : 'password';
+        return this.showPassword3 ? 'text' : 'password';
     }
   }
 

@@ -16,6 +16,7 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 export class LoginComponent {
   /*Variables*/
   spinnerStatus: boolean = false;
+  showPassword: boolean = false;
   loginForm = new FormGroup({
     identification: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
@@ -100,6 +101,17 @@ export class LoginComponent {
     this.modal.open(noAccount, { size: 'lg', centered: true });
   }
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  // Método para obtener el tipo de entrada de contraseña según la visibilidad
+  getPasswordInputType() {
+    return this.showPassword ? 'text' : 'password';
+  }
+
   /*Icons to use*/
-  iconForgotPassword = iconos.faLock
+  iconForgotPassword = iconos.faLock;
+  iconViewPassword = iconos.faEye;
+  iconHidePassword = iconos.faEyeSlash;
 }
