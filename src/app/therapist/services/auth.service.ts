@@ -35,6 +35,8 @@ export class AuthService {
   public getHeaders(headers: Map<string, any> | undefined) {
     if (headers != null) {
       headers.forEach((value, key) => {
+        if(this.headers.has(key))
+          this.headers = this.headers.delete(key);
         this.headers = this.headers.append(key, value || '');
       });
     }

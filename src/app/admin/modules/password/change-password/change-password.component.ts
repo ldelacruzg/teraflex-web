@@ -14,6 +14,9 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 })
 export class ChangePasswordComponent {
   /*Variables*/
+  showPassword: boolean = false;
+  showPassword2: boolean = false;
+  showPassword3: boolean = false;
   spinnerStatus: boolean = false;
   passwordForm!: FormGroup;
 
@@ -126,7 +129,32 @@ export class ChangePasswordComponent {
     this.router.navigateByUrl("/admin/home/dashboard/options-home");
   }
 
+  togglePasswordVisibility(input: number) {
+    if (input == 1)
+      this.showPassword = !this.showPassword;
+    else if (input == 2)
+      this.showPassword2 = !this.showPassword2;
+    else  (input == 3)
+      this.showPassword3 = !this.showPassword3;
+  }
+
+  // Método para obtener el tipo de entrada de contraseña según la visibilidad
+  getPasswordInputType(input: number) {
+    switch (input) {
+      case 1:
+        return this.showPassword ? 'text' : 'password';
+      case 2:
+        return this.showPassword2 ? 'text' : 'password';
+      case 3:
+        return this.showPassword3 ? 'text' : 'password';
+      default:
+        return this.showPassword ? 'text' : 'password';
+    }
+  }
+
   /*Icons to use*/
   iconPassword = iconos.faLock;
   iconInfoPolicies = iconos.faCircleInfo;
+  iconViewPassword = iconos.faEye;
+  iconHidePassword = iconos.faEyeSlash;
 }

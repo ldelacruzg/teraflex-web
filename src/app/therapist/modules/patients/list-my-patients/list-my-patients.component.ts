@@ -25,11 +25,11 @@ import { GenerateNewPasswordComponent } from '../modals/generate-new-password/ge
 export class ListMyPatientsComponent {
   /*Variables*/
   optionFilter: string = environment.FIRSTNAME;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   spinnerStatus: boolean = false;
   statusPatients: boolean = true;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
   arrayMyPatients: MyPatientDetailI[] = [];
   patientsToSearch: MyPatientDetailI[] = [];
 

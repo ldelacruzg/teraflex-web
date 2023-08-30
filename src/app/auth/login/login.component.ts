@@ -59,9 +59,9 @@ export class LoginComponent {
         error: (resError: ApiResponseLoginUserI) => {
           this.spinnerStatus = true;
           this.showToastError("Error", "Credenciales incorrectas");
-          setTimeout(() => {
+          /* setTimeout(() => {
             window.location.reload();
-          }, 3100);
+          }, 3100); */
         }
       })
   }

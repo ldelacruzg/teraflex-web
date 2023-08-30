@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  teraflex_web:
+    container_name: teraflex_web
+    image: 
+    ports:
+      - "4000:80"
+    restart: always
+    networks:
+      - teraflex_bridge

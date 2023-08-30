@@ -23,11 +23,11 @@ import { SweetAlerts } from 'src/app/admin/alerts/alerts.component';
 export class ListCategoriesComponent {
   /*Variables*/
   optionFilter: string = environment.CATEGORYNAME;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   spinnerStatus: boolean = false;
   statusTherapist: boolean = false;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
   optionsPage: any;
   arrayCategories: GetCategoryI[] = [];
   categoriesToSearch: GetCategoryI[] = [];

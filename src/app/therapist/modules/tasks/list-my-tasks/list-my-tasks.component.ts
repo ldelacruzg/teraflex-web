@@ -24,13 +24,13 @@ import * as XLSX from 'xlsx';
 export class ListMyTasksComponent {
   /*Variables*/
   optionFilter: string = environment.TITLE;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   formSelect = new FormGroup({
     filtro: new FormControl('ci', Validators.required),
   })
   spinnerStatus: boolean = false;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
   arrayTasks: MyTasksI[] = [];
   tasksToSearch: MyTasksI[] = [];
   optionsPage: any;

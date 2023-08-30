@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { ViewTherapistsDetailComponent } from '../modals/view-therapists-detail/view-therapists-detail.component';
+import { GenerateTempPasswordComponent } from '../modals/generate-temp-password/generate-temp-password.component';
+import { EditTherapistComponent } from '../edit-therapist/edit-therapist.component';
 import { ApiResponseRegisterTherapistI, ApiResponseStatusTherapist, TherapistDetailI } from 'src/app/admin/interfaces/therapists.interface';
 import { TherapistsService } from 'src/app/admin/services/therapists.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlerts } from 'src/app/admin/alerts/alerts.component';
+import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ViewTherapistsDetailComponent } from '../modals/view-therapists-detail/view-therapists-detail.component';
-import { SweetAlerts } from 'src/app/admin/alerts/alerts.component';
-import { EditTherapistComponent } from '../edit-therapist/edit-therapist.component';
-import { Router } from '@angular/router';
-import { GenerateTempPasswordComponent } from '../modals/generate-temp-password/generate-temp-password.component';
 
 @Component({
   selector: 'app-list-therapists',
@@ -24,11 +24,11 @@ import { GenerateTempPasswordComponent } from '../modals/generate-temp-password/
 export class ListTherapistsComponent {
   /*Variables*/
   optionFilter: string = environment.FIRSTNAME;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   spinnerStatus: boolean = false;
   statusTherapist: boolean = false;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
   optionsPage: any;
   arrayTherapists: TherapistDetailI[] = [];
   therapistsToSearch: TherapistDetailI[] = [];
@@ -227,5 +227,4 @@ export class ListTherapistsComponent {
 
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;
-
 }
