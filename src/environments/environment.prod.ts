@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://jordanfvc26-bookish-telegram-67g4q99rw4q24xg4-3000.app.github.dev'
+    apiUrl: import.meta.env.NG_APP_URL_API
   };
   
