@@ -1,12 +1,12 @@
 export const environment = {
-    production: false,
-    urlApi:"https://jordanfvc26-bookish-telegram-67g4q99rw4q24xg4-3000.app.github.dev",
-    THERAPIST: "THERAPIST",
-    ADMIN: "ADMIN",
-    PATIENT: "PATIENT",
-    TITLE: "title",
-    FIRSTNAME: "firstName",
-    CATEGORYNAME: "name",
-    ITEMS_FOR_PAGE: 10,
-    INITIAL_PAGE: 0
-  };
+  production: false,
+  urlApi: import.meta.env.NG_APP_URL_API,
+  THERAPIST: import.meta.env.NG_APP_THERAPIST,
+  ADMIN: import.meta.env.NG_APP_ADMIN,
+  PATIENT: import.meta.env.NG_APP_PATIENT,
+  TITLE: import.meta.env.NG_APP_TITLE,
+  FIRSTNAME: import.meta.env.NG_APP_FIRSTNAME,
+  CATEGORYNAME: import.meta.env.NG_APP_CATEGORYNAME,
+  ITEMS_FOR_PAGE: import.meta.env.NG_APP_ITEMS_FOR_PAGE,
+  INITIAL_PAGE: import.meta.env.NG_APP_INITIAL_PAGE
+};

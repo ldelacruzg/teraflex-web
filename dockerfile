@@ -1,9 +1,11 @@
 # Primera etapa: construir la aplicación Angular
-FROM node:12.7-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 COPY . .
+
+RUN su node -c "npm install -g @angular/cli"
 RUN npm install
-RUN ng build
+RUN npm run build --prod
 
 # Segunda etapa: servir la aplicación compilada con Nginx
 # Etapa de producción
