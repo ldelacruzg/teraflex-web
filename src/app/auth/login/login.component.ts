@@ -37,34 +37,38 @@ export class LoginComponent {
 
   /*Método que inicia la sesión del usuario*/
   loginUser(modalAlertChangePassword: any) {
-    this.spinnerStatus = false;
-    this.api.loginUser(this.getHeaders())
-      .subscribe({
-        next: (res: ApiResponseLoginUserI) => {
-          sessionStorage.setItem("token", res.data.token);
-          sessionStorage.setItem("role", res.data.role);
-          if (res.data.role == environment.THERAPIST) {
-            this.spinnerStatus = true;
-            this.ruta.navigateByUrl('/therapist/home/dashboard');
-            this.showToastSuccess(res.message, "Bienvenido")
-            if (res.data.firstTime) {
-              this.modal.open(modalAlertChangePassword, { size: 'md', centered: true });
+    if (this.loginForm.get('identification')?.value != "" && this.loginForm.get('password')?.value != "") {
+      this.spinnerStatus = false;
+      this.api.loginUser(this.getHeaders())
+        .subscribe({
+          next: (res: ApiResponseLoginUserI) => {
+            sessionStorage.setItem("token", res.data.token);
+            sessionStorage.setItem("role", res.data.role);
+            if (res.data.role == environment.THERAPIST) {
+              this.spinnerStatus = true;
+              this.ruta.navigateByUrl('/therapist/home/dashboard');
+              this.showToastSuccess(res.message, "Bienvenido")
+              if (res.data.firstTime) {
+                this.modal.open(modalAlertChangePassword, { size: 'md', centered: true });
+              }
             }
-          }
-          else if (res.data.role == environment.ADMIN) {
+            else if (res.data.role == environment.ADMIN) {
+              this.spinnerStatus = true;
+              this.ruta.navigateByUrl('/admin/home/dashboard');
+              this.showToastSuccess(res.message, "Administrador")
+            }
+          },
+          error: (resError: ApiResponseLoginUserI) => {
             this.spinnerStatus = true;
-            this.ruta.navigateByUrl('/admin/home/dashboard');
-            this.showToastSuccess(res.message, "Administrador")
+            this.showToastError("Error", "Credenciales incorrectas");
           }
-        },
-        error: (resError: ApiResponseLoginUserI) => {
-          this.spinnerStatus = true;
-          this.showToastError("Error", "Credenciales incorrectas");
-          /* setTimeout(() => {
-            window.location.reload();
-          }, 3100); */
-        }
-      })
+        })
+    }
+    else {
+      this.spinnerStatus = true;
+      this.showToastError("Error", "Primero debe ingresar sus credenciales de acceso");
+    }
+
   }
 
   /*Obtiene y retorna los headers*/

@@ -49,20 +49,14 @@
                     <fa-icon class="icon" [icon]="iconSearch"></fa-icon>
                 </div> -->
             </form>
-            <a href="#" class="nav-link">
-                <fa-icon class="icon" [icon]="iconBell"></fa-icon>
-                <span class="badge">5</span>
-            </a>
-            <span class="divider"></span>
-            <div class="profile">
+            <div class="profile d-flex">
                 <img src="../../../../../assets/pictures/user-profile.jpg" alt="img-profile">
+                <p class="mt-2">&nbsp;&nbsp;Administrador <fa-icon [icon]="iconArrowDown"></fa-icon></p>
                 <ul class="profile-link">
                     <div class="info">
                         <p><i>Administrador</i> <br /><small>Dirección de Gestión de Desarrollo Social de Quevedo</small></p>
                     </div>
                     <hr>
-                    <li><a [routerLink]="'profile/my-profile'"><fa-icon [icon]="iconProfile"></fa-icon> Mi perfil</a>
-                    </li>
                     <li><a [routerLink]="'password/change-password'"><fa-icon [icon]="iconPassword"></fa-icon> Contraseña</a></li>
                     <li><a (click)="signOut()"><fa-icon [icon]="iconLogOut"></fa-icon> Cerrar sesión</a></li>
                 </ul>

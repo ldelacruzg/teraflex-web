@@ -27,4 +27,16 @@ body, html {
     .logo-institutions{
         display: none;
     }
+
+    .left-content{
+        height: 80% !important;
+    }
+
+    .content-image img {
+        width: 100px;
+    }
+
+    .description, .location-mobile{
+        display: none;
+    }
 }

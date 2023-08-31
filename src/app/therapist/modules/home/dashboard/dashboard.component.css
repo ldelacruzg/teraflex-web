@@ -308,7 +308,6 @@ nav .divider{
 nav .profile{
     position: relative;
     z-index: 100;
-    /* margin-right: 5px; */
 }
 
 nav .profile img{
@@ -316,8 +315,15 @@ nav .profile img{
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
-    cursor: pointer;
     border: 1px solid #ccc;
+}
+
+nav .profile p{
+    cursor: pointer;
+}
+
+nav .profile p:hover{
+    color: #000000;
 }
 
 nav .profile .profile-link{
@@ -387,5 +393,9 @@ main {
 
     main{
         padding: 15px 20px;
+    }
+    
+    .profile>p>fa-icon{
+        display: none;
     }
 }

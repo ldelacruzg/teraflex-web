@@ -104,7 +104,7 @@ export class DashboardComponent {
   /*Método que muestra y oculta el menú de la foto de perfil*/
   showHideMenuProfile() {
     const profile = document.querySelector<HTMLDivElement>('nav .profile');
-    const imgProfile = profile?.querySelector<HTMLImageElement>('img');
+    const imgProfile = profile?.querySelector<HTMLImageElement>('p');
     const dropdownProfile = profile?.querySelector<HTMLDivElement>('.profile-link');
     imgProfile?.addEventListener('click', function () {
       dropdownProfile?.classList.toggle('show');
