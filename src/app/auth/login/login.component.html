@@ -1,7 +1,7 @@
 <app-spinner *ngIf="!spinnerStatus"></app-spinner>
 
 <body>
-    <div class="row vh-100 body" style="overflow: hidden;">
+    <div class="row vh-100 body" >
         <app-info-login class="col-md-7"></app-info-login>
 
         <!-------------------- ------ Form Login ---------------------------->
@@ -11,7 +11,7 @@
                     <h1 class="text-center">Inicio de sesión</h1>
                 </div>
 
-                <form [formGroup]="loginForm">
+                <form [formGroup]="loginForm" (ngSubmit)="loginUser(modalAlertChangePassword)">
                     <div class="mb-3">
                         <label class="mb-1"><b>Usuario</b></label>
                         <input type="text" class="form-control form-control-lg bg-light fs-6"
@@ -29,8 +29,7 @@
                     </div>
 
                     <div class="content-buttons">
-                        <button type="button" class="mb-3 btn btn-lg btn-primary w-100 fs-6"
-                            (click)="loginUser(modalAlertChangePassword)">Iniciar sesión</button>
+                        <button type="submit" class="mb-3 btn btn-lg btn-primary w-100 fs-6">Iniciar sesión</button>
                         <button type="button" (click)="goToForgotPassword(forgotPassword)"
                             class="btn btn-lg btn-outline-primary w-100 fs-6"><small> <fa-icon
                                     [icon]="iconForgotPassword"></fa-icon> Olvidé la contraseña</small></button>

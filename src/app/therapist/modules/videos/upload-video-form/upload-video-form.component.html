@@ -77,7 +77,7 @@
                                 placeholder="Descripción*" rows="7" [ngClass]="{
                                     'is-invalid': uploadVideoForm.get('description')?.hasError('required') && uploadVideoForm.get('description')?.touched,
                                     'is-valid': uploadVideoForm.get('description')?.value?.length >= 10
-                                  }" [maxlength]="250"></textarea>
+                                  }" [maxlength]="500"></textarea>
                             <div class="validators"
                                 *ngIf="uploadVideoForm.get('description')?.hasError('required') && uploadVideoForm.get('description')?.touched">
                                 <small>¡Este campo es requerido!</small>
@@ -139,7 +139,7 @@
                                     placeholder="Enlace de YouTube*" formControlName="link" [ngClass]="{
                                         'is-invalid': uploadLinkForm.get('link')?.hasError('required') && uploadLinkForm.get('link')?.touched || uploadLinkForm.get('link')?.hasError('pattern'),
                                         'is-valid': uploadLinkForm.get('link')?.valid
-                                    }" [maxlength]="200">
+                                    }">
                                 <div class="validators"
                                     *ngIf="uploadLinkForm.get('link')?.hasError('required') && uploadLinkForm.get('link')?.touched">
                                     <small>¡Este campo es requerido!</small>
@@ -157,7 +157,7 @@
                                 placeholder="Descripción*" rows="6"  [ngClass]="{
                                     'is-invalid': uploadLinkForm.get('description')?.hasError('required') && uploadLinkForm.get('description')?.touched,
                                     'is-valid': uploadLinkForm.get('description')?.value?.length >= 10
-                                  }" [maxlength]="250"></textarea>
+                                  }" [maxlength]="500"></textarea>
                             <div class="validators"
                                 *ngIf="uploadLinkForm.get('description')?.hasError('required') && uploadLinkForm.get('description')?.touched">
                                 <small>¡Este campo es requerido!</small>

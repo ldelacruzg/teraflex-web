@@ -43,6 +43,10 @@ input {
     color: #03679c;
 }
 
+.input-group-text>fa-icon{
+    color: #03679c;
+}
+
 /*------------ For small screens------------*/
 @media only screen and (max-width: 768px) {
     .content-image img {
@@ -61,6 +65,7 @@ input {
 
     .right-content {
         padding: 25px;
+        margin-top: -35%;
     }
 
     .location {

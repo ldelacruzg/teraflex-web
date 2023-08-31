@@ -76,7 +76,7 @@ export class UploadVideoFormComponent {
         [Validators.required],
       ],
       description: ['',
-        [Validators.required, Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ!@#$%^&*(),.: ]*$")],
+        [Validators.required],
       ],
     });
   }
