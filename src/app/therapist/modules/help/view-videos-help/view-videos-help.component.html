@@ -12,17 +12,34 @@
 
         <div class="row container-videos">
             <!--Muestra el video seleccionado pra reproducir-->
-            <div class="col-12 col-lg-8 play-video mb-4">
-                <h6 class="mb-2"><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Título:</b> Pasos para registrar pacientes</h6>
-                <iframe src="https://www.youtube.com/embed/rU6bQcacc-8" title="GANÉ JUGANDO EN EL CASINO | 1 día solo en Ámsterdam 🎰🇳🇱" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="col-12 col-md-8 col-lg-8 play-video mb-4">
+                <!-- <h6 class="mb-2"><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Título:</b> Pasos para registrar pacientes</h6> -->
+                <h6 class="mb-2"><b> Video explicativo</b></h6>
+                <iframe src="https://www.youtube.com/embed/rU6bQcacc-8"
+                    title="GANÉ JUGANDO EN EL CASINO | 1 día solo en Ámsterdam 🎰🇳🇱" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
             </div>
             <!--Muestra los videos sugeridos-->
             <div class="col-12 col-lg-4 suggested-videos">
-                <h6 class="mb-2"><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Videos sugeridos</b></h6>
-                <img src="https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg"
-                    class="mb-2">
-                <img src="https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg"
-                    class="mb-2">
+                <h6 class="mb-2"><b> Detalle del video</b></h6>
+                <div class="video-detail">
+                    <!--Titulo del video-->
+                    <div class="mb-3">
+                        <label><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Título:</b></label>
+                        <p>Pasos para registrar pacientes</p>
+                    </div>
+                    <!--Duración (minutos)-->
+                    <div class="mb-3">
+                        <label><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Duración:</b></label>
+                        <p>3 minutos Aprox.</p>
+                    </div>
+                    <div class="mb-3">
+                        <label><fa-icon [icon]="iconArrowRight" class="icon-title"></fa-icon><b> Descripción:</b></label>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla inventore quam recusandae fuga! Deleniti ut aut in, dolores magnam nobis numquam sint atque ducimus ullam eum, quibusdam, exercitationem animi non molestiae cumque amet labore. Sed aut animi maxime praesentium minus impedit, doloribus tenetur fuga et, dicta qui eos molestias natus!</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -1,8 +1,17 @@
 <body>
     <div class="container">
         <h5><b class="divider-title">|</b> Cantidad de pacientes por rango de edades</h5>
-        <div class="row">
-            <div id="chart"></div>
-        </div>
+        <ng-container *ngIf="arrayQuantity.length!=0; else noPatientsByAges">
+            <div class="row">
+                <div id="chart"></div>
+            </div>
+        </ng-container>
+        <!--Si no hay datpos para el gráfico, muestra este mensaje-->
+        <ng-template #noPatientsByAges>
+            <div class="row mx-3 mt-4 no-results">
+                <p>Aún no existen una cantidad considerable de pacientes para poder mostrar cuántos pacientes registrados existen, por
+                    edades...</p>
+            </div>
+        </ng-template>
     </div>
 </body>

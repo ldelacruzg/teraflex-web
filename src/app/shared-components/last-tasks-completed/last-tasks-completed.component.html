@@ -1,16 +1,24 @@
 <body>
-    <h5><b class="divider-title">|</b> Últimas tareas completadas de los pacientes</h5>
+    <h5><b class="divider-title">|</b> Últimas tareas completadas por los pacientes</h5>
     <div class="row">
         <div class="column">
             <ul class="row mt-3">
-                <div class="col-10">
-                    <li class="mb-2" *ngFor="let task of arrayLastTasksCompletedByPatients.slice(0, 6)"><fa-icon
-                        [icon]="iconToReview"></fa-icon>&nbsp;&nbsp;{{task.title}}</li>
-                </div>
-                <div class="col-2">
-                    <li class="mb-2" *ngFor="let task of arrayLastTasksCompletedByPatients.slice(0, 6)"><fa-icon
-                        [icon]="iconViewDetails" (click)="openModalViewDetailLastTasksCompleted(modalViewDetailLastTasksCompleted, task)"></fa-icon></li>
-                </div>
+                <ng-container *ngIf="arrayLastTasksCompletedByPatients.length!=0; else noLastTasksCompleted">
+                    <div class="col-10">
+                        <li class="mb-2" *ngFor="let task of arrayLastTasksCompletedByPatients.slice(0, 6)"><fa-icon
+                            [icon]="iconToReview"></fa-icon>&nbsp;&nbsp;{{task.title}}</li>
+                    </div>
+                    <div class="col-2">
+                        <li class="mb-2" *ngFor="let task of arrayLastTasksCompletedByPatients.slice(0, 6)"><fa-icon
+                            [icon]="iconViewDetails" (click)="openModalViewDetailLastTasksCompleted(modalViewDetailLastTasksCompleted, task)"></fa-icon></li>
+                    </div>
+                </ng-container>
+                <!--Si no hay tareas completadas, se muestra este mensaje-->
+                <ng-template #noLastTasksCompleted>
+                    <div class="row mx-3">
+                        <p class="no-results">Al momento, no existenten tareas completadas por los pacientes, las últimas tareas se irán listando aquí conforme los pacientes vayan completando...</p>
+                    </div>
+                </ng-template>
             </ul>
         </div>
     </div>

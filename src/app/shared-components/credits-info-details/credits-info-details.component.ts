@@ -15,7 +15,6 @@ export class CreditsInfoDetailsComponent {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691903628/TeraFlex%20-%20Vinculaci%C3%B3n/Profile-photo_dvkvlo.jpg",
       name: "Jordan Vera Coello",
       position: "Líder del proyecto",
-      whatsapp: "https://wa.me/+593980576250",
       mail: "mailto:jverac12@uteq.edu.ec",
       linkedin: "https://www.linkedin.com/in/jordanfvc26/"
     },
@@ -23,7 +22,6 @@ export class CreditsInfoDetailsComponent {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691903729/TeraFlex%20-%20Vinculaci%C3%B3n/Ivan_Manzaba_Profile_rqwqsm.jpg",
       name: "Iván Manzaba Garcés",
       position: "Líder técnico",
-      whatsapp: "https://wa.me/+593980576250",
       mail: "mailto:imanzabag@uteq.edu.ec",
       linkedin: "https://www.linkedin.com/in/iv%C3%A1n-manzaba-1ab312214/"
     },
@@ -31,15 +29,13 @@ export class CreditsInfoDetailsComponent {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691905705/TeraFlex%20-%20Vinculaci%C3%B3n/Luis_Moreira_Profile_zxey6k.jpg",
       name: "Luis Moreira Torres",
       position: "Desarrollador móvil",
-      whatsapp: "https://wa.me/+593980576250",
       mail: "mailto:lmoreirat@uteq.edu.ec",
       linkedin: "https://www.linkedin.com/in/luis-enrique-moreira-torres-317334252/"
     },
     {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691903729/TeraFlex%20-%20Vinculaci%C3%B3n/Luis_de_la_Cruz_Profile_cmw3au.jpg",
       name: "Luis De La Cruz",
-      position: "Desarrollador Backend",
-      whatsapp: "https://wa.me/+593963121825",
+      position: "Desarrollador backend",
       mail: "mailto:ldelacruzg@uteq.edu.ec",
       linkedin: "https://www.linkedin.com/in/luis-de-la-cruz/"
     }
@@ -49,17 +45,15 @@ export class CreditsInfoDetailsComponent {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691905728/TeraFlex%20-%20Vinculaci%C3%B3n/user-profile_fbdmtf.png",
       name: "Orlando Erazo",
       position: "Director del proyecto de vinculación",
-      whatsapp: "https://wa.me/+593999999999",
       mail: "mailto:oerazo@uteq.edu.ec",
-      linkedin: "https://www.linkedin.com/in/user/"
+      google: "https://sites.google.com/a/uteq.edu.ec/oerazo/"
     },
     {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691905728/TeraFlex%20-%20Vinculaci%C3%B3n/user-profile_fbdmtf.png",
       name: "Rafael Salinas",
       position: "Coordinador proyecto de vinculación",
-      whatsapp: "https://wa.me/+593999999999",
       mail: "mailto:rsalinas@uteq.edu.ec",
-      linkedin: "https://www.linkedin.com/in/user/"
+      google: "https://sites.google.com/a/uteq.edu.ec/rsalinas/"
     },
   ];
 

@@ -7,8 +7,8 @@
 }
 
 .play-video>iframe{
-    width: 100%;
-    height: 97%;
+    width: 100% !important;
+    height: 98% !important;
 }
 
 .suggested-videos>img{
@@ -18,6 +18,13 @@
 
 img, iframe{
     border-radius: 7px !important;
+}
+
+.video-detail{
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 7px;
+    height: 92% !important;
 }
 
 /*-------------Responsive Web Design------------*/
