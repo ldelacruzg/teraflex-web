@@ -14,31 +14,31 @@ export class OptionsHomeComponent {
   @Output() carouselExample1: string ="carouselExample1";
   @Output() arrayVideosDetail1: any[] = [
     {
-      picture: "https://i.ytimg.com/vi/YfF0mvi0SQs/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAcuxccjSWrIhzP--GCSRJLjm0fQ",
-      title: "Pasos para crear tareas",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693682122/TeraFlex%20-%20Vinculaci%C3%B3n/Crear_tarea_xdzdbg.png",
+      title: "Pasos para crear una tarea",
     },
     {
-      picture: "https://i.ytimg.com/vi/6Ldz9mpV70s/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCNPmNofIYZblfTiOgbkEiThb2Tiw",
-      title: "Pasos para editar tareas",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693685434/TeraFlex%20-%20Vinculaci%C3%B3n/Pasos_subir_video_local_pz06eo.png",
+      title: "Pasos para subir videos",
     },
     {
-      picture: "https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg",
-      title: "Pasos para registrar pacientes",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693687924/TeraFlex%20-%20Vinculaci%C3%B3n/Reportes_de_pacientes_pjn5dt.png",
+      title: "Emitir reporte de pacientes",
     },
   ];
   
   @Output() arrayVideosDetail2: any[] = [
     {
-      picture: "https://i.ytimg.com/vi/YfF0mvi0SQs/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAcuxccjSWrIhzP--GCSRJLjm0fQ",
-      title: "Pasos para editar pacientes",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693685725/TeraFlex%20-%20Vinculaci%C3%B3n/Pasos_subir_enlaces_YouTube_skymcm.png",
+      title: "Pasos para subir enlaces",
     },
     {
-      picture: "https://i.ytimg.com/vi/6Ldz9mpV70s/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCNPmNofIYZblfTiOgbkEiThb2Tiw",
-      title: "Pasos para subir videos",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693688035/TeraFlex%20-%20Vinculaci%C3%B3n/Ver_detalles_pacientes_ifo5fa.png",
+      title: "Ver detalle de pacientes",
     },
     {
-      picture: "https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg",
-      title: "Pasos para asignar tareas",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693685877/TeraFlex%20-%20Vinculaci%C3%B3n/Editar_recursos_bn9uza.png",
+      title: "Editar un recurso",
     },
   ];
   detailInfoTerapist: InformationTerapistDetailI = {
