@@ -3,11 +3,17 @@
     <div class="row">
         <div class="column">
             <ul class="row mt-3">
-                <div class="col-10">
-                    <li class="mb-2" *ngFor="let patient of arrayLastPatients.slice(0, 7)"><fa-icon
-                        [icon]="iconUser"></fa-icon>&nbsp;&nbsp;{{patient.firstName + " " + patient.lastName}}</li>
-                </div>
+                <ng-container *ngIf="arrayLastPatients.length!=0; else noLastPatientsRegistered">
+                    <div class="col-10">
+                        <li class="mb-2" *ngFor="let patient of arrayLastPatients.slice(0, 7)"><fa-icon
+                            [icon]="iconUser"></fa-icon>&nbsp;&nbsp;{{patient.firstName + " " + patient.lastName}}</li>
+                    </div>
+                </ng-container>
             </ul>
         </div>
     </div>
+    <!--Si no hay tareas completadas, se muestra este mensaje-->
+    <ng-template #noLastPatientsRegistered>
+        <p class="no-results">Al momento, no existenten pacientes registrados para ser mostrados aquí...</p>
+   </ng-template>
 </body>

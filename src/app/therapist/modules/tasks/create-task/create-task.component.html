@@ -48,7 +48,7 @@
                                             'is-invalid': uploadTaskForm.get('visibility')?.hasError('required') && uploadTaskForm.get('visibility')?.touched,
                                             'is-valid': optionVisibilitySelected!= ''
                                             }">
-                                            <option value="" selected>Seleccione una opción</option>
+                                            <option value="" selected disabled>Seleccione una opción</option>
                                             <option value="public">Pública</option>
                                             <option value="private">Privada</option>
                                         </select>
@@ -65,7 +65,7 @@
                                             'is-invalid': uploadTaskForm.get('category')?.hasError('required') && uploadTaskForm.get('category')?.touched,
                                             'is-valid': optionCategorySelected!= ''
                                             }">
-                                            <option value="" selected>Seleccione una opción</option>
+                                            <option value="" selected disabled>Seleccione una opción</option>
                                             <option *ngFor="let category of arrayCategories" [value]="category.id">
                                                 {{category.name}}</option>
                                         </select>

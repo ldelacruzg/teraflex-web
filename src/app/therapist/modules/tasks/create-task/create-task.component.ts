@@ -138,18 +138,24 @@ export class CreateTaskComponent {
   /*Método que manda a guardar el detalle de la tarea con los videos asignados*/
   registerTaskDetail() {
     this.spinnerStatus = false;
-    this.tasksService.registerTaskDetailWithVideos(this.headers.getHeaders(), this.getInfoFormUploadTask())
-      .subscribe({
-        next: (data: ApiResponseRegisterTaskDetailI) => {
-          this.showToastSuccess(data.message, "Éxito");
-          this.spinnerStatus = true;
-          this.router.navigateByUrl("therapist/home/dashboard/tasks/my-tasks");
-        },
-        error: (error) => {
-          this.spinnerStatus = true;
-          this.showToastError("Error", "No ha podido registrar su tarea");
-        }
-      });
+    if(this.arrayVideosId.length != 0){
+      this.tasksService.registerTaskDetailWithVideos(this.headers.getHeaders(), this.getInfoFormUploadTask())
+        .subscribe({
+          next: (data: ApiResponseRegisterTaskDetailI) => {
+            this.showToastSuccess(data.message, "Éxito");
+            this.spinnerStatus = true;
+            this.router.navigateByUrl("therapist/home/dashboard/tasks/my-tasks");
+          },
+          error: (error) => {
+            this.spinnerStatus = true;
+            this.showToastError("Error", "No ha podido registrar su tarea");
+          }
+        });
+    }
+    else{
+      this.spinnerStatus = true;
+      this.showToastError("Error", "Debe seleccionar al menos un video para la tarea");
+    }
   }
 
   /*Método para avanzar al siguiente paso en el stepper*/

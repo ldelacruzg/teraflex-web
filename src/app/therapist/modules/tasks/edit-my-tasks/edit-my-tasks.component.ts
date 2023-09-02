@@ -63,13 +63,16 @@ export class EditMyTasksComponent {
 
   /*Método que obtiene el listado de todas las categorias disponibles*/
   getAllCategories() {
+    this.spinnerStatus = false;
     this.categoriesService.getAllCategories(this.headers.getHeaders())
       .subscribe({
         next: (data: ApiResponseCategoriesI) => {
           this.arrayCategories = data.data;
           this.arrayCategories.sort((a, b) => a.name.localeCompare(b.name));
+          this.spinnerStatus = true;
         },
         error: (error) => {
+          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudo cargar el listado de categorías");
         }
       });

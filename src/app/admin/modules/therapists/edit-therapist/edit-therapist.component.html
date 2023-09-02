@@ -100,7 +100,7 @@
                         }" readonly  data-bs-toggle="mensaje" title="Este campo no se puede editar">
                             <option value="0" selected>Seleccione una opción</option>
                             <option *ngFor="let category of arrayCategories" [value]="category.id">
-                                {{category.name}}</option>
+                                {{category.name!=''?category.name:"Sin departamento"}}</option>
                         </select>
                         <div class="validators"
                             *ngIf="editTherapistForm.get('categoryID')?.hasError('required') && editTherapistForm.get('categoryID')?.touched">
@@ -120,7 +120,7 @@
                             }">
                             </textarea>
                         <div class="validators"
-                            *ngIf="editTherapistForm.get('phone')?.hasError('required') && editTherapistForm.get('phone')?.touched">
+                            *ngIf="editTherapistForm.get('description')?.hasError('required') && editTherapistForm.get('description')?.touched">
                             <small>¡Este campo es requerido!</small>
                         </div>
                     </div>

@@ -46,13 +46,16 @@ export class RegisterMyPatientsComponent {
 
   /*Método que obtiene el listado de los pacientes externos*/
   getMyPatients() {
+    this.spinnerStatus = false;
     this.myPatientsService.getOutPatients(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseGetOutPatientsI) => {
           this.arrayPatients = data.data;
+          this.spinnerStatus = true;
         },
         error: (error) => {
-          alert("No se pudieron obtener los pacientes")
+          this.spinnerStatus = true;
+          alert("No se pudo obtener el listado de pacientes")
         }
       })
   }
@@ -73,6 +76,7 @@ export class RegisterMyPatientsComponent {
 
   /*Método que obtiene el detalle de los datos del paciente existente según el paciente seleccionado (ID)*/
   getInfoDetailPatient(idPatient: number) {
+    this.spinnerStatus = false;
     this.idPatientToLink = idPatient;
     this.myPatientsService.getMyPatientById(this.headers.getHeaders(), idPatient)
       .subscribe({
@@ -81,9 +85,15 @@ export class RegisterMyPatientsComponent {
           this.patientForm.get('docNumber')?.setValue(this.infoPatientById.docNumber);
           this.patientForm.get('phone')?.setValue(this.infoPatientById.phone);
           this.patientForm.get('description')?.setValue(this.infoPatientById.description);
-          this.patientForm.get('birthDate')?.setValue(this.infoPatientById.birthDate);
+          if (this.infoPatientById?.birthDate) {
+            const isoDate = new Date(this.infoPatientById.birthDate);
+            const formattedDate = isoDate.toISOString().substr(0, 10);
+            this.patientForm.get('birthDate')?.setValue(formattedDate);
+          }
+          this.spinnerStatus = true;
         },
         error: (error) => {
+          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudieron obtener los datos del paciente")
         }
       })

@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-12 container-info">
             <div class="col-12 mt-3 mx-1">
-                <h4 id="titulo"><fa-icon [icon]="iconAddPatient" class="icon-title"></fa-icon> {{linkPatient2 ? " Vincular Paciente" : " Registrar Paciente"}}</h4>
+                <h4 id="titulo"><fa-icon [icon]="iconAddPatient" class="icon-title"></fa-icon> {{linkPatient2 ? " Vincular paciente" : " Registrar paciente"}}</h4>
             </div>
 
             <form [formGroup]="patientForm">
@@ -137,7 +137,7 @@
                             [readonly]="linkPatient2">
                             </textarea>
                         <div class="validators"
-                            *ngIf="patientForm.get('phone')?.hasError('required') && patientForm.get('phone')?.touched">
+                            *ngIf="patientForm.get('description')?.hasError('required') && patientForm.get('description')?.touched">
                             <small>¡Este campo es requerido!</small>
                         </div>
                     </div>

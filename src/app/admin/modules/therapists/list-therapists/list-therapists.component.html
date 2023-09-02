@@ -68,13 +68,13 @@
                   <td>
                     <ng-container *ngIf="therapist.category; else noCategory">{{ therapist.category.name
                       }}</ng-container>
-                    <ng-template #noCategory>Sin departamento</ng-template>
+                    <ng-template #noCategory>-</ng-template>
                   </td>
                   <td class="actions">
                     <fa-icon
                       (click)="showAlertGeneratePassword(therapist.id, therapist.firstName + ' ' + therapist.lastName, modalGenerateNewPassword)"
                       data-bs-toggle="mensaje" title="Generar contraseña" id="iconGeneratePassword"
-                      [icon]="iconGeneratePassword"></fa-icon>
+                      [icon]="iconGeneratePassword" *ngIf="statusTherapist"></fa-icon>
                     <fa-icon (click)="openModalViewtherapistDetail(viewtherapistDetail, therapist.id)"
                       data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                       [icon]="iconViewDetails"></fa-icon>

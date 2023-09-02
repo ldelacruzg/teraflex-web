@@ -34,7 +34,7 @@
                                 [(ngModel)]="optionVisibilitySelected" formControlName="visibility"
                                 [ngClass]="{
                                 'is-invalid': editTaskForm.get('visibility')?.hasError('required') && editTaskForm.get('visibility')?.touched}">
-                                <option value="" selected>Seleccione una opción</option>
+                                <option value="" selected disabled>Seleccione una opción</option>
                                 <option value="public">Pública</option>
                                 <option value="private">Privada</option>
                             </select>

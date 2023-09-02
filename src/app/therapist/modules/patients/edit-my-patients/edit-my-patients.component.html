@@ -97,7 +97,7 @@
                                 'is-invalid': editPatientForm.get('description')?.hasError('required') && editPatientForm.get('description')?.touched || editPatientForm.get('description')?.hasError('pattern')}">
                             </textarea>
                         <div class="validators"
-                            *ngIf="editPatientForm.get('phone')?.hasError('required') && editPatientForm.get('phone')?.touched">
+                            *ngIf="editPatientForm.get('description')?.hasError('required') && editPatientForm.get('description')?.touched">
                             <small>¡Este campo es requerido!</small>
                         </div>
                     </div>
