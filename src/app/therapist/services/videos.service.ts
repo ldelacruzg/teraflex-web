@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseEditDesactivateVideoI, ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, editVideoI } from '../interfaces/videos.interface';
+import { ApiResponseEditDesactivateVideoI, ApiResponseMyVideosI, ApiResponseRegisterVideoLocalI, RegisterVideoLinkI, editVideoI } from '../interfaces/videos.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -37,7 +37,7 @@ export class VideosService {
     }
 
     /*Método que consume el servicio para registrar un video pero como link*/
-    registerVideoLink(headers: Map<string, any>, body: any): Observable<ApiResponseRegisterVideoLocalI> {
+    registerVideoLink(headers: Map<string, any>, body: RegisterVideoLinkI): Observable<ApiResponseRegisterVideoLocalI> {
         this.options = this.authService.getHeaders(headers);
         return this.http.post<ApiResponseRegisterVideoLocalI>(this.urlApi + "/multimedia/upload/online", body, this.options);
     }
