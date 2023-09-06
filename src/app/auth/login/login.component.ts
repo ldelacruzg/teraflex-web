@@ -57,6 +57,10 @@ export class LoginComponent {
               this.ruta.navigateByUrl('/admin/home/dashboard');
               this.showToastSuccess(res.message, "Administrador")
             }
+            else if(res.data.role == environment.PATIENT){
+              this.spinnerStatus = true;
+              this.showToastError("Error", "Usted no se encuentra autorizado para acceder a esta aplicación");
+            }
           },
           error: (resError: ApiResponseLoginUserI) => {
             this.spinnerStatus = true;

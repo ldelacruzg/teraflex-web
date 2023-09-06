@@ -154,7 +154,9 @@ export class UploadVideoFormComponent {
           next: (data) => {
             this.spinnerStatus = true;
             this.showToastSuccess(data.message, "Éxito");
-            this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos")
+            this.uploadVideoForm.reset();
+            if (this.viewInModal)
+              this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos")
           },
           error: (error) => {
             this.spinnerStatus = true;
@@ -169,20 +171,20 @@ export class UploadVideoFormComponent {
 
   /*Método que registra un video como enlace*/
   registerVideoLink() {
-    const bodyForm: RegisterVideoLinkI[] = [
-      {
-        url: this.uploadLinkForm.value.link,
-        title: this.uploadLinkForm.value.title,
-        isPublic: this.uploadLinkForm.value.visibility,
-        description: this.uploadLinkForm.value.description,
-      }
-    ];
+    this.spinnerStatus = true;
+    const bodyForm: RegisterVideoLinkI = {
+      url: this.uploadLinkForm.value.link,
+      title: this.uploadLinkForm.value.title,
+      isPublic: this.uploadLinkForm.value.visibility,
+      description: this.uploadLinkForm.value.description,
+    };
     this.videoService.registerVideoLink(this.headers.getHeaders(), bodyForm)
       .subscribe({
         next: (data: ApiResponseRegisterVideoLocalI) => {
-          this.spinnerStatus = true;
           this.showToastSuccess(data.message, "Éxito");
-          this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos");
+          this.uploadVideoForm.reset();
+          if (this.viewInModal)
+            this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos");
         },
         error: (error) => {
           this.spinnerStatus = true;
