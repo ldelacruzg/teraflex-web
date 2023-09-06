@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { VideosModule } from '../videos/videos.module';
 import { UploadVideoComponent } from './modals/upload-video/upload-video.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -41,14 +42,15 @@ import { UploadVideoComponent } from './modals/upload-video/upload-video.compone
     ToastrModule.forRoot(),
     MatInputModule,
     MatAutocompleteModule,
-    VideosModule
+    VideosModule,
+    MatDialogModule
   ],
   exports: [
     ListMyTasksComponent,
     AssignTasksComponent
   ],
   providers:[
-    SweetAlerts
+    SweetAlerts,
   ]
 })
 export class TasksModule { }

@@ -109,7 +109,7 @@
                 <div class="action-buttons mb-3">
                     <button (click)="registerVideo()" type="button" class="btn btn-primary btn-md"
                     [disabled]="uploadVideoForm.invalid">Aceptar</button>
-                    <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md" *ngIf="viewInModal">Cancelar</button>
+                    <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md" *ngIf="!viewInModal">Cancelar</button>
                 </div>
             </ng-container>
 
@@ -189,7 +189,7 @@
                 <div class="action-buttons mb-3">
                     <button (click)="registerVideoLink()" type="button" class="btn btn-primary btn-md"
                     [disabled]="uploadLinkForm.invalid">Aceptar</button>
-                    <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md" *ngIf="viewInModal">Cancelar</button>
+                    <button [routerLink]="'../list-videos'" type="button" class="btn btn-danger btn-md" *ngIf="!viewInModal">Cancelar</button>
                 </div>
             </ng-template>
         </div>

@@ -125,7 +125,7 @@
                                         name="videosTosearch" [(ngModel)]="videosToSearch">
                                     </div>
                                     <div class="col-12 col-md-7 col-lg-7 d-flex justify-content-end">
-                                        <button (click)="openModalUploadVideo(uploadVideoForm)" 
+                                        <button (click)="openDialog()" 
                                             mat-button type="button" class="btn btn-primary btn-md"><fa-icon
                                             [icon]="iconAdd"></fa-icon> Nuevo video</button>
                                     </div>
@@ -303,7 +303,7 @@
                                         name="videosTosearch" [(ngModel)]="videosToSearch">
                                     </div>
                                     <div class="col-12 col-md-7 col-lg-7 d-flex justify-content-end">
-                                        <button (click)="openModalUploadVideo(uploadVideoForm)" 
+                                        <button (click)="openDialog()"
                                             mat-button type="button" class="btn btn-primary btn-md"><fa-icon
                                             [icon]="iconAdd"></fa-icon> Nuevo video</button>
                                     </div>
@@ -380,6 +380,6 @@
 </ng-template>
 
 <!--Modal para subir un video-->
-<ng-template #uploadVideoForm>
+<!-- <ng-template #uploadVideoForm>
    <app-upload-video></app-upload-video>
-</ng-template>
+</ng-template> -->

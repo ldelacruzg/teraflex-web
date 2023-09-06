@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ApiResponseRegisterVideoLocalI, RegisterVideoLinkI } from 'src/app/therapist/interfaces/videos.interface';
@@ -14,7 +14,8 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 })
 export class UploadVideoFormComponent {
   /*Variables*/
-  @Input() viewInModal: boolean = true;
+  @Output() status: EventEmitter<void> = new EventEmitter();
+  @Input() viewInModal: boolean = false;
   formSelect = new FormGroup({
     filtro: new FormControl('video'),
   });
@@ -155,8 +156,12 @@ export class UploadVideoFormComponent {
             this.spinnerStatus = true;
             this.showToastSuccess(data.message, "Éxito");
             this.uploadVideoForm.reset();
-            if (this.viewInModal)
+            if (this.viewInModal) {
+              this.status.emit();
+            }
+            else {
               this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos")
+            }
           },
           error: (error) => {
             this.spinnerStatus = true;
@@ -183,8 +188,12 @@ export class UploadVideoFormComponent {
         next: (data: ApiResponseRegisterVideoLocalI) => {
           this.showToastSuccess(data.message, "Éxito");
           this.uploadVideoForm.reset();
-          if (this.viewInModal)
-            this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos");
+          if (this.viewInModal) {
+            this.status.emit();
+          }
+          else {
+            this.route.navigateByUrl("therapist/home/dashboard/videos/list-videos")
+          }
         },
         error: (error) => {
           this.spinnerStatus = true;

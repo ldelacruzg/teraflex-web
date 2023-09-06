@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthModule } from './auth/auth.module';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { AdminModule } from './admin/admin.module';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminModule } from './admin/admin.module';
     FontAwesomeModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,6 +11,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { ViewMyVideosComponent } from './modals/view-my-videos/view-my-videos.component';
 import { EditMyVideosComponent } from './edit-my-videos/edit-my-videos.component';
 import { SweetAlerts } from '../../alerts/alerts.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { TasksModule } from '../tasks/tasks.module';
+import { DashboardComponent } from '../home/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +30,12 @@ import { SweetAlerts } from '../../alerts/alerts.component';
     VideosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatDialogModule,
   ],
   providers:[
-    SweetAlerts
+    SweetAlerts,
+    DashboardComponent
   ],
   exports: [
     ViewMyVideosComponent,
