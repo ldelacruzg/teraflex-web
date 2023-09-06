@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-videos-help',
@@ -13,11 +14,27 @@ export class ViewVideosHelpComponent {
   static location: string;
   spinnerStatus: boolean = false;
   userRole: string = "--";
+  static title: string = "";
+  static url: string = "";
+  static time: string = "";
+  static description: string = "";
+  titleReceived: string = "";
+  urlReceived: string = "";
+  timeReceived: string = "";
+  descriptionReceived: string = "";
+  safeUrl: SafeResourceUrl;
 
   /*Constrcutor*/
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private sanitizer: DomSanitizer
+  ) {
+    this.titleReceived = ViewVideosHelpComponent.title;
+    this.urlReceived = ViewVideosHelpComponent.url;
+    this.timeReceived = ViewVideosHelpComponent.time;
+    this.descriptionReceived = ViewVideosHelpComponent.description;
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlReceived);
+  }
 
   /*ngOnInit*/
   ngOnInit() {
