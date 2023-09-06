@@ -33,7 +33,8 @@ import { SweetAlerts } from '../../alerts/alerts.component';
     SweetAlerts
   ],
   exports: [
-    ViewMyVideosComponent
+    ViewMyVideosComponent,
+    UploadVideoFormComponent
   ]
 })
 export class VideosModule { }

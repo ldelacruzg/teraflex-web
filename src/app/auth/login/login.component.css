@@ -32,13 +32,14 @@ input {
     background-color: transparent !important;
     border: 1px solid #007BBD !important;
     color: #007BBD !important;
+    border-radius: 10px !important;
 }
 
-.no-account>a{
+.no-account>span>a{
     color: #007BBD;
 }
 
-.no-account>a:hover {
+.no-account>span>a:hover {
     cursor: pointer;
     color: #03679c;
 }
@@ -46,6 +47,13 @@ input {
 .input-group-text>fa-icon{
     color: #03679c;
 }
+
+.container-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* Esto crea dos columnas de ancho automático */
+    gap: 10px; /* Espacio entre los botones, puedes ajustarlo según tus preferencias */
+  }
+  
 
 /*------------ For small screens------------*/
 @media only screen and (max-width: 768px) {

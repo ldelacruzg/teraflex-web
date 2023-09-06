@@ -30,13 +30,21 @@ export class SliderVideosComponent {
   }
 
   /*Método que redirige al componente de ver reproductor de video*/
-  goToVideoDetail(){
+  goToVideoDetail(video: any){
     if(this.userRole == environment.ADMIN){
       ViewVideosHelpComponent.location = this.location;
+      ViewVideosHelpComponent.title = video.title;
+      ViewVideosHelpComponent.url = video.url;
+      ViewVideosHelpComponent.time = video.time;
+      ViewVideosHelpComponent.description = video.descripcion;
       this.router.navigateByUrl("/admin/home/dashboard/help/video-detail");
     }
     else{
       ViewVideosHelpComponent.location = this.location;
+      ViewVideosHelpComponent.title = video.title;
+      ViewVideosHelpComponent.url = video.url;
+      ViewVideosHelpComponent.time = video.time;
+      ViewVideosHelpComponent.description = video.descripcion;
       this.router.navigateByUrl("/therapist/home/dashboard/help/video-detail");
     }
   }

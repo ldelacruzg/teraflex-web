@@ -14,31 +14,49 @@ export class OptionsHomeComponent {
   @Output() carouselExample1: string ="carouselExample1";
   @Output() arrayVideosDetail1: any[] = [
     {
-      picture: "https://i.ytimg.com/vi/YfF0mvi0SQs/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAcuxccjSWrIhzP--GCSRJLjm0fQ",
-      title: "Pasos para crear tareas",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693682122/TeraFlex%20-%20Vinculaci%C3%B3n/Crear_tarea_xdzdbg.png",
+      title: "Pasos para crear una tarea",
+      url: "https://www.youtube.com/embed/fS8dwEfavM0?list=PL2t9AygoxQ1sy5fBooe5b_QQUznvhfKtz",
+      time: "2:32 minutos",
+      descripcion: "Este es un video explicativo en donde se muestran los pasos necesarios para poder crear una tarea con todo lo necesario para los pacientes. Recuerde que antes de crear su tarea, debe surbir recursos, ya sean de videos locales o enlaces de YouTube."
     },
     {
-      picture: "https://i.ytimg.com/vi/6Ldz9mpV70s/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCNPmNofIYZblfTiOgbkEiThb2Tiw",
-      title: "Pasos para editar tareas",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693685434/TeraFlex%20-%20Vinculaci%C3%B3n/Pasos_subir_video_local_pz06eo.png",
+      title: "Pasos para subir videos",
+      url: "https://www.youtube.com/embed/PSS2UPrIwIY?list=PL2t9AygoxQ1sy5fBooe5b_QQUznvhfKtz",
+      time: "1:57 minutos",
+      descripcion: "En este video explicativo se muestra paso a paso como subir videos de manera local, es decir, desde su computadora o teléfono. Recuerde que previamente debe tener grabado un video que no exceda los 20mb de almacenamiento."
     },
     {
-      picture: "https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg",
-      title: "Pasos para registrar pacientes",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693687924/TeraFlex%20-%20Vinculaci%C3%B3n/Reportes_de_pacientes_pjn5dt.png",
+      title: "Emitir reporte de pacientes",
+      url: "https://www.youtube.com/embed/s_hjXw4kzDQ?list=PL2t9AygoxQ1sy5fBooe5b_QQUznvhfKtz",
+      time: "1:54 minutos",
+      descripcion: "En este video explicativo se muestra el proceso para poder emitir reportes de pacientes en formato PDF o Excel. Estos reportes se generan de acuerdo a los registros que se muestran en el listado de pacientes."
     },
   ];
   
   @Output() arrayVideosDetail2: any[] = [
     {
-      picture: "https://i.ytimg.com/vi/YfF0mvi0SQs/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBAcuxccjSWrIhzP--GCSRJLjm0fQ",
-      title: "Pasos para editar pacientes",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693685725/TeraFlex%20-%20Vinculaci%C3%B3n/Pasos_subir_enlaces_YouTube_skymcm.png",
+      title: "Pasos para subir enlaces",
+      url: "https://www.youtube.com/embed/mdAcynTdtKg",
+      time: "1:54 minutos",
+      descripcion: "En este video explicativo se muestra paso a paso el proceso para poder subir videos de YouTube, es decir, copiando el enlace y registrándolo en la aplicación, con toda la información correspondiente."
     },
     {
-      picture: "https://i.ytimg.com/vi/6Ldz9mpV70s/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCNPmNofIYZblfTiOgbkEiThb2Tiw",
-      title: "Pasos para subir videos",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693688035/TeraFlex%20-%20Vinculaci%C3%B3n/Ver_detalles_pacientes_ifo5fa.png",
+      title: "Ver detalle de pacientes",
+      url: "https://www.youtube.com/embed/UpaWGsSie2c?list=PL2t9AygoxQ1sy5fBooe5b_QQUznvhfKtz",
+      time: "0:56 segundos",
+      descripcion: "En este video explicativo se muestra el proceso para poder ver información más detallada de los pacientes, como por ejemplo la fecha de creación."
     },
     {
-      picture: "https://creamostuvideo.com/wp-content/uploads/2016/12/portada-video-youtube-1030x539.jpg",
-      title: "Pasos para asignar tareas",
+      picture: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1693685877/TeraFlex%20-%20Vinculaci%C3%B3n/Editar_recursos_bn9uza.png",
+      title: "Editar tipos de recurso",
+      url: "https://www.youtube.com/embed/AeNNoNRe6x8?list=PL2t9AygoxQ1sy5fBooe5b_QQUznvhfKtz",
+      time: "0:57 segundos",
+      descripcion: "En este video explicativo se muestra el proceso para poder editar un recurso, ya sea un video local o un enlace de YouTube. En el video se muestra la información que puede ser editada para registrar la información actualizada."
     },
   ];
   detailInfoTerapist: InformationTerapistDetailI = {

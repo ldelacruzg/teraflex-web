@@ -114,8 +114,14 @@ export class LoginComponent {
     return this.showPassword ? 'text' : 'password';
   }
 
+  //Método que abre un modal para mostrar más información
+  goToMoreInfo(moreInformation: any) {
+    this.modal.open(moreInformation, { size: 'lg', centered: true });
+  }
+
   /*Icons to use*/
   iconForgotPassword = iconos.faLock;
   iconViewPassword = iconos.faEye;
   iconHidePassword = iconos.faEyeSlash;
+  iconMoreInformation = iconos.faInfoCircle;
 }

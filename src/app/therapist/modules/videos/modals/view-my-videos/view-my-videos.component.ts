@@ -14,12 +14,14 @@ export class ViewMyVideosComponent {
   /*variables*/
   static videoType: string = "";
   static videoDetailRecibed: any = {
+    id: 0,
     title: "",
     link: "",
     isPublic: true,
     description: ""
   }
   videoDetail: any = {
+    id: 0,
     title: "",
     link: "",
     isPublic: true,
@@ -39,10 +41,13 @@ export class ViewMyVideosComponent {
 
   /*ngOnInit*/
   ngOnInit() {
+    this.videoDetail = ViewMyVideosComponent.videoDetailRecibed;
+
     if (ViewMyVideosComponent.videoType == "online") {
       this.idVideo = this.getVideoIdFromUrl(ViewMyVideosComponent.videoDetailRecibed.url);
       this.type = "online"
       this.videoDetail = {
+        id: ViewMyVideosComponent.videoDetailRecibed.id,
         title: ViewMyVideosComponent.videoDetailRecibed.title,
         link: this.getEmbeddedUrl(this.idVideo),
         isPublic: ViewMyVideosComponent.videoDetailRecibed.isPublic,
@@ -50,8 +55,9 @@ export class ViewMyVideosComponent {
       }
     }
     else {
-      this.downloadAndDisplayVideo();
+      this.downloadAndDisplayVideo(this.videoDetail.id);
       this.videoDetail = {
+        id: ViewMyVideosComponent.videoDetailRecibed.id,
         title: ViewMyVideosComponent.videoDetailRecibed.title,
         link: ViewMyVideosComponent.videoDetailRecibed.url,
         isPublic: ViewMyVideosComponent.videoDetailRecibed.isPublic,
@@ -61,8 +67,8 @@ export class ViewMyVideosComponent {
   }
 
   /*Método que descarga el video local*/
-  downloadAndDisplayVideo() {
-    this.videoService.getVideo(this.headers.getHeaders(), 107).subscribe((response: Blob) => {
+  downloadAndDisplayVideo(idVideoLocal: number) {
+    this.videoService.getVideo(this.headers.getHeaders(), idVideoLocal).subscribe((response: Blob) => {
       const blobUrl = URL.createObjectURL(response);
       this.videoUrl = blobUrl;
     }
