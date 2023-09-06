@@ -1,7 +1,7 @@
 <app-spinner *ngIf="!spinnerStatus"></app-spinner>
 
 <body>
-    <div class="row vh-100 body" >
+    <div class="row vh-100 body">
         <app-info-login class="col-md-7"></app-info-login>
 
         <!-------------------- ------ Form Login ---------------------------->
@@ -30,13 +30,20 @@
 
                     <div class="content-buttons">
                         <button type="submit" class="mb-3 btn btn-lg btn-primary w-100 fs-6">Iniciar sesión</button>
-                        <button type="button" (click)="goToForgotPassword(forgotPassword)"
-                            class="btn btn-lg btn-outline-primary w-100 fs-6"><small> <fa-icon
-                                    [icon]="iconForgotPassword"></fa-icon> Olvidé la contraseña</small></button>
+                        <div class="container-buttons">
+                            <button type="button" (click)="goToForgotPassword(forgotPassword)"
+                                class="btn-lg btn-outline-primary w-100 fs-6"><small> <fa-icon
+                                        [icon]="iconForgotPassword"></fa-icon> Olvidé la contraseña</small>
+                            </button>
+                            <button type="button" (click)="goToMoreInfo(modalMoreInformation)"
+                                class="btn btn-lg btn-outline-primary w-100 fs-6"><small> <fa-icon
+                                        [icon]="iconMoreInformation"></fa-icon> Más información</small>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="row text-center mt-5 no-account">
-                        <a class="mx-3" (click)="openModalNoAccount(noAccount)">¿No tienes una cuenta?</a>
+                        <span><a class="mx-3" (click)="openModalNoAccount(noAccount)">¿No tienes una cuenta?</a></span>
                     </div>
                 </form>
             </div>
@@ -58,4 +65,9 @@
 <!--Modal para mostrar la alerta de la primera vez que inicia sesión-->
 <ng-template #modalAlertChangePassword>
     <app-warning-change-password></app-warning-change-password>
+</ng-template>
+
+<!--Modal para mostrar las opciones de ver más información o los videos tutoriales-->
+<ng-template #modalMoreInformation>
+    <app-more-information></app-more-information>
 </ng-template>

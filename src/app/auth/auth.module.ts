@@ -12,6 +12,8 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
 import { PasswordModule } from '../therapist/modules/password/password.module';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { ForgotPasswordComponent } from './modals/forgot-password/forgot-password.component';
+import { MoreInformationComponent } from './modals/more-information/more-information.component';
+import { CreditsInfoComponent } from './credits-info/credits-info.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ForgotPasswordComponent } from './modals/forgot-password/forgot-passwor
     RecoveryPasswordComponent,
     NoAccountComponent,
     OtpCodeComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    MoreInformationComponent,
+    CreditsInfoComponent
   ],
   imports: [
     CommonModule,
