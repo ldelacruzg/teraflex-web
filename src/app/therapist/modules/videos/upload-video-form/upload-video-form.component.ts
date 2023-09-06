@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ApiResponseRegisterVideoLocalI, RegisterVideoLinkI } from 'src/app/therapist/interfaces/videos.interface';
@@ -14,6 +14,7 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 })
 export class UploadVideoFormComponent {
   /*Variables*/
+  @Input() viewInModal: boolean = true;
   formSelect = new FormGroup({
     filtro: new FormControl('video'),
   });

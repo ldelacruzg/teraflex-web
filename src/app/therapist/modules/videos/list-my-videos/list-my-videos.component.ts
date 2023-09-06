@@ -53,6 +53,8 @@ export class ListMyVideosComponent {
     this.myVideosService.getAllMyVideos(this.headers.getHeaders(), status).subscribe({
       next: (data: ApiResponseMyVideosI) => {
         this.arrayVideos = data.data;
+        console.log("LISTADO DE VIDEOS");
+        console.log(this.arrayVideos)
         this.spinnerStatus = true;
       },
       error: () => {

@@ -206,10 +206,16 @@ export class CreateTaskComponent {
     ViewMyVideosComponent.videoType = videoType;
   }
 
+  /*Método que abre un modal para subir un video local o enlace*/
+  openModalUploadVideo(uploadVideoForm: any) {
+    this.modal.open(uploadVideoForm, { size: 'xl', centered: true });
+  }
+
   /*Icons to use*/
   iconCreateTask = iconos.faFile;
   iconVerDetalles = iconos.faEye;
   iconBack = iconos.faArrowLeft;
   iconNextStep = iconos.faArrowRight;
   iconPreviousStep = iconos.faArrowLeft;
+  iconAdd = iconos.faCirclePlus;
 }

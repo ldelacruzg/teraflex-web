@@ -17,6 +17,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { VideosModule } from '../videos/videos.module';
+import { UploadVideoComponent } from './modals/upload-video/upload-video.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { VideosModule } from '../videos/videos.module';
     ViewTaskDetailComponent,
     AssignTasksComponent,
     EditTaskToAssignComponent,
+    UploadVideoComponent,
   ],
   imports: [
     CommonModule,
