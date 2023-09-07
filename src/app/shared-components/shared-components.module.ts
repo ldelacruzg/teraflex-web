@@ -14,6 +14,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { CreditsInfoDetailsComponent } from './credits-info-details/credits-info-details.component';
 import { ViewDetailLastTasksCompletedComponent } from './view-detail-last-tasks-completed/view-detail-last-tasks-completed.component';
 import { LastPatientsComponent } from './last-patients/last-patients.component';
+import { SearchPatientsPipe } from './pipes/search-patients.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LastPatientsComponent } from './last-patients/last-patients.component';
     ChatIAComponent,
     SpinnerComponent,
     SearchRegistersPipe,
+    SearchPatientsPipe,
     CreditsInfoDetailsComponent,
     CircleStatisticsComponent,
     LinearStatisticsComponent,
@@ -43,6 +45,7 @@ import { LastPatientsComponent } from './last-patients/last-patients.component';
     ChatIAComponent,
     SpinnerComponent,
     SearchRegistersPipe,
+    SearchPatientsPipe,
     CreditsInfoDetailsComponent,
     CircleStatisticsComponent,
     LinearStatisticsComponent,

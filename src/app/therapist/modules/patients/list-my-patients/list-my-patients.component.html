@@ -14,12 +14,12 @@
             <!--Inputs para buscar e importar-->
             <div class="row">
                 <!--Para filtrar por activos o inactivos-->
-                <div class="col-12 col-md-2 col-lg-2">
+                <div class="col-12 col-md-3 col-lg-3">
                     <form>
                         <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
                             (change)="onFilterChange($event)">
-                            <option value="true" selected>Activos</option>
-                            <option value="false">Inactivos</option>
+                            <option value="true" selected>Vinculados</option>
+                            <option value="false">Desvinculados</option>
                         </select>
                     </form>
                 </div>
@@ -31,7 +31,7 @@
                     </form>
                 </div>
                 <!--Importar los datos de la tabla-->
-                <div class="col-12 col-md-6 col-lg-6 export-buttons mb-3">
+                <div class="col-12 col-md-5 col-lg-5 export-buttons mb-3">
                     <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
                         title="Exportar a PDF">
                         <fa-icon [icon]="iconPdf"></fa-icon>
@@ -55,39 +55,51 @@
                                 <th scope="col">Apellidos</th>
                                 <th scope="col">Teléfono</th>
                                 <th scope="col">Edad</th>
+                                <th scope="col" *ngIf="!statusPatients">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <ng-container *ngIf="arrayMyPatients.length > 0; else noResults">
                                 <tr
-                                    *ngFor="let patient of arrayMyPatients | slice:initialPage:finalPage | searchRegisters:patientsToSearch:optionFilter; let i = index">
+                                    *ngFor="let patient of arrayMyPatients | slice:initialPage:finalPage | searchPatients:patientsToSearch:optionFilter; let i = index">
                                     <th scope="row">{{i+1}}</th>
-                                    <td>{{patient.docNumber}}</td>
-                                    <td>{{patient.firstName}}</td>
-                                    <td>{{patient.lastName}}</td>
-                                    <td>{{patient.phone}}</td>
-                                    <td>{{ calculateAge(patient.birthDate)}} años</td>
+                                    <td>{{patient.patient.docNumber}}</td>
+                                    <td>{{patient.patient.firstName}}</td>
+                                    <td>{{patient.patient.lastName}}</td>
+                                    <td>{{patient.patient.phone}}</td>
+                                    <td>{{ calculateAge(patient.patient.birthDate)}} años</td>
+                                    <td *ngIf="!statusPatients">
+                                        <div class="patientStatus"
+                                            [style.background-color]="patient.patient.status ? '#198754' : '#ccc'"
+                                            [style.border-radius]="patient.patient.status ? '5px' : '5px'"
+                                            [style.padding]="patient.patient.status ? '3px' : '3px'"
+                                            [style.color]="patient.patient.status ? 'white' : 'black'">
+                                            {{patient.patient.status? "Activo" : "Inactivo"}}
+                                        </div>
+                                    </td>
                                     <td class="acciones">
                                         <fa-icon
-                                            (click)="showAlertGeneratePassword(patient.id, patient.firstName + ' ' + patient.lastName, modalGenerateNewPassword)"
+                                            (click)="showAlertGeneratePassword(patient.patient.id, patient.patient.firstName + ' ' + patient.patient.lastName, modalGenerateNewPassword)"
                                             data-bs-toggle="mensaje" title="Generar contraseña"
                                             id="iconGeneratePassword" *ngIf="statusPatients"
                                             [icon]="iconGeneratePassword"></fa-icon>
                                         <fa-icon
-                                            (click)="unBindPatient(patient.id, patient.firstName + ' ' + patient.lastName)"
-                                            data-bs-toggle="mensaje" title="Desvincular paciente" id="iconUnBind"
-                                            *ngIf="statusPatients" [icon]="iconUnBindPatient"></fa-icon>
-                                        <fa-icon (click)="openModalViewPatientDetail(viewPatientDetail, patient.id)"
+                                            (click)="openModalViewPatientDetail(viewPatientDetail, patient.patient.id)"
                                             data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconViewDetail"></fa-icon>
-                                        <fa-icon (click)="goToEditPatient(patient)" data-bs-toggle="mensaje"
+                                        <fa-icon (click)="goToEditPatient(patient.patient)" data-bs-toggle="mensaje"
                                             title="Editar" id="iconEditar" *ngIf="statusPatients"
                                             [icon]="iconEdit"></fa-icon>
                                         <fa-icon
-                                            (click)="activateOrDesactivatePatient(patient.id, patient.firstName + ' ' + patient.lastName, statusPatients ? 'Desactivar' : 'Activar')"
-                                            data-bs-toggle="mensaje" title="Eliminar" id="iconEliminar"                                           
-                                            [icon]="statusPatients?iconDesactivate:iconActivate"></fa-icon>
+                                            (click)="activateOrDesactivatePatient(patient.patient.id, patient.patient.firstName + ' ' + patient.patient.lastName, statusPatients ? 'Desactivar' : 'Activar')"
+                                            data-bs-toggle="mensaje" [title]="statusPatients ? 'Desactivar' : 'Activar'"
+                                            id="iconEliminar"
+                                            [icon]="statusPatients?iconDesactivate:iconActivate" *ngIf="!patient.patient.status || statusPatients"></fa-icon>
+                                        <fa-icon
+                                            (click)="unBindPatient(patient.patient.id, patient.patient.firstName + ' ' + patient.patient.lastName, statusPatients?'Desvincular':'Vincular')"
+                                            data-bs-toggle="mensaje"[title]="statusPatients ? 'Desvincular paciente' : 'Vincular paciente'" id="iconUnBind"
+                                            [icon]="statusPatients?iconUnBindPatient:iconBindPatient" *ngIf="patient.patient.status"></fa-icon>
                                     </td>
                                 </tr>
                             </ng-container>

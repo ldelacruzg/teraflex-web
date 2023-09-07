@@ -1,19 +1,15 @@
-<!-- <div class="container">
-    <div class="modal-header">
-        <h4 class="modal-title"><fa-icon [icon]="iconVideos"></fa-icon> Subir videos</h4>
-        <button (click)="modal.dismissAll()" type="button" class="btn-close" data-bs-dismiss="modal"
-            aria-label="Close"></button>
+<div class="row div mx-2 mt-3">
+    <div class="col-11 mt-1">
+        <h4><fa-icon [icon]="iconVideoCamera"></fa-icon> Subir video</h4>
     </div>
-    <div class="modal-body mt-3 mb-5">
-        <app-upload-video-form [viewInModal]="false"></app-upload-video-form>
+    <div class="col-1 d-flex justify-content-end">
+        <button (click)="onNoClick()" type="button" class="btn-close mt-2" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-</div> -->
-
-<h1 mat-dialog-title>Holaaaaa</h1>
+</div>
+  
 <div mat-dialog-content>
     <app-upload-video-form [viewInModal]="true" (status)="onNoClick()"></app-upload-video-form>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    
 </div>

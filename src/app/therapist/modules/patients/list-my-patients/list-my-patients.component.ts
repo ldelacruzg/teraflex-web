@@ -3,7 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ViewMyPatientsComponent } from '../modals/view-my-patients/view-my-patients.component';
 import { EditMyPatientsComponent } from '../edit-my-patients/edit-my-patients.component';
-import { ApiResponseActivateDesactivatePatientI, ApiResponseGetMyPatientsI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
+import { ApiResponseActivateDesactivatePatientI, ApiResponseGetMyPatientsI, MyPatientDetailI, MyPatientsI } from 'src/app/therapist/interfaces/patients.interface';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -30,8 +30,8 @@ export class ListMyPatientsComponent {
   finalPage: number = environment.ITEMS_FOR_PAGE;
   spinnerStatus: boolean = false;
   statusPatients: boolean = true;
-  arrayMyPatients: MyPatientDetailI[] = [];
-  patientsToSearch: MyPatientDetailI[] = [];
+  arrayMyPatients: MyPatientsI[] = [];
+  patientsToSearch: MyPatientsI[] = [];
 
   /*Constructor*/
   constructor(
@@ -56,13 +56,11 @@ export class ListMyPatientsComponent {
       this.statusPatients = true;
       this.getAllMyPatients(true);
       this.arrayMyPatients = [];
-      console.log(this.arrayMyPatients)
     }
     else if (value === "false") {
       this.statusPatients = false;
       this.getAllMyPatients(false);
       this.arrayMyPatients = [];
-      console.log(this.arrayMyPatients)
     }
   }
 
@@ -72,9 +70,13 @@ export class ListMyPatientsComponent {
     this.myPatientsService.getMyPatients(this.headers.getHeaders(), status)
       .subscribe({
         next: (data: ApiResponseGetMyPatientsI) => {
-          data.data.forEach(element => {
-            this.arrayMyPatients.push(element.patient);
-          })
+          /* data.data.forEach(element => {
+            this.arrayMyPatients.push(element);
+            console.log("Nuevo array");
+            console.log(this.arrayMyPatients);
+          }) */
+          this.arrayMyPatients = data.data;
+          console.log(this.arrayMyPatients);
           this.spinnerStatus = true;
         },
         error: () => {
@@ -195,8 +197,8 @@ export class ListMyPatientsComponent {
   }
 
   /*Método que desvincula un paciente del terapeuta*/
-  unBindPatient(idPatient: number, namePatient: string) {
-    this.sweetAlerts.alertConfirmCancel("Desvincular paciente", "¿Está seguro de desvincular a \"" + (namePatient).toUpperCase() + "\", de su listado de pacientes?")
+  unBindPatient(idPatient: number, namePatient: string, statusString: string) {
+    this.sweetAlerts.alertConfirmCancel(statusString + " paciente", "¿Está seguro de "+statusString.toLowerCase()+" a \"" + (namePatient).toUpperCase() + "\", de su listado de pacientes?")
       .then(respuesta => {
         if (respuesta.value == true) {
           this.spinnerStatus = false;
@@ -205,12 +207,12 @@ export class ListMyPatientsComponent {
               next: (data: string) => {
                 this.arrayMyPatients = [];
                 this.getAllMyPatients(true);
-                this.showToastSuccess("Paciente desvinculado con éxito", "Éxtio");
+                this.showToastSuccess("Paciente actualizado con éxito", "Éxtio");
                 this.spinnerStatus = true;
               },
               error: (error: any) => {
                 this.spinnerStatus = true;
-                this.showToastError("Error", "No se pudo desvincular el paciente");
+                this.showToastError("Error", "No se pudo "+statusString.toLowerCase()+" el paciente");
               }
             })
         }
@@ -296,6 +298,7 @@ export class ListMyPatientsComponent {
 
   iconGeneratePassword = iconos.faKey;
   iconUnBindPatient = iconos.faBan;
+  iconBindPatient = iconos.faLink;
   iconViewDetail = iconos.faEye;
   iconEdit = iconos.faEdit;
   iconDesactivate = iconos.faToggleOn;

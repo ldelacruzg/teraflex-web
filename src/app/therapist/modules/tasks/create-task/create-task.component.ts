@@ -14,10 +14,9 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewMyVideosComponent } from '../../videos/modals/view-my-videos/view-my-videos.component';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UploadVideoComponent } from '../modals/upload-video/upload-video.component';
-
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-task',
@@ -87,12 +86,15 @@ export class CreateTaskComponent {
 
   /*Método que obtiene el listado de todos los videos públicos y que ha subido un terapeuta*/
   getAllMyVideos() {
+    this.spinnerStatus = false;
     this.videosService.getAllMyVideos(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseMyVideosI) => {
           this.arrayVideosInfo = data.data;
+          this.spinnerStatus = true;
         },
         error: (error) => {
+          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudo cargar la lista de videos");
         }
       });
@@ -213,9 +215,10 @@ export class CreateTaskComponent {
   /*Método que abr el modal para subir los videos*/
   openDialog(): void {
     let dialogRef = this.dialog.open(UploadVideoComponent, {
-      width: 'max-content',    
+      width: 'max-content',
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.spinnerStatus = false;
       this.arrayVideosInfo= [];
       this.getAllMyVideos();
     });
@@ -228,4 +231,5 @@ export class CreateTaskComponent {
   iconNextStep = iconos.faArrowRight;
   iconPreviousStep = iconos.faArrowLeft;
   iconAdd = iconos.faCirclePlus;
+  iconInformation = iconos.faInfoCircle;
 }

@@ -1,9 +1,23 @@
-#iconUnBind{
-    margin-right: 15px !important;
-}
+
 
 #iconGeneratePassword{
     margin-right: 15px !important;
     color: #F8B830;
     cursor: pointer;
+}
+
+.patientStatus{
+    width: 80px;
+    text-align: center;
+}
+
+#iconGeneratePassword{
+    margin-right: 15px !important;
+}
+#iconVerDetalles{
+    margin-right: 15px !important;
+}
+
+#iconEliminar{
+    margin-right: 15px !important;
 }

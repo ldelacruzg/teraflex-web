@@ -1,8 +1,8 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-upload-video',
@@ -16,15 +16,14 @@ export class UploadVideoComponent {
   constructor(
     public modal: NgbModal,
     public router: Router,
-    
     public dialogRef: MatDialogRef<UploadVideoComponent>,
   ){}
 
+  /*Método que cierra el modal*/
   onNoClick(): void {
-    console.log("Entrando en el cerrar");
     this.dialogRef.close();
   }
 
   /*Icons to use*/
-  iconVideos = iconos.faVideoCamera;
+  iconVideoCamera = iconos.faVideoCamera;
 }

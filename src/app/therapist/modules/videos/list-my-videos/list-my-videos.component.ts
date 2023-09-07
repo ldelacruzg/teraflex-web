@@ -53,8 +53,6 @@ export class ListMyVideosComponent {
     this.myVideosService.getAllMyVideos(this.headers.getHeaders(), status).subscribe({
       next: (data: ApiResponseMyVideosI) => {
         this.arrayVideos = data.data;
-        console.log("LISTADO DE VIDEOS");
-        console.log(this.arrayVideos)
         this.spinnerStatus = true;
       },
       error: () => {
@@ -164,21 +162,21 @@ export class ListMyVideosComponent {
   }
 
   /*Método que desactiva un video*/
-  desactivateVideo(idVideo: number, videoTitle: string){
-    this.sweetAlerts.alertConfirmCancel("Desactivar video", "¿Está seguro de desactivar el video \"" + videoTitle + "\"?")
+  activateDesactivateVideo(idVideo: number, videoTitle: string, status:string){
+    this.sweetAlerts.alertConfirmCancel(status + " video", "¿Está seguro de "+status.toLowerCase()+" el video \"" + videoTitle + "\"?")
       .then(respuesta => {
         if (respuesta.value == true) {
           this.myVideosService.desactivateVideo(this.headers.getHeaders(), idVideo)
             .subscribe({
               next: (data: ApiResponseEditDesactivateVideoI) => {
                 this.spinnerStatus = false;
-                this.showToastSuccess("Video desactivado con éxito", "Tarea eliminada");
+                this.showToastSuccess("Video actualizado con éxito", "Éxito");
                 this.getAllMyVideos(true);
                 this.spinnerStatus = true;
               },
               error: (error) => {
                 this.spinnerStatus = true;
-                this.showToastError("Error", "No se pudo desactivar el video");
+                this.showToastError("Error", "No se pudo "+status.toLowerCase()+" el video");
               }
             })
         }
@@ -206,7 +204,8 @@ export class ListMyVideosComponent {
 
   iconViewDetails = iconos.faEye;
   iconEdit = iconos.faEdit;
-  iconActivate = iconos.faToggleOn;
+  iconDesactivate = iconos.faToggleOn;
+  iconActivate = iconos.faToggleOff;
 
   iconPublic = iconos.faEarthAmericas;
   iconPrivate = iconos.faLock;

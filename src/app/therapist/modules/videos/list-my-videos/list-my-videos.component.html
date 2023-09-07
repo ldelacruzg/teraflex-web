@@ -77,9 +77,9 @@
                                             [icon]="iconViewDetails"></fa-icon>
                                         <fa-icon (click)="goToEditVideo(video)" data-bs-toggle="mensaje" title="Editar"
                                             id="iconEditar" *ngIf="statusVideo" [icon]="iconEdit"></fa-icon>
-                                        <fa-icon (click)="desactivateVideo(video.id, video.title)"
-                                            data-bs-toggle="mensaje" title="Desactivar" id="iconEliminar"
-                                            *ngIf="statusVideo" [icon]="iconActivate"></fa-icon>
+                                        <fa-icon (click)="activateDesactivateVideo(video.id, video.title, statusVideo?'Desactivar':'Activar')"
+                                            data-bs-toggle="mensaje" [title]="statusVideo ? 'Desactivar' : 'Activar'" id="iconEliminar"
+                                            [icon]="statusVideo?iconDesactivate:iconActivate"></fa-icon>
                                     </td>
                                 </tr>
                             </ng-container>

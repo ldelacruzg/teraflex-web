@@ -208,4 +208,5 @@ export class ViewProgressMyPatientsComponent {
   iconDelete = iconos.faTrashCan;
   iconBack = iconos.faArrowLeft;
   iconViewDetails = iconos.faEye;
+  iconInformation = iconos.faInfoCircle;
 }

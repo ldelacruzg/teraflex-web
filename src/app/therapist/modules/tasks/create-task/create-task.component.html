@@ -117,20 +117,31 @@
                         <!--Paso 2: Seleccionar videos a asignar-->
                         <mat-step>
                             <ng-template matStepLabel>Asignar videos</ng-template>
-                            <div class="row mb-3">
-                                <p>Seleccione uno (1) o más videos explicativos para su tarea...</p>
-                                <form class="row">
-                                    <div class="col-12 col-md-5 col-lg-5">
-                                        <input class="form-control me-1" type="text" placeholder="Buscar..."
-                                        name="videosTosearch" [(ngModel)]="videosToSearch">
-                                    </div>
-                                    <div class="col-12 col-md-7 col-lg-7 d-flex justify-content-end">
-                                        <button (click)="openDialog()" 
-                                            mat-button type="button" class="btn btn-primary btn-md"><fa-icon
-                                            [icon]="iconAdd"></fa-icon> Nuevo video</button>
-                                    </div>
-                                </form>
+
+                            <!--Mensaje de información-->
+                            <div class="row mx-1">
+                                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                    Seleccione uno o más videos para su tarea. También puede subir un nuevo video en el
+                                    botón de "Nuevo video".
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
                             </div>
+
+                            <!--Para buscar por titulo de video y botón de nuevo video-->
+                            <form class="row div mt-3 mb-3">
+                                <div class="col-5 mt-1">
+                                    <input class="form-control me-1" type="text" placeholder="Buscar..."
+                                        name="videosTosearch" [(ngModel)]="videosToSearch">
+                                </div>
+                                <div class="col-7 d-flex justify-content-end">
+                                    <button (click)="openDialog()" mat-button type="button"
+                                        class="btn btn-primary btn-md"><fa-icon [icon]="iconAdd"></fa-icon> Nuevo
+                                        video</button>
+                                </div>
+                            </form>
+
+
                             <div class="card" id="htmlTablePDF">
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
                                     style="position: relative;">
@@ -155,9 +166,11 @@
                                                             [checked]="arrayVideosId.includes(video.id)"
                                                             (change)="addOrRemoveVideoId(video.id)">
                                                     </td>
-                                                    <td>{{video.title}}</td>
+                                                    <td data-bs-toggle="mensaje" title="{{video.title}}">{{video.title}}
+                                                    </td>
                                                     <td>{{video.type}}</td>
-                                                    <td>{{video.url}}</td>
+                                                    <td data-bs-toggle="mensaje" title="{{video.url}}">{{video.url}}
+                                                    </td>
                                                     <td class="actions">
                                                         <fa-icon
                                                             (click)="openModalViewInfoVideo(viewVideoDetail, video, video.type)"
@@ -300,12 +313,12 @@
                                 <form class="row">
                                     <div class="col-12 col-md-5 col-lg-5">
                                         <input class="form-control me-1" type="text" placeholder="Buscar..."
-                                        name="videosTosearch" [(ngModel)]="videosToSearch">
+                                            name="videosTosearch" [(ngModel)]="videosToSearch">
                                     </div>
                                     <div class="col-12 col-md-7 col-lg-7 d-flex justify-content-end">
-                                        <button (click)="openDialog()"
-                                            mat-button type="button" class="btn btn-primary btn-md"><fa-icon
-                                            [icon]="iconAdd"></fa-icon> Nuevo video</button>
+                                        <button (click)="openDialog()" mat-button type="button"
+                                            class="btn btn-primary btn-md"><fa-icon [icon]="iconAdd"></fa-icon> Nuevo
+                                            video</button>
                                     </div>
                                 </form>
                             </div>
@@ -378,8 +391,3 @@
 <ng-template #viewVideoDetail>
     <app-view-my-videos></app-view-my-videos>
 </ng-template>
-
-<!--Modal para subir un video-->
-<!-- <ng-template #uploadVideoForm>
-   <app-upload-video></app-upload-video>
-</ng-template> -->
