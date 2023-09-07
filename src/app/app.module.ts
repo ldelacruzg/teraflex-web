@@ -12,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { AdminModule } from './admin/admin.module';
 import {MatDialogModule} from '@angular/material/dialog';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared-components/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,13 @@ import {MatDialogModule} from '@angular/material/dialog';
     ToastrModule.forRoot(),
     MatDialogModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
