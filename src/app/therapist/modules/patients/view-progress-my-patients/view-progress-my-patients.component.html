@@ -11,7 +11,7 @@
             <!--Formulario para buscar paciente y filtrar tareas-->
             <form [formGroup]="patientForm" class="row mt-4">
                 <!--Apellidos (Buscar)-->
-                <div class="col-12 col-md-5 mb-3">
+                <div class="col-10 col-md-5 mb-3">
                     <label class="mb-1"><b>Nombres y Apellidos</b></label>
                     <input type="text" placeholder="Buscar..." [matAutocomplete]="auto"
                         class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
@@ -31,6 +31,9 @@
                     <div class="validators" *ngIf="patientForm.get('names')?.hasError('pattern')">
                         <small>¡Solo se permiten letras!</small>
                     </div>
+                </div>
+                <div class="col-2 mt-4 icon-info">
+                    <fa-icon [icon]="iconInformation"></fa-icon>
                 </div>
             </form>
 

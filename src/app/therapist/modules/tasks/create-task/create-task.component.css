@@ -56,6 +56,26 @@ body {
     border-color: #f72944 !important;
 }
 
+/* Ajusta el ancho para la columna "URL" */
+#htmlExcelTable td:nth-child(3),
+#htmlExcelTable th:nth-child(3) {
+  max-width: 125px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+/* Ajusta el ancho para la columna "URL" */
+#htmlExcelTable td:nth-child(5),
+#htmlExcelTable th:nth-child(5) {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
 /*Responsive Web Design*/
 @media screen and (max-width: 760px) {
     .button-back {

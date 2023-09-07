@@ -15,3 +15,9 @@
     width: 80px;
     text-align: center;
 }
+
+.icon-info{
+    font-size: 30px;
+    color:#007BBD;
+    cursor: pointer;
+}

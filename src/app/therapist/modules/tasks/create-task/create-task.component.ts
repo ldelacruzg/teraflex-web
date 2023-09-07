@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewMyVideosComponent } from '../../videos/modals/view-my-videos/view-my-videos.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UploadVideoComponent } from '../modals/upload-video/upload-video.component';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -28,9 +30,9 @@ export class CreateTaskComponent {
   uploadTaskForm!: FormGroup;
   spinnerStatus: boolean = false;
   isMobileView: boolean = false;
-  itemsForPage: number = 5;
-  initialPage: number = 0;
-  finalPage: number = 5;
+  itemsForPage: number = environment.ITEMS_FOR_PAGE;
+  initialPage: number = environment.INITIAL_PAGE;
+  finalPage: number = environment.ITEMS_FOR_PAGE;
   optionVisibilitySelected: string = "";
   optionCategorySelected: string = "";
   arrayVideosInfo: GetAllMyVideosI[] = [];
@@ -48,7 +50,8 @@ export class CreateTaskComponent {
     private tasksService: MyTasksService,
     private toastr: ToastrService,
     private router: Router,
-    public modal: NgbModal
+    public modal: NgbModal,
+    public dialog: MatDialog
   ) {
     this.isMobileView = window.innerWidth <= 760;
   }
@@ -83,12 +86,15 @@ export class CreateTaskComponent {
 
   /*Método que obtiene el listado de todos los videos públicos y que ha subido un terapeuta*/
   getAllMyVideos() {
+    this.spinnerStatus = false;
     this.videosService.getAllMyVideos(this.headers.getHeaders(), true)
       .subscribe({
         next: (data: ApiResponseMyVideosI) => {
           this.arrayVideosInfo = data.data;
+          this.spinnerStatus = true;
         },
         error: (error) => {
+          this.spinnerStatus = true;
           this.showToastError("Error", "No se pudo cargar la lista de videos");
         }
       });
@@ -206,9 +212,16 @@ export class CreateTaskComponent {
     ViewMyVideosComponent.videoType = videoType;
   }
 
-  /*Método que abre un modal para subir un video local o enlace*/
-  openModalUploadVideo(uploadVideoForm: any) {
-    this.modal.open(uploadVideoForm, { size: 'xl', centered: true });
+  /*Método que abr el modal para subir los videos*/
+  openDialog(): void {
+    let dialogRef = this.dialog.open(UploadVideoComponent, {
+      width: 'max-content',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.spinnerStatus = false;
+      this.arrayVideosInfo= [];
+      this.getAllMyVideos();
+    });
   }
 
   /*Icons to use*/
@@ -218,4 +231,5 @@ export class CreateTaskComponent {
   iconNextStep = iconos.faArrowRight;
   iconPreviousStep = iconos.faArrowLeft;
   iconAdd = iconos.faCirclePlus;
+  iconInformation = iconos.faInfoCircle;
 }

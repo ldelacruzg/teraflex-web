@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PermissionsGuard } from './shared-components/guards/permissions.guard';
 
 /*Apliando la carga perezosa*/
 const routes: Routes = [
@@ -8,19 +9,19 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'therapist',
+    path: 'therapist', canActivate:[PermissionsGuard],
     loadChildren: () => import('./therapist/therapist.module').then(m => m.TherapistModule)
   },
   {
-    path: 'home',
+    path: 'home', canActivate:[PermissionsGuard],
     loadChildren: () => import('./therapist/modules/home/home.module').then(m => m.HomeModule),
   },
   {
-    path: 'admin',
+    path: 'admin', canActivate:[PermissionsGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
-    path: 'home-admin',
+    path: 'home-admin', canActivate:[PermissionsGuard],
     loadChildren: () => import('./admin/modules/home/home.module').then(m => m.HomeModule)
   },
   { 
@@ -29,7 +30,6 @@ const routes: Routes = [
     pathMatch: 'full' 
   },
 ];
-
 
 @NgModule({
   imports: [

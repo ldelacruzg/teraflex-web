@@ -1,11 +1,14 @@
 /*Respuesta de la api cuando se obtienen los pacientes de un terapista*/
 export interface ApiResponseGetMyPatientsI {
+    statusCode: number;
+    message: string;
     data: MyPatientsI[];
 }
 
 /*Respuesta dentro de la data*/
 export interface MyPatientsI {
-    id: number;
+    id: number; /*ID del grupo al que pertenece*/
+    status: boolean; /*Indica si el paciente está vinculado o desvinculado*/
     createdAt: string;
     updatedAt: string;
     patient: MyPatientDetailI;
@@ -13,7 +16,7 @@ export interface MyPatientsI {
 
 /*Respuesta dentro de patient de la interfaz anterior*/
 export interface MyPatientDetailI {
-    id: 9,
+    id: 9, /*ID del paciente como tal*/
     firstName: string;
     lastName: string;
     docNumber: string
