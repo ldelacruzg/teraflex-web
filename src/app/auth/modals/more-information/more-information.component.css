@@ -1,8 +1,8 @@
-fa-icon {
+fa-icon, #appMobile{
     color: #007BBD;
 }
 
-.iconsPublicPrivate>fa-icon {
+.iconsPublicPrivate>fa-icon{
     color: #bebebe;
 }
 
@@ -27,7 +27,7 @@ fa-icon {
 }
 
 .option-create,
-.option-link>fa-icon {
+.option-link>fa-icon, #appMobile{
     font-size: 40px;
 }
 

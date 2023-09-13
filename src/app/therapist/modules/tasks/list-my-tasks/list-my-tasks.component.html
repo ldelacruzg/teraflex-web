@@ -11,6 +11,16 @@
       <br />
       <!--Inputs para buscar e importar-->
       <div class="row">
+        <!--Para filtrar por activos o inactivos-->
+        <div class="col-12 col-md-3 col-lg-3">
+          <form>
+            <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
+              (change)="onFilterChange($event)">
+              <option value="true" selected>Activas</option>
+              <option value="false">Eliminadas</option>
+            </select>
+          </form>
+        </div>
         <!--Buscar paciente por nombre-->
         <div class="col-12 col-md-4 col-lg-4 mb-3">
           <form>
@@ -19,7 +29,7 @@
           </form>
         </div>
         <!--Importar los datos de la tabla-->
-        <div class="col-12 col-md-8 col-lg-8 export-buttons mb-3">
+        <div class="col-12 col-md-5 col-lg-5 export-buttons mb-3">
           <button (click)="downloadPDF()" type="button" class="btn save-pdf" data-bs-toggle="mensaje"
             title="Exportar a PDF">
             <fa-icon [icon]="iconPdf"></fa-icon>

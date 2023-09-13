@@ -70,13 +70,7 @@ export class ListMyPatientsComponent {
     this.myPatientsService.getMyPatients(this.headers.getHeaders(), status)
       .subscribe({
         next: (data: ApiResponseGetMyPatientsI) => {
-          /* data.data.forEach(element => {
-            this.arrayMyPatients.push(element);
-            console.log("Nuevo array");
-            console.log(this.arrayMyPatients);
-          }) */
           this.arrayMyPatients = data.data;
-          console.log(this.arrayMyPatients);
           this.spinnerStatus = true;
         },
         error: () => {

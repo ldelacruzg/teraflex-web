@@ -29,6 +29,13 @@ export class MoreInformationComponent {
     this.modal.dismissAll();
   }
 
+  //Método que descarga la aplicación móvil
+  downloadAPK(){
+    const youtubeURL = 'https://fyc.uteq.edu.ec/apk/TeraFlex.apk';
+    window.open(youtubeURL, '_blank');
+    this.modal.dismissAll();
+  }
+
   /*Icons to use*/
   iconInformation = iconos.faInfoCircle;
   iconQuestion = iconos.faQuestionCircle;

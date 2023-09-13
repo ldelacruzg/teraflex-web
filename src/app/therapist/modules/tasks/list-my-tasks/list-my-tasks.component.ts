@@ -47,7 +47,22 @@ export class ListMyTasksComponent {
 
   /*ngOnInit*/
   ngOnInit(): void {
-    this.getListMyTasks()
+    this.getListMyTasks(true)
+  }
+
+  /*Método que cambia el filtro entre las tareas activas y eliminadas*/
+  onFilterChange(event: any) {
+    const value = event.target.value;
+    if (value === "true") {
+      //this.statusPatients = true;
+      this.getListMyTasks(true);
+      this.arrayTasks = [];
+    }
+    else if (value === "false") {
+      //this.statusPatients = false;
+      this.getListMyTasks(false);
+      this.arrayTasks = [];
+    }
   }
 
   /*Método que redirige al componente de editar con la data cargada*/
@@ -72,7 +87,7 @@ export class ListMyTasksComponent {
         this.myTasksService.deleteTask(idTask, this.getHeaders())
           .subscribe({
             next: (data: string) => {
-              this.getListMyTasks();
+              this.getListMyTasks(true);
               this.showToastSuccess("Tarea eliminada con éxito", "Tarea eliminada");
               this.spinnerStatus = true;
             },
@@ -86,9 +101,9 @@ export class ListMyTasksComponent {
   }
 
   /*Método que obtiene el listado de las tareas que ha creado un terapeuta*/
-  getListMyTasks() {
+  getListMyTasks(status: boolean) {
     this.spinnerStatus = false;
-    this.myTasksService.getAllMyTasks(this.headers.getHeaders(), true)
+    this.myTasksService.getAllMyTasks(this.headers.getHeaders(), status)
       .subscribe({
         next: (data: ApiResponseMyTasksI) => {
           this.arrayTasks = data.data;

@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ViewPatientsDetailComponent } from './modals/view-patients-detail/view-patients-detail.component';
+import { SweetAlerts } from '../../alerts/alerts.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,10 @@ import { ViewPatientsDetailComponent } from './modals/view-patients-detail/view-
     ReactiveFormsModule,
     FormsModule,
     MatPaginatorModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+  ],
+  providers:[
+    SweetAlerts
   ]
 })
 export class PatientsModule { }
