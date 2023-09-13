@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { environment } from 'src/environments/environment';
+import { DashboardComponent } from '../../home/dashboard/dashboard.component';
+import { ViewPatientsDetailComponent } from '../modals/view-patients-detail/view-patients-detail.component';
+import { ApiResponseGetAllPatientsI, GetPatientDetailI } from 'src/app/admin/interfaces/patients.interface';
+import { ApiResponseActivateDesactivatePatientI } from 'src/app/therapist/interfaces/patients.interface';
+import { PatientsService } from 'src/app/admin/services/patients.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlerts } from 'src/app/admin/alerts/alerts.component';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
-import { ApiResponseGetAllPatientsI, GetPatientDetailI } from 'src/app/admin/interfaces/patients.interface';
-import { PatientsService } from 'src/app/admin/services/patients.service';
-import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ToastrService } from 'ngx-toastr';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ViewPatientsDetailComponent } from '../modals/view-patients-detail/view-patients-detail.component';
 
 @Component({
   selector: 'app-list-patients',
@@ -24,6 +26,7 @@ export class ListPatientsComponent {
   initialPage: number = environment.INITIAL_PAGE;
   finalPage: number = environment.ITEMS_FOR_PAGE;
   spinnerStatus: boolean = false;
+  statusPatients: boolean = true;
   optionsPage: any;
   arrayPatients: GetPatientDetailI[] = [];
   patientsToSearch: GetPatientDetailI[] = [];
@@ -33,7 +36,8 @@ export class ListPatientsComponent {
     private headers: DashboardComponent,
     private patientsService: PatientsService,
     private toastr: ToastrService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private sweetAlerts: SweetAlerts
   ) { }
 
   /*ngOnInit*/
@@ -118,10 +122,16 @@ export class ListPatientsComponent {
   /*Método que cambia el filtro entre los activos e inactivos (Eliminados)*/
   onFilterChange(event: any) {
     const value = event.target.value;
-    if (value === "true")
+    if (value === "true") {
+      this.statusPatients = true;
       this.getAllPatients(true);
-    else if (value === "false")
+      this.arrayPatients = [];
+    }
+    else if (value === "false") {
+      this.statusPatients = false;
       this.getAllPatients(false);
+      this.arrayPatients = [];
+    }
   }
 
   /*Método que obtiene el listado de todos los pacientes*/
@@ -162,14 +172,53 @@ export class ListPatientsComponent {
     return yearsDiff;
   }
 
-  openModalViewtherapistDetail(viewTherapistDetail: any, patientDetail: GetPatientDetailI){
+  openModalViewtherapistDetail(viewTherapistDetail: any, patientDetail: GetPatientDetailI) {
     this.modal.open(viewTherapistDetail, { size: 'lg', centered: true });
     ViewPatientsDetailComponent.patientDetailRecived = patientDetail;
+  }
+
+  /*Método que Activa o Desactiva un paciente*/
+  ActivateDesactivatePatient(idPatient: number, namePatient: string, status: string) {
+    this.sweetAlerts.alertConfirmCancel(status + " paciente", "¿Está seguro de " + (status).toLowerCase() + " el paciente \"" + (namePatient).toUpperCase() + "\"?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.spinnerStatus = false;
+          this.patientsService.activateOrDesactivatePatient(this.headers.getHeaders(), idPatient)
+            .subscribe({
+              next: (data: ApiResponseActivateDesactivatePatientI) => {
+                this.showToastSuccess("Paciente actualizado con éxito", "Éxito");
+                if (this.statusPatients) {
+                  this.arrayPatients = [];
+                  this.getAllPatients(true);
+                }
+                else {
+                  this.arrayPatients = [];
+                  this.getAllPatients(false);
+                }
+                this.spinnerStatus = true;
+              },
+              error: (error: any) => {
+                this.spinnerStatus = true;
+                this.showToastError("Error", "No se pudo " + (status).toLowerCase() + " el paciente");
+              }
+            })
+        }
+      });
+  }
+
+  /*Método que muestra un toast con mensaje de ÉXITO*/
+  showToastSuccess(message: string, title: string) {
+    this.toastr.success(message, title, {
+      progressBar: true,
+      timeOut: 3000,
+    });
   }
 
   /*Icons to use*/
   iconPatients = iconos.faUsers;
   iconViewDetails = iconos.faEye;
+  iconDesactivate = iconos.faToggleOn;
+  iconActivate = iconos.faToggleOff;
 
   iconPdf = iconos.faFilePdf;
   iconXlsx = iconos.faFileExcel;

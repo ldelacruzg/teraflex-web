@@ -253,10 +253,12 @@ export class AssignTasksComponent {
             next: (data: any) => {
               this.showToastSuccess(data.message, "Éxito");
               this.spinnerStatus = true;
-              this.router.navigateByUrl('/therapist/home/dashboard/tasks/assign-tasks');
+              AssignTasksComponent.arrayTasksDetailToSend = [];
+              this.router.navigateByUrl('/therapist/home/dashboard/options-home');
             },
             error: (error: any) => {
               this.spinnerStatus = true;
+              AssignTasksComponent.arrayTasksDetailToSend = [];
               this.showToastError("Error", "No se pudieron asignar las tareas");
             },
           })

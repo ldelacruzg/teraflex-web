@@ -13,7 +13,7 @@
         <div class="col-12 col-md-2 col-lg-2">
           <form>
             <select class="form-select" aria-label="Default select example" style="margin-bottom: 12px;"
-              (change)="onFilterChange($event)" >
+              (change)="onFilterChange($event)">
               <option value="true" selected>Activos</option>
               <option value="false">Inactivos</option>
             </select>
@@ -68,6 +68,9 @@
                     <fa-icon (click)="openModalViewtherapistDetail(viewPatientsDetail, patient)"
                       data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                       [icon]="iconViewDetails"></fa-icon>
+                    <fa-icon (click)="ActivateDesactivatePatient(patient.id, patient.firstName + ' ' + patient.lastName, statusPatients?'Desactivar':'Activar')"
+                      data-bs-toggle="mensaje" [title]="statusPatients?'Desactivar':'Activar'" id="iconEliminar"
+                      [icon]="statusPatients?iconDesactivate:iconActivate"></fa-icon>
                   </td>
                 </tr>
               </ng-container>

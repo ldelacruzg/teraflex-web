@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { ApiResponseGetTherapistsI } from '../interfaces/therapists.interface';
 import { ApiResponseGetAllPatientsI } from '../interfaces/patients.interface';
+import { ApiResponseActivateDesactivatePatientI } from 'src/app/therapist/interfaces/patients.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -44,5 +45,11 @@ export class PatientsService {
         queryParams += `status=${status}`;
         this.options = this.getHeaders(headers);
         return this.http.get<ApiResponseGetAllPatientsI>(this.urlApi + `/user/all${queryParams}`, this.options);
+    }
+
+    /*Método que consume el servicio que manda a cambiar el estado de un paciente (Activar o desactivar)*/
+    activateOrDesactivatePatient(headers: Map<string, any>, idPatient: number): Observable<ApiResponseActivateDesactivatePatientI> {
+        this.options = this.getHeaders(headers);
+        return this.http.patch<ApiResponseActivateDesactivatePatientI>(this.urlApi + `/user/status/${idPatient}`, null, this.options);
     }
 }
