@@ -5,7 +5,7 @@ WORKDIR /app
 RUN npm cache clean --force
 COPY . .
 
-RUN npm install
+RUN npm install --force
 RUN npm run build --prod
 
 CMD [ "npm", "run", "start:prod" ]
