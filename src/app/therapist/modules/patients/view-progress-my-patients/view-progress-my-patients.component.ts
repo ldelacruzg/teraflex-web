@@ -51,6 +51,13 @@ export class ViewProgressMyPatientsComponent {
     this.createFormPatient();
     this.getMyPatients();
     this.filteredPatientsNames = this.arrayPatients;
+
+    const miAlerta = document.getElementById('miAlerta');
+    setTimeout(() => {
+        if (miAlerta) {
+            miAlerta.style.display = 'none';
+        }
+    }, 20000);
   }
 
   /*Método que crea el formulario para buscar y cargar los datos del paciente*/

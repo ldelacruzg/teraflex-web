@@ -8,8 +8,14 @@
                 </h4>
             </div>
 
+            <!--Mensaje de información-->
+            <div id="miAlerta" class="alert alert-primary alert-dismissible fade show mt-2" role="alert">
+                <strong>Información:</strong> Para ver el progreso de un paciente debe buscarlo por los nombres o apellidos en el campo inferior.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <!--Formulario para buscar paciente y filtrar tareas-->
-            <form [formGroup]="patientForm" class="row mt-4">
+            <form [formGroup]="patientForm" class="row mt-2">
                 <!--Apellidos (Buscar)-->
                 <div class="col-10 col-md-5 mb-3">
                     <label class="mb-1"><b>Nombres y Apellidos</b></label>
@@ -32,9 +38,9 @@
                         <small>¡Solo se permiten letras!</small>
                     </div>
                 </div>
-                <div class="col-2 mt-4 icon-info">
+               <!--  <div class="col-2 mt-4 icon-info">
                     <fa-icon [icon]="iconInformation"></fa-icon>
-                </div>
+                </div> -->
             </form>
 
             <!--Tabla con la lista de las tareas asignadas-->
