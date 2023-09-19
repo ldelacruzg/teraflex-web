@@ -31,6 +31,7 @@ export class ListMyTasksComponent {
     filtro: new FormControl('ci', Validators.required),
   })
   spinnerStatus: boolean = false;
+  statusTasks: boolean = true;
   arrayTasks: MyTasksI[] = [];
   tasksToSearch: MyTasksI[] = [];
   optionsPage: any;
@@ -54,14 +55,14 @@ export class ListMyTasksComponent {
   onFilterChange(event: any) {
     const value = event.target.value;
     if (value === "true") {
-      //this.statusPatients = true;
-      this.getListMyTasks(true);
+      this.statusTasks = true;
       this.arrayTasks = [];
+      this.getListMyTasks(true);
     }
     else if (value === "false") {
-      //this.statusPatients = false;
-      this.getListMyTasks(false);
+      this.statusTasks = false;
       this.arrayTasks = [];
+      this.getListMyTasks(false);
     }
   }
 
