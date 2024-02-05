@@ -49,7 +49,6 @@
               <tr>
                 <th scope="col">N°</th>
                 <th scope="col">Título</th>
-                <th scope="col">Tiempo estimado</th>
                 <th scope="col">Visibilidad</th>
                 <th scope="col">Fecha de creación</th>
                 <th scope="col">Acciones</th>
@@ -61,7 +60,6 @@
                   *ngFor="let task of arrayTasks | slice:initialPage:finalPage | searchRegisters:tasksToSearch:optionFilter; let i = index">
                   <th scope="row">{{i+1}}</th>
                   <td data-bs-toggle="mensaje" title="{{task.title}}">{{task.title}}</td>
-                  <td>{{task.estimatedTime + " minutos"}}</td>
                   <td class="iconPublicPrivate">
                     <fa-icon [icon]="task.isPublic ? iconPublic : iconPrivate"></fa-icon>
                     {{task.isPublic ? " Pública" : " Privada"}}
