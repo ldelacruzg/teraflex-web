@@ -23,7 +23,6 @@ export interface RegisterTaskDetailI {
   title: string;
   description: string;
   status: boolean;
-  estimatedTime: number;
   isPublic: boolean;
   categoryIds: number[];
   fileIds: number[];
@@ -101,7 +100,6 @@ export interface EditTaskDetailI {
   title: string;
   description: string;
   status: boolean;
-  estimatedTime: number;
   isPublic: boolean;
   categories: number[];
 }

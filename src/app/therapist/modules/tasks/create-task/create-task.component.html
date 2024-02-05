@@ -74,23 +74,6 @@
                                             <small>¡Este campo es requerido!</small>
                                         </div>
                                     </div>
-                                    <!--Tiempo estimado-->
-                                    <div class="mb-4 col-12 col-md-4">
-                                        <label class="mb-1"><b>Tiempo estimado (Minutos)</b></label>
-                                        <input type="text" class="form-control form-control-lg bg-light fs-6"
-                                            formControlName="timeEstimated" placeholder="Tiempo estimado*" [ngClass]="{
-                                            'is-invalid': uploadTaskForm.get('timeEstimated')?.hasError('required') && uploadTaskForm.get('timeEstimated')?.touched || uploadTaskForm.get('timeEstimated')?.hasError('pattern'),
-                                            'is-valid': uploadTaskForm.get('timeEstimated')?.value?.length >= 1 && uploadTaskForm.get('timeEstimated')?.hasError('pattern') == false
-                                        }" [maxlength]="2">
-                                        <div class="validators"
-                                            *ngIf="uploadTaskForm.get('timeEstimated')?.hasError('required') && uploadTaskForm.get('timeEstimated')?.touched">
-                                            <small>¡Este campo es requerido!</small>
-                                        </div>
-                                        <div class="validators"
-                                            *ngIf="uploadTaskForm.get('timeEstimated')?.hasError('pattern')">
-                                            <small>¡Solo se permiten números!</small>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!--Descripcipon (pasos)-->
                                 <div class="row">
