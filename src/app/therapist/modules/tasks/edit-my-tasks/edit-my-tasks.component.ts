@@ -4,8 +4,15 @@ import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { MatStepper } from '@angular/material/stepper';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ApiResponseCategoriesI, GetCategoryI } from 'src/app/therapist/interfaces/categories.interface';
-import { ApiResponseEditTaskDetailI, EditTaskDetailI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
+import {
+  ApiResponseCategoriesI,
+  GetCategoryI,
+} from 'src/app/therapist/interfaces/categories.interface';
+import {
+  ApiResponseEditTaskDetailI,
+  EditTaskDetailI,
+  MyTasksI,
+} from 'src/app/therapist/interfaces/my-tasks.interface';
 import { GetAllMyVideosI } from 'src/app/therapist/interfaces/videos.interface';
 import { CategoriesService } from 'src/app/therapist/services/categories.service';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
@@ -15,7 +22,10 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-edit-my-tasks',
   templateUrl: './edit-my-tasks.component.html',
-  styleUrls: ['./edit-my-tasks.component.css', './../create-task/create-task.component.css']
+  styleUrls: [
+    './edit-my-tasks.component.css',
+    './../create-task/create-task.component.css',
+  ],
 })
 export class EditMyTasksComponent {
   /*Variables*/
@@ -27,11 +37,12 @@ export class EditMyTasksComponent {
   initialPage: number = 0;
   finalPage: number = 5;
   optionCategorySelected: number = 0;
-  optionVisibilitySelected: string = "";
+  optionVisibilitySelected: string = '';
   arrayVideosInfo: GetAllMyVideosI[] = [];
   arrayCategories: GetCategoryI[] = [];
   arrayVideosId: number[] = []; /*Array que contiene los id de los videos*/
-  selectedCheckboxes: { [key: number]: boolean } = {}; /*Array que contiene temporalmente el valor de los checks*/
+  selectedCheckboxes: { [key: number]: boolean } =
+    {}; /*Array que contiene temporalmente el valor de los checks*/
 
   /*Constructor*/
   constructor(
@@ -41,7 +52,7 @@ export class EditMyTasksComponent {
     private myTasksService: MyTasksService,
     private toastr: ToastrService,
     private router: Router
-  ) { }
+  ) {}
 
   /*ngOnInit*/
   ngOnInit() {
@@ -53,18 +64,27 @@ export class EditMyTasksComponent {
 
   /*Método que obtiene la data de una tarea según el ID y la precarga en los inputs del formulario*/
   getTaskDetail() {
-    this.editTaskForm.get('title')?.setValue(EditMyTasksComponent.taskDetail.title);
-    this.optionVisibilitySelected = EditMyTasksComponent.taskDetail.isPublic ? 'public' : 'private';
-    this.optionCategorySelected = EditMyTasksComponent.taskDetail.categoryIds[0];
-    this.editTaskForm.get('category')?.setValue(EditMyTasksComponent.taskDetail.categoryIds[0]);
-    this.editTaskForm.get('timeEstimated')?.setValue(EditMyTasksComponent.taskDetail.estimatedTime);
-    this.editTaskForm.get('description')?.setValue(EditMyTasksComponent.taskDetail.description);
+    this.editTaskForm
+      .get('title')
+      ?.setValue(EditMyTasksComponent.taskDetail.title);
+    this.optionVisibilitySelected = EditMyTasksComponent.taskDetail.isPublic
+      ? 'public'
+      : 'private';
+    this.optionCategorySelected =
+      EditMyTasksComponent.taskDetail.categoryIds[0];
+    this.editTaskForm
+      .get('category')
+      ?.setValue(EditMyTasksComponent.taskDetail.categoryIds[0]);
+    this.editTaskForm
+      .get('description')
+      ?.setValue(EditMyTasksComponent.taskDetail.description);
   }
 
   /*Método que obtiene el listado de todas las categorias disponibles*/
   getAllCategories() {
     this.spinnerStatus = false;
-    this.categoriesService.getAllCategories(this.headers.getHeaders())
+    this.categoriesService
+      .getAllCategories(this.headers.getHeaders())
       .subscribe({
         next: (data: ApiResponseCategoriesI) => {
           this.arrayCategories = data.data;
@@ -73,8 +93,11 @@ export class EditMyTasksComponent {
         },
         error: (error) => {
           this.spinnerStatus = true;
-          this.showToastError("Error", "No se pudo cargar el listado de categorías");
-        }
+          this.showToastError(
+            'Error',
+            'No se pudo cargar el listado de categorías'
+          );
+        },
       });
   }
 
@@ -97,27 +120,16 @@ export class EditMyTasksComponent {
   /*Crea el formulario que registra una tarea*/
   createEditTaskForm() {
     this.editTaskForm = this.formBuilder.group({
-      title: ['',
+      title: [
+        '',
         [
           Validators.required,
-          Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.: ]*$"),
+          Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.: ]*$'),
         ],
       ],
-      visibility: ['',
-        [Validators.required],
-      ],
-      category: ['',
-        [Validators.required],
-      ],
-      timeEstimated: ['',
-        [
-          Validators.required,
-          Validators.pattern("^[0-9]+$"),
-        ],
-      ],
-      description: ['',
-        [Validators.required],
-      ],
+      visibility: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      description: ['', [Validators.required]],
     });
   }
 
@@ -132,27 +144,31 @@ export class EditMyTasksComponent {
       title: this.editTaskForm.get('title')?.value,
       description: this.editTaskForm.get('description')?.value,
       status: true,
-      estimatedTime: Number(this.editTaskForm.get('timeEstimated')?.value),
       isPublic: this.optionVisibilitySelected == 'public' ? true : false,
       categories: [Number(this.editTaskForm.get('category')?.value)],
-    }
+    };
     return body;
   }
 
   /*Método que consume el servicio que manda a editar una tarea*/
   editTaskDetail() {
     this.spinnerStatus = false;
-    this.myTasksService.editTaskDetail(this.headers.getHeaders(), EditMyTasksComponent.taskDetail.id, this.getBodyToEditTask())
+    this.myTasksService
+      .editTaskDetail(
+        this.headers.getHeaders(),
+        EditMyTasksComponent.taskDetail.id,
+        this.getBodyToEditTask()
+      )
       .subscribe({
         next: (data: ApiResponseEditTaskDetailI) => {
           this.spinnerStatus = true;
-          this.showToastSuccess("Tarea editada con éxito", "Éxito");
+          this.showToastSuccess('Tarea editada con éxito', 'Éxito');
           this.router.navigateByUrl('/therapist/home/dashboard/tasks/my-tasks');
         },
         error: (error) => {
           this.spinnerStatus = true;
-          this.showToastError("Error", "No se pudo editar la tarea");
-        }
+          this.showToastError('Error', 'No se pudo editar la tarea');
+        },
       });
   }
 
@@ -170,10 +186,8 @@ export class EditMyTasksComponent {
   addOrRemoveVideoId(id: number) {
     this.selectedCheckboxes[id] = !this.selectedCheckboxes[id];
     const index = this.arrayVideosId.indexOf(id);
-    if (index === -1)
-      this.arrayVideosId.push(id);
-    else
-      this.arrayVideosId.splice(index, 1);
+    if (index === -1) this.arrayVideosId.push(id);
+    else this.arrayVideosId.splice(index, 1);
   }
 
   /*Icons to use*/
