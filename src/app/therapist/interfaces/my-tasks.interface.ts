@@ -59,27 +59,30 @@ export interface ApiResponseGetTaskByIdI {
 
 /*Detalle de la tarea que viene dentro de la data al consumir servicio de task by ID*/
 export interface TaskDetailByIdI {
-  id: number,
+  task: TaskDetailByIdTaskI;
+  categories: TaskDetailByIdCategoryI[];
+  links: TaskDetailByIdLink[];
+}
+
+export interface TaskDetailByIdTaskI {
+  id: number;
   title: string;
   description: string;
-  estimatedTime: number,
-  isPublic: boolean,
+  isPublic: boolean;
   createdAt: string;
   updatedAt: string;
-  categories: [
-    {
-      id: number;
-      name: string;
-    }
-  ],
-  files: [
-    {
-      id: number;
-      url: string;
-      title: string;
-      type: string;
-    }
-  ]
+}
+
+export interface TaskDetailByIdCategoryI {
+  id: number;
+  name: string;
+}
+
+export interface TaskDetailByIdLink {
+  id: number;
+  url: string;
+  title: string;
+  type: string;
 }
 
 /*Interfaz de respuesta de la API para cuando se edita una tarea*/
@@ -90,7 +93,7 @@ export interface ApiResponseEditTaskDetailI {
     generatedMaps: any[];
     raw: any[];
     affected: number;
-  }
+  };
 }
 
 /*Interfaz necesaria para editar el detalle de una tarea*/
