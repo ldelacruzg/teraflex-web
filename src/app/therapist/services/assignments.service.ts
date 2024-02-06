@@ -34,7 +34,7 @@ export class AssigmentsService {
     /*Método que obtiene el detalle de una tarea asignada a un paciente, mediante su ID*/
     getTaskDetailAssignToPatient(headers: Map<string, any>, assignmentId: number): Observable<ApiResponseTaskDetailExtendAssignToPatientI> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.get<ApiResponseTaskDetailExtendAssignToPatientI>(this.urlApi + `/assignments/${assignmentId}/task`, this.options);
+        return this.http.get<ApiResponseTaskDetailExtendAssignToPatientI>(this.urlApi + `/assignments/${assignmentId}`, this.options);
     }
 
     /*Método que elimina una tarea asignada a un paciente*/

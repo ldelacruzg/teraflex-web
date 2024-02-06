@@ -71,25 +71,34 @@ export interface TaskDetailAssignToPatientI {
 export interface ApiResponseTaskDetailExtendAssignToPatientI{
     statusCode: number;
     message: string;
-    data: TaskDetailExtendAssignToPatientI[];
+    data: TaskDetailExtendAssignToPatientI;
 }
 
 /*Ibterfaz que viene dentro de data de la interfaz de arriba*/
 export interface TaskDetailExtendAssignToPatientI{
     assignmentId: number;
-    taskId: number;
-    title: string;
-    description: string;
-    estimatedTime: number;
-    isCompleted: boolean;
-    createdAt: string;
-    dueDate: string;
-    files: [
-      {
+    treatment: {
+        id: number;
+        title: string;
+    },
+    task: {
+        id: number;
+        title: string;
+        description: string;
+        assignmentDate: string;
+        expirationDate: string;
+        performanceDate?: string;
+    },
+    setting: {
+        timePerRepetition: number;
+        repetitions: number;
+        breakTime: number;
+        series: number;
+    },
+    multimedia: {
         id: number;
         url: string;
         title: string;
-        type: string;
-      }
-    ]
+        description: string;
+    }[]
 }

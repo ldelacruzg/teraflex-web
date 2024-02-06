@@ -6,69 +6,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="info mb-4">
-                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Título</b></label>
-                    <p *ngIf="taskDetailAssign.title!='--'; else noResults">{{taskDetailAssign.title}}</p>
-                    <ng-template #noResults>
-                        <div class="spinner">
-                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
-                                aria-hidden="true"></span>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="info mb-4">
-                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Tiempo estimado</b></label>
-                    <p *ngIf="taskDetailAssign.estimatedTime!='--'; else noResults">
-                        {{taskDetailAssign.estimatedTime}} minutos</p>
-                    <ng-template #noResults>
-                        <div class="spinner">
-                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
-                                aria-hidden="true"></span>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="info mb-4">
-                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label><br/>
-                    <span  [style.background-color]="taskDetailAssign.isCompleted ? '#198754' : isTaskVencida(taskDetailAssign.dueDate) ? '#FC3B56' : '#ccc'"
-                    [style.border-radius]="taskDetailAssign.isCompleted || isTaskVencida(taskDetailAssign.dueDate) ? '5px' : '5px'"
-                    [style.padding]="taskDetailAssign.isCompleted || isTaskVencida(taskDetailAssign.dueDate) ? '3px' : '3px'"
-                    [style.color]="taskDetailAssign.isCompleted || isTaskVencida(taskDetailAssign.dueDate) ? 'white' : 'black'">
-                    {{taskDetailAssign.isCompleted ? 'Completada' : isTaskVencida(taskDetailAssign.dueDate) ? 'Vencida' : 'Pendiente'}}</span>
-                    <ng-template #noResults>
-                        <div class="spinner">
-                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
-                                aria-hidden="true"></span>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="info mb-4">
-                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de creación</b></label>
-                    <p *ngIf="taskDetailAssign.createdAt!='--'; else noResults">{{taskDetailAssign.createdAt}}</p>
-                    <ng-template #noResults>
-                        <div class="spinner">
-                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
-                                aria-hidden="true"></span>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="info mb-4">
-                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de vencimiento</b></label>
-                    <p *ngIf="taskDetailAssign.dueDate!='--'; else noResults">{{taskDetailAssign.dueDate}}</p>
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Tarea</b></label>
+                    <p *ngIf="taskDetailAssign.task.title!='--'; else noResults">{{taskDetailAssign.task.title}}</p>
                     <ng-template #noResults>
                         <div class="spinner">
                             <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
@@ -81,9 +20,140 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="info mb-4" *ngIf="taskDetailAssign.files.length > 0; else noVideos">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Tratamiento</b></label>
+                    <p *ngIf="taskDetailAssign.treatment.title!='--'; else noResults">
+                        {{taskDetailAssign.treatment.title}}
+                    </p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Repeticiones</b></label>
+                    <p *ngIf="taskDetailAssign.setting.repetitions; else noResults">
+                        {{taskDetailAssign.setting.repetitions}}
+                    </p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Tiempo</b></label>
+                    <p *ngIf="taskDetailAssign.setting.timePerRepetition; else noResults">
+                        {{taskDetailAssign.setting.timePerRepetition}}
+                    </p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Series</b></label>
+                    <p *ngIf="taskDetailAssign.setting.series; else noResults">
+                        {{taskDetailAssign.setting.series}}
+                    </p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Descanso</b></label>
+                    <p *ngIf="taskDetailAssign.setting.breakTime; else ifNull">
+                        {{taskDetailAssign.setting.breakTime}}
+                    </p>
+                    <ng-template #ifNull>
+                        <p>--</p>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label><br/>
+                    <span  [style.background-color]="taskDetailAssign.task.performanceDate ? '#198754' : isTaskVencida(taskDetailAssign.task.expirationDate) ? '#FC3B56' : '#ccc'"
+                    [style.border-radius]="taskDetailAssign.task.performanceDate || isTaskVencida(taskDetailAssign.task.expirationDate) ? '5px' : '5px'"
+                    [style.padding]="taskDetailAssign.task.performanceDate || isTaskVencida(taskDetailAssign.task.expirationDate) ? '3px' : '3px'"
+                    [style.color]="taskDetailAssign.task.performanceDate || isTaskVencida(taskDetailAssign.task.expirationDate) ? 'white' : 'black'">
+                    {{taskDetailAssign.task.performanceDate ? 'Completada' : isTaskVencida(taskDetailAssign.task.expirationDate) ? 'Vencida' : 'Pendiente'}}</span>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de asignación</b></label>
+                    <p *ngIf="taskDetailAssign.task.assignmentDate; else noResults">{{taskDetailAssign.task.assignmentDate}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de vencimiento</b></label>
+                    <p *ngIf="taskDetailAssign.task.expirationDate; else noResults">{{taskDetailAssign.task.expirationDate}}</p>
+                    <ng-template #noResults>
+                        <div class="spinner">
+                            <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                                aria-hidden="true"></span>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="info mb-4">
+                    <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de cumplimiento</b></label>
+                    <p *ngIf="taskDetailAssign.task.performanceDate; else ifNull">{{taskDetailAssign.task.performanceDate}}</p>
+                    <ng-template #ifNull>
+                        <p>--</p>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="info mb-4" *ngIf="taskDetailAssign.multimedia.length > 0; else noVideos">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Videos registrados</b></label>
-                    <p *ngFor="let video of taskDetailAssign.files; let i = index">[{{i+1}}] {{video.title}}</p>
+                    <p *ngFor="let video of taskDetailAssign.multimedia; let i = index">[{{i+1}}] {{video.title}}</p>
                 </div>
                 <ng-template class="info mb-4" #noVideos>
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Videos registrados</b></label>
@@ -95,7 +165,7 @@
             <div class="col-12">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Descripción</b></label>
-                    <p *ngIf="taskDetailAssign.description!='--'; else noResults">{{taskDetailAssign.description}}</p>
+                    <p *ngIf="taskDetailAssign.task.description; else noResults">{{taskDetailAssign.task.description}}</p>
                     <ng-template #noResults>
                         <div class="spinner">
                             <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"

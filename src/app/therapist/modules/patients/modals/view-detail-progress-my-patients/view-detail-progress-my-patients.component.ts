@@ -5,6 +5,7 @@ import { ApiResponseTaskDetailExtendAssignToPatientI } from 'src/app/therapist/i
 import { AssigmentsService } from 'src/app/therapist/services/assignments.service';
 import { ToastrService } from 'ngx-toastr';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { TimeConversion } from 'src/utils/time.conversion.service';
 
 @Component({
   selector: 'app-view-detail-progress-my-patients',
@@ -16,21 +17,30 @@ export class ViewDetailProgressMyPatientsComponent {
   static taskDetailAssignId: number;
   taskDetailAssign: any = {
     assignmentId: 0,
-    taskId: 0,
-    title: "--",
-    description: "--",
-    estimatedTime: 0,
-    isCompleted: false,
-    createdAt: "--",
-    dueDate: "--",
-    files: [
-      {
-        id: 0,
-        url: "--",
-        title: "--",
-        type: "--"
-      }
-    ]
+    treatment: {
+      id: 0,
+      title: "--",
+    },
+    task: {
+      id: 0,
+      title: "--",
+      description: "--",
+      assignmentDate: "--",
+      expirationDate: "--",
+      performanceDate: "--",
+    },
+    setting: {
+      timePerRepetition: 0,
+      repetitions: 0,
+      breakTime: 0,
+      series: 0,
+    },
+    multimedia: [{
+      id: 0,
+      url: "--",
+      title: "--",
+      description: "--",
+    }]
   };
 
   /*constructor*/
@@ -59,6 +69,8 @@ export class ViewDetailProgressMyPatientsComponent {
       .subscribe({
         next: (data: ApiResponseTaskDetailExtendAssignToPatientI) => {
           this.taskDetailAssign = data.data;
+          this.taskDetailAssign.setting.timePerRepetition = TimeConversion.convertToTime(this.taskDetailAssign.setting.timePerRepetition);
+          this.taskDetailAssign.setting.breakTime = TimeConversion.convertToTime(this.taskDetailAssign.setting.breakTime);
         },
         error: (error) => {
           this.showToastError("No se pudieron obtener el detalle de la tarea", "Error");

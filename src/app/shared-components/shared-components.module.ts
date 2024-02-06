@@ -49,7 +49,7 @@ import { SearchPatientsPipe } from './pipes/search-patients.pipe';
     CreditsInfoDetailsComponent,
     CircleStatisticsComponent,
     LinearStatisticsComponent,
-    LastPatientsComponent
+    LastPatientsComponent,
   ]
 })
 export class SharedComponentsModule { }
