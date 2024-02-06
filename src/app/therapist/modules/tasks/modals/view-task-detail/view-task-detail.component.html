@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-6">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Visibilidad</b></label>
                     <p class="iconsPublicPrivate"> <fa-icon
@@ -27,7 +27,7 @@
                         " Privada"}}</p>
                 </div>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-6">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Categoría</b></label>
                     <p *ngIf="taskDetail.categories[0].name != '--'; else noResults">{{taskDetail.categories[0].name}}</p>
