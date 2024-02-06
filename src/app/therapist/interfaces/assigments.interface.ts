@@ -57,11 +57,14 @@ export interface TaskDetailAssignToPatientI {
     task: {
         id: number;
         title: string;
-        description: string;
-        estimatedTime: number;
-    }
-    createdAt: string;
-    dueDate: string;
+    },
+    treatment: {
+        id: number;
+        title: string;
+    },
+    assignmentDate: string;
+    performanceDate: string;
+    expirationDate: string;
 }
 
 /*Interfaz de respuesta de la API para cuando se obtiene el detalle de una tarea Asignada*/

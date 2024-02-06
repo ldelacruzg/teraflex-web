@@ -28,7 +28,7 @@ export class AssigmentsService {
     /*Método que obtiene la lista de tareas asignadas a un paciente, mediante su ID*/
     getListTasksAssingToPatient(headers: Map<string, any>, patientId: number): Observable<ApiResponseListTasksAssignsToPatientI> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.get<ApiResponseListTasksAssignsToPatientI>(this.urlApi + `/patients/${patientId}/tasks`, this.options);
+        return this.http.get<ApiResponseListTasksAssignsToPatientI>(this.urlApi + `/patients/${patientId}/assignments?treatment-active=true`, this.options);
     }
 
     /*Método que obtiene el detalle de una tarea asignada a un paciente, mediante su ID*/

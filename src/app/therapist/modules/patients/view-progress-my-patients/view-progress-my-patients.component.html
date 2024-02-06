@@ -51,8 +51,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">N°</th>
-                                <th scope="col">Título</th>
-                                <th scope="col">Tiempo estimado</th>
+                                <th scope="col">Tarea</th>
+                                <th scope="col">Tratamiento</th>
                                 <th scope="col">Fecha de vencimiento</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
@@ -65,15 +65,17 @@
                                     <td data-bs-toggle="mensaje" title="{{task.task.title}}">
                                         {{task.task.title}}
                                     </td>
-                                    <td>{{task.task.estimatedTime}} minutos</td>
-                                    <td>{{formatDate(task.dueDate)}}</td>
+                                    <td data-bs-toggle="mensaje" title="{{task.treatment.title}}">
+                                        {{task.treatment.title.substring(0, 20) + '...'}}
+                                    </td>
+                                    <td>{{task.expirationDate}}</td>
                                     <td>
                                         <div class="taskStatus"
-                                            [style.background-color]="task.isCompleted ? '#198754' : isTaskVencida(task.dueDate) ? '#FC3B56' : '#ccc'"
-                                            [style.border-radius]="task.isCompleted || isTaskVencida(task.dueDate) ? '5px' : '5px'"
-                                            [style.padding]="task.isCompleted || isTaskVencida(task.dueDate) ? '3px' : '3px'"
-                                            [style.color]="task.isCompleted || isTaskVencida(task.dueDate) ? 'white' : 'black'">
-                                            {{task.isCompleted ? 'Completada' : isTaskVencida(task.dueDate) ? 'Vencida' : 'Pendiente'}}
+                                            [style.background-color]="task.performanceDate ? '#198754' : isTaskVencida(task.expirationDate) ? '#FC3B56' : '#ccc'"
+                                            [style.border-radius]="task.performanceDate || isTaskVencida(task.expirationDate) ? '5px' : '5px'"
+                                            [style.padding]="task.performanceDate || isTaskVencida(task.expirationDate) ? '3px' : '3px'"
+                                            [style.color]="task.performanceDate || isTaskVencida(task.expirationDate) ? 'white' : 'black'">
+                                            {{task.performanceDate ? 'Completada' : isTaskVencida(task.expirationDate) ? 'Vencida' : 'Pendiente'}}
                                         </div>
                                     </td>
                                     <td class="acciones">
