@@ -38,7 +38,9 @@
                 <div class="col-12">
                     <div class="info mb-4">
                         <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Video local</b></label><br/>
-                        <video [src]="videoUrl" autoplay controls class="centered-video-local"></video>
+                        <video controls autoplay class="centered-video-local">
+                            <source [src]="videoDetail.link" type="video/mp4">
+                        </video>
                         <ng-template #noResults>
                             <div class="spinner">
                                 <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>

@@ -55,7 +55,6 @@ export class ViewMyVideosComponent {
       }
     }
     else {
-      this.downloadAndDisplayVideo(this.videoDetail.id);
       this.videoDetail = {
         id: ViewMyVideosComponent.videoDetailRecibed.id,
         title: ViewMyVideosComponent.videoDetailRecibed.title,
