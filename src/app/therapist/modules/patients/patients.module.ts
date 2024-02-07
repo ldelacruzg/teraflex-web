@@ -17,6 +17,7 @@ import { CreateOrLinkMyPatientsComponent } from './modals/create-or-link-my-pati
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 import { GenerateNewPasswordComponent } from './modals/generate-new-password/generate-new-password.component';
 import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/view-credentials-login.component';
+import { ListTreatmentsMyPatientsComponent } from './list-treatments-my-patients/list-treatments-my-patients.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/v
     CreateOrLinkMyPatientsComponent,
     GenerateNewPasswordComponent,
     ViewCredentialsLoginComponent,
+    ListTreatmentsMyPatientsComponent,
   ],
   imports: [
     CommonModule,

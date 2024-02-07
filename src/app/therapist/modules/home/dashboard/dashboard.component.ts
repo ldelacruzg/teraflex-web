@@ -200,6 +200,7 @@ export class DashboardComponent {
   iconResources = iconos.faFilm;
   iconUploadVideos = iconos.faVideoCamera;
   iconPatients = iconos.faUsers;
+  iconTreatments = iconos.faListAlt;
   iconMyPatients = iconos.faPeopleRoof;
   iconViewProgress = iconos.faChartSimple;
   iconHelp = iconos.faQuestionCircle;
