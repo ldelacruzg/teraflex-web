@@ -1,1 +1,120 @@
-<p>list-treatments-my-patients works!</p>
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-12 container-info">
+            <div class="div col-12 mt-3 mx-1">
+                <h4 id="title"><fa-icon [icon]="iconListAlt" class="icon-title"></fa-icon> Tratamientos
+                </h4>
+                <button type="button"
+                    class="btn btn-primary btn-sm">
+                    <fa-icon [icon]="iconAdd"></fa-icon> Nuevo tratamiento</button>
+            </div>
+
+            <!--Formulario para buscar paciente y filtrar tareas-->
+            <form [formGroup]="patientForm" class="row mt-2">
+                <!--Apellidos (Buscar)-->
+                <div class="col-10 col-md-5 mb-3">
+                    <label class="mb-1"><b>Nombres y Apellidos</b></label>
+                    <input type="text" placeholder="Buscar..." [matAutocomplete]="auto"
+                        class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
+                        (input)="onSearch($event)" formControlName="names" />
+                    <mat-autocomplete #auto="matAutocomplete"
+                        [ngClass]="{
+                        'is-invalid': patientForm.get('names')?.hasError('required') && patientForm.get('names')?.touched || patientForm.get('names')?.hasError('pattern')}">
+                        <mat-option *ngFor="let patientName of filteredPatientsNames"
+                            [value]="patientName.firstName+ ' ' + patientName.lastName"
+                            (click)="getTreatments(patientName.id)">
+                            {{ patientName.firstName + ' ' + patientName.lastName }}
+                            <app-badge-ui>{{ patientName.docNumber }}</app-badge-ui>
+                        </mat-option>
+                        <mat-option *ngIf="filteredPatientsNames.length === 0" [value]="'Sin resultados'">
+                            Sin resultados...
+                        </mat-option>
+                    </mat-autocomplete>
+                    <div class="validators" *ngIf="patientForm.get('names')?.hasError('pattern')">
+                        <small>¡Solo se permiten letras!</small>
+                    </div>
+                </div>
+               <!--  <div class="col-2 mt-4 icon-info">
+                    <fa-icon [icon]="iconInformation"></fa-icon>
+                </div> -->
+            </form>
+
+            <!--Tabla con la lista de las tareas asignadas-->
+            <div class="card" id="htmlTablePDF">
+                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
+                    style="position: relative;">
+                    <table class="table table-striped mb-0" id="htmlExcelTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">N°</th>
+                                <th scope="col">Título</th>
+                                <th scope="col"># Tareas</th>
+                                <th scope="col"># Completadas</th>
+                                <th scope="col"># Pendientes</th>
+                                <th scope="col"># Vencidas</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="arrayTreatments.length > 0; else noResults">
+                                <tr *ngFor="let treatment of arrayTreatments | slice:initialPage:finalPage; let i = index">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td data-bs-toggle="mensaje" title="{{treatment.title}}">
+                                        {{treatment.title}}
+                                    </td>
+                                    <td data-bs-toggle="mensaje" title="{{treatment.numberTasks}} tarea(s)">
+                                        {{treatment.numberTasks}}
+                                    </td>
+                                    <td data-bs-toggle="mensaje" title="{{treatment.completedTasks}} tarea(s) completadas">
+                                        {{treatment.completedTasks}}
+                                    </td>
+                                    <td data-bs-toggle="mensaje" title="{{treatment.pendingTasks}} tarea(s) pendientes">
+                                        {{treatment.pendingTasks}}
+                                    </td>
+                                    <td data-bs-toggle="mensaje" title="{{treatment.overdueTasks}} tarea(s) vencidas">
+                                        {{treatment.overdueTasks}}
+                                    </td>
+                                    <td class="acciones">
+                                        <!-- Botón para ver el detalle del tratamiento -->
+                                        <fa-icon 
+                                            data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                                            [icon]="iconViewDetails"></fa-icon>
+                                        <!-- Botón para finalizar el tratamiento -->
+                                        <fa-icon class=""
+                                            data-bs-toggle="mensaje" title="Finalizar tratamiento" id="iconFinalizar"
+                                            [icon]="iconFinish"></fa-icon>
+                                        <!-- Botón para editar datos del tratamiento -->
+                                        <fa-icon 
+                                            data-bs-toggle="mensaje" title="Editar tratamiento" id="iconEditar"
+                                            [icon]="iconEdit"></fa-icon>
+                                        <!-- <fa-icon (click)="openModalViewTaskDetailAssign(viewTaskDetailAssign, treatment.id)"
+                                            data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
+                                            [icon]="iconViewDetails"></fa-icon>
+                                        <fa-icon (click)="deleteTask(task.id, task.task.title)" data-bs-toggle="mensaje"
+                                            title="Eliminar asignación" id="iconEliminar" [icon]="iconDelete"></fa-icon> -->
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <!--Para cuando no cargue la data-->
+                            <ng-template #noResults>
+                                <tr>
+                                    <td colspan="7" class="no-results">Sin resultados...</td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--Paginación-->
+            <mat-paginator id="paginacion" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="itemsForPage"
+                [length]="arrayAssignsTasks.length" (page)="changePage($event)"></mat-paginator>
+        </div>
+    </div>
+</body>
+
+<!--Modal para ver lel detalle de la tarea asignada-->
+<ng-template #viewTaskDetailAssign>
+    <app-view-detail-progress-my-patients></app-view-detail-progress-my-patients>
+</ng-template>

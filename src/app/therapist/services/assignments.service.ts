@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable, } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { ApiResponseAssignTasksToPatientI, ApiResponseListTasksAssignsToPatientI, ApiResponseTaskDetailExtendAssignToPatientI } from '../interfaces/assigments.interface';
+import { APIResponseListTreatmentByPatientI, ApiResponseAssignTasksToPatientI, ApiResponseListTasksAssignsToPatientI, ApiResponseTaskDetailExtendAssignToPatientI } from '../interfaces/assigments.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -43,5 +43,14 @@ export class AssigmentsService {
         let queryParams = "?";
         queryParams += `id=${idTaskAssigned}`;
         return this.http.delete<string>(this.urlApi + `/assignments${queryParams}`, this.options);
+    }
+
+    /*Método que obtiene el listado de tratamientos del paciente*/
+    getTreatments(headers: Map<string, any>, idPatient: number): Observable<APIResponseListTreatmentByPatientI> {
+        this.options = this.authService.getHeaders(headers);
+        let queryParams = "?";
+        queryParams += `patientId=${idPatient}`;
+        queryParams += `&tasksNumber=true`;
+        return this.http.get<APIResponseListTreatmentByPatientI>(this.urlApi + `/treatments${queryParams}`, this.options);
     }
 }

@@ -1,0 +1,23 @@
+.btn-secondary {
+  margin-right: 10px;
+  border-radius: 50px;
+}
+
+.validators {
+  color: #FC3B56;
+}
+
+#iconEliminar{
+  margin-left: 10px !important;
+}
+
+.taskStatus{
+  width: 80px;
+  text-align: center;
+}
+
+.icon-info{
+  font-size: 30px;
+  color:#007BBD;
+  cursor: pointer;
+}

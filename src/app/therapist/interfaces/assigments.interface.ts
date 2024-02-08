@@ -102,3 +102,19 @@ export interface TaskDetailExtendAssignToPatientI{
         description: string;
     }[]
 }
+
+/*Interfaz de respuesta de la API para cuando se obtiene los tratamientos*/
+export interface APIResponseListTreatmentByPatientI {
+    statusCode: number;
+    message:    string;
+    data:       ListTreatmentI[];
+}
+
+export interface ListTreatmentI {
+    id:             number;
+    title:          string;
+    numberTasks:    number;
+    completedTasks: number;
+    overdueTasks:   number;
+    pendingTasks:   number;
+}

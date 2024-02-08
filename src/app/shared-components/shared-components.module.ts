@@ -15,6 +15,7 @@ import { CreditsInfoDetailsComponent } from './credits-info-details/credits-info
 import { ViewDetailLastTasksCompletedComponent } from './view-detail-last-tasks-completed/view-detail-last-tasks-completed.component';
 import { LastPatientsComponent } from './last-patients/last-patients.component';
 import { SearchPatientsPipe } from './pipes/search-patients.pipe';
+import { BadgeUiComponent } from './badge-ui/badge-ui.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SearchPatientsPipe } from './pipes/search-patients.pipe';
     CircleStatisticsComponent,
     LinearStatisticsComponent,
     ViewDetailLastTasksCompletedComponent,
-    LastPatientsComponent
+    LastPatientsComponent,
+    BadgeUiComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +52,7 @@ import { SearchPatientsPipe } from './pipes/search-patients.pipe';
     CircleStatisticsComponent,
     LinearStatisticsComponent,
     LastPatientsComponent,
+    BadgeUiComponent,
   ]
 })
 export class SharedComponentsModule { }

@@ -32,10 +32,15 @@ body {
 #iconEditar,
 #iconVerDetalles,
 #iconEliminar,
+#iconFinalizar,
 #iconUnBind {
   font-size: 1rem !important;
   margin-right: 8px;
   cursor: pointer;
+}
+
+#iconFinalizar {
+  color: #00A65A;
 }
 
 #iconUnBind {
