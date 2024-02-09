@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AssignTasksComponent } from '../../assign-tasks/assign-tasks.component';
 import { DashboardComponent } from '../../../home/dashboard/dashboard.component';
 import {
@@ -21,6 +21,7 @@ export class EditTaskToAssignComponent {
   static taskID: number;
   taskDetailForm!: FormGroup;
   taskDetail!: TaskDetailByIdI;
+  expRegTime = /^([0-5]?[0-9]):([0-5][0-9])$/;
 
   /*Constructor*/
   constructor(
@@ -59,14 +60,23 @@ export class EditTaskToAssignComponent {
   /*Método que crea el formulario*/
   createFormTaskDetail() {
     this.taskDetailForm = this.formBuilder.group({
-      title: [''],
-      estimatedTime: [0],
-      description: [''],
+      title: ['', [Validators.required]],
+      dueDate: [this.getToday(), [Validators.required]],
+      repetitions: [1, [Validators.required, Validators.min(1)]],
+      timePerRepetition: ['00:00', [Validators.required, Validators.pattern(this.expRegTime)]],
+      series: [1, [Validators.required, Validators.min(1)]],
+      breakTime: ['00:00', [Validators.pattern(this.expRegTime)]],
+      description: ['', [Validators.required]],
     });
   }
 
   /*Método que obtiene los datos de la tarea editada y los manda al componente de asignar*/
   addTaskEdited() {
+    if (this.taskDetailForm.invalid) {
+      this.taskDetailForm.markAllAsTouched();
+      return;
+    }
+
     let taskDetailTemp: BodyTaskToAssignI = {
       description: this.taskDetailForm.get('description')?.value,
       estimatedTime: Number(this.taskDetailForm.get('estimatedTime')?.value),
@@ -85,6 +95,14 @@ export class EditTaskToAssignComponent {
       AssignTasksComponent.arrayTasksDetailToSend.push(taskDetailTemp);
     }
     this.modal.dismissAll();
+  }
+
+  getToday() {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    return yyyy + '-' + mm + '-' + dd;
   }
 
   /*Icons to use*/

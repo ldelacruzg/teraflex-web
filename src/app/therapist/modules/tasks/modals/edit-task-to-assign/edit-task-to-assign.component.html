@@ -22,7 +22,16 @@
                         type="date" 
                         placeholder="Fecha de vencimiento*"
                         class="form-control form-control-lg bg-light fs-6"
-                        formControlName="dueDate" /> <!-- [min]="minDate" -->
+                        formControlName="dueDate"
+                        [min]="getToday()"
+                        [ngClass]="{
+                            'is-valid': taskDetailForm.get('dueDate')?.valid && taskDetailForm.get('dueDate')?.touched,
+                            'is-invalid': taskDetailForm.get('dueDate')?.invalid && taskDetailForm.get('dueDate')?.touched
+                        }" />
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('dueDate')?.hasError('required')">
+                        <small>¡Este campo es requerido!</small>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -33,7 +42,20 @@
                         type="number" 
                         class="form-control form-control-lg bg-light fs-6" 
                         formControlName="repetitions"
-                        placeholder="Repeticiones*" />
+                        placeholder="Repeticiones*"
+                        [min]="1"
+                        [ngClass]="{
+                            'is-valid': taskDetailForm.get('repetitions')?.valid && taskDetailForm.get('repetitions')?.touched,
+                            'is-invalid': taskDetailForm.get('repetitions')?.invalid && taskDetailForm.get('repetitions')?.touched
+                        }" />
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('repetitions')?.hasError('required')">
+                        <small>¡Este campo es requerido!</small>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('repetitions')?.hasError('min')">
+                        <small>¡La repetición debe ser mínimo 1!</small>
+                    </div>
                 </div>
                 <!-- Tiempo por repetición -->
                 <div class="col-12 col-md-6 mb-3">
@@ -42,7 +64,23 @@
                         type="text" 
                         class="form-control form-control-lg bg-light fs-6" 
                         formControlName="timePerRepetition"
-                        placeholder="Tiempo por repetición*" />
+                        placeholder="Tiempo por repetición*"
+                        aria-describeby="timePerRepetitionFormatt"
+                        [ngClass]="{
+                            'is-valid': taskDetailForm.get('timePerRepetition')?.valid && taskDetailForm.get('timePerRepetition')?.touched,
+                            'is-invalid': taskDetailForm.get('timePerRepetition')?.invalid && taskDetailForm.get('timePerRepetition')?.touched
+                        }" />
+                    <div id="timePerRepetitionFormatt" class="form-text">
+                        Formato: <b>mm:ss</b>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('timePerRepetition')?.hasError('required')">
+                        <small>¡Este campo es requerido!</small>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('timePerRepetition')?.hasError('pattern')">
+                        <small>¡Este campo debe cumplir con el formato mm:ss (minutos:segundos)!</small>
+                    </div>
                 </div>
                 <!-- Series -->
                 <div class="col-12 col-md-6 mb-3">
@@ -51,7 +89,20 @@
                         type="number" 
                         class="form-control form-control-lg bg-light fs-6" 
                         formControlName="series"
-                        placeholder="Series*" />
+                        placeholder="Series*"
+                        [min]="1"
+                        [ngClass]="{
+                            'is-valid': taskDetailForm.get('series')?.valid && taskDetailForm.get('series')?.touched,
+                            'is-invalid': taskDetailForm.get('series')?.invalid && taskDetailForm.get('series')?.touched
+                        }" />
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('series')?.hasError('required')">
+                        <small>¡Este campo es requerido!</small>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('series')?.hasError('min')">
+                        <small>¡La serie debe ser mínimo 1!</small>
+                    </div>
                 </div>
                 <!-- Tiempo de descanso -->
                 <div class="col-12 col-md-6 mb-3">
@@ -60,7 +111,23 @@
                         type="text" 
                         class="form-control form-control-lg bg-light fs-6" 
                         formControlName="breakTime"
-                        placeholder="Tiempo de descanso" />
+                        placeholder="Tiempo de descanso"
+                        aria-describeby="breakTimeFormatt"
+                        [ngClass]="{
+                            'is-valid': taskDetailForm.get('breakTime')?.valid && taskDetailForm.get('breakTime')?.touched,
+                            'is-invalid': taskDetailForm.get('breakTime')?.invalid && taskDetailForm.get('breakTime')?.touched
+                        }" />
+                    <div id="breakTimeFormatt" class="form-text">
+                        Formato: <b>mm:ss</b>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('breakTime')?.hasError('required')">
+                        <small>¡Este campo es requerido!</small>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('breakTime')?.hasError('pattern')">
+                        <small>¡Este campo debe cumplir con el formato mm:ss (minutos:segundos)!</small>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -71,7 +138,15 @@
                         class="form-control form-control-lg bg-light fs-6" 
                         formControlName="description"
                         placeholder="Descripción*" 
-                        rows="7"></textarea>
+                        rows="7"
+                        [ngClass]="{
+                            'is-valid': taskDetailForm.get('description')?.valid && taskDetailForm.get('description')?.touched,
+                            'is-invalid': taskDetailForm.get('description')?.invalid && taskDetailForm.get('description')?.touched
+                        }"></textarea>
+                    <div class="invalid-feedback"
+                        *ngIf="taskDetailForm.get('description')?.hasError('required')">
+                        <small>¡Este campo es requerido!</small>
+                    </div>
                 </div>
             </div>
         </form>
