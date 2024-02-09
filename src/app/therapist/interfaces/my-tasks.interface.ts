@@ -15,7 +15,14 @@ export interface MyTasksI {
   createdAt: string;
   updatedAt: string;
   disabled: boolean;
+  categories: MyTasksCategoriesI[];
+  categoriesNames: string[];
   categoryIds: number[];
+}
+
+export interface MyTasksCategoriesI {
+  id: number;
+  name: string;
 }
 
 /*Interfaz para cuando se registra una tarea*/

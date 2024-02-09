@@ -6,24 +6,72 @@
         <form [formGroup]="taskDetailForm">
             <div class="row">
                 <!--Título-->
-                <div class="col-12 col-md-9 mb-3">
-                    <label class="mb-1"><b>Título</b></label>
-                    <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="title"
-                        placeholder="Título*" readonly>
+                <div class="col-12 col-md-8 mb-3">
+                    <label class="mb-1"><b>Título*</b></label>
+                    <input 
+                        type="text" 
+                        class="form-control form-control-lg bg-light fs-6" 
+                        formControlName="title"
+                        placeholder="Título*" 
+                        readonly />
                 </div>
-                <!--Tiempo estimado-->
-                <div class="col-12 col-md-3 mb-3">
-                    <label class="mb-1"><b>Tiempo estimado</b></label>
-                    <input type="text" class="form-control form-control-lg bg-light fs-6" formControlName="estimatedTime"
-                        placeholder="Tiempo estimado*">
+                <!-- Fecha de vencimiento -->
+                <div class="col-12 col-md-4 mb-3">
+                    <label class="mb-1"><b>Fecha de vencimiento*</b></label>
+                    <input 
+                        type="date" 
+                        placeholder="Fecha de vencimiento*"
+                        class="form-control form-control-lg bg-light fs-6"
+                        formControlName="dueDate" /> <!-- [min]="minDate" -->
+                </div>
+            </div>
+            <div class="row">
+                <!-- Repeticiones -->
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="mb-1"><b>Repeticiones*</b></label>
+                    <input 
+                        type="number" 
+                        class="form-control form-control-lg bg-light fs-6" 
+                        formControlName="repetitions"
+                        placeholder="Repeticiones*" />
+                </div>
+                <!-- Tiempo por repetición -->
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="mb-1"><b>Tiempo por repetición*</b></label>
+                    <input 
+                        type="text" 
+                        class="form-control form-control-lg bg-light fs-6" 
+                        formControlName="timePerRepetition"
+                        placeholder="Tiempo por repetición*" />
+                </div>
+                <!-- Series -->
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="mb-1"><b>Series*</b></label>
+                    <input 
+                        type="number" 
+                        class="form-control form-control-lg bg-light fs-6" 
+                        formControlName="series"
+                        placeholder="Series*" />
+                </div>
+                <!-- Tiempo de descanso -->
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="mb-1"><b>Tiempo de descanso</b></label>
+                    <input 
+                        type="text" 
+                        class="form-control form-control-lg bg-light fs-6" 
+                        formControlName="breakTime"
+                        placeholder="Tiempo de descanso" />
                 </div>
             </div>
             <div class="row">
                 <!--Descripción-->
                 <div class="col-12 mb-3">
-                    <label class="mb-1"><b>Descripción</b></label>
-                    <textarea class="form-control form-control-lg bg-light fs-6" formControlName="description"
-                        placeholder="Descripción*" rows="7"></textarea>
+                    <label class="mb-1"><b>Descripción*</b></label>
+                    <textarea 
+                        class="form-control form-control-lg bg-light fs-6" 
+                        formControlName="description"
+                        placeholder="Descripción*" 
+                        rows="7"></textarea>
                 </div>
             </div>
         </form>

@@ -45,6 +45,7 @@ export class AssignTasksComponent {
   static arrayTasksDetailToSend: BodyTaskToAssignI[] = [];
   idPatientToAssignTasks!: number;
   minDate: string ="";
+  categories: string[] = [];
 
   /*Constructor*/
   constructor(
@@ -205,7 +206,9 @@ export class AssignTasksComponent {
           createdAt: element.createdAt,
           updatedAt: element.updatedAt,
           disabled: true,
-          categoryIds: element.categoryIds
+          categories: element.categories,
+          categoryIds: element.categoryIds,
+          categoriesNames: element.categories.map((category) => category.name)
         }
         this.arrayTasks.push(tempTask);
       })
