@@ -132,10 +132,17 @@ export class EditTaskToAssignComponent {
 
   /*Método para convertir el tiempo en double string minutos y segundos */
   convertToDoubleTime(time: string) {
-    let timeArray = time.split(':');
-    let minutes = Number(timeArray[0]);
-    let seconds = Number(timeArray[1]);
-    return String(minutes + seconds / 60);
+    const [minutes, seconds] = time.split(':').map(Number);
+    if (minutes === 0 && seconds === 0) {
+      return '0.0';
+    }
+    
+    if (seconds === 0) {
+      return `${minutes}.0`;
+    }
+
+    const decimalTime = minutes + seconds / 60;
+    return decimalTime.toString();
   }
 
   convertToTime(doubleTime: string) {

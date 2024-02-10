@@ -96,7 +96,6 @@ export class AssignTasksComponent {
           this.spinnerStatus = true;
           this.arrayTreatments = data.data;
           this.filteredTreatmentTitles = this.arrayTreatments;
-          console.log(this.filteredTreatmentTitles);
         },
         error: (error) => {
           this.spinnerStatus = true;
@@ -296,37 +295,35 @@ export class AssignTasksComponent {
 
   /*Método que consume el servicio que finalmente asigna las tareas seleccionadas, al usuario*/
   registerAssignTaskToUser() {
-    console.log(AssignTasksComponent.arrayTasksDetailToSend);
-    
-    return;
+    if (this.selectedTreatmentId <= 0) {
+      this.showToastError("Error", "Debe seleccionar un tratamiento");
+      return;
+    }
+
+    if (AssignTasksComponent.arrayTasksDetailToSend.length <= 0) {
+      this.showToastError("Error", "Debe seleccionar al menos una tarea");
+      return;
+    }
+
     const body: AssignTasksToPatientI = {
       tasks: AssignTasksComponent.arrayTasksDetailToSend,
     }
-    if (this.assignTasksForm.get('dueDate')?.value.length > 0) {
-      if (AssignTasksComponent.arrayTasksDetailToSend.length > 0) {
-        this.spinnerStatus = false;
-        this.assigmentsService.registerTasksAssignToPatient(this.headers.getHeaders(), this.idPatientToAssignTasks, body)
-          .subscribe({
-            next: (data: any) => {
-              this.showToastSuccess(data.message, "Éxito");
-              this.spinnerStatus = true;
-              AssignTasksComponent.arrayTasksDetailToSend = [];
-              this.router.navigateByUrl('/therapist/home/dashboard/options-home');
-            },
-            error: (error: any) => {
-              this.spinnerStatus = true;
-              AssignTasksComponent.arrayTasksDetailToSend = [];
-              this.showToastError("Error", "No se pudieron asignar las tareas");
-            },
-          })
-      }
-      else {
-        this.showToastError("Error", "Debe seleccionar al menos una tarea");
-      }
-    }
-    else {
-      this.showToastError("Error", "Debe ingresar una fecha de vencimiento");
-    }
+    
+    this.spinnerStatus = false;
+    this.assigmentsService.registerTasksAssignToPatient(this.headers.getHeaders(), this.selectedTreatmentId, body)
+      .subscribe({
+        next: (data: any) => {
+          this.showToastSuccess(data.message, "Éxito");
+          this.spinnerStatus = true;
+          AssignTasksComponent.arrayTasksDetailToSend = [];
+          this.router.navigateByUrl('/therapist/home/dashboard/options-home');
+        },
+        error: (error: any) => {
+          this.spinnerStatus = true;
+          AssignTasksComponent.arrayTasksDetailToSend = [];
+          this.showToastError("Error", "No se pudieron asignar las tareas");
+        },
+      })
   }
 
   /*Método que muestra un toast con mensaje de ÉXITO*/

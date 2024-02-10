@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable, } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { APIResponseListTreatmentByPatientI, ApiResponseAssignTasksToPatientI, ApiResponseListTasksAssignsToPatientI, ApiResponseTaskDetailExtendAssignToPatientI } from '../interfaces/assigments.interface';
+import { APIResponseListTreatmentByPatientI, ApiResponseAssignTasksToPatientI, ApiResponseListTasksAssignsToPatientI, ApiResponseTaskDetailExtendAssignToPatientI, AssignTasksToPatientI } from '../interfaces/assigments.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -20,9 +20,9 @@ export class AssigmentsService {
     ) { }
 
     /*Método que obtiene el listado de los pacientes que tiene un terapeuta*/
-    registerTasksAssignToPatient(headers: Map<string, any>, patientId: number, body: any): Observable<ApiResponseAssignTasksToPatientI> {
+    registerTasksAssignToPatient(headers: Map<string, any>, treatmentId: number, body: AssignTasksToPatientI): Observable<ApiResponseAssignTasksToPatientI> {
         this.options = this.authService.getHeaders(headers);
-        return this.http.post<ApiResponseAssignTasksToPatientI>(this.urlApi + `/patients/${patientId}/tasks`, body, this.options);
+        return this.http.post<ApiResponseAssignTasksToPatientI>(this.urlApi + `/treatments/${treatmentId}/assign-tasks`, body, this.options);
     }
 
     /*Método que obtiene la lista de tareas asignadas a un paciente, mediante su ID*/

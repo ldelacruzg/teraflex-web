@@ -17,33 +17,20 @@ export interface BodyTaskToAssignI {
 export interface ApiResponseAssignTasksToPatientI {
     statusCode: number;
     message: string;
-    data: {
-        identifiers: [
-            {
-                id: number;
-            }
-        ],
-        generatedMaps: [
-            {
-                id: number;
-                status: boolean;
-                estimatedTime: number;
-                isCompleted: boolean;
-                createdAt: string;
-                updatedAt: string;
-            }
-        ],
-        raw: [
-            {
-                id: number,
-                status: true,
-                estimated_time: number,
-                is_completed: boolean,
-                created_at: string,
-                updated_at: string
-            }
-        ]
-    }
+    data: ApiResponseAssignTasksToPatientDataI[];
+}
+
+export interface ApiResponseAssignTasksToPatientDataI {
+    taskId:            number;
+    expirationDate:    Date;
+    timePerRepetition: string;
+    repetitions:       number;
+    breakTime:         string;
+    series:            number;
+    treatmentId:       number;
+    performanceDate:   null;
+    id:                number;
+    assignmentDate:    string;
 }
 
 /*Interfaz de respuesta de la API para visualizar la lista de tareas asignadas a un paciente por ID*/
