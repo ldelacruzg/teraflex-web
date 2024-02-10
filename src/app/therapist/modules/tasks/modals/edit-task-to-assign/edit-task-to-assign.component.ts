@@ -23,6 +23,9 @@ export class EditTaskToAssignComponent {
   taskDetail!: TaskDetailByIdI;
   expRegTime = /^([0-5]?[0-9]):([0-5][0-9])$/;
 
+  /* Datos de la tarea asignada */
+  static assignedTask?: BodyTaskToAssignI;
+
   /*Constructor*/
   constructor(
     private formBuilder: FormBuilder,
@@ -53,8 +56,26 @@ export class EditTaskToAssignComponent {
           this.taskDetailForm
             .get('description')
             ?.setValue(this.taskDetail.task.description);
+
+          if (EditTaskToAssignComponent.assignedTask) {
+            this.assignTaskSettings();
+          }
         },
       });
+  }
+
+  /*Método para asignar la configuración de la tarea */
+  assignTaskSettings() {
+    const taskSettings = EditTaskToAssignComponent.assignedTask;
+    if (taskSettings) {
+      this.taskDetailForm.get('dueDate')?.setValue(taskSettings.expirationDate);
+      this.taskDetailForm.get('repetitions')?.setValue(taskSettings.repetitions);
+      this.taskDetailForm.get('timePerRepetition')
+        ?.setValue(this.convertToTime(taskSettings.timePerRepetition));
+      this.taskDetailForm.get('series')?.setValue(taskSettings.series);
+      this.taskDetailForm.get('breakTime')
+        ?.setValue(this.convertToTime(taskSettings.breakTime));
+    }
   }
 
   /*Método que crea el formulario*/
@@ -68,10 +89,6 @@ export class EditTaskToAssignComponent {
       breakTime: ['00:00', [Validators.pattern(this.expRegTime)]],
       description: ['', [Validators.required]],
     });
-  }
-
-  hola() {
-    console.log('hola');
   }
 
   /*Método que obtiene los datos de la tarea editada y los manda al componente de asignar*/
@@ -104,6 +121,7 @@ export class EditTaskToAssignComponent {
       AssignTasksComponent.arrayTasksDetailToSend.push(taskDetailTemp);
     }
 
+    EditTaskToAssignComponent.assignedTask = undefined;
     this.modal.dismissAll();
   }
 
@@ -113,6 +131,14 @@ export class EditTaskToAssignComponent {
     let minutes = Number(timeArray[0]);
     let seconds = Number(timeArray[1]);
     return String(minutes + seconds / 60);
+  }
+
+  convertToTime(doubleTime: string) {
+    let time = Number(doubleTime);
+    let minutes = Math.floor(time);
+    let seconds = Math.round((time - minutes) * 60);
+    let formattedTime = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    return formattedTime;
   }
 
   getToday() {

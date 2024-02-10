@@ -170,9 +170,6 @@ export class AssignTasksComponent {
 
   /*Método que mantiene marcados los inputs check cuando cambio entre página*/
   toogleAssignedTask(task: MyTasksI) {
-    //task.iconEnabled = !task.iconEnabled;
-    //this.selectedCheckboxes[task.id] = !this.selectedCheckboxes[task.id];
-    console.log('toogleAssignedTask', task.id);
     const index = this.arrayTasksId.indexOf(task.id);
     if (index === -1) {
       this.arrayTasksId.push(task.id);
@@ -184,7 +181,6 @@ export class AssignTasksComponent {
   }
 
   removeTaskToAssign(taskId: number) {
-    console.log('removeTaskToAssign', taskId);
     const existingIndex = AssignTasksComponent.arrayTasksDetailToSend.findIndex(
       (item) => item.taskId === taskId
     );
@@ -232,6 +228,13 @@ export class AssignTasksComponent {
   openModalEditTaskToAssign(viewTaskDetail: any, taskID: number) {
     this.modal.open(viewTaskDetail, { size: 'lg', centered: true, backdrop: 'static' });
     EditTaskToAssignComponent.taskID = taskID;
+
+    const isAssignedTask = AssignTasksComponent.arrayTasksDetailToSend
+      .find((item) => item.taskId === taskID);
+
+    if (isAssignedTask) {
+      EditTaskToAssignComponent.assignedTask = isAssignedTask;
+    }
   }
 
   /*Método que agrega las tareas a un vector temporal para enviar a guardar*/
