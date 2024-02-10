@@ -1,14 +1,16 @@
 /*Interfaz que se usa para asignar las tareas a un usuario*/
 export interface AssignTasksToPatientI {
     tasks: BodyTaskToAssignI[];
-    dueDate: string;
 }
 
 /*Interfaz que contiene el detalle de la tarea a asignar, va dentro de la interfaz de arriba*/
 export interface BodyTaskToAssignI {
-    description: string,
-    estimatedTime: number,
-    id: number
+    taskId: number;
+    expirationDate: string;
+    timePerRepetition: string;
+    repetitions: number;
+    breakTime: string;
+    series: number;
 }
 
 /*Respuesta de la API una vez que se registran las asignaciones*/

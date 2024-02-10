@@ -145,8 +145,13 @@
                                                     <th scope="row">{{i+1}}</th>
                                                     <td><input type="checkbox"
                                                             [checked]="arrayTasksId.includes(task.id)"
-                                                            (change)="addOrRemoveVideoId(task)"
-                                                            (click)="addArrayToSend(task)"></td>
+                                                            (change)="toogleAssignedTask(task)"
+                                                            (click)="
+                                                                !arrayTasksId.includes(task.id) 
+                                                                    ? openModalEditTaskToAssign(editTaskToAssign, task.id)
+                                                                    : removeTaskToAssign(task.id)
+                                                            "
+                                                            /></td> 
                                                     <td>{{task.title}}</td>
                                                     <td>{{task.categoriesNames.join(', ')}}</td>
                                                     <td class="acciones">
@@ -258,22 +263,40 @@
                             <ng-template matStepLabel>Asignar tareas</ng-template>
                             <form [formGroup]="assignTasksForm">
                                 <div class="row mb-3">
-                                    <small><i>Seleccione una o más tareas para asignar a su paciente. Adicionalmente
-                                            agregue una fecha de vencimiento en la que el paciente debe cumplir las
-                                            tareas asignadas.</i></small>
+                                    <small><i>Por favor, seleccione una o más tareas para asignar a su paciente. 
+                                        Además, para cada tarea, es importante configurarla según las necesidades 
+                                        específicas del paciente y asegurarse de que pueda llevarla a cabo de 
+                                        manera efectiva.</i></small>
                                 </div>
                                 <div class="row">
-                                    <!--Fecha de vencimiento-->
-                                    <div class="col-12 col-md-4 mb-3">
-                                        <label class="mb-1"><b>Fecha de vencimiento</b></label>
-                                        <input type="date" placeholder="Fecha de vencimiento*"
-                                            class="form-control form-control-lg bg-light fs-6"
-                                            formControlName="dueDate" />
+                                    <!-- Seleccionar tratamiento -->
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <label class="mb-1"><b>Seleccionar tratamiento</b></label>
+                                        <input type="text" placeholder="Buscar por título..." [matAutocomplete]="auto"
+                                            class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
+                                            (input)="onSearch($event)" formControlName="names" />
+                                        <mat-autocomplete #auto="matAutocomplete"
+                                            [ngClass]="{
+                                            'is-invalid': patientForm.get('names')?.hasError('required') && patientForm.get('names')?.touched || patientForm.get('names')?.hasError('pattern')}">
+                                            <mat-option *ngFor="let patientName of filteredPatientsNames"
+                                                [value]="patientName.firstName+ ' ' + patientName.lastName"
+                                                > <!-- (click)="getTreatments(patientName.id)" -->
+                                                {{ patientName.firstName + ' ' + patientName.lastName }}
+                                                <app-badge-ui>{{ patientName.docNumber }}</app-badge-ui>
+                                            </mat-option>
+                                            <mat-option *ngIf="filteredPatientsNames.length === 0" [value]="'Sin resultados'">
+                                                Sin resultados...
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <div class="validators" *ngIf="patientForm.get('names')?.hasError('pattern')">
+                                            <small>¡Solo se permiten letras!</small>
+                                        </div>
                                     </div>
+
                                     <!--Buscar tareas por titulo-->
-                                    <form class="col-12 col-md-4 mb-3">
-                                        <label class="mb-1"><b>Filtrar búsqueda</b></label>
-                                        <input class="form-control me-1" type="text" placeholder="Buscar..."
+                                    <form class="col-12 col-md-6 mb-3">
+                                        <label class="mb-1"><b>Filtrar tarea</b></label>
+                                        <input class="form-control me-1" type="text" placeholder="Buscar por título..."
                                             name="tasksToSearch" [(ngModel)]="tasksToSearch">
                                     </form>
                                 </div>
@@ -283,13 +306,13 @@
                             <div class="card" id="htmlTablePDF">
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
                                     style="position: relative;">
-                                    <table class="table table-striped mb-0" id="htmlExcelTable">
+                                    <table class="table table-striped-columns mb-0" id="htmlExcelTable">
                                         <thead>
                                             <tr>
                                                 <th scope="col">N°</th>
                                                 <th scope="col">Asignar</th>
                                                 <th scope="col">Título</th>
-                                                <th scope="col">Tiempo estimado</th>
+                                                <th scope="col">Categorias</th>
                                                 <th scope="col">Acción</th>
                                             </tr>
                                         </thead>
@@ -300,10 +323,10 @@
                                                     <th scope="row">{{i+1}}</th>
                                                     <td><input type="checkbox"
                                                             [checked]="arrayTasksId.includes(task.id)"
-                                                            (change)="addOrRemoveVideoId(task)"
+                                                            (change)="toogleAssignedTask(task)"
                                                             (click)="addArrayToSend(task)"></td>
                                                     <td>{{task.title}}</td>
-                                                    <td>{{task.estimatedTime}} minutos</td>
+                                                    <td>{{task.categoriesNames.join(', ')}}</td>
                                                     <td class="acciones">
                                                         <button mat-button [disabled]="task.disabled"
                                                             (click)="openModalEditTaskToAssign(editTaskToAssign, task.id)"
@@ -328,10 +351,10 @@
                             <!--Botones de regresar y registrar tarea-->
                             <div class="action-buttons mb-3">
                                 <button mat-button matStepperPrevious type="button"
-                                    class="btn btn-secondary btn-md col-sm-12 mb-2"><fa-icon
-                                        [icon]="iconBack"></fa-icon> Regresar</button>
+                                    class="btn btn-secondary btn-md"><fa-icon [icon]="iconBack"></fa-icon>
+                                    Regresar</button>
                                 <button mat-button (click)="registerAssignTaskToUser()" type="button"
-                                    class="btn btn-primary btn-md col-sm-12">Guardar</button>
+                                    class="btn btn-primary btn-md">Guardar</button>
                             </div>
                         </mat-step>
                     </mat-vertical-stepper>

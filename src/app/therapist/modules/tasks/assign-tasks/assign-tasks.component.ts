@@ -169,9 +169,10 @@ export class AssignTasksComponent {
   }
 
   /*Método que mantiene marcados los inputs check cuando cambio entre página*/
-  addOrRemoveVideoId(task: any) {
-    task.iconEnabled = !task.iconEnabled;
-    this.selectedCheckboxes[task.id] = !this.selectedCheckboxes[task.id];
+  toogleAssignedTask(task: MyTasksI) {
+    //task.iconEnabled = !task.iconEnabled;
+    //this.selectedCheckboxes[task.id] = !this.selectedCheckboxes[task.id];
+    console.log('toogleAssignedTask', task.id);
     const index = this.arrayTasksId.indexOf(task.id);
     if (index === -1) {
       this.arrayTasksId.push(task.id);
@@ -181,6 +182,15 @@ export class AssignTasksComponent {
       task.disabled = true;
     }
   }
+
+  removeTaskToAssign(taskId: number) {
+    console.log('removeTaskToAssign', taskId);
+    const existingIndex = AssignTasksComponent.arrayTasksDetailToSend.findIndex(
+      (item) => item.taskId === taskId
+    );
+    AssignTasksComponent.arrayTasksDetailToSend.splice(existingIndex, 1);
+  }
+
 
   /*Método que cambias las páginas de la tabla*/
   changePage(e: PageEvent) {
@@ -220,14 +230,14 @@ export class AssignTasksComponent {
 
   /*Método que muestra modal para editar la tarea que se va a asignar*/
   openModalEditTaskToAssign(viewTaskDetail: any, taskID: number) {
-    this.modal.open(viewTaskDetail, { size: 'lg', centered: true });
+    this.modal.open(viewTaskDetail, { size: 'lg', centered: true, backdrop: 'static' });
     EditTaskToAssignComponent.taskID = taskID;
   }
 
   /*Método que agrega las tareas a un vector temporal para enviar a guardar*/
-  addArrayToSend(task: any) {
+  addArrayToSend(task: MyTasksI) {
     // Buscar el índice del elemento en el vector
-    const existingIndex = AssignTasksComponent.arrayTasksDetailToSend.findIndex((item) => item.id === task.id);
+    const existingIndex = AssignTasksComponent.arrayTasksDetailToSend.findIndex((item) => item.taskId === task.id);
     // Si el elemento existe en el vector, eliminarlo
     if (existingIndex !== -1) {
       AssignTasksComponent.arrayTasksDetailToSend.splice(existingIndex, 1);
@@ -244,9 +254,11 @@ export class AssignTasksComponent {
 
   /*Método que consume el servicio que finalmente asigna las tareas seleccionadas, al usuario*/
   registerAssignTaskToUser() {
+    console.log(AssignTasksComponent.arrayTasksDetailToSend);
+    
+    return;
     const body: AssignTasksToPatientI = {
       tasks: AssignTasksComponent.arrayTasksDetailToSend,
-      dueDate: this.assignTasksForm.get('dueDate')?.value
     }
     if (this.assignTasksForm.get('dueDate')?.value.length > 0) {
       if (AssignTasksComponent.arrayTasksDetailToSend.length > 0) {

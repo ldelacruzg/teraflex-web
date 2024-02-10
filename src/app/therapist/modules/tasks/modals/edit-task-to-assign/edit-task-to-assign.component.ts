@@ -70,6 +70,10 @@ export class EditTaskToAssignComponent {
     });
   }
 
+  hola() {
+    console.log('hola');
+  }
+
   /*Método que obtiene los datos de la tarea editada y los manda al componente de asignar*/
   addTaskEdited() {
     if (this.taskDetailForm.invalid) {
@@ -78,14 +82,19 @@ export class EditTaskToAssignComponent {
     }
 
     let taskDetailTemp: BodyTaskToAssignI = {
-      description: this.taskDetailForm.get('description')?.value,
-      estimatedTime: Number(this.taskDetailForm.get('estimatedTime')?.value),
-      id: this.taskDetail.task.id,
+      taskId: this.taskDetail.task.id,
+      expirationDate: this.taskDetailForm.get('dueDate')?.value,
+      timePerRepetition: this.convertToDoubleTime(this.taskDetailForm.get('timePerRepetition')?.value), // convert to double time
+      repetitions: Number(this.taskDetailForm.get('repetitions')?.value),
+      breakTime: this.convertToDoubleTime(this.taskDetailForm.get('breakTime')?.value), // convert to double time
+      series: Number(this.taskDetailForm.get('series')?.value),
     };
+
     // Buscar el índice del elemento en el vector
     const existingIndex = AssignTasksComponent.arrayTasksDetailToSend.findIndex(
-      (item) => item.id === taskDetailTemp.id
+      (item) => item.taskId === taskDetailTemp.taskId
     );
+
     // Si la tarea existe en el vector, eliminarla
     if (existingIndex !== -1) {
       AssignTasksComponent.arrayTasksDetailToSend.splice(existingIndex, 1);
@@ -94,7 +103,16 @@ export class EditTaskToAssignComponent {
       // Si la tarea no existe, agregarla al vector
       AssignTasksComponent.arrayTasksDetailToSend.push(taskDetailTemp);
     }
+
     this.modal.dismissAll();
+  }
+
+  /*Método para convertir el tiempo en double string minutos y segundos */
+  convertToDoubleTime(time: string) {
+    let timeArray = time.split(':');
+    let minutes = Number(timeArray[0]);
+    let seconds = Number(timeArray[1]);
+    return String(minutes + seconds / 60);
   }
 
   getToday() {
