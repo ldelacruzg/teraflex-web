@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AssignTasksComponent } from '../../assign-tasks/assign-tasks.component';
 import { DashboardComponent } from '../../../home/dashboard/dashboard.component';
 import {
@@ -84,11 +84,16 @@ export class EditTaskToAssignComponent {
       title: ['', [Validators.required]],
       dueDate: [this.getToday(), [Validators.required]],
       repetitions: [1, [Validators.required, Validators.min(1)]],
-      timePerRepetition: ['00:00', [Validators.required, Validators.pattern(this.expRegTime)]],
+      timePerRepetition: ['00:00', [Validators.required, Validators.pattern(this.expRegTime), this.notDefaultTime]],
       series: [1, [Validators.required, Validators.min(1)]],
       breakTime: ['00:00', [Validators.pattern(this.expRegTime)]],
       description: ['', [Validators.required]],
     });
+  }
+
+  notDefaultTime(control: AbstractControl): ValidationErrors | null {
+    const defaultValue = '00:00';
+    return control.value === defaultValue ? { 'defaultTime': true } : null;
   }
 
   /*Método que obtiene los datos de la tarea editada y los manda al componente de asignar*/
