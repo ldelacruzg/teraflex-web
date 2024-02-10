@@ -7,7 +7,7 @@ import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { EditTaskToAssignComponent } from '../modals/edit-task-to-assign/edit-task-to-assign.component';
 import { ApiResponseGetMyPatientsI, MyPatientDetailI, ApiResponseGetMyPatientByIdI, MyPatientDetailByIdI } from 'src/app/therapist/interfaces/patients.interface';
 import { ApiResponseMyTasksI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
-import { AssignTasksToPatientI, BodyTaskToAssignI } from 'src/app/therapist/interfaces/assigments.interface';
+import { APIResponseListTreatmentByPatientI, AssignTasksToPatientI, BodyTaskToAssignI, ListTreatmentI } from 'src/app/therapist/interfaces/assigments.interface';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { MyTasksService } from 'src/app/therapist/services/my-tasks.service';
 import { AssigmentsService } from 'src/app/therapist/services/assignments.service';
@@ -47,6 +47,10 @@ export class AssignTasksComponent {
   minDate: string ="";
   categories: string[] = [];
 
+  arrayTreatments: ListTreatmentI[] = [];
+  filteredTreatmentTitles: ListTreatmentI[] = [];
+  selectedTreatmentId: number = 0;
+
   /*Constructor*/
   constructor(
     private formBuilder: FormBuilder,
@@ -79,6 +83,28 @@ export class AssignTasksComponent {
     this.getListMyTasks();
   }
 
+  /*Método que obtiene el listado de los tratamientos activos del paciente */
+  getTreatmentsByPatient() {
+    this.spinnerStatus = false;
+    this.assigmentsService.getTreatments(
+        this.headers.getHeaders(), 
+        this.idPatientToAssignTasks,
+        true
+      )
+      .subscribe({
+        next: (data: APIResponseListTreatmentByPatientI) => {
+          this.spinnerStatus = true;
+          this.arrayTreatments = data.data;
+          this.filteredTreatmentTitles = this.arrayTreatments;
+          console.log(this.filteredTreatmentTitles);
+        },
+        error: (error) => {
+          this.spinnerStatus = true;
+          this.showToastError("Error", "No se pudieron obtener los tratamientos del paciente");
+        }
+      })
+  }
+
   /*Método que obtiene el listado de los pacientes*/
   getMyPatients() {
     this.myPatientsService.getMyPatients(this.headers.getHeaders(), true)
@@ -103,9 +129,21 @@ export class AssignTasksComponent {
     );
   }
 
+  onSearchTreatment(event: any) {
+    const value = event.target.value;
+    const searchTerm = value.trim().toLowerCase();
+    this.filteredTreatmentTitles = this.arrayTreatments.filter(
+      treatment => treatment.title.toLowerCase().includes(searchTerm)
+    );
+  }
+
   /*Método para mostrar por defecto todos los pacientes y que no se muestre de primero el "Sin resultados..."*/
   onFocus() {
     this.filteredPatientsNames = this.arrayPatients;
+  }
+
+  onFocusTreatment() {
+    this.filteredTreatmentTitles = this.arrayTreatments;
   }
 
   /*Método que obtiene el detalle de los datos del paciente según el paciente seleccionado (ID)*/
@@ -165,6 +203,7 @@ export class AssignTasksComponent {
 
   /*Método que para avanzar al siguiente paso del stepper*/
   nextStepAssignTasks() {
+    this.getTreatmentsByPatient();
     this.stepper.next();
   }
 

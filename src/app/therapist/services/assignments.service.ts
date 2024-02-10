@@ -46,11 +46,16 @@ export class AssigmentsService {
     }
 
     /*Método que obtiene el listado de tratamientos del paciente*/
-    getTreatments(headers: Map<string, any>, idPatient: number): Observable<APIResponseListTreatmentByPatientI> {
+    getTreatments(headers: Map<string, any>, idPatient: number,treatmentActive?: boolean): Observable<APIResponseListTreatmentByPatientI> {
         this.options = this.authService.getHeaders(headers);
         let queryParams = "?";
         queryParams += `patientId=${idPatient}`;
         queryParams += `&tasksNumber=true`;
+
+        if(treatmentActive !== undefined){
+            queryParams += `&treatmentActive=${treatmentActive}`;
+        }
+
         return this.http.get<APIResponseListTreatmentByPatientI>(this.urlApi + `/treatments${queryParams}`, this.options);
     }
 }

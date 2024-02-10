@@ -27,6 +27,7 @@
                                                 [value]="patientName.lastName + ' ' + patientName.firstName"
                                                 (click)="getInfoDetailPatient(patientName.id)">
                                                 {{ patientName.lastName + ' ' + patientName.firstName }}
+                                                <app-badge-ui>{{ patientName.docNumber }}</app-badge-ui>
                                             </mat-option>
                                             <mat-option *ngIf="filteredPatientsNames.length === 0"
                                                 [value]="'Sin resultados'">
@@ -94,25 +95,22 @@
                                     <!-- Seleccionar tratamiento -->
                                     <div class="col-12 col-md-6 mb-3">
                                         <label class="mb-1"><b>Seleccionar tratamiento</b></label>
-                                        <input type="text" placeholder="Buscar por título..." [matAutocomplete]="auto"
-                                            class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
-                                            (input)="onSearch($event)" formControlName="names" />
-                                        <mat-autocomplete #auto="matAutocomplete"
-                                            [ngClass]="{
-                                            'is-invalid': patientForm.get('names')?.hasError('required') && patientForm.get('names')?.touched || patientForm.get('names')?.hasError('pattern')}">
-                                            <mat-option *ngFor="let patientName of filteredPatientsNames"
-                                                [value]="patientName.firstName+ ' ' + patientName.lastName"
+                                        <input type="text" placeholder="Buscar por título..." [matAutocomplete]="autoTreatment"
+                                            class="form-control form-control-lg bg-light fs-6" (focus)="onFocusTreatment()"
+                                            (input)="onSearchTreatment($event)" /> <!-- formControlName="names" -->
+                                        <mat-autocomplete #autoTreatment="matAutocomplete">
+                                            <mat-option *ngFor="let treatment of filteredTreatmentTitles"
+                                                [value]="treatment.title"
+                                                (click)="selectedTreatmentId=treatment.id"
                                                 > <!-- (click)="getTreatments(patientName.id)" -->
-                                                {{ patientName.firstName + ' ' + patientName.lastName }}
-                                                <app-badge-ui>{{ patientName.docNumber }}</app-badge-ui>
+                                                {{ treatment.title }}
                                             </mat-option>
-                                            <mat-option *ngIf="filteredPatientsNames.length === 0" [value]="'Sin resultados'">
+                                            <mat-option 
+                                                *ngIf="filteredTreatmentTitles.length === 0" 
+                                                [value]="'Sin resultados'">
                                                 Sin resultados...
                                             </mat-option>
                                         </mat-autocomplete>
-                                        <div class="validators" *ngIf="patientForm.get('names')?.hasError('pattern')">
-                                            <small>¡Solo se permiten letras!</small>
-                                        </div>
                                     </div>
 
                                     <!--Buscar tareas por titulo-->
@@ -205,6 +203,7 @@
                                                 [value]="patientName.lastName + ' ' + patientName.firstName"
                                                 (click)="getInfoDetailPatient(patientName.id)">
                                                 {{ patientName.lastName + ' ' + patientName.firstName }}
+                                                <app-badge-ui>{{ patientName.docNumber }}</app-badge-ui>
                                             </mat-option>
                                             <mat-option *ngIf="filteredPatientsNames.length === 0"
                                                 [value]="'Sin resultados'">
@@ -272,25 +271,22 @@
                                     <!-- Seleccionar tratamiento -->
                                     <div class="col-12 col-md-6 mb-3">
                                         <label class="mb-1"><b>Seleccionar tratamiento</b></label>
-                                        <input type="text" placeholder="Buscar por título..." [matAutocomplete]="auto"
-                                            class="form-control form-control-lg bg-light fs-6" (focus)="onFocus()"
-                                            (input)="onSearch($event)" formControlName="names" />
-                                        <mat-autocomplete #auto="matAutocomplete"
-                                            [ngClass]="{
-                                            'is-invalid': patientForm.get('names')?.hasError('required') && patientForm.get('names')?.touched || patientForm.get('names')?.hasError('pattern')}">
-                                            <mat-option *ngFor="let patientName of filteredPatientsNames"
-                                                [value]="patientName.firstName+ ' ' + patientName.lastName"
+                                        <input type="text" placeholder="Buscar por título..." [matAutocomplete]="autoTreatment"
+                                            class="form-control form-control-lg bg-light fs-6" (focus)="onFocusTreatment()"
+                                            (input)="onSearchTreatment($event)" /> <!-- formControlName="names" -->
+                                        <mat-autocomplete #autoTreatment="matAutocomplete">
+                                            <mat-option *ngFor="let treatment of filteredTreatmentTitles"
+                                                [value]="treatment.title"
+                                                (click)="selectedTreatmentId=treatment.id"
                                                 > <!-- (click)="getTreatments(patientName.id)" -->
-                                                {{ patientName.firstName + ' ' + patientName.lastName }}
-                                                <app-badge-ui>{{ patientName.docNumber }}</app-badge-ui>
+                                                {{ treatment.title }}
                                             </mat-option>
-                                            <mat-option *ngIf="filteredPatientsNames.length === 0" [value]="'Sin resultados'">
+                                            <mat-option 
+                                                *ngIf="filteredTreatmentTitles.length === 0" 
+                                                [value]="'Sin resultados'">
                                                 Sin resultados...
                                             </mat-option>
                                         </mat-autocomplete>
-                                        <div class="validators" *ngIf="patientForm.get('names')?.hasError('pattern')">
-                                            <small>¡Solo se permiten letras!</small>
-                                        </div>
                                     </div>
 
                                     <!--Buscar tareas por titulo-->
@@ -324,7 +320,12 @@
                                                     <td><input type="checkbox"
                                                             [checked]="arrayTasksId.includes(task.id)"
                                                             (change)="toogleAssignedTask(task)"
-                                                            (click)="addArrayToSend(task)"></td>
+                                                            (click)="
+                                                                !arrayTasksId.includes(task.id) 
+                                                                    ? openModalEditTaskToAssign(editTaskToAssign, task.id)
+                                                                    : removeTaskToAssign(task.id)
+                                                            "
+                                                            /></td> 
                                                     <td>{{task.title}}</td>
                                                     <td>{{task.categoriesNames.join(', ')}}</td>
                                                     <td class="acciones">
