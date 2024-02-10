@@ -207,7 +207,9 @@ export class ViewProgressMyPatientsComponent {
   isTaskVencida(dueDateRecived: string): boolean {
     const dueDate = new Date(dueDateRecived);
     const currentlyDate = new Date();
-    return dueDate < currentlyDate;
+    dueDate.setUTCHours(0, 0, 0, 0);
+    currentlyDate.setUTCHours(0, 0, 0, 0);
+    return currentlyDate > dueDate;
   }
 
   /*Icons to use*/
