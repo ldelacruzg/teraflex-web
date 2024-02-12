@@ -5,10 +5,14 @@ import { ListMyPatientsComponent } from './list-my-patients/list-my-patients.com
 import { EditMyPatientsComponent } from './edit-my-patients/edit-my-patients.component';
 import { ViewProgressMyPatientsComponent } from './view-progress-my-patients/view-progress-my-patients.component';
 import { ListTreatmentsMyPatientsComponent } from './list-treatments-my-patients/list-treatments-my-patients.component';
+import { RegisterTreatmentMyPatientsComponent } from './register-treatment-my-patients/register-treatment-my-patients.component';
 
 
 //Rutas hijas
 const routes: Routes = [
+  {
+    path: 'register-treatment', component: RegisterTreatmentMyPatientsComponent
+  },
   {
     path: 'treatments', component: ListTreatmentsMyPatientsComponent
   },

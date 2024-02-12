@@ -18,6 +18,7 @@ import { SharedComponentsModule } from 'src/app/shared-components/shared-compone
 import { GenerateNewPasswordComponent } from './modals/generate-new-password/generate-new-password.component';
 import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/view-credentials-login.component';
 import { ListTreatmentsMyPatientsComponent } from './list-treatments-my-patients/list-treatments-my-patients.component';
+import { RegisterTreatmentMyPatientsComponent } from './register-treatment-my-patients/register-treatment-my-patients.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ListTreatmentsMyPatientsComponent } from './list-treatments-my-patients
     GenerateNewPasswordComponent,
     ViewCredentialsLoginComponent,
     ListTreatmentsMyPatientsComponent,
+    RegisterTreatmentMyPatientsComponent,
   ],
   imports: [
     CommonModule,

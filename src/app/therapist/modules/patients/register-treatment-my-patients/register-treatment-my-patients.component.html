@@ -1,0 +1,119 @@
+<app-spinner *ngIf="!spinnerStatus"></app-spinner>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-12 container-info">
+            <div class="col-12 mt-3 mx-1">
+                <h4 id="titulo"><fa-icon [icon]="iconAddPatient" class="icon-title"></fa-icon> Registrar tratamiento</h4>
+            </div>
+
+            <form [formGroup]="treatmentForm">
+                <div class="row mt-4">
+                  <!-- Seleccionar paciente -->
+                  <div class="col-12">
+                      <label class="mb-1"><b>Seleccionar paciente*</b></label>
+                      <input type="text" placeholder="Nombres y Apellidos*" [matAutocomplete]="auto"
+                          class="form-control form-control-lg bg-light fs-6" (focus)="onFocusPatient()"
+                          (input)="onSearchPatient($event)" formControlName="patientName"
+                          [ngClass]="{
+                              'is-invalid': treatmentForm.get('patientName')?.hasError('required') && treatmentForm.get('patientName')?.touched
+                          }"
+                          />
+                      <mat-autocomplete #auto="matAutocomplete">
+                          <mat-option 
+                              *ngFor="let patient of filteredPatients"
+                              [value]="patient.lastName + ' ' + patient.firstName"
+                              (click)="setPatientId(patient.id)"
+                              >
+                              {{ patient.lastName + ' ' + patient.firstName }}
+                              <app-badge-ui>{{ patient.docNumber }}</app-badge-ui>
+                          </mat-option>
+                          <mat-option *ngIf="filteredPatients.length === 0"
+                              [value]="'Sin resultados'">
+                              Sin resultados...
+                          </mat-option>
+                      </mat-autocomplete>
+                      <div class="invalid-feedback"
+                          *ngIf="treatmentForm.get('patientName')?.hasError('required') && treatmentForm.get('patientName')?.touched">
+                          <small>¡Este campo es requerido!</small>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                    <!-- Título -->
+                  <div class="col-12 col-md-8">
+                      <label class="mb-1"><b>Título</b></label>
+                      <input type="text" placeholder="Título*" class="form-control form-control-lg bg-light fs-6"
+                          formControlName="title" [ngClass]="{
+                              'is-valid': treatmentForm.get('title')?.valid && treatmentForm.get('title')?.touched,
+                              'is-invalid': treatmentForm.get('title')?.invalid && treatmentForm.get('title')?.touched
+                          }" [maxlength]="70" />
+                      <div class="invalid-feedback"
+                          *ngIf="treatmentForm.get('title')?.hasError('required')">
+                          <small>¡Este campo es requerido!</small>
+                      </div>
+                      <div class="invalid-feedback"
+                          *ngIf="treatmentForm.get('title')?.hasError('maxlength')">
+                          <small>¡Este campo no debe contener más de 70 caracteres!</small>
+                      </div>
+                  </div>
+
+                  <!-- Fecha de inicio del tratamiento -->
+                  <div class="col-12 col-md-4">
+                      <label class="mb-1"><b>Fecha de inicio*</b></label>
+                      <input 
+                          type="date" 
+                          placeholder="Fecha de vencimiento*"
+                          class="form-control form-control-lg bg-light fs-6"
+                          formControlName="startDate"
+                          [ngClass]="{
+                              'is-valid': treatmentForm.get('startDate')?.valid && treatmentForm.get('startDate')?.touched,
+                              'is-invalid': treatmentForm.get('startDate')?.invalid && treatmentForm.get('startDate')?.touched
+                          }" />
+                      <div class="invalid-feedback"
+                          *ngIf="treatmentForm.get('startDate')?.hasError('required')">
+                          <small>¡Este campo es requerido!</small>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                  <!-- Descripción -->
+                  <div class="col-12">
+                      <label class="mb-1"><b>Descripción*</b></label>
+                      <textarea 
+                          class="form-control form-control-lg bg-light fs-6" 
+                          formControlName="description"
+                          placeholder="Descripción*" 
+                          rows="7"
+                          [ngClass]="{
+                              'is-valid': treatmentForm.get('description')?.valid && treatmentForm.get('description')?.touched,
+                              'is-invalid': treatmentForm.get('description')?.invalid && treatmentForm.get('description')?.touched
+                          }"
+                          ></textarea>
+                      <div class="invalid-feedback"
+                          *ngIf="treatmentForm.get('description')?.hasError('required')">
+                          <small>¡Este campo es requerido!</small>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="action-buttons my-4">
+                    <button 
+                        mat-button 
+                        type="button"
+                        (click)="registerTreatment()"
+                        class="btn btn-primary btn-md">Guardar</button> <!-- [disabled]="!treatmentForm.valid" -->
+                    <button [routerLink]="'../treatments'" mat-button type="button"
+                        class="btn btn-danger btn-md">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<!--Modal para ver las credenciales del terapeuta-->
+<ng-template #viewPatientCredentials>
+    <app-view-credentials-login></app-view-credentials-login>
+</ng-template>

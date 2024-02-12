@@ -132,3 +132,31 @@ export interface ApiResponseActivateDesactivatePatientI{
     statusCode: number;
     message: string;
 }
+
+/*Interfaz para registrar un tratameinto */
+export interface RegisterTreatmentI {
+    patientId: number;
+    title: string;
+    startDate: string;
+    description: string;
+}
+
+/*Interfaz de respuesta de la APi cuando se registra un tratamiento */
+export interface ApiResponseRegisterTreatmentI {
+    statusCode: number;
+    message:    string;
+    data:       ApiResponseRegisterTreatmentData;
+}
+
+export interface ApiResponseRegisterTreatmentData {
+    title:       string;
+    description: string;
+    startDate:   Date;
+    patientId:   number;
+    therapistId: number;
+    endDate:     null;
+    updatedAt:   string;
+    id:          number;
+    isActive:    boolean;
+    createdAt:   string;
+}
