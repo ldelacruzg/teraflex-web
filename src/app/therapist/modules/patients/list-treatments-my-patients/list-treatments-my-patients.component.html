@@ -80,6 +80,7 @@
                                     <td class="acciones">
                                         <!-- Botón para ver el detalle del tratamiento -->
                                         <fa-icon 
+                                            (click)="openModalViewDetailTreatment(viewTreatment, treatment.id)"
                                             data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconViewDetails"></fa-icon>
                                         <!-- Botón para finalizar el tratamiento -->
@@ -116,6 +117,6 @@
 </body>
 
 <!--Modal para ver lel detalle de la tarea asignada-->
-<ng-template #viewTaskDetailAssign>
-    <app-view-detail-progress-my-patients></app-view-detail-progress-my-patients>
+<ng-template #viewTreatment>
+    <app-view-detail-treatment></app-view-detail-treatment>
 </ng-template>

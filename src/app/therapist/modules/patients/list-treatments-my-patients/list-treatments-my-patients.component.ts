@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { ViewDetailTreatmentComponent } from '../modals/view-detail-treatment/view-detail-treatment.component';
 
 @Component({
   selector: 'app-list-treatments-my-patients',
@@ -172,10 +173,17 @@ export class ListTreatmentsMyPatientsComponent {
     });
   }
 
-  /*Método que abre el modal para ver el detalle de la tarea asignada*/
-  openModalViewTaskDetailAssign(viewTaskDetailAssign: any, idTaskAssign: number) {
-    this.modal.open(viewTaskDetailAssign, { size: 'lg', centered: true });
-    ViewDetailProgressMyPatientsComponent.taskDetailAssignId = idTaskAssign;
+  /*Método que abre el modal para ver el detalle del tratamiento*/
+  openModalViewDetailTreatment(viewTreatment: any, treatmentId: number) {
+    const treatmentSummary = this.arrayTreatments.find(treatment => treatment.id == treatmentId);
+    
+    if (treatmentSummary) {
+      this.modal.open(viewTreatment, { size: 'lg', centered: true });
+      ViewDetailTreatmentComponent.treatmentId = treatmentId;
+      ViewDetailTreatmentComponent.treatmentSummary = treatmentSummary;
+    }
+    /* this.modal.open(viewTaskDetailAssign, { size: 'lg', centered: true });
+    ViewDetailProgressMyPatientsComponent.taskDetailAssignId = idTaskAssign; */
   }
 
   /*Método que elimina una tarea asignada al paciente seleccionado*/

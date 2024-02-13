@@ -1,0 +1,140 @@
+<div class="container">
+  <div class="modal-header">
+      <h4 class="modal-title"><fa-icon [icon]="iconDetailProgress"></fa-icon> Detalle del tratamiento</h4>
+  </div>
+  <div class="modal-body">
+      <div class="row">
+          <div class="col-12">
+              <div class="info mb-4">
+                  <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Título</b></label>
+                  <p *ngIf="detailTreatment.title!='--'; else noResults">{{detailTreatment.title}}</p>
+                  <ng-template #noResults>
+                      <div class="spinner">
+                          <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                              aria-hidden="true"></span>
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  </ng-template>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="info mb-4">
+              <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de inicio</b></label>
+              <p *ngIf="detailTreatment.startDate!='--'; else noResults">{{detailTreatment.startDate}}</p>
+              <ng-template #noResults>
+                  <div class="spinner">
+                      <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                          aria-hidden="true"></span>
+                      <span class="sr-only">Loading...</span>
+                  </div>
+              </ng-template>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="info mb-4">
+              <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de finalización</b></label>
+              <p *ngIf="detailTreatment.endDate!==null; else noEndDate">{{detailTreatment.endDate}}</p>
+              <ng-template #noEndDate>
+                  <p>Aún no termina el tratamiento</p>
+              </ng-template>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="info mb-4">
+              <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Estado</b></label><br/>
+              <span
+                [style.background-color]="detailTreatment.endDate!==null ? '#007BBD' : detailTreatment.isActive ? '#198754' : '#DC3545'"
+                [style.border-radius]="'5px'"
+                [style.padding]="'3px'"
+                [style.color]="detailTreatment.endDate!==null || detailTreatment.isActive ? 'white' : 'black'"
+              >{{ detailTreatment.endDate!==null ? 'Completado' : detailTreatment.isActive ? 'Activo' : 'Inactivo'}}
+              </span>
+              <ng-template #noResults>
+                  <div class="spinner">
+                      <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                          aria-hidden="true"></span>
+                      <span class="sr-only">Loading...</span>
+                  </div>
+              </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="info mb-4">
+                <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Cant. Tareas</b></label>
+                <p>{{getTreatmentSummary().numberTasks}}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="info mb-4">
+                <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Cant. Tareas Completadas</b></label>
+                <p>{{getTreatmentSummary().completedTasks}}</p>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="info mb-4">
+                <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Cant. Tareas Pendientes</b></label>
+                <p>{{getTreatmentSummary().pendingTasks}}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="info mb-4">
+                <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Cant. Tareas Vencidas</b></label>
+                <p>{{getTreatmentSummary().overdueTasks}}</p>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="info mb-4">
+                <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de creación</b></label>
+                <p *ngIf="detailTreatment.createdAt!='--'; else noResults">{{detailTreatment.createdAt}}</p>
+                <ng-template #noResults>
+                    <div class="spinner">
+                        <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                            aria-hidden="true"></span>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="info mb-4">
+                <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de actualización</b></label>
+                <p *ngIf="detailTreatment.updatedAt!='--'; else noResults">{{detailTreatment.updatedAt}}</p>
+                <ng-template #noResults>
+                    <div class="spinner">
+                        <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                            aria-hidden="true"></span>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <div class="info mb-4">
+                <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Descripción</b></label>
+                <p *ngIf="detailTreatment.description!='--'; else noResults">{{detailTreatment.description}}</p>
+                <ng-template #noResults>
+                    <div class="spinner">
+                        <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status"
+                            aria-hidden="true"></span>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button (click)="modal.dismissAll()" type="button" class="btn btn-next btn"
+          style="border-radius: 50px;">Aceptar</button>
+  </div>
+</div>

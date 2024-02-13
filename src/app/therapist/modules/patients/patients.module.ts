@@ -19,6 +19,7 @@ import { GenerateNewPasswordComponent } from './modals/generate-new-password/gen
 import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/view-credentials-login.component';
 import { ListTreatmentsMyPatientsComponent } from './list-treatments-my-patients/list-treatments-my-patients.component';
 import { RegisterTreatmentMyPatientsComponent } from './register-treatment-my-patients/register-treatment-my-patients.component';
+import { ViewDetailTreatmentComponent } from './modals/view-detail-treatment/view-detail-treatment.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RegisterTreatmentMyPatientsComponent } from './register-treatment-my-pa
     ViewCredentialsLoginComponent,
     ListTreatmentsMyPatientsComponent,
     RegisterTreatmentMyPatientsComponent,
+    ViewDetailTreatmentComponent,
   ],
   imports: [
     CommonModule,

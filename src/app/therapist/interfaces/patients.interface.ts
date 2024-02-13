@@ -160,3 +160,23 @@ export interface ApiResponseRegisterTreatmentData {
     isActive:    boolean;
     createdAt:   string;
 }
+
+/*Interfaz de respuesta de la API cuando se obtiene el detalle de un tratamiento */
+export interface APIResponseDetailTreatment {
+    statusCode: number;
+    message:    string;
+    data:       DetailTreatmentI;
+}
+
+export interface DetailTreatmentI {
+    id:          number;
+    title:       string;
+    description: string;
+    isActive:    boolean;
+    startDate:   string;
+    endDate:     string | null;
+    patientId:   number;
+    therapistId: number;
+    createdAt:   string;
+    updatedAt:   string;
+}
