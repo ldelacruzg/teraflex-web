@@ -34,10 +34,7 @@ export class ListTreatmentsMyPatientsComponent {
   idPatient: number = 0;
   arrayPatients: MyPatientDetailI[] = [];
   filteredPatientsNames: MyPatientDetailI[] = []; //Array para filtrarlos en la búsqueda
-  arrayAssignsTasks: any[] = [];
   arrayTreatments: ListTreatmentI[] = [];
-  filteredAssignsTasks: any[] = [];
-  tasksToSearch: MyTasksI[] = [];
 
   /*Constructor*/
   constructor(
@@ -91,8 +88,8 @@ export class ListTreatmentsMyPatientsComponent {
     this.itemsForPage = e.pageSize;
     this.initialPage = e.pageIndex * this.itemsForPage;
     this.finalPage = this.initialPage + this.itemsForPage;
-    if (this.finalPage > this.arrayAssignsTasks.length) {
-      this.finalPage = this.arrayAssignsTasks.length;
+    if (this.finalPage > this.arrayTreatments.length) {
+      this.finalPage = this.arrayTreatments.length;
     }
   }
 
