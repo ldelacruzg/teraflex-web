@@ -1,3 +1,5 @@
+import { DetailTreatmentI } from "./patients.interface";
+
 /*Interfaz que se usa para asignar las tareas a un usuario*/
 export interface AssignTasksToPatientI {
     tasks: BodyTaskToAssignI[];
@@ -93,10 +95,10 @@ export interface TaskDetailExtendAssignToPatientI{
 }
 
 /*Interfaz de respuesta de la API para cuando se obtiene los tratamientos*/
-export interface APIResponseListTreatmentByPatientI {
+export interface APIResponseListTreatmentByPatientI<T extends ListTreatmentI | DetailTreatmentI> {
     statusCode: number;
     message:    string;
-    data:       ListTreatmentI[];
+    data:       T[];
 }
 
 export interface ListTreatmentI {

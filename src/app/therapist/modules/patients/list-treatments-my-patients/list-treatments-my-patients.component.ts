@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
-import { ViewDetailProgressMyPatientsComponent } from '../modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
-import { APIResponseListTreatmentByPatientI, ApiResponseListTasksAssignsToPatientI, ListTreatmentI } from 'src/app/therapist/interfaces/assigments.interface';
-import { ApiResponseGetMyPatientsI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
-import { MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
+import { APIResponseListTreatmentByPatientI } from 'src/app/therapist/interfaces/assigments.interface';
+import { ApiResponseGetMyPatientsI, DetailTreatmentI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
 import { AssigmentsService } from 'src/app/therapist/services/assignments.service';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { ToastrService } from 'ngx-toastr';
@@ -34,7 +32,7 @@ export class ListTreatmentsMyPatientsComponent {
   idPatient: number = 0;
   arrayPatients: MyPatientDetailI[] = [];
   filteredPatientsNames: MyPatientDetailI[] = []; //Array para filtrarlos en la búsqueda
-  arrayTreatments: ListTreatmentI[] = [];
+  arrayTreatments: DetailTreatmentI[] = [];
 
   /*Constructor*/
   constructor(
@@ -112,9 +110,9 @@ export class ListTreatmentsMyPatientsComponent {
   getTreatments(idPatient: number) {
     this.idPatient = idPatient;
     this.spinnerStatus = false;
-    this.assigmentsService.getTreatments(this.headers.getHeaders(), idPatient)
+    this.assigmentsService.getTreatments<DetailTreatmentI>(this.headers.getHeaders(), idPatient, undefined, false)
       .subscribe({
-        next: (data: APIResponseListTreatmentByPatientI) => {
+        next: (data: APIResponseListTreatmentByPatientI<DetailTreatmentI>) => {
           this.spinnerStatus = true;
           this.arrayTreatments = data.data;
           if (this.arrayTreatments.length == 0)
@@ -153,17 +151,31 @@ export class ListTreatmentsMyPatientsComponent {
 
   /*Método que abre el modal para ver el detalle del tratamiento*/
   openModalViewDetailTreatment(viewTreatment: any, treatmentId: number) {
-    const treatmentSummary = this.arrayTreatments.find(treatment => treatment.id == treatmentId);
+    const treatment = this.arrayTreatments.find(treatment => treatment.id == treatmentId);
     
-    if (treatmentSummary) {
+    if (treatment) {
       this.modal.open(viewTreatment, { size: 'lg', centered: true });
       ViewDetailTreatmentComponent.treatmentId = treatmentId;
-      ViewDetailTreatmentComponent.treatmentSummary = treatmentSummary;
+      // treatment summary
     }
   }
 
   /*Método que muestra una alerta para confirmar que desea dar por terminado el tratamiento*/
   showAlertEndTreatment(treatmentId: number) {
+    const treatment = this.arrayTreatments.find(treatment => treatment.id == treatmentId);
+
+    if (treatment) {
+      if (!treatment.isActive && treatment.endDate !== null) {
+        this.showToastInfo("Información", "El tratamiento ya ha finalizado");
+        return;
+      }
+
+      if (!treatment.isActive && treatment.endDate === null) {
+        this.showToastInfo("Información", "El tratamiento está inactivo");
+        return;
+      }
+    }
+
     this.sweetAlerts.alertConfirmCancel("Finalizar tratamiento", "¿Estás seguro de que deseas finalizar el tratamiento?")
       .then(respuesta => {
         if (respuesta.value == true) {
@@ -195,4 +207,6 @@ export class ListTreatmentsMyPatientsComponent {
   iconInformation = iconos.faInfoCircle;
   iconFinish = iconos.faCheckCircle;
   iconEdit = iconos.faEdit;
+  iconDesactivate = iconos.faToggleOn;
+  iconActivate = iconos.faToggleOff;
 }

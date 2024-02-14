@@ -5,7 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router'
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { EditTaskToAssignComponent } from '../modals/edit-task-to-assign/edit-task-to-assign.component';
-import { ApiResponseGetMyPatientsI, MyPatientDetailI, ApiResponseGetMyPatientByIdI, MyPatientDetailByIdI } from 'src/app/therapist/interfaces/patients.interface';
+import { ApiResponseGetMyPatientsI, MyPatientDetailI, ApiResponseGetMyPatientByIdI, MyPatientDetailByIdI, DetailTreatmentI } from 'src/app/therapist/interfaces/patients.interface';
 import { ApiResponseMyTasksI, MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
 import { APIResponseListTreatmentByPatientI, AssignTasksToPatientI, BodyTaskToAssignI, ListTreatmentI } from 'src/app/therapist/interfaces/assigments.interface';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
@@ -47,8 +47,8 @@ export class AssignTasksComponent {
   minDate: string ="";
   categories: string[] = [];
 
-  arrayTreatments: ListTreatmentI[] = [];
-  filteredTreatmentTitles: ListTreatmentI[] = [];
+  arrayTreatments: DetailTreatmentI[] = [];
+  filteredTreatmentTitles: DetailTreatmentI[] = [];
   selectedTreatmentId: number = 0;
 
   /*Constructor*/
@@ -86,13 +86,13 @@ export class AssignTasksComponent {
   /*Método que obtiene el listado de los tratamientos activos del paciente */
   getTreatmentsByPatient() {
     this.spinnerStatus = false;
-    this.assigmentsService.getTreatments(
+    this.assigmentsService.getTreatments<DetailTreatmentI>(
         this.headers.getHeaders(), 
         this.idPatientToAssignTasks,
         true
       )
       .subscribe({
-        next: (data: APIResponseListTreatmentByPatientI) => {
+        next: (data: APIResponseListTreatmentByPatientI<DetailTreatmentI>) => {
           this.spinnerStatus = true;
           this.arrayTreatments = data.data;
           this.filteredTreatmentTitles = this.arrayTreatments;

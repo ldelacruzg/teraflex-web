@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http'
 import { Observable, } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { APIResponseListTreatmentByPatientI, ApiResponseAssignTasksToPatientI, ApiResponseListTasksAssignsToPatientI, ApiResponseTaskDetailExtendAssignToPatientI, AssignTasksToPatientI } from '../interfaces/assigments.interface';
+import { APIResponseListTreatmentByPatientI, ApiResponseAssignTasksToPatientI, ApiResponseListTasksAssignsToPatientI, ApiResponseTaskDetailExtendAssignToPatientI, AssignTasksToPatientI, ListTreatmentI } from '../interfaces/assigments.interface';
+import { DetailTreatmentI } from '../interfaces/patients.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -46,16 +47,16 @@ export class AssigmentsService {
     }
 
     /*Método que obtiene el listado de tratamientos del paciente*/
-    getTreatments(headers: Map<string, any>, idPatient: number,treatmentActive?: boolean): Observable<APIResponseListTreatmentByPatientI> {
+    getTreatments<T extends ListTreatmentI | DetailTreatmentI>(headers: Map<string, any>, idPatient: number,treatmentActive?: boolean, tasksNumber: boolean = true): Observable<APIResponseListTreatmentByPatientI<T>> {
         this.options = this.authService.getHeaders(headers);
         let queryParams = "?";
         queryParams += `patientId=${idPatient}`;
-        queryParams += `&tasksNumber=true`;
+        queryParams += `&tasksNumber=${tasksNumber}`;
 
         if(treatmentActive !== undefined){
             queryParams += `&treatmentActive=${treatmentActive}`;
         }
 
-        return this.http.get<APIResponseListTreatmentByPatientI>(this.urlApi + `/treatments${queryParams}`, this.options);
+        return this.http.get<APIResponseListTreatmentByPatientI<T>>(this.urlApi + `/treatments${queryParams}`, this.options);
     }
 }

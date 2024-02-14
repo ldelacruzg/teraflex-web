@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { ListTreatmentI } from 'src/app/therapist/interfaces/assigments.interface';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DetailTreatmentI } from 'src/app/therapist/interfaces/patients.interface';
+import { DetailTreatmentI, SummaryTreatmentI } from 'src/app/therapist/interfaces/patients.interface';
 import { PatientsService } from 'src/app/therapist/services/patients.service';
 import { DashboardComponent } from '../../../home/dashboard/dashboard.component';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +14,15 @@ import { ToastrService } from 'ngx-toastr';
 export class ViewDetailTreatmentComponent {
   /*Variables*/
   static treatmentId: number;
-  static treatmentSummary: ListTreatmentI;
+  treatmentSummary: SummaryTreatmentI = {
+    id: -1,
+    title: '--',
+    completedTasks: -1,
+    numberTasks: -1,
+    overdueTasks: -1,
+    pendingTasks: -1,
+  };
+
   detailTreatment: DetailTreatmentI = {
     id: -1,
     title: '--',
@@ -38,6 +45,7 @@ export class ViewDetailTreatmentComponent {
 
   ngOnInit() {
     this.getDetailTreatment();
+    this.getTreatmentSummary();
   }
 
   getDetailTreatment() {
@@ -54,7 +62,16 @@ export class ViewDetailTreatmentComponent {
   }
 
   getTreatmentSummary() {
-    return ViewDetailTreatmentComponent.treatmentSummary;
+    const treatmentId = ViewDetailTreatmentComponent.treatmentId;
+    this.patientService.getSummaryTreatment(this.headers.getHeaders(), treatmentId)
+      .subscribe({
+        next: (response) => {
+          this.treatmentSummary = response.data;
+        },
+        error: (_) => {
+          this.showToastError("No se pudo obtener el resumen del tratamiento", 'Error');
+        }
+      });
   }
 
   /*Método que muestra un toast con mensaje de ERROR*/

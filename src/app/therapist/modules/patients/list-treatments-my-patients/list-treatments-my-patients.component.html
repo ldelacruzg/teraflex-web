@@ -51,10 +51,9 @@
                             <tr>
                                 <th scope="col">N°</th>
                                 <th scope="col">Título</th>
-                                <th scope="col"># Tareas</th>
-                                <th scope="col"># Completadas</th>
-                                <th scope="col"># Pendientes</th>
-                                <th scope="col"># Vencidas</th>
+                                <th scope="col">Fecha de inicio</th>
+                                <th scope="col">Fecha de finalización</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -65,17 +64,20 @@
                                     <td data-bs-toggle="mensaje" title="{{treatment.title}}">
                                         {{treatment.title}}
                                     </td>
-                                    <td data-bs-toggle="mensaje" title="{{treatment.numberTasks}} tarea(s)">
-                                        {{treatment.numberTasks}}
+                                    <td data-bs-toggle="mensaje" title="{{treatment.startDate}}">
+                                        {{treatment.startDate}}
                                     </td>
-                                    <td data-bs-toggle="mensaje" title="{{treatment.completedTasks}} tarea(s) completadas">
-                                        {{treatment.completedTasks}}
+                                    <td data-bs-toggle="mensaje" title="{{treatment.endDate}}">
+                                        {{treatment.endDate !== null ? treatment.endDate : '--'}}
                                     </td>
-                                    <td data-bs-toggle="mensaje" title="{{treatment.pendingTasks}} tarea(s) pendientes">
-                                        {{treatment.pendingTasks}}
-                                    </td>
-                                    <td data-bs-toggle="mensaje" title="{{treatment.overdueTasks}} tarea(s) vencidas">
-                                        {{treatment.overdueTasks}}
+                                    <td data-bs-toggle="mensaje" title="{{treatment.isActive}}">
+                                        <span
+                                            [style.background-color]="treatment.endDate!==null ? '#007BBD' : treatment.isActive ? '#198754' : '#DC3545'"
+                                            [style.border-radius]="'5px'"
+                                            [style.padding]="'3px'"
+                                            [style.color]="treatment.endDate!==null || treatment.isActive ? 'white' : 'black'"
+                                        >{{ treatment.endDate!==null ? 'Completado' : treatment.isActive ? 'Activo' : 'Inactivo'}}
+                                        </span>
                                     </td>
                                     <td class="acciones">
                                         <!-- Botón para ver el detalle del tratamiento -->
@@ -88,13 +90,15 @@
                                             (click)="showAlertEndTreatment(treatment.id)"
                                             data-bs-toggle="mensaje" title="Finalizar tratamiento" id="iconFinalizar"
                                             [icon]="iconFinish"></fa-icon>
+                                            <!-- Checkbox para desactivar el tratamiento -->
+                                        <fa-icon 
+                                        data-bs-toggle="mensaje" [title]="treatment.isActive ? 'Desactivar' : 'Activar'"
+                                        id="iconEliminar"
+                                        [icon]="treatment.isActive?iconDesactivate:iconActivate"></fa-icon>
                                         <!-- Botón para editar datos del tratamiento -->
                                         <fa-icon 
                                             data-bs-toggle="mensaje" title="Editar tratamiento" id="iconEditar"
                                             [icon]="iconEdit"></fa-icon>
-                                        <!--
-                                        <fa-icon (click)="deleteTask(task.id, task.task.title)" data-bs-toggle="mensaje"
-                                            title="Eliminar asignación" id="iconEliminar" [icon]="iconDelete"></fa-icon> -->
                                     </td>
                                 </tr>
                             </ng-container>

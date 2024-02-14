@@ -193,3 +193,19 @@ export interface APIResponseUpdateTreatmentData {
     raw:           DetailTreatmentI[];
     affected:      number;
 }
+
+/*Interfaz de respuesta de la API cuando se obtiene el resumen de un tratamiento */
+export interface APIResponseSummaryTreatment {
+    statusCode: number;
+    message:    string;
+    data:       SummaryTreatmentI;
+}
+
+export interface SummaryTreatmentI {
+    id:             number;
+    title:          string;
+    numberTasks:    number;
+    completedTasks: number;
+    overdueTasks:   number;
+    pendingTasks:   number;
+}

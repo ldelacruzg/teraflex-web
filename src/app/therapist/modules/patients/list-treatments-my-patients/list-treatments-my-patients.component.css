@@ -7,10 +7,6 @@
   color: #FC3B56;
 }
 
-#iconEliminar{
-  margin-left: 10px !important;
-}
-
 .taskStatus{
   width: 80px;
   text-align: center;
@@ -20,4 +16,8 @@
   font-size: 30px;
   color:#007BBD;
   cursor: pointer;
+}
+
+#iconEditar {
+  margin-left: 0px !important;
 }
