@@ -84,16 +84,15 @@
                                             data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
                                             [icon]="iconViewDetails"></fa-icon>
                                         <!-- Botón para finalizar el tratamiento -->
-                                        <fa-icon class=""
+                                        <fa-icon 
+                                            (click)="showAlertEndTreatment(treatment.id)"
                                             data-bs-toggle="mensaje" title="Finalizar tratamiento" id="iconFinalizar"
                                             [icon]="iconFinish"></fa-icon>
                                         <!-- Botón para editar datos del tratamiento -->
                                         <fa-icon 
                                             data-bs-toggle="mensaje" title="Editar tratamiento" id="iconEditar"
                                             [icon]="iconEdit"></fa-icon>
-                                        <!-- <fa-icon (click)="openModalViewTaskDetailAssign(viewTaskDetailAssign, treatment.id)"
-                                            data-bs-toggle="mensaje" title="Ver detalles" id="iconVerDetalles"
-                                            [icon]="iconViewDetails"></fa-icon>
+                                        <!--
                                         <fa-icon (click)="deleteTask(task.id, task.task.title)" data-bs-toggle="mensaje"
                                             title="Eliminar asignación" id="iconEliminar" [icon]="iconDelete"></fa-icon> -->
                                     </td>

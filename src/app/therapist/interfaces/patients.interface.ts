@@ -180,3 +180,16 @@ export interface DetailTreatmentI {
     createdAt:   string;
     updatedAt:   string;
 }
+
+/*Interfaz de respuesta de la API cuando se actualiza un tratamiento */
+export interface APIResponseUpdateTreatment {
+    statusCode: number;
+    message:    string;
+    data:       APIResponseUpdateTreatmentData;
+}
+
+export interface APIResponseUpdateTreatmentData {
+    generatedMaps: any[];
+    raw:           DetailTreatmentI[];
+    affected:      number;
+}

@@ -111,25 +111,6 @@ export class ListTreatmentsMyPatientsComponent {
       })
   }
 
-  /*Método que obtiene el listado de las tareas que tiene asignadas un paciente*/
-  getInfoTasksAssigns(idPatient: number) {
-    this.idPatient = idPatient;
-    this.spinnerStatus = false;
-    this.assigmentsService.getListTasksAssingToPatient(this.headers.getHeaders(), idPatient)
-      .subscribe({
-        next: (data: ApiResponseListTasksAssignsToPatientI) => {
-          this.arrayAssignsTasks = data.data;
-          this.spinnerStatus = true;
-          if (this.arrayAssignsTasks.length == 0)
-            this.showToastInfo("Información", "El paciente no tiene tareas asignadas");
-        },
-        error: (error) => {
-          this.spinnerStatus = true;
-          this.showToastError("Error", "No se pudo obtener el listado de tareas asignadas");
-        }
-      })
-  }
-
   /*Método que obtiene el listado de los tratamientos del paciente*/
   getTreatments(idPatient: number) {
     this.idPatient = idPatient;
@@ -182,59 +163,30 @@ export class ListTreatmentsMyPatientsComponent {
       ViewDetailTreatmentComponent.treatmentId = treatmentId;
       ViewDetailTreatmentComponent.treatmentSummary = treatmentSummary;
     }
-    /* this.modal.open(viewTaskDetailAssign, { size: 'lg', centered: true });
-    ViewDetailProgressMyPatientsComponent.taskDetailAssignId = idTaskAssign; */
   }
 
-  /*Método que elimina una tarea asignada al paciente seleccionado*/
-  deleteTask(idAssignment: number, nameAssignment: string) {
-    this.sweetAlerts.alertConfirmCancel("Eliminar asignación", "¿Está seguro de eliminar la tarea \"" + nameAssignment + "\", asignada al paciente?").then(respuesta => {
-      if (respuesta.value == true) {
-        this.spinnerStatus = false;
-        let arrayAssigments: number[] = [idAssignment]
-        this.assigmentsService.deleteTaskAssignToPatient(this.headers.getHeaders(), arrayAssigments)
-          .subscribe({
-            next: (data: string) => {
-              this.getInfoTasksAssigns(this.idPatient)
-              this.showToastSuccess("La asignación fue eliminada con éxito", "Asignación eliminada");
-              this.spinnerStatus = true;
-            },
-            error: (error) => {
-              this.spinnerStatus = true;
-              this.showToastError("Error", "No se pudo eliminar la asignación");
-            }
-          })
-      }
-    });
+  /*Método que muestra una alerta para confirmar que desea dar por terminado el tratamiento*/
+  showAlertEndTreatment(treatmentId: number) {
+    this.sweetAlerts.alertConfirmCancel("Finalizar tratamiento", "¿Estás seguro de que deseas finalizar el tratamiento?")
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.endTreatment(treatmentId);
+        }
+      });
   }
 
-  /*Función que formatea la fecha colocandole día*/
-  formatDate(inputDate: string): string {
-    const months = [
-      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-    ];
-
-    const days = [
-      'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
-    ];
-
-    const date = new Date(inputDate);
-    const dayOfWeek = days[date.getDay()];
-    const month = months[date.getMonth()];
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const hours = "23";
-    const minutes = "59";
-
-    return `${dayOfWeek}, ${month} ${day} ${year}, ${hours}:${minutes}:${minutes} pm`;
-  }
-
-  /*Método que verifica si se pasó o no la fecha de vencimiento*/
-  isTaskVencida(dueDateRecived: string): boolean {
-    const dueDate = new Date(dueDateRecived);
-    const currentlyDate = new Date();
-    return dueDate < currentlyDate;
+  /*Método que hace la petición para finalizar el tratamiento */
+  endTreatment(treatmentId: number) {
+    this.myPatientsService.finishTreatment(this.headers.getHeaders(), treatmentId)
+      .subscribe({
+        next: (data: any) => {
+          this.showToastSuccess(data.message, "Éxito");
+          this.getTreatments(this.idPatient);
+        },
+        error: (error) => {
+          this.showToastError("Error", "No se pudo finalizar el tratamiento");
+        }
+      })
   }
 
   /*Icons to use*/

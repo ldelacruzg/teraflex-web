@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { APIResponseDetailTreatment, ApiResponseActivateDesactivatePatientI, ApiResponseEditPatientI, ApiResponseGetMyPatientsI, ApiResponseGetOutPatientsI, ApiResponseLinkPatientI, ApiResponseRegisterPatientI, ApiResponseRegisterTreatmentI, EditMyPatientBodyI, RegisterPatientI, RegisterTreatmentI } from '../interfaces/patients.interface';
+import { APIResponseDetailTreatment, APIResponseUpdateTreatment, ApiResponseActivateDesactivatePatientI, ApiResponseEditPatientI, ApiResponseGetMyPatientsI, ApiResponseGetOutPatientsI, ApiResponseLinkPatientI, ApiResponseRegisterPatientI, ApiResponseRegisterTreatmentI, EditMyPatientBodyI, RegisterPatientI, RegisterTreatmentI } from '../interfaces/patients.interface';
 import { ApiResponseGetMyPatientByIdI } from '../interfaces/patients.interface';
 
 @Injectable({
@@ -82,5 +82,11 @@ export class PatientsService {
     getDetailTreatment(headers: Map<string, any>, treatmentId: number): Observable<APIResponseDetailTreatment> {
         this.options = this.authService.getHeaders(headers);
         return this.http.get<APIResponseDetailTreatment>(this.urlApi + `/treatments/${treatmentId}`, this.options);
+    }
+
+    /*Método para finalizar el tratamiento */
+    finishTreatment(headers: Map<string, any>, treatmentId: number): Observable<APIResponseUpdateTreatment> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.patch<APIResponseUpdateTreatment>(this.urlApi + `/treatments/${treatmentId}/finish`, null, this.options);
     }
 }
