@@ -171,7 +171,7 @@ export class ListTreatmentsMyPatientsComponent {
       }
 
       if (!treatment.isActive && treatment.endDate === null) {
-        this.showToastInfo("Información", "El tratamiento está inactivo");
+        this.showToastInfo("Información", "El tratamiento está desactivado");
         return;
       }
     }
