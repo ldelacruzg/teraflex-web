@@ -184,6 +184,55 @@ export class ListTreatmentsMyPatientsComponent {
       });
   }
 
+  showAlertToggleTreatment(treatmentId: number) {
+    const treatment = this.arrayTreatments.find(treatment => treatment.id == treatmentId);
+    let messageTitle: string = "";
+    let message: string = "";
+
+    if (treatment) {
+      if (treatment.endDate !== null) {
+        this.showToastInfo("Información", "El tratamiento ya ha finalizado");
+        return;
+      }
+
+      messageTitle = treatment.isActive ? "Desactivar tratamiento" : "Activar tratamiento";
+      message = treatment.isActive 
+        ? "¿Estás seguro de que deseas desactivar el tratamiento?" 
+        : "¿Estás seguro de que deseas activar el tratamiento?";
+    }
+
+    this.sweetAlerts.alertConfirmCancel(messageTitle, message)
+      .then(respuesta => {
+        if (respuesta.value == true) {
+          this.toggleActiveTreatment(treatmentId);
+        }
+      });
+  }
+
+  toggleActiveTreatment(treatmentId: number) {
+    const treatment = this.arrayTreatments.find(treatment => treatment.id == treatmentId);
+    let message: string = "";
+
+    if (treatment) {
+      message = treatment.isActive
+        ? "El tratamiento ha sido desactivado"
+        : "El tratamiento ha sido activado";
+    }
+
+    // petición para activar o desactivar el tratamiento
+    this.myPatientsService.toggleActiveTreatment(this.headers.getHeaders(), treatmentId)
+      .subscribe({
+        next: (data) => {
+          this.showToastSuccess(message, "Éxito");
+          //this.getTreatments(this.idPatient);
+          treatment!.isActive = !treatment!.isActive;
+        },
+        error: (error) => {
+          this.showToastError("Error", "No se pudo activar/desactivar el tratamiento");
+        }
+      })
+  }
+
   /*Método que hace la petición para finalizar el tratamiento */
   endTreatment(treatmentId: number) {
     this.myPatientsService.finishTreatment(this.headers.getHeaders(), treatmentId)

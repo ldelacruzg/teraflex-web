@@ -95,4 +95,10 @@ export class PatientsService {
         this.options = this.authService.getHeaders(headers);
         return this.http.get<APIResponseSummaryTreatment>(this.urlApi + `/treatments/${treatmentId}/summary`, this.options);
     }
+
+    /*Método para activar/desactivar el tratamiento */
+    toggleActiveTreatment(headers: Map<string, any>, treatmentId: number): Observable<APIResponseUpdateTreatment> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.patch<APIResponseUpdateTreatment>(this.urlApi + `/treatments/${treatmentId}/toggle-active`, null, this.options);
+    }
 }

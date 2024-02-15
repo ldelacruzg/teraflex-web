@@ -76,7 +76,7 @@
                                             [style.border-radius]="'5px'"
                                             [style.padding]="'3px'"
                                             [style.color]="treatment.endDate!==null || treatment.isActive ? 'white' : 'black'"
-                                        >{{ treatment.endDate!==null ? 'Completado' : treatment.isActive ? 'Activo' : 'Inactivo'}}
+                                        >{{ treatment.endDate!==null ? 'Finalizado' : treatment.isActive ? 'Activado' : 'Desactivado'}}
                                         </span>
                                     </td>
                                     <td class="acciones">
@@ -92,9 +92,10 @@
                                             [icon]="iconFinish"></fa-icon>
                                             <!-- Checkbox para desactivar el tratamiento -->
                                         <fa-icon 
-                                        data-bs-toggle="mensaje" [title]="treatment.isActive ? 'Desactivar' : 'Activar'"
-                                        id="iconEliminar"
-                                        [icon]="treatment.isActive?iconDesactivate:iconActivate"></fa-icon>
+                                            (click)="showAlertToggleTreatment(treatment.id)"
+                                            data-bs-toggle="mensaje" [title]="treatment.isActive ? 'Desactivar' : 'Activar'"
+                                            id="iconEliminar"
+                                            [icon]="treatment.isActive?iconDesactivate:iconActivate"></fa-icon>
                                         <!-- Botón para editar datos del tratamiento -->
                                         <fa-icon 
                                             data-bs-toggle="mensaje" title="Editar tratamiento" id="iconEditar"

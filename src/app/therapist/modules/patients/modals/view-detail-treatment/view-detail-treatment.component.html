@@ -49,7 +49,7 @@
                 [style.border-radius]="'5px'"
                 [style.padding]="'3px'"
                 [style.color]="detailTreatment.endDate!==null || detailTreatment.isActive ? 'white' : 'black'"
-              >{{ detailTreatment.endDate!==null ? 'Completado' : detailTreatment.isActive ? 'Activo' : 'Inactivo'}}
+              >{{ detailTreatment.endDate!==null ? 'Finalizado' : detailTreatment.isActive ? 'Activado' : 'Desactivado'}}
               </span>
               <ng-template #noResults>
                   <div class="spinner">
