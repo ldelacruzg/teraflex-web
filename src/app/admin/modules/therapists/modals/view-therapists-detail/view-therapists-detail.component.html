@@ -120,7 +120,7 @@
             <div class="col-12 col-md-6 col-lg-6">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de creación</b></label>
-                    <p *ngIf="therapistDetail.createdAt!='--'; else noResults">{{therapistDetail.createdAt}}</p>
+                    <p *ngIf="therapistDetail.createdAt!='--'; else noResults">{{transformDate(therapistDetail.createdAt)}}</p>
                     <ng-template #noResults>
                         <div class="spinner">
                             <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>
@@ -133,7 +133,7 @@
             <div class="col-12 col-md-6 col-lg-6">
                 <div class="info mb-4">
                     <label><b><fa-icon [icon]="iconArrowRight"></fa-icon> Fecha de actualización</b></label>
-                    <p *ngIf="therapistDetail.updatedAt!='--'; else noResults">{{therapistDetail.updatedAt}}</p>
+                    <p *ngIf="therapistDetail.updatedAt!='--'; else noResults">{{transformDate(therapistDetail.updatedAt)}}</p>
                     <ng-template #noResults>
                         <div class="spinner">
                             <span class="spinner-border spinner-border-sm" style="color: #007BBD;" role="status" aria-hidden="true"></span>

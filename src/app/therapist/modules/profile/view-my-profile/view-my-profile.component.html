@@ -17,10 +17,6 @@
               <h4 class="my-3">{{detailInfoTerapist.firstName + " " + detailInfoTerapist.lastName}}</h4>
               <p class="mb-1">Terapeuta especializado <fa-icon [icon]="iconVerified" class="icon-title"></fa-icon></p>
               <p class="text-muted mb-4"><i>{{detailInfoTerapist.categoryName}}</i></p>
-              <div class="d-flex justify-content-center mb-2">
-                <!--  <button type="button" class="btn btn-primary">Editar</button> -->
-                <p class="text-muted mb-1">Dirección de Gestión de Desarrollo Social de Quevedo</p>
-              </div>
             </div>
           </div>
         </div>
@@ -63,7 +59,7 @@
                   <p class="mb-0 info">Fecha de inscripción</p>
                 </div>
                 <div class="col-sm-8">
-                  <p class="text-muted mb-0">{{detailInfoTerapist.createdAt}}</p>
+                  <p class="text-muted mb-0">{{transformDate(detailInfoTerapist.createdAt)}}</p>
                 </div>
               </div>
               <hr>

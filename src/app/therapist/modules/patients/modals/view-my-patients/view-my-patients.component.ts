@@ -67,6 +67,20 @@ export class ViewMyPatientsComponent {
     return yearsDiff;
   }
 
+  // traforma este tipo de fecha 2023-12-24T22:30:17.079Z a domingo, 24 de diciembre de 2023 05:30 p.m.
+  transformDate(date: string): string {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  }
+
   /*Icons to use*/
   iconPatient = iconos.faUser;
   iconArrowRight = iconos.faCaretRight;
