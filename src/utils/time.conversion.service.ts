@@ -21,4 +21,29 @@ export class TimeConversion {
     // si no hay minutos ni segundos mostrar 0 minutos
     return '--';
   }
+
+  static formatDate(date: string, withHour: boolean = true) {
+    //console.log({ date, withHour });
+    let dateObj = new Date(date);
+    
+    if (!withHour) {
+      const [year, month, day] = date.split('-');
+      dateObj = new Date(Number(year), Number(month) - 1, Number(day));
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+
+    if (withHour) {
+      options.hour = '2-digit';
+      options.minute = '2-digit';
+      options.hour12 = true;
+    }
+
+    return dateObj.toLocaleString('es-ES', options);
+  }
 }
