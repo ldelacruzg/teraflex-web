@@ -20,6 +20,7 @@ import { ViewCredentialsLoginComponent } from './modals/view-credentials-login/v
 import { ListTreatmentsMyPatientsComponent } from './list-treatments-my-patients/list-treatments-my-patients.component';
 import { RegisterTreatmentMyPatientsComponent } from './register-treatment-my-patients/register-treatment-my-patients.component';
 import { ViewDetailTreatmentComponent } from './modals/view-detail-treatment/view-detail-treatment.component';
+import { EditTreatmentComponent } from './edit-treatment/edit-treatment.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ViewDetailTreatmentComponent } from './modals/view-detail-treatment/vie
     ListTreatmentsMyPatientsComponent,
     RegisterTreatmentMyPatientsComponent,
     ViewDetailTreatmentComponent,
+    EditTreatmentComponent,
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment'
-import { APIResponseDetailTreatment, APIResponseSummaryTreatment, APIResponseUpdateTreatment, ApiResponseActivateDesactivatePatientI, ApiResponseEditPatientI, ApiResponseGetMyPatientsI, ApiResponseGetOutPatientsI, ApiResponseLinkPatientI, ApiResponseRegisterPatientI, ApiResponseRegisterTreatmentI, EditMyPatientBodyI, RegisterPatientI, RegisterTreatmentI } from '../interfaces/patients.interface';
+import { APIResponseDetailTreatment, APIResponseSummaryTreatment, APIResponseUpdateTreatment, ApiResponseActivateDesactivatePatientI, ApiResponseEditPatientI, ApiResponseGetMyPatientsI, ApiResponseGetOutPatientsI, ApiResponseLinkPatientI, ApiResponseRegisterPatientI, ApiResponseRegisterTreatmentI, EditMyPatientBodyI, RegisterPatientI, RegisterTreatmentI, UpdateTreatmentI } from '../interfaces/patients.interface';
 import { ApiResponseGetMyPatientByIdI } from '../interfaces/patients.interface';
 
 @Injectable({
@@ -100,5 +100,11 @@ export class PatientsService {
     toggleActiveTreatment(headers: Map<string, any>, treatmentId: number): Observable<APIResponseUpdateTreatment> {
         this.options = this.authService.getHeaders(headers);
         return this.http.patch<APIResponseUpdateTreatment>(this.urlApi + `/treatments/${treatmentId}/toggle-active`, null, this.options);
+    }
+
+    /*Método para actualizar el tratamiento */
+    updateTreatment(headers: Map<string, any>, treatmentId: number, payload: UpdateTreatmentI): Observable<APIResponseUpdateTreatment> {
+        this.options = this.authService.getHeaders(headers);
+        return this.http.put<APIResponseUpdateTreatment>(this.urlApi + `/treatments/${treatmentId}`, payload, this.options);
     }
 }

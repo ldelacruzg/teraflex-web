@@ -6,10 +6,14 @@ import { EditMyPatientsComponent } from './edit-my-patients/edit-my-patients.com
 import { ViewProgressMyPatientsComponent } from './view-progress-my-patients/view-progress-my-patients.component';
 import { ListTreatmentsMyPatientsComponent } from './list-treatments-my-patients/list-treatments-my-patients.component';
 import { RegisterTreatmentMyPatientsComponent } from './register-treatment-my-patients/register-treatment-my-patients.component';
+import { EditTreatmentComponent } from './edit-treatment/edit-treatment.component';
 
 
 //Rutas hijas
 const routes: Routes = [
+  {
+    path: 'edit-treatment', component: EditTreatmentComponent
+  },
   {
     path: 'register-treatment', component: RegisterTreatmentMyPatientsComponent
   },

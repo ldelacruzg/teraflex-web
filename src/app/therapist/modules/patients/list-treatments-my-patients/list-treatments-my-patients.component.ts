@@ -12,6 +12,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlerts } from 'src/app/therapist/alerts/alerts.component';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { ViewDetailTreatmentComponent } from '../modals/view-detail-treatment/view-detail-treatment.component';
+import { Router } from '@angular/router';
+import { EditTreatmentComponent } from '../edit-treatment/edit-treatment.component';
 
 @Component({
   selector: 'app-list-treatments-my-patients',
@@ -42,7 +44,8 @@ export class ListTreatmentsMyPatientsComponent {
     private myPatientsService: PatientsService,
     private toastr: ToastrService,
     private modal: NgbModal,
-    private sweetAlerts: SweetAlerts
+    private sweetAlerts: SweetAlerts,
+    private router: Router
   ) { }
 
   /*ngOnInit*/
@@ -245,6 +248,25 @@ export class ListTreatmentsMyPatientsComponent {
           this.showToastError("Error", "No se pudo finalizar el tratamiento");
         }
       })
+  }
+
+  /*Método de navegación para editar un tratamiento */
+  navigateToEditTreatment(treatmentId: number) {
+    // verificar que el tratamiento no esté finalizado
+    const treatment = this.arrayTreatments.find(treatment => treatment.id == treatmentId);
+    if (treatment && treatment.endDate !== null) {
+      this.showToastInfo("Información", "El tratamiento ya ha finalizado");
+      return;
+    }
+
+    // verificar que el tratamiento no este desactivado
+    if (treatment && !treatment.isActive) {
+      this.showToastInfo("Información", "El tratamiento está desactivado");
+      return;
+    }
+
+    EditTreatmentComponent.detailTreatment = treatment!;
+    this.router.navigateByUrl("/therapist/home/dashboard/patients/edit-treatment");
   }
 
   /*Icons to use*/

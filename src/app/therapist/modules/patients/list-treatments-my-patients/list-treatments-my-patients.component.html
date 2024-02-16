@@ -97,7 +97,8 @@
                                             id="iconEliminar"
                                             [icon]="treatment.isActive?iconDesactivate:iconActivate"></fa-icon>
                                         <!-- Botón para editar datos del tratamiento -->
-                                        <fa-icon 
+                                        <fa-icon
+                                            (click)="navigateToEditTreatment(treatment.id)"
                                             data-bs-toggle="mensaje" title="Editar tratamiento" id="iconEditar"
                                             [icon]="iconEdit"></fa-icon>
                                     </td>

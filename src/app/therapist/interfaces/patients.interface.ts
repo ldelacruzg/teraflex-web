@@ -209,3 +209,9 @@ export interface SummaryTreatmentI {
     overdueTasks:   number;
     pendingTasks:   number;
 }
+
+/*Interfaz para actualizar un tratamiento */
+export interface UpdateTreatmentI {
+    title: string;
+    description: string;
+}
