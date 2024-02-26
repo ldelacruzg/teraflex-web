@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { ViewDetailProgressMyPatientsComponent } from '../modals/view-detail-progress-my-patients/view-detail-progress-my-patients.component';
-import { ApiResponseListTasksAssignsToPatientI } from 'src/app/therapist/interfaces/assigments.interface';
+import { ApiResponseListTasksAssignsToPatientI, TaskDetailAssignToPatientI } from 'src/app/therapist/interfaces/assigments.interface';
 import { ApiResponseGetMyPatientsI, MyPatientDetailI } from 'src/app/therapist/interfaces/patients.interface';
 import { MyTasksI } from 'src/app/therapist/interfaces/my-tasks.interface';
 import { AssigmentsService } from 'src/app/therapist/services/assignments.service';
@@ -161,6 +161,15 @@ export class ViewProgressMyPatientsComponent {
 
   /*Método que elimina una tarea asignada al paciente seleccionado*/
   deleteTask(idAssignment: number, nameAssignment: string) {
+    // verifica que solo se pueda eliminar si la tarea está pendiente
+    const task = this.arrayAssignsTasks.find((task) => task.id == idAssignment) as TaskDetailAssignToPatientI;
+    if (task && (task.performanceDate || this.isTaskVencida(task.expirationDate))) {
+      console.log("No se puede eliminar una tarea que ya fue realizada o vencida");
+      this.showToastInfo("Información", "Solo se puede eliminar una tarea pendiente");
+      return;
+    }
+
+    console.log("Eliminar tarea", idAssignment, nameAssignment);
     this.sweetAlerts.alertConfirmCancel("Eliminar asignación", "¿Está seguro de eliminar la tarea \"" + nameAssignment + "\", asignada al paciente?").then(respuesta => {
       if (respuesta.value == true) {
         this.spinnerStatus = false;
