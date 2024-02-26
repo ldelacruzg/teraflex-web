@@ -10,7 +10,7 @@
 
             <!--Mensaje de información-->
             <div id="miAlerta" class="alert alert-primary alert-dismissible fade show mt-2" role="alert">
-                <strong>Información:</strong> Para ver el progreso de un paciente debe buscarlo por los nombres o apellidos en el campo inferior.
+                <strong>Información:</strong> Para ver el progreso de un paciente debe buscarlo por los nombres o apellidos en el cuadro de texto inferior.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
@@ -29,6 +29,7 @@
                             [value]="patientName.firstName+ ' ' + patientName.lastName"
                             (click)="getInfoTasksAssigns(patientName.id)">
                             {{ patientName.firstName + ' ' + patientName.lastName }}
+                            <app-badge-ui>{{ patientName.docNumber }}</app-badge-ui>
                         </mat-option>
                         <mat-option *ngIf="filteredPatientsNames.length === 0" [value]="'Sin resultados'">
                             Sin resultados...

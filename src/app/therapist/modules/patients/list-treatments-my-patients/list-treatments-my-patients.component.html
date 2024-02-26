@@ -12,6 +12,12 @@
                     <fa-icon [icon]="iconAdd"></fa-icon> Nuevo tratamiento</button>
             </div>
 
+            <!--Mensaje de información-->
+            <div id="miAlerta" class="alert alert-primary alert-dismissible fade show mt-2" role="alert">
+                <strong>Información:</strong> Para ver los tratamientos de un paciente debe buscarlo por los nombres o apellidos en el cuadro de texto inferior.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <!--Formulario para buscar paciente y filtrar tareas-->
             <form [formGroup]="patientForm" class="row mt-2">
                 <!--Apellidos (Buscar)-->
