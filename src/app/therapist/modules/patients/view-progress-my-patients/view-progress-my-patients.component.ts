@@ -164,12 +164,10 @@ export class ViewProgressMyPatientsComponent {
     // verifica que solo se pueda eliminar si la tarea está pendiente
     const task = this.arrayAssignsTasks.find((task) => task.id == idAssignment) as TaskDetailAssignToPatientI;
     if (task && (task.performanceDate || this.isTaskVencida(task.expirationDate))) {
-      console.log("No se puede eliminar una tarea que ya fue realizada o vencida");
       this.showToastInfo("Información", "Solo se puede eliminar una tarea pendiente");
       return;
     }
 
-    console.log("Eliminar tarea", idAssignment, nameAssignment);
     this.sweetAlerts.alertConfirmCancel("Eliminar asignación", "¿Está seguro de eliminar la tarea \"" + nameAssignment + "\", asignada al paciente?").then(respuesta => {
       if (respuesta.value == true) {
         this.spinnerStatus = false;
