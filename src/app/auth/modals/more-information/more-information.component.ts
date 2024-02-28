@@ -9,7 +9,6 @@ import * as iconos from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./more-information.component.css']
 })
 export class MoreInformationComponent {
-
   /*Constructor*/
   constructor(
     public modal: NgbModal,
@@ -30,8 +29,8 @@ export class MoreInformationComponent {
   }
 
   //Método que descarga la aplicación móvil
-  downloadAPK(){
-    const youtubeURL = 'https://fyc.uteq.edu.ec/apk/TeraFlex.apk';
+  downloadAPK() {
+    const youtubeURL = 'assets/apk/TeraFlex.apk';
     window.open(youtubeURL, '_blank');
     this.modal.dismissAll();
   }
