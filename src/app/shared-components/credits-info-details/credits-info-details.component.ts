@@ -14,14 +14,14 @@ export class CreditsInfoDetailsComponent {
     {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691903628/TeraFlex%20-%20Vinculaci%C3%B3n/Profile-photo_dvkvlo.jpg",
       name: "Jordan Vera Coello",
-      position: "Líder del proyecto",
+      position: "Desarrollador web",
       mail: "mailto:jverac12@uteq.edu.ec",
       linkedin: "https://www.linkedin.com/in/jordanfvc26/"
     },
     {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691903729/TeraFlex%20-%20Vinculaci%C3%B3n/Ivan_Manzaba_Profile_rqwqsm.jpg",
       name: "Iván Manzaba Garcés",
-      position: "Líder técnico",
+      position: "Desarrollador backend",
       mail: "mailto:imanzabag@uteq.edu.ec",
       linkedin: "https://www.linkedin.com/in/iv%C3%A1n-manzaba-1ab312214/"
     },
@@ -35,9 +35,9 @@ export class CreditsInfoDetailsComponent {
     {
       profile: "https://res.cloudinary.com/dfzyxagbc/image/upload/v1691903729/TeraFlex%20-%20Vinculaci%C3%B3n/Luis_de_la_Cruz_Profile_cmw3au.jpg",
       name: "Luis De La Cruz",
-      position: "Desarrollador backend",
+      position: "Desarrollador fullstack",
       mail: "mailto:ldelacruzg@uteq.edu.ec",
-      linkedin: "https://www.linkedin.com/in/luis-de-la-cruz/"
+      linkedin: "https://www.linkedin.com/in/luis-de-la-cruz-b07930298/"
     }
   ];
   arrayProfessors: any[] = [
