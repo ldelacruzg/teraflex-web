@@ -151,7 +151,8 @@ export class RegisterMyPatientsComponent {
   /*Método que manda a registrar desde cero los datos de un paciente*/
   registerMyPatient(viewPatientCredentials: any) {
     this.spinnerStatus = false;
-    this.myPatientsService.registerMyPatient(this.headers.getHeaders(), this.getInfoPatientRegister())
+    const dataToRegister = this.getInfoPatientRegister();
+    this.myPatientsService.registerMyPatient(this.headers.getHeaders(), dataToRegister)
       .subscribe({
         next: (data: ApiResponseRegisterPatientI) => {
           this.showToastSuccess(data.message, 'Éxito');
@@ -161,9 +162,17 @@ export class RegisterMyPatientsComponent {
           ViewCredentialsLoginComponent.password = this.patientForm.get('docNumber')?.value
           //this.router.navigateByUrl('/therapist/home/dashboard/patients/my-patients');
         },
-        error: (data: ApiResponseRegisterPatientI) => {
+        error: (error) => {
           this.spinnerStatus = true;
-          this.showToastError("Error", data.message);
+          const message = error.error?.message as string;
+          const repeat = message.includes(dataToRegister.docNumber.toString());
+
+          if (repeat) {
+            this.showToastError("Error", `El paciente con cédula ${dataToRegister.docNumber} ya existe`);
+            return;
+          }
+
+          this.showToastError("Error", "No se pudo registrar el paciente");          
         }
       })
   }
